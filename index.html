@@ -4239,6 +4239,23 @@
 /* === 目前月份涵蓋判斷修正開始 === */
 /* 同源 JSON 的 updatedAt 代表資料實際更新月份，與最後一筆停止辦公事件月份分開判斷。 */
 /* === 目前月份涵蓋判斷修正結束 === */
+/* === 手機版參數設定排版微調 === */
+@media (max-width:760px){
+  #parameterShiftRuleList .shift-rule-row-v8{
+    grid-template-columns:minmax(0,1.15fr) minmax(108px,1.55fr) minmax(72px,.9fr)!important;
+  }
+  #parameterShiftRuleList .shift-rule-row-v8 [data-parameter-field="shift-pattern"]{
+    min-width:0!important;
+    font-size:12px!important;
+    letter-spacing:0!important;
+    padding-left:3px!important;
+    padding-right:3px!important;
+  }
+  #parameterSettingsModal .parameter-settings-section[data-parameter-section="core"] .parameter-settings-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+}
 </style>
 </head>
 <body>

@@ -4342,6 +4342,24 @@
 /* === V13 自訂／複合假別與調班後請假 === */
 .code-picker-v13-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 14px 10px}.code-picker-v13-action{min-height:38px;border:1px solid rgba(246,196,83,.38);border-radius:11px;background:linear-gradient(90deg,rgba(246,196,83,.12),rgba(16,185,129,.10));color:#fde68a;font-size:12px;font-weight:950;cursor:pointer}.code-picker-v13-action.secondary{border-color:rgba(103,232,249,.34);background:rgba(14,116,144,.13);color:#a5f3fc}.code-picker-v13-action.restore{grid-column:1/-1;border-color:rgba(52,211,153,.48);background:rgba(16,185,129,.16);color:#a7f3d0}.custom-leave-form-v13,.compound-editor-v13{margin:0 14px 12px;padding:12px;border:1px solid rgba(246,196,83,.32);border-radius:15px;background:linear-gradient(135deg,rgba(54,30,9,.48),rgba(6,35,32,.42));display:grid;gap:9px}.custom-leave-form-v13-title,.compound-editor-v13-title{color:#fde68a;font-size:13px;font-weight:950}.custom-leave-form-v13-row{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:8px}.custom-leave-name-v13,.compound-item-select-v13,.compound-item-hours-v13{width:100%;min-width:0;height:38px;border:1px solid rgba(103,232,249,.34);border-radius:10px;background:rgba(0,0,0,.34);color:#ecfeff;padding:0 10px;font-size:13px;font-weight:900;outline:none}.custom-leave-save-v13,.compound-confirm-v13,.compound-add-v13{border:1px solid rgba(52,211,153,.5);border-radius:10px;background:rgba(16,185,129,.17);color:#a7f3d0;font-size:12px;font-weight:950;cursor:pointer}.custom-leave-hint-v13,.compound-hint-v13,.compound-message-v13{color:#94a3b8;font-size:10px;line-height:1.45}.compound-message-v13.error{color:#fda4af}.custom-leave-list-v13{display:grid;gap:7px}.custom-leave-row-v13{display:grid;grid-template-columns:minmax(0,1fr) 70px;gap:7px;align-items:center;min-height:50px;border:1px solid rgba(110,231,183,.18);border-radius:13px;background:rgba(16,185,129,.06);padding:5px 7px}.custom-leave-select-v13{height:40px;border:0;background:transparent;color:#d1fae5;text-align:left;padding:0 8px;font-size:15px;font-weight:950;cursor:pointer}.custom-leave-toggle-v13{height:34px;border:1px solid rgba(251,113,133,.34);border-radius:9px;background:rgba(244,63,94,.10);color:#fda4af;font-size:11px;font-weight:900;cursor:pointer}.compound-items-v13{display:grid;gap:7px}.compound-item-row-v13{display:grid;grid-template-columns:minmax(0,1fr) 82px 58px;gap:7px;align-items:center}.compound-item-hours-v13{text-align:center}.compound-item-remove-v13{height:38px;border:1px solid rgba(251,113,133,.38);border-radius:10px;background:rgba(244,63,94,.11);color:#fda4af;font-size:11px;font-weight:900;cursor:pointer}.compound-editor-actions-v13{display:grid;grid-template-columns:1fr 1fr;gap:8px}.compound-add-v13,.compound-confirm-v13{min-height:38px}.compound-summary-v13{display:flex;justify-content:space-between;gap:10px;color:#cbd5e1;font-size:11px;font-weight:900}.code-option-row.adjusted-underlay-v13{outline:1px solid rgba(52,211,153,.38)}
 @media(max-width:760px){.code-picker-v13-actions{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:0 10px 9px}.code-picker-v13-action{min-height:40px;padding:4px;font-size:10px;letter-spacing:0}.custom-leave-form-v13,.compound-editor-v13{margin:0 10px 10px}.custom-leave-form-v13-row{grid-template-columns:1fr}.custom-leave-save-v13{min-height:40px}.compound-item-row-v13{grid-template-columns:minmax(0,1fr) 68px 50px}.compound-item-select-v13,.compound-item-hours-v13,.compound-item-remove-v13{height:40px;padding:0 6px}.compound-editor-actions-v13{grid-template-columns:1fr}.custom-leave-select-v13{font-size:16px}}
+/* V14：複合假別定義與當日時數分離，選單改為視窗置中。 */
+.code-picker-v13-actions{padding:12px 14px 10px;border-bottom:1px solid rgba(246,196,83,.14);background:rgba(0,0,0,.12)}
+.custom-compound-row-v14{display:grid;grid-template-columns:minmax(0,1fr) 48px;gap:7px;align-items:center;min-height:50px;border:1px solid rgba(246,196,83,.22);border-radius:13px;background:rgba(246,196,83,.06);padding:5px 7px}
+.compound-row-plus-v14{width:42px;height:40px;border:1px solid rgba(246,196,83,.48);border-radius:11px;background:rgba(246,196,83,.12);color:#fde68a;font-size:24px;font-weight:900;line-height:1;cursor:pointer}
+.code-picker-portal .code-option-row.has-compound-plus-v14{grid-template-columns:62px minmax(0,1fr) 48px!important}
+.code-picker-portal .code-option-row.has-compound-plus-v14 .compound-row-plus-v14{margin-right:6px}
+.compound-creator-v14 .compound-item-row-v13{grid-template-columns:minmax(0,1fr) 58px}
+.compound-hours-row-v14{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:8px;align-items:center}
+.compound-hours-label-v14{min-width:0;color:#e5e7eb;font-size:13px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.code-picker-portal-sheet{top:50%!important;bottom:auto!important;transform:translate(-50%,-50%)!important;max-height:min(84dvh,720px)!important;animation:none!important}
+.code-picker-portal.all-open .code-picker-portal-sheet{top:50%!important;bottom:auto!important;max-height:min(84dvh,720px)!important}
+@media(max-width:760px){
+  .code-picker-v13-actions{gap:5px;padding:11px 10px 9px}
+  .code-picker-portal-sheet,.code-picker-portal.all-open .code-picker-portal-sheet{top:50%!important;bottom:auto!important;transform:translateY(-50%)!important;max-height:min(84dvh,720px)!important;border-radius:18px!important}
+  .code-picker-portal .code-option-row.has-compound-plus-v14{grid-template-columns:64px minmax(0,1fr) 48px!important}
+  .compound-creator-v14 .compound-item-row-v13{grid-template-columns:minmax(0,1fr) 54px}
+  .compound-hours-row-v14{grid-template-columns:minmax(0,1fr) 78px}
+}
 </style>
 </head>
 <body>
@@ -5184,7 +5202,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     }
     
     const PARAMETER_SETTINGS_STORAGE_KEY = "personalOvertimeParameterSettings";
-    const PARAMETER_DEFAULT_SETTINGS = { version: 13, sections: { shiftRulesEnabled: true, holidayOverridesEnabled: true }, shiftRules: [], holidayOverrides: [], calc: { hoursEnabled: false, handoverEnabled: false, salaryEnabled: false, codeHours: { "0": 0, "1": 9, "2": 8, "3": 7 }, hourExceptions: [], handoverMinutes: 30, handoverExceptions: [], customLeaveTypes: [], core: { monthlyOvertimeCap: 46, salaryHourDivisor: 240, normalHoursPerDay: 8, attendanceYearStartMonth: 11, specialLeaveSubsidyMaxDays: 14, specialLeaveSubsidyPerDay: 1333 }, election: { effectiveStart: "00:00", effectiveEnd: "24:00", rules: [{id:"e3-1",shiftValue:3,occurrence:1,d10Minutes:30,publicLeaveHours:0,enabled:true},{id:"e3-2",shiftValue:3,occurrence:2,d10Minutes:120,publicLeaveHours:0,enabled:true},{id:"e3-3",shiftValue:3,occurrence:3,d10Minutes:120,publicLeaveHours:0,enabled:true},{id:"e2-1",shiftValue:2,occurrence:1,d10Minutes:0,publicLeaveHours:2,enabled:true},{id:"e2-2",shiftValue:2,occurrence:2,d10Minutes:0,publicLeaveHours:2,enabled:true},{id:"e2-3",shiftValue:2,occurrence:3,d10Minutes:0,publicLeaveHours:0.5,enabled:true}] }, rates: { code7: "4/3", code8: "5/3", code6: "8/3" }, fees: { initialNight: 250, deepNight: 400, breakfast: 75, lunchDinner: 150, redEnvelope: 600, reunionDinner: 800 } } };
+    const PARAMETER_DEFAULT_SETTINGS = { version: 14, sections: { shiftRulesEnabled: true, holidayOverridesEnabled: true }, shiftRules: [], holidayOverrides: [], calc: { hoursEnabled: false, handoverEnabled: false, salaryEnabled: false, codeHours: { "0": 0, "1": 9, "2": 8, "3": 7 }, hourExceptions: [], handoverMinutes: 30, handoverExceptions: [], customLeaveTypes: [], customCompoundTypes: [], core: { monthlyOvertimeCap: 46, salaryHourDivisor: 240, normalHoursPerDay: 8, attendanceYearStartMonth: 11, specialLeaveSubsidyMaxDays: 14, specialLeaveSubsidyPerDay: 1333 }, election: { effectiveStart: "00:00", effectiveEnd: "24:00", rules: [{id:"e3-1",shiftValue:3,occurrence:1,d10Minutes:30,publicLeaveHours:0,enabled:true},{id:"e3-2",shiftValue:3,occurrence:2,d10Minutes:120,publicLeaveHours:0,enabled:true},{id:"e3-3",shiftValue:3,occurrence:3,d10Minutes:120,publicLeaveHours:0,enabled:true},{id:"e2-1",shiftValue:2,occurrence:1,d10Minutes:0,publicLeaveHours:2,enabled:true},{id:"e2-2",shiftValue:2,occurrence:2,d10Minutes:0,publicLeaveHours:2,enabled:true},{id:"e2-3",shiftValue:2,occurrence:3,d10Minutes:0,publicLeaveHours:0.5,enabled:true}] }, rates: { code7: "4/3", code8: "5/3", code6: "8/3" }, fees: { initialNight: 250, deepNight: 400, breakfast: 75, lunchDinner: 150, redEnvelope: 600, reunionDinner: 800 } } };
     let parameterSettings = JSON.parse(JSON.stringify(PARAMETER_DEFAULT_SETTINGS));
     let parameterDatePickerState = { target: "", index: -1, year: 2026, month: 1 };
     function deepCloneParameter(obj){ return JSON.parse(JSON.stringify(obj || PARAMETER_DEFAULT_SETTINGS)); }
@@ -5211,6 +5229,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       n.calc.handoverMinutes=Math.max(0,sanitizeParameterNumber(calc.handoverMinutes,30));
       n.calc.handoverExceptions=(Array.isArray(calc.handoverExceptions)?calc.handoverExceptions:[]).map((x,i)=>({id:String(x.id||`handover-${Date.now()}-${i}`),startDate:normalizeIsoDateText(x.startDate),endDate:normalizeIsoDateText(x.endDate),minutes:Math.max(0,Math.round(sanitizeParameterNumber(x.minutes,30))),note:String(x.note||"").trim().slice(0,40),enabled:x.enabled!==false})).filter(x=>x.startDate&&x.endDate&&x.startDate<=x.endDate).sort((a,b)=>a.startDate.localeCompare(b.startDate)||a.endDate.localeCompare(b.endDate));
       n.calc.customLeaveTypes=(Array.isArray(calc.customLeaveTypes)?calc.customLeaveTypes:[]).map((x,i)=>({id:String(x.id||`custom-leave-${Date.now()}-${i}`).replace(/[^a-zA-Z0-9_-]/g,"-").slice(0,80),name:String(x.name||"").trim().replace(/\s+/g," ").slice(0,20),enabled:x.enabled!==false,workRule:"special",statsCategory:"none",specialSubsidy:false})).filter(x=>x.name);
+      n.calc.customCompoundTypes=(Array.isArray(calc.customCompoundTypes)?calc.customCompoundTypes:[]).map((x,i)=>({id:String(x.id||`custom-compound-${Date.now()}-${i}`).replace(/[^a-zA-Z0-9_-]/g,"-").slice(0,80),componentKeys:Array.from(new Set((Array.isArray(x.componentKeys)?x.componentKeys:[]).map(String))).slice(0,4),enabled:x.enabled!==false})).filter(x=>x.componentKeys.length>=2);
       n.calc.rates={code7:String(calc.rates?.code7||"4/3"),code8:String(calc.rates?.code8||"5/3"),code6:String(calc.rates?.code6||"8/3")};
       n.calc.fees={initialNight:Math.max(0,sanitizeParameterNumber(calc.fees?.initialNight,250)),deepNight:Math.max(0,sanitizeParameterNumber(calc.fees?.deepNight,400)),breakfast:Math.max(0,sanitizeParameterNumber(calc.fees?.breakfast,75)),lunchDinner:Math.max(0,sanitizeParameterNumber(calc.fees?.lunchDinner,150)),redEnvelope:Math.max(0,sanitizeParameterNumber(calc.fees?.redEnvelope,600)),reunionDinner:Math.max(0,sanitizeParameterNumber(calc.fees?.reunionDinner,800))};
       const core=calc.core&&typeof calc.core==="object"?calc.core:{};
@@ -10685,9 +10704,11 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   };
   const COMPOUND_COMPONENT_CODES = [4, 4.1, 4.2, 4.3, 5, 6, 6.3, 7, 8, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6];
   let customLeaveFormOpenV13 = false;
+  let compoundCreatorOpenV13 = false;
   let compoundEditorOpenV13 = false;
   let compoundDraftV13 = [];
   let compoundMessageV13 = "";
+  let compoundTargetV13 = null;
 
   const normalizeParameterSettingsBeforeV13 = normalizeParameterSettings;
   normalizeParameterSettings = function (raw) {
@@ -10695,7 +10716,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     const calc = raw && raw.calc && typeof raw.calc === "object" ? raw.calc : {};
     const source = Array.isArray(calc.customLeaveTypes) ? calc.customLeaveTypes : (normalized.calc.customLeaveTypes || []);
     const usedIds = new Set();
-    normalized.version = Math.max(13, Number(normalized.version || 0));
+    normalized.version = Math.max(14, Number(normalized.version || 0));
     normalized.calc.customLeaveTypes = source.map(function (item, index) {
       let id = String(item && item.id ? item.id : `custom-leave-${Date.now()}-${index}`).replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 80);
       while (usedIds.has(id)) id += `-${index}`;
@@ -10709,6 +10730,22 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         specialSubsidy: false
       };
     }).filter(item => item.name);
+    const validCustomIds = new Set(normalized.calc.customLeaveTypes.map(item => item.id));
+    const validComponentKey = function (key) {
+      const text = String(key || "");
+      if (text.startsWith("custom:")) return validCustomIds.has(text.slice(7));
+      const code = Number(text.replace(/^code:/, ""));
+      return text.startsWith("code:") && COMPOUND_COMPONENT_CODES.some(value => Number(value) === code);
+    };
+    const compoundSource = Array.isArray(calc.customCompoundTypes) ? calc.customCompoundTypes : (normalized.calc.customCompoundTypes || []);
+    const usedCompoundIds = new Set();
+    normalized.calc.customCompoundTypes = compoundSource.map(function (item, index) {
+      let id = String(item && item.id ? item.id : `custom-compound-${Date.now()}-${index}`).replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 80);
+      while (usedCompoundIds.has(id)) id += `-${index}`;
+      usedCompoundIds.add(id);
+      const componentKeys = Array.from(new Set((Array.isArray(item && item.componentKeys) ? item.componentKeys : []).map(String).filter(validComponentKey))).slice(0, 4);
+      return { id, componentKeys, enabled: !item || item.enabled !== false };
+    }).filter(item => item.componentKeys.length >= 2);
     return normalized;
   };
   parameterSettings = normalizeParameterSettings(parameterSettings);
@@ -10720,6 +10757,13 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   }
   function getCustomLeaveTypeV13(id) {
     return getCustomLeaveTypesV13(true).find(item => item.id === String(id || "")) || null;
+  }
+  function getCustomCompoundTypesV13(includeDisabled) {
+    const list = Array.isArray(parameterSettings.calc && parameterSettings.calc.customCompoundTypes) ? parameterSettings.calc.customCompoundTypes : [];
+    return includeDisabled ? list : list.filter(item => item.enabled !== false);
+  }
+  function getCustomCompoundTypeV13(id) {
+    return getCustomCompoundTypesV13(true).find(item => item.id === String(id || "")) || null;
   }
   function normalizeCustomLeaveNameV13(value) {
     return String(value || "").trim().replace(/\s+/g, " ").slice(0, 20);
@@ -10830,7 +10874,14 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     }).filter(Boolean);
   }
   function getCompoundLabelV13(items) {
-    return items.map(item => item.label).filter(Boolean).join("+");
+    return items.map(item => item.label).filter(Boolean).join("＋");
+  }
+  function getCompoundDefinitionItemsV13(definition, day, hoursByKey) {
+    const values = hoursByKey && typeof hoursByKey === "object" ? hoursByKey : {};
+    return (definition && Array.isArray(definition.componentKeys) ? definition.componentKeys : []).map(key => itemFromComponentKeyV13(key, day, values[key] || 0)).filter(Boolean);
+  }
+  function getCustomCompoundNameV13(definition, day) {
+    return getCompoundLabelV13(getCompoundDefinitionItemsV13(definition, day, {}));
   }
   function findLegacyCompoundCodeV13(items) {
     const signature = items.map(componentKeyV13).sort().join("|");
@@ -10864,7 +10915,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   };
   hasMeaningfulManualRecord = function (record) {
     if (!record || typeof record !== "object") return false;
-    return record.code !== undefined || record.adjustedCode !== undefined || record.leaveHours !== undefined || record.trainingMode !== undefined || record.compoundSplit !== undefined || record.compoundItems !== undefined || record.otherLabel !== undefined || record.customLeaveId !== undefined;
+    return record.code !== undefined || record.adjustedCode !== undefined || record.leaveHours !== undefined || record.trainingMode !== undefined || record.compoundSplit !== undefined || record.compoundItems !== undefined || record.otherLabel !== undefined || record.customLeaveId !== undefined || record.customCompoundId !== undefined;
   };
   isCompoundLeaveCodeForDay = function (code, day) {
     const record = manualRecords[day] || {};
@@ -10894,7 +10945,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   };
   getCompoundFullDayThresholdHours = function (dayInfo) {
     if (!dayInfo || !isLeaveCode(dayInfo.actualCode) || getPlannedValueV13(dayInfo) === 0) return 0;
-    return Math.max(0, calcD11BaseByWeight(dayInfo) + calcD11PositiveAdjustment(dayInfo) - calcCompoundFullDayDeduct(dayInfo));
+    return Math.max(0, getPlannedHoursV13(dayInfo));
   };
   isCompoundSplitPartialLeave = function (dayInfo) {
     if (!isCompoundLeaveCodeForDay(dayInfo.actualCode, dayInfo.day) || !hasCompoundSplitInput(dayInfo)) return false;
@@ -10918,6 +10969,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     delete record.compoundSplit;
     delete record.compoundItems;
     delete record.customLeaveId;
+    delete record.customCompoundId;
     delete record.otherLabel;
   }
   function preserveLegacyAdjustedLayerV13(record) {
@@ -10939,6 +10991,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       delete record.compoundSplit;
       delete record.compoundItems;
       delete record.customLeaveId;
+      delete record.customCompoundId;
       if (numericCode === 8.9) record.otherLabel = getOtherCodeLabelForDay(day);
       else delete record.otherLabel;
       if (numericCode !== 4) delete record.trainingMode;
@@ -10963,11 +11016,48 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     record.otherLabel = custom.name;
     delete record.compoundSplit;
     delete record.compoundItems;
+    delete record.customCompoundId;
     delete record.trainingMode;
     markManualRecordSource(day, "manual");
     saveCurrentMonthState();
     closeCodePickerPortal();
     renderAll(false);
+  }
+  function applyCompoundToDayV13(day, target, items, total) {
+    if (!manualRecords[day]) manualRecords[day] = {};
+    const record = manualRecords[day];
+    preserveLegacyAdjustedLayerV13(record);
+    const normalizedItems = normalizeCompoundItemsV13(items, day);
+    const numericTotal = Math.round(Math.max(0, Number(total) || 0) * 2) / 2;
+    const maxHours = getCompoundMaxHoursV13(day);
+    const isCustomTarget = target && target.kind === "custom";
+    const finalCode = isCustomTarget ? 8.9 : Number(target && target.code);
+    record.code = finalCode;
+    record.compoundItems = normalizedItems;
+    if (numericTotal > 0) record.compoundSplit = buildLegacySplitFromItemsV13(normalizedItems);
+    else delete record.compoundSplit;
+    if (numericTotal > 0 && maxHours > 0 && numericTotal < maxHours) record.leaveHours = numericTotal;
+    else delete record.leaveHours;
+    delete record.customLeaveId;
+    delete record.trainingMode;
+    if (isCustomTarget) {
+      record.customCompoundId = target.id;
+      record.otherLabel = getCompoundLabelV13(normalizedItems);
+    } else {
+      delete record.customCompoundId;
+      delete record.otherLabel;
+    }
+    markManualRecordSource(day, "manual");
+    saveCurrentMonthState();
+    closeCodePickerPortal();
+    renderAll(false);
+  }
+  function selectCustomCompoundForDayV13(day, id) {
+    const definition = getCustomCompoundTypeV13(id);
+    if (!definition || definition.enabled === false) return;
+    const items = getCompoundDefinitionItemsV13(definition, day, {});
+    if (items.length < 2) return;
+    applyCompoundToDayV13(day, { kind: "custom", id: definition.id }, items, 0);
   }
   function restoreAdjustedShiftV13(day) {
     const record = manualRecords[day];
@@ -11004,10 +11094,26 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     item.enabled = item.enabled === false;
     saveParameterSettings();
   }
+  function addCustomCompoundTypeV13(items) {
+    const keys = (Array.isArray(items) ? items : []).map(componentKeyV13);
+    if (keys.length < 2) return { ok: false, message: "複合假別至少需要兩個假別。" };
+    if (new Set(keys).size !== keys.length) return { ok: false, message: "同一假別不可重複加入。" };
+    const signature = keys.slice().sort().join("|");
+    const legacyExists = Object.values(LEGACY_COMPOUND_COMPONENTS).some(codes => codes.map(code => `code:${code}`).sort().join("|") === signature);
+    if (legacyExists) return { ok: false, message: "此組合已是現有複合假別，請直接使用全部假別內的項目。" };
+    const existing = getCustomCompoundTypesV13(true).find(item => item.componentKeys.slice().sort().join("|") === signature);
+    if (existing) {
+      existing.enabled = true;
+      saveParameterSettings();
+      return { ok: true, item: existing };
+    }
+    const item = { id: `custom-compound-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, componentKeys: keys.slice(0, 4), enabled: true };
+    parameterSettings.calc.customCompoundTypes.push(item);
+    saveParameterSettings();
+    return { ok: true, item };
+  }
   function getComponentOptionsHtmlV13(selectedKey, day) {
     const options = COMPOUND_COMPONENT_CODES.map(code => `<option value="code:${code}" ${selectedKey === `code:${code}` ? "selected" : ""}>${escapeHtml(getLabel(code))}</option>`);
-    const otherLabel = getOtherCodeLabelForDay(day);
-    if (otherLabel !== "其他") options.push(`<option value="other" ${selectedKey === "other" ? "selected" : ""}>${escapeHtml(otherLabel)}（本日其他）</option>`);
     getCustomLeaveTypesV13(false).forEach(item => options.push(`<option value="custom:${escapeHtml(item.id)}" ${selectedKey === `custom:${item.id}` ? "selected" : ""}>${escapeHtml(item.name)}（自訂）</option>`));
     return options.join("");
   }
@@ -11016,52 +11122,68 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     if (!dayInfo || getPlannedValueV13(dayInfo) === 0) return 0;
     return Math.max(0, getPlannedHoursV13(dayInfo));
   }
-  function initCompoundDraftV13(day) {
-    let items = getCompoundItemsForDayV13(day);
-    const record = manualRecords[day] || {};
-    if (items.length < 2) items = legacyItemsForCodeV13(record.code, day);
-    if (items.length < 2) {
-      let firstKey = "code:5";
-      if (record.customLeaveId && getCustomLeaveTypeV13(record.customLeaveId)) firstKey = `custom:${record.customLeaveId}`;
-      else if (Number(record.code) === 8.9 && getOtherCodeLabelForDay(day) !== "其他") firstKey = "other";
-      else if (isLeaveCode(record.code) && !LEGACY_COMPOUND_COMPONENTS[keyOf(record.code)] && Number(record.code) !== 8.9) firstKey = `code:${Number(record.code)}`;
-      const secondKey = firstKey === "code:5" ? "code:6" : "code:5";
-      items = [itemFromComponentKeyV13(firstKey, day, 0), itemFromComponentKeyV13(secondKey, day, 0)].filter(Boolean);
-    }
-    const maxHours = getCompoundMaxHoursV13(day);
-    if (items.length >= 2 && items.every(item => Number(item.hours || 0) <= 0) && maxHours > 0) {
-      const firstHours = Math.round((maxHours / 2) * 2) / 2;
-      items[0].hours = firstHours;
-      items[1].hours = Math.max(0, Math.round((maxHours - firstHours) * 2) / 2);
-    }
-    compoundDraftV13 = normalizeCompoundItemsV13(items, day);
+  function initCompoundCreatorDraftV13(day) {
+    compoundDraftV13 = [itemFromComponentKeyV13("code:5", day, 0), itemFromComponentKeyV13("code:6", day, 0)].filter(Boolean);
     compoundMessageV13 = "";
   }
-  function captureCompoundDraftV13(portal, day) {
+  function captureCompoundCreatorDraftV13(portal, day) {
     compoundDraftV13 = Array.from(portal.querySelectorAll("[data-compound-item-row-v13]")).map(row => {
       const key = row.querySelector("[data-compound-item-key-v13]")?.value || "";
-      const rawHours = row.querySelector("[data-compound-item-hours-v13]")?.value || "0";
+      return itemFromComponentKeyV13(key, day, 0);
+    }).filter(Boolean);
+    return compoundDraftV13;
+  }
+  function initCompoundHoursDraftV13(day, target) {
+    const record = manualRecords[day] || {};
+    const targetKeys = Array.isArray(target && target.componentKeys) ? target.componentKeys : [];
+    const sameTarget = target && target.kind === "custom"
+      ? String(record.customCompoundId || "") === String(target.id || "")
+      : Number(record.code) === Number(target && target.code);
+    const existingItems = sameTarget ? getCompoundItemsForDayV13(day) : [];
+    const existingByKey = new Map(existingItems.map(item => [componentKeyV13(item), Math.max(0, Number(item.hours) || 0)]));
+    compoundDraftV13 = targetKeys.map(key => itemFromComponentKeyV13(key, day, existingByKey.get(key) || 0)).filter(Boolean);
+    compoundTargetV13 = target;
+    compoundMessageV13 = "";
+  }
+  function captureCompoundHoursDraftV13(portal, day) {
+    compoundDraftV13 = Array.from(portal.querySelectorAll("[data-compound-hours-row-v14]")).map(row => {
+      const key = row.dataset.compoundKeyV14 || "";
+      const rawHours = row.querySelector("[data-compound-item-hours-v13]")?.value || "";
       return itemFromComponentKeyV13(key, day, Math.round((Number(rawHours) || 0) * 2) / 2);
     }).filter(Boolean);
     return compoundDraftV13;
+  }
+  function buildCompoundCreatorHtmlV13(day) {
+    if (!compoundCreatorOpenV13) return "";
+    const rows = compoundDraftV13.map((item, index) => `
+      <div class="compound-item-row-v13" data-compound-item-row-v13="${index}">
+        <select class="compound-item-select-v13" data-compound-item-key-v13="1">${getComponentOptionsHtmlV13(componentKeyV13(item), day)}</select>
+        <button class="compound-item-remove-v13" data-compound-remove-v13="${index}" type="button">移除</button>
+      </div>`).join("");
+    return `<div class="compound-editor-v13 compound-creator-v14">
+      <div class="compound-editor-v13-title">新增常用複合假別</div>
+      <div class="compound-items-v13">${rows}</div>
+      <div class="compound-hint-v13">只儲存假別組合，不儲存預設時數。日後點名稱可直接套用全日；點右側「＋」再輸入當日各項時數。</div>
+      <div class="compound-message-v13 ${compoundMessageV13 ? "error" : ""}">${escapeHtml(compoundMessageV13)}</div>
+      <div class="compound-editor-actions-v13"><button class="compound-add-v13" data-compound-add-v13="1" type="button">＋加入假別</button><button class="compound-confirm-v13" data-compound-create-save-v14="1" type="button">儲存組合</button></div>
+    </div>`;
   }
   function buildCompoundEditorHtmlV13(day) {
     if (!compoundEditorOpenV13) return "";
     const maxHours = getCompoundMaxHoursV13(day);
     const rows = compoundDraftV13.map((item, index) => `
-      <div class="compound-item-row-v13" data-compound-item-row-v13="${index}">
-        <select class="compound-item-select-v13" data-compound-item-key-v13="1">${getComponentOptionsHtmlV13(componentKeyV13(item), day)}</select>
-        <input class="compound-item-hours-v13" data-compound-item-hours-v13="1" type="text" inputmode="decimal" value="${escapeHtml(fmtHour(item.hours))}" aria-label="${escapeHtml(item.label)}時數">
-        <button class="compound-item-remove-v13" data-compound-remove-v13="${index}" type="button">移除</button>
+      <div class="compound-hours-row-v14" data-compound-hours-row-v14="${index}" data-compound-key-v14="${escapeHtml(componentKeyV13(item))}">
+        <span class="compound-hours-label-v14">${escapeHtml(item.label)}</span>
+        <input class="compound-item-hours-v13" data-compound-item-hours-v13="1" type="text" inputmode="decimal" value="${Number(item.hours) > 0 ? escapeHtml(fmtHour(item.hours)) : ""}" placeholder="時數" aria-label="${escapeHtml(item.label)}時數">
       </div>`).join("");
     const total = compoundDraftV13.reduce((sum, item) => sum + Math.max(0, Number(item.hours) || 0), 0);
     return `<div class="compound-editor-v13">
-      <div class="compound-editor-v13-title">複合式假別</div>
+      <div class="compound-editor-v13-title">${escapeHtml(compoundTargetV13 && compoundTargetV13.name || "複合假別")}－當日時數</div>
       <div class="compound-items-v13">${rows}</div>
       <div class="compound-summary-v13"><span>目前合計：${fmtHour(total)}HR</span><span>本班上限：${fmtHour(maxHours)}HR</span></div>
-      <div class="compound-hint-v13">每個假別必須明確選擇，不再依文字逐字拆分。自訂假別只套用特休工時計算，不列入特休統計與補助。</div>
+      <div class="compound-hint-v13">兩欄都不輸入時視為全日請假；若要分項統計，請輸入本日各假別時數。時數不會帶到其他日期。</div>
       <div class="compound-message-v13 ${compoundMessageV13 ? "error" : ""}">${escapeHtml(compoundMessageV13)}</div>
-      <div class="compound-editor-actions-v13"><button class="compound-add-v13" data-compound-add-v13="1" type="button">＋加入假別</button><button class="compound-confirm-v13" data-compound-save-v13="1" type="button">套用複合假別</button></div>
+      <button class="compound-confirm-v13" data-compound-save-v13="1" type="button">套用複合假別</button>
     </div>`;
   }
   function buildCustomLeaveFormHtmlV13() {
@@ -11073,13 +11195,20 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     if (!items.length) return `<div class="code-empty-favorite">尚未新增常用假別</div>`;
     return `<div class="custom-leave-list-v13">${items.map(item => `<div class="custom-leave-row-v13"><button class="custom-leave-select-v13" data-custom-leave-select-v13="${escapeHtml(item.id)}" type="button">${escapeHtml(item.name)}</button><button class="custom-leave-toggle-v13" data-custom-leave-toggle-v13="${escapeHtml(item.id)}" type="button">停用</button></div>`).join("")}</div>`;
   }
+  function buildCustomCompoundListHtmlV13(day) {
+    const items = getCustomCompoundTypesV13(false).map(definition => ({ definition, name: getCustomCompoundNameV13(definition, day) })).filter(item => item.name);
+    if (!items.length) return `<div class="code-empty-favorite">尚未新增常用複合假別</div>`;
+    return `<div class="custom-leave-list-v13">${items.map(item => `<div class="custom-compound-row-v14"><button class="custom-leave-select-v13" data-custom-compound-select-v14="${escapeHtml(item.definition.id)}" type="button">${escapeHtml(item.name)}</button><button class="compound-row-plus-v14" data-compound-hours-custom-v14="${escapeHtml(item.definition.id)}" type="button" aria-label="輸入 ${escapeHtml(item.name)} 當日時數">＋</button></div>`).join("")}</div>`;
+  }
   buildCodeOptionRow = function (code, selectedCode, favoriteOnly, day) {
     const favorite = isCodeFavorite(code);
     const selected = Number(code) === Number(selectedCode);
     if (Number(code) === 8.9) {
       return `<div class="code-option-row code-other-row ${selected ? "selected" : ""}" data-code-row="${code}"><button class="code-star-btn" type="button" data-code-star="${code}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="code-option-btn" type="button" data-code-option="${code}">${favoriteOnly ? "★" : ""}${code}</button><input class="code-other-name-input" type="text" value="${escapeHtml(getOtherCodeLabelForDay(day))}" maxlength="20" data-other-code-input="1" data-other-code-day="${day}" title="預設為其他時會全選；自訂後可直接定位游標修字"></div>`;
     }
-    return `<div class="code-option-row ${selected ? "selected" : ""}" data-code-row="${code}"><button class="code-star-btn" type="button" data-code-star="${code}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="code-option-btn" type="button" data-code-option="${code}">${favoriteOnly ? "★" : ""}${code} ${escapeHtml(getLabel(code))}</button></div>`;
+    const componentKeys = (LEGACY_COMPOUND_COMPONENTS[keyOf(code)] || []).map(value => `code:${value}`);
+    const plus = componentKeys.length >= 2 ? `<button class="compound-row-plus-v14" data-compound-hours-code-v14="${code}" type="button" aria-label="輸入 ${escapeHtml(getLabel(code))} 當日時數">＋</button>` : "";
+    return `<div class="code-option-row ${componentKeys.length >= 2 ? "has-compound-plus-v14" : ""} ${selected ? "selected" : ""}" data-code-row="${code}"><button class="code-star-btn" type="button" data-code-star="${code}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="code-option-btn" type="button" data-code-option="${code}">${favoriteOnly ? "★" : ""}${code} ${escapeHtml(getLabel(code))}</button>${plus}</div>`;
   };
   buildCodePickerPortalHtml = function (day, selectedCode, allOpen) {
     const favoriteOptions = getFavoriteCodeOptions();
@@ -11087,14 +11216,16 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     const allHtml = CODE_OPTIONS.map(code => buildCodeOptionRow(code, selectedCode, false, day)).join("");
     const record = manualRecords[day] || {};
     const canRestore = isLeaveCode(selectedCode) && ADJUST_CODES.has(Number(record.adjustedCode));
-    return `<div class="code-picker-portal-backdrop" data-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="代碼選單" data-code-portal-day="${day}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${day} 日假別</div><div class="code-picker-portal-subtitle">假別、調班與最終出勤會分層保留</div></div><button class="code-picker-portal-close" type="button" data-code-portal-close="1">關閉</button></div><div class="code-picker-v13-actions"><button class="code-picker-v13-action secondary" type="button" data-code-portal-all-toggle="${day}">${allOpen ? "收合全部" : "全部假別"}</button><button class="code-picker-v13-action" type="button" data-custom-leave-form-toggle-v13="1">＋新增假別</button><button class="code-picker-v13-action" type="button" data-compound-open-v13="1">＋複合假別</button>${canRestore ? `<button class="code-picker-v13-action restore" type="button" data-restore-adjusted-v13="${day}">取消假別，恢復 ${escapeHtml(getLabel(record.adjustedCode))}</button>` : ""}</div><div class="code-picker-portal-scroll">${buildCustomLeaveFormHtmlV13()}${buildCompoundEditorHtmlV13(day)}<div class="code-picker-portal-section-title">常用自訂假別</div>${buildCustomLeaveListHtmlV13(day)}<div class="code-picker-portal-section-title">我的最愛</div><div class="code-picker-favorites">${favoriteHtml}</div><div class="code-picker-portal-section-title code-picker-all-title ${allOpen ? "" : "collapsed-detail"}">全部假別</div><div class="code-picker-all ${allOpen ? "" : "collapsed-detail"}" data-code-all-list="${day}">${allHtml}</div></div></div>`;
+    return `<div class="code-picker-portal-backdrop" data-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="代碼選單" data-code-portal-day="${day}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${day} 日假別</div><div class="code-picker-portal-subtitle">假別、調班與最終出勤會分層保留</div></div><button class="code-picker-portal-close" type="button" data-code-portal-close="1">關閉</button></div><div class="code-picker-v13-actions"><button class="code-picker-v13-action secondary" type="button" data-code-portal-all-toggle="${day}">${allOpen ? "收合全部" : "全部假別"}</button><button class="code-picker-v13-action" type="button" data-custom-leave-form-toggle-v13="1">＋新增假別</button><button class="code-picker-v13-action" type="button" data-compound-create-open-v14="1">＋新增複合</button>${canRestore ? `<button class="code-picker-v13-action restore" type="button" data-restore-adjusted-v13="${day}">取消假別，恢復 ${escapeHtml(getLabel(record.adjustedCode))}</button>` : ""}</div><div class="code-picker-portal-scroll">${buildCustomLeaveFormHtmlV13()}${buildCompoundCreatorHtmlV13(day)}${buildCompoundEditorHtmlV13(day)}<div class="code-picker-portal-section-title">常用自訂假別</div>${buildCustomLeaveListHtmlV13(day)}<div class="code-picker-portal-section-title">常用複合假別</div>${buildCustomCompoundListHtmlV13(day)}<div class="code-picker-portal-section-title">我的最愛</div><div class="code-picker-favorites">${favoriteHtml}</div><div class="code-picker-portal-section-title code-picker-all-title ${allOpen ? "" : "collapsed-detail"}">全部假別</div><div class="code-picker-all ${allOpen ? "" : "collapsed-detail"}" data-code-all-list="${day}">${allHtml}</div></div></div>`;
   };
   const openCodePickerByDayBeforeV13 = openCodePickerByDay;
   openCodePickerByDay = function (day, openAllList, restoreScrollTop) {
     customLeaveFormOpenV13 = false;
+    compoundCreatorOpenV13 = false;
     compoundEditorOpenV13 = false;
     compoundDraftV13 = [];
     compoundMessageV13 = "";
+    compoundTargetV13 = null;
     return openCodePickerByDayBeforeV13(day, openAllList, restoreScrollTop);
   };
   bindCodePickerPortalEvents = function (portal) {
@@ -11141,10 +11272,33 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       if (result.ok) selectCustomLeaveForDayV13(activeCodePickerPortalState.day, result.item.id);
       else { const hint = portal.querySelector(".custom-leave-hint-v13"); if (hint) { hint.textContent = result.message; hint.style.color = "#fda4af"; } }
     }));
-    portal.querySelectorAll("[data-compound-open-v13]").forEach(btn => btn.addEventListener("click", event => {
+    portal.querySelectorAll("[data-custom-compound-select-v14]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (activeCodePickerPortalState) selectCustomCompoundForDayV13(activeCodePickerPortalState.day, btn.dataset.customCompoundSelectV14);
+    }));
+    portal.querySelectorAll("[data-compound-create-open-v14]").forEach(btn => btn.addEventListener("click", event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
-      compoundEditorOpenV13 = !compoundEditorOpenV13;
-      if (compoundEditorOpenV13) initCompoundDraftV13(activeCodePickerPortalState.day);
+      compoundCreatorOpenV13 = !compoundCreatorOpenV13;
+      compoundEditorOpenV13 = false;
+      compoundTargetV13 = null;
+      if (compoundCreatorOpenV13) initCompoundCreatorDraftV13(activeCodePickerPortalState.day);
+      renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, 0);
+    }));
+    portal.querySelectorAll("[data-compound-hours-code-v14]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      const code = Number(btn.dataset.compoundHoursCodeV14);
+      const componentKeys = (LEGACY_COMPOUND_COMPONENTS[keyOf(code)] || []).map(value => `code:${value}`);
+      compoundCreatorOpenV13 = false;
+      compoundEditorOpenV13 = true;
+      initCompoundHoursDraftV13(activeCodePickerPortalState.day, { kind: "legacy", code, name: `${code} ${getLabel(code)}`, componentKeys });
+      renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, 0);
+    }));
+    portal.querySelectorAll("[data-compound-hours-custom-v14]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      const definition = getCustomCompoundTypeV13(btn.dataset.compoundHoursCustomV14);
+      if (!definition) return;
+      compoundCreatorOpenV13 = false;
+      compoundEditorOpenV13 = true;
+      initCompoundHoursDraftV13(activeCodePickerPortalState.day, { kind: "custom", id: definition.id, name: getCustomCompoundNameV13(definition, activeCodePickerPortalState.day), componentKeys: definition.componentKeys.slice() });
       renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, 0);
     }));
     portal.querySelectorAll("[data-compound-item-hours-v13]").forEach(input => {
@@ -11153,7 +11307,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     });
     portal.querySelectorAll("[data-compound-add-v13]").forEach(btn => btn.addEventListener("click", event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
-      captureCompoundDraftV13(portal, activeCodePickerPortalState.day);
+      captureCompoundCreatorDraftV13(portal, activeCodePickerPortalState.day);
       if (compoundDraftV13.length < 4) {
         const used = new Set(compoundDraftV13.map(componentKeyV13));
         const candidate = [...COMPOUND_COMPONENT_CODES.map(code => `code:${code}`), ...getCustomLeaveTypesV13(false).map(item => `custom:${item.id}`)].find(key => !used.has(key));
@@ -11164,40 +11318,34 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     }));
     portal.querySelectorAll("[data-compound-remove-v13]").forEach(btn => btn.addEventListener("click", event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
-      captureCompoundDraftV13(portal, activeCodePickerPortalState.day);
+      captureCompoundCreatorDraftV13(portal, activeCodePickerPortalState.day);
       compoundDraftV13.splice(Number(btn.dataset.compoundRemoveV13), 1);
       renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, 0);
+    }));
+    portal.querySelectorAll("[data-compound-create-save-v14]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      const day = activeCodePickerPortalState.day;
+      const result = addCustomCompoundTypeV13(captureCompoundCreatorDraftV13(portal, day));
+      if (result.ok) {
+        compoundCreatorOpenV13 = false;
+        compoundDraftV13 = [];
+        compoundMessageV13 = "";
+      } else compoundMessageV13 = result.message;
+      renderCodePickerPortal(day, activeCodePickerPortalState.allOpen, 0);
     }));
     portal.querySelectorAll("[data-compound-save-v13]").forEach(btn => btn.addEventListener("click", event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
       const day = activeCodePickerPortalState.day;
-      const items = captureCompoundDraftV13(portal, day);
-      const keys = items.map(componentKeyV13);
+      const items = captureCompoundHoursDraftV13(portal, day);
       const total = Math.round(items.reduce((sum, item) => sum + Math.max(0, Number(item.hours) || 0), 0) * 2) / 2;
       const maxHours = getCompoundMaxHoursV13(day);
-      if (items.length < 2) compoundMessageV13 = "複合假別至少需要兩個假別。";
-      else if (new Set(keys).size !== keys.length) compoundMessageV13 = "同一假別不可重複加入。";
-      else if (items.some(item => Number(item.hours || 0) <= 0)) compoundMessageV13 = "每個假別都必須輸入大於 0 的時數。";
+      const hasAnyHours = items.some(item => Number(item.hours || 0) > 0);
+      if (items.length < 2 || !compoundTargetV13) compoundMessageV13 = "找不到這個複合假別組合，請關閉後重試。";
+      else if (hasAnyHours && items.some(item => Number(item.hours || 0) <= 0)) compoundMessageV13 = "若要分項統計，每個假別都必須輸入大於 0 的時數；全部留白則視為全日。";
       else if (maxHours <= 0) compoundMessageV13 = "目前底層班次是空班，請先設定調班值別後再請假。";
       else if (total > maxHours) compoundMessageV13 = `合計不可超過本班 ${fmtHour(maxHours)}HR。`;
       else {
-        if (!manualRecords[day]) manualRecords[day] = {};
-        const record = manualRecords[day];
-        preserveLegacyAdjustedLayerV13(record);
-        const normalizedItems = normalizeCompoundItemsV13(items, day);
-        const finalCode = findLegacyCompoundCodeV13(normalizedItems);
-        record.code = finalCode;
-        record.compoundItems = normalizedItems;
-        record.compoundSplit = buildLegacySplitFromItemsV13(normalizedItems);
-        record.leaveHours = total >= maxHours ? 0 : total;
-        delete record.customLeaveId;
-        delete record.trainingMode;
-        if (finalCode === 8.9) record.otherLabel = normalizeOtherCodeLabel(getCompoundLabelV13(normalizedItems));
-        else delete record.otherLabel;
-        markManualRecordSource(day, "manual");
-        saveCurrentMonthState();
-        closeCodePickerPortal();
-        renderAll(false);
+        applyCompoundToDayV13(day, compoundTargetV13, items, total);
         return;
       }
       renderCodePickerPortal(day, activeCodePickerPortalState.allOpen, 0);
@@ -11386,7 +11534,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   };
   const classifyLeaveStatByCodeBeforeV13 = classifyLeaveStatByCode;
   classifyLeaveStatByCode = function (code, dayInfo) {
-    if (Number(code) === 8.9) return "";
+    if (Number(code) === 8.9 || LEGACY_COMPOUND_COMPONENTS[keyOf(code)]) return "";
     return classifyLeaveStatByCodeBeforeV13(code, dayInfo);
   };
 

@@ -4402,7 +4402,7 @@
                 <label class="closure-official-region" for="closureOfficialRegionSelect">適用地區：<select id="closureOfficialRegionSelect" class="closure-official-region-select"><option value="高雄市">高雄市</option><option value="臺南市">台南市</option></select></label>
                 <button id="closureOfficialQueryBtn" class="closure-official-query-btn" type="button">查詢官方</button>
               </div>
-              <div id="closureOfficialStatus" class="closure-official-status">尚未查詢。系統會先直接讀取官方網站；若遭瀏覽器跨來源阻擋，改用公開唯讀轉接服務。查詢失敗不會清除既有設定。</div>
+              <div id="closureOfficialStatus" class="closure-official-status">尚未查詢。系統會先讀取同源官方資料快照；資料尚未同步時，可按「查詢官方」重試或手動新增。既有設定不會被清除。</div>
               <div id="closureRecordList" class="special-record-list"></div>
             </div>
             <div class="special-card">
@@ -10278,11 +10278,21 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     const value = select ? select.value : localStorage.getItem(DGPA_REGION_STORAGE_KEY);
     return value === "臺南市" ? "臺南市" : DGPA_DEFAULT_REGION;
   }
+  /*
+   * DGPA 公告的可判定文字採白名單，沿用可正常運作版本的規則。
+   * 這比只比對「停止上班／停止上課」關鍵字安全，避免把部分地區、
+   * 未達標準或隔日照常辦公的公告誤判為全日停止辦公。
+   */
+  const DGPA_ACCEPTED_TEXTS = new Set([
+    "今天停止上班、停止上課。",
+    "今天停止上班、停止上課。明天照常上班、照常上課。",
+    "今天停止上班、停止上課。明天停止上班、停止上課。",
+    "今天已達停止上班及上課標準。",
+    "今天已達停止上班及上課標準。明天照常上班、照常上課。",
+    "今天已達停止上班及上課標準。明天已達停止上班及上課標準。"
+  ]);
   function closureOfficialIsCountywideClosure(value) {
-    const firstSentence = closureOfficialCleanText(value).split("。")[0] || "";
-    if (!firstSentence.includes("今天")) return false;
-    if (firstSentence.includes("未達") || firstSentence.includes("照常上班") || firstSentence.includes("部分地區") || firstSentence.includes("部分停止")) return false;
-    return (firstSentence.includes("停止上班") && firstSentence.includes("停止上課")) || firstSentence.includes("停止上班及上課");
+    return DGPA_ACCEPTED_TEXTS.has(closureOfficialCleanText(value));
   }
   function closureOfficialSetStatus(message, type) {
     const el = document.getElementById("closureOfficialStatus");
@@ -10409,15 +10419,31 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     return { events:events, covered:covered, pagesScanned:Number(payload.pagesScanned || 0), source:"same-origin", updatedAt:payload.updatedAt || "", current:targetOrdinal === currentOrdinal };
 
   }
-  async function closureOfficialSearchTargetMonth(targetRocYear, targetMonth, queryToken) {
+  async function closureOfficialSearchTargetMonth(targetRocYear, targetMonth, queryToken, options) {
+    const allowLiveQuery = !!(options && options.allowLiveQuery);
     const targetRegion = getClosureOfficialRegion();
+    let sameOriginResult = null;
     try {
       closureOfficialSetStatus("正在讀取站內官方公告資料…", "warn");
-      const sameOriginResult = await closureOfficialLoadSameOriginData(targetRocYear, targetMonth, targetRegion);
+      sameOriginResult = await closureOfficialLoadSameOriginData(targetRocYear, targetMonth, targetRegion);
       if (queryToken !== closureOfficialQuerySequence) throw new Error("查詢已由新的年月取代");
       if (sameOriginResult.covered) return sameOriginResult;
     } catch (sameOriginError) {
-      console.info("站內官方公告資料尚不可用，改用即時網路查詢", sameOriginError);
+      console.info("站內官方公告資料尚不可用", sameOriginError);
+    }
+    /*
+     * 自動查詢只使用同源快照。若快照尚未同步，不再把瀏覽器跨網域
+     * 失敗誤顯示成系統錯誤；使用者按「查詢官方」時才允許即時查詢。
+     */
+    if (!allowLiveQuery) {
+      return {
+        events: sameOriginResult && Array.isArray(sameOriginResult.events) ? sameOriginResult.events : [],
+        covered: false,
+        pagesScanned: sameOriginResult ? Number(sameOriginResult.pagesScanned || 0) : 0,
+        source: sameOriginResult ? sameOriginResult.source : "same-origin-unavailable",
+        offline: true,
+        updatedAt: sameOriginResult ? (sameOriginResult.updatedAt || "") : ""
+      };
     }
     const targetOrdinal = closureOfficialMonthOrdinal(targetRocYear, targetMonth);
     const allEvents = [];
@@ -10503,7 +10529,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const queryKey = targetRocYear + "-" + targetMonth + "-" + targetRegion;
       let searchResult = !opts.manual ? closureOfficialResultCache.get(queryKey) : null;
       if (!searchResult) {
-        searchResult = await closureOfficialSearchTargetMonth(targetRocYear, targetMonth, queryToken);
+        searchResult = await closureOfficialSearchTargetMonth(targetRocYear, targetMonth, queryToken, { allowLiveQuery:opts.manual === true });
         if (queryToken !== closureOfficialQuerySequence) return;
         if (searchResult.covered) closureOfficialResultCache.set(queryKey, searchResult);
       }
@@ -10511,6 +10537,10 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const unique = Array.from(new Map((searchResult.events || []).map(function (event) {
         return [event.rocYear + "-" + event.month + "-" + event.day + "-" + event.region, event];
       })).values());
+      if (searchResult.offline && !searchResult.covered && unique.length === 0) {
+        closureOfficialSetStatus("官方資料尚未同步至此月份，請按「查詢官方」重試或手動新增。", "warn");
+        return;
+      }
       if (!searchResult.covered && unique.length === 0) {
         closureOfficialSetStatus(`查詢未完成：已搜尋 ${searchResult.pagesScanned} 頁，尚未涵蓋目標月份`, "warn");
         return;

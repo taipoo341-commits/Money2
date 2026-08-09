@@ -10265,7 +10265,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
 <script>
 /* === 停止辦公官方自動查詢：功能開始 === */
 (function () {
-  const DGPA_ROOT = "https://www.dgpa.gov.tw";
   const DGPA_DEFAULT_REGION = "高雄市";
   const DGPA_REGION_STORAGE_KEY = "personalOvertimeClosureOfficialRegion";
   const DGPA_AUTO_CHECK_KEY = "personalOvertimeClosureOfficialLastCheck";
@@ -10278,114 +10277,11 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     const value = select ? select.value : localStorage.getItem(DGPA_REGION_STORAGE_KEY);
     return value === "臺南市" ? "臺南市" : DGPA_DEFAULT_REGION;
   }
-  /*
-   * DGPA 公告的可判定文字採白名單，沿用可正常運作版本的規則。
-   * 這比只比對「停止上班／停止上課」關鍵字安全，避免把部分地區、
-   * 未達標準或隔日照常辦公的公告誤判為全日停止辦公。
-   */
-  const DGPA_ACCEPTED_TEXTS = new Set([
-    "今天停止上班、停止上課。",
-    "今天停止上班、停止上課。明天照常上班、照常上課。",
-    "今天停止上班、停止上課。明天停止上班、停止上課。",
-    "今天已達停止上班及上課標準。",
-    "今天已達停止上班及上課標準。明天照常上班、照常上課。",
-    "今天已達停止上班及上課標準。明天已達停止上班及上課標準。"
-  ]);
-  function closureOfficialIsCountywideClosure(value) {
-    return DGPA_ACCEPTED_TEXTS.has(closureOfficialCleanText(value));
-  }
   function closureOfficialSetStatus(message, type) {
     const el = document.getElementById("closureOfficialStatus");
     if (!el) return;
     el.textContent = message;
     el.className = "closure-official-status" + (type ? " " + type : "");
-  }
-  function closureOfficialCleanText(value) {
-    return String(value || "").replace(/[\u3000\s\r\n]+/g, "").trim();
-  }
-  function closureOfficialAbsoluteUrl(value) {
-    try { return new URL(String(value || ""), DGPA_ROOT).href; } catch (error) { return ""; }
-  }
-  async function closureOfficialFetchText(url) {
-    const targetUrl = String(url || "");
-    const fetchWithTimeout = async function (requestUrl, options, timeoutMs) {
-      const controller = new AbortController();
-      const timer = setTimeout(function () { controller.abort(); }, timeoutMs);
-      try {
-        const response = await fetch(requestUrl, { ...options, signal:controller.signal });
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        return response;
-      } finally { clearTimeout(timer); }
-    };
-    try {
-      const directResponse = await fetchWithTimeout(targetUrl, { method:"GET", mode:"cors", credentials:"omit", cache:"no-store" }, 12000);
-      return await directResponse.text();
-    } catch (directError) {
-      try {
-        const proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent(targetUrl) + "&timestamp=" + Date.now();
-        const proxyResponse = await fetchWithTimeout(proxyUrl, { method:"GET", mode:"cors", credentials:"omit", cache:"no-store" }, 25000);
-        const payload = await proxyResponse.json();
-        if (!payload || typeof payload.contents !== "string" || payload.contents.trim() === "") throw new Error("公開轉接服務未回傳網頁內容");
-        return payload.contents;
-      } catch (proxyError) {
-        const directMessage = directError && directError.message ? directError.message : "直接連線失敗";
-        const proxyMessage = proxyError && proxyError.message ? proxyError.message : "公開轉接服務失敗";
-        throw new Error("官方網站直接連線失敗（" + directMessage + "）；公開讀取轉接亦失敗（" + proxyMessage + "）");
-      }
-    }
-  }
-  function closureOfficialParseRocDate(value) {
-    const text = closureOfficialCleanText(value);
-    const match = text.match(/(\d{2,3})年(\d{1,2})月(\d{1,2})日/);
-    if (!match) return null;
-    return { rocYear:Number(match[1]), month:Number(match[2]), day:Number(match[3]) };
-  }
-  function closureOfficialCountySentence(value) {
-    const text = closureOfficialCleanText(value);
-    const sentences = text.split("。").filter(Boolean);
-    const kept = [];
-    for (const sentence of sentences) {
-      if ((sentence.includes(":") || sentence.includes("：")) && /[區鄉鎮村里]/.test(sentence)) break;
-      kept.push(sentence);
-    }
-    return kept.length ? kept.join("。") + "。" : "";
-  }
-  function closureOfficialHtmlDocument(html) {
-    return new DOMParser().parseFromString(String(html || ""), "text/html");
-  }
-  async function closureOfficialCollectAnnouncementPage(page) {
-    const listUrl = page === 1 ? DGPA_ROOT + "/informationlist?uid=374" : DGPA_ROOT + "/informationlist?uid=374&page=" + page;
-    const doc = closureOfficialHtmlDocument(await closureOfficialFetchText(listUrl));
-    const links = new Map();
-    doc.querySelectorAll("a[href]").forEach(function (a) {
-      const href = closureOfficialAbsoluteUrl(a.getAttribute("href"));
-      if (href.includes("information?uid=374") && href.includes("pid=")) links.set(href, { title:String(a.textContent || "").trim(), url:href });
-    });
-    return Array.from(links.values());
-  }
-  async function closureOfficialReadAnnouncement(item, targetRocYear, targetMonth) {
-    const announcementDoc = closureOfficialHtmlDocument(await closureOfficialFetchText(item.url));
-    let ndsUrl = "";
-    announcementDoc.querySelectorAll("a[href]").forEach(function (a) {
-      if (!ndsUrl && String(a.textContent || "").trim().toLowerCase() === "nds.html") ndsUrl = closureOfficialAbsoluteUrl(a.getAttribute("href"));
-    });
-    if (!ndsUrl) return { dateInfo:null, events:[] };
-    const ndsDoc = closureOfficialHtmlDocument(await closureOfficialFetchText(ndsUrl));
-    const dateInfo = closureOfficialParseRocDate(ndsDoc.querySelector("div.Header_YMD")?.textContent || "");
-    if (!dateInfo) return { dateInfo:null, events:[] };
-    const results = [];
-    ndsDoc.querySelectorAll("tr").forEach(function (row) {
-      const cells = row.querySelectorAll("td");
-      if (cells.length < 2) return;
-      const region = String(cells[0].textContent || "").trim();
-      if (region !== getClosureOfficialRegion()) return;
-      const officialText = closureOfficialCountySentence(cells[1].textContent || "");
-      const excluded = !officialText || officialText.includes("未達停止上班") || officialText.includes("照常上班、照常上課。今天");
-      if (dateInfo.rocYear === targetRocYear && dateInfo.month === targetMonth && !excluded && closureOfficialIsCountywideClosure(officialText)) {
-        results.push({ ...dateInfo, region:region, officialText:officialText, officialUrl:item.url, ndsUrl:ndsUrl, pid:(item.url.match(/[?&]pid=([^&]+)/)||[])[1] || "" });
-      }
-    });
-    return { dateInfo:dateInfo, events:results };
   }
   function closureOfficialMonthOrdinal(rocYear, month) {
     return (Number(rocYear) + 1911) * 12 + Number(month) - 1;
@@ -10419,8 +10315,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     return { events:events, covered:covered, pagesScanned:Number(payload.pagesScanned || 0), source:"same-origin", updatedAt:payload.updatedAt || "", current:targetOrdinal === currentOrdinal };
 
   }
-  async function closureOfficialSearchTargetMonth(targetRocYear, targetMonth, queryToken, options) {
-    const allowLiveQuery = !!(options && options.allowLiveQuery);
+  async function closureOfficialSearchTargetMonth(targetRocYear, targetMonth, queryToken) {
     const targetRegion = getClosureOfficialRegion();
     let sameOriginResult = null;
     try {
@@ -10432,50 +10327,17 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       console.info("站內官方公告資料尚不可用", sameOriginError);
     }
     /*
-     * 自動查詢只使用同源快照。若快照尚未同步，不再把瀏覽器跨網域
-     * 失敗誤顯示成系統錯誤；使用者按「查詢官方」時才允許即時查詢。
+     * GitHub Pages 只讀同源官方資料快照。瀏覽器不再直接連線 DGPA，
+     * 也不依賴公開代理服務，避免 CORS 或代理故障造成 Failed to fetch。
      */
-    if (!allowLiveQuery) {
-      return {
-        events: sameOriginResult && Array.isArray(sameOriginResult.events) ? sameOriginResult.events : [],
-        covered: false,
-        pagesScanned: sameOriginResult ? Number(sameOriginResult.pagesScanned || 0) : 0,
-        source: sameOriginResult ? sameOriginResult.source : "same-origin-unavailable",
-        offline: true,
-        updatedAt: sameOriginResult ? (sameOriginResult.updatedAt || "") : ""
-      };
-    }
-    const targetOrdinal = closureOfficialMonthOrdinal(targetRocYear, targetMonth);
-    const allEvents = [];
-    const seenUrls = new Set();
-    let coveredTargetMonth = false;
-    let pagesScanned = 0;
-    const maxPages = 30;
-    for (let page = 1; page <= maxPages; page += 1) {
-      if (queryToken !== closureOfficialQuerySequence) throw new Error("查詢已由新的年月取代");
-      closureOfficialSetStatus(`正在背景查詢歷史公告，第 ${page} 頁…`, "warn");
-      const announcements = await closureOfficialCollectAnnouncementPage(page);
-      const fresh = announcements.filter(function (item) {
-        if (seenUrls.has(item.url)) return false;
-        seenUrls.add(item.url);
-        return true;
-      });
-      if (!fresh.length) return { events:allEvents, covered:true, pagesScanned:page };
-      const settled = await Promise.allSettled(fresh.map(function (item) { return closureOfficialReadAnnouncement(item, targetRocYear, targetMonth); }));
-      const parsed = settled.filter(function (item) { return item.status === "fulfilled" && item.value; }).map(function (item) { return item.value; });
-      parsed.forEach(function (result) { allEvents.push.apply(allEvents, result.events || []); });
-      const ordinals = parsed.map(function (result) {
-        return result.dateInfo ? closureOfficialMonthOrdinal(result.dateInfo.rocYear, result.dateInfo.month) : null;
-      }).filter(function (value) { return value !== null; });
-      pagesScanned = page;
-      if (ordinals.some(function (value) { return value === targetOrdinal; })) coveredTargetMonth = true;
-      const hasOlderThanTarget = ordinals.some(function (value) { return value < targetOrdinal; });
-      const newestOnPage = ordinals.length ? Math.max.apply(null, ordinals) : null;
-      if (hasOlderThanTarget || (coveredTargetMonth && newestOnPage !== null && newestOnPage < targetOrdinal)) {
-        return { events:allEvents, covered:true, pagesScanned:pagesScanned };
-      }
-    }
-    return { events:allEvents, covered:coveredTargetMonth, pagesScanned:pagesScanned };
+    return {
+      events: sameOriginResult && Array.isArray(sameOriginResult.events) ? sameOriginResult.events : [],
+      covered: false,
+      pagesScanned: sameOriginResult ? Number(sameOriginResult.pagesScanned || 0) : 0,
+      source: sameOriginResult ? sameOriginResult.source : "same-origin-unavailable",
+      offline: true,
+      updatedAt: sameOriginResult ? (sameOriginResult.updatedAt || "") : ""
+    };
   }
   function closureOfficialSyncRecords(events) {
     let added = 0, unchanged = 0, protectedCount = 0, removed = 0, reviewCount = 0;
@@ -10529,7 +10391,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const queryKey = targetRocYear + "-" + targetMonth + "-" + targetRegion;
       let searchResult = !opts.manual ? closureOfficialResultCache.get(queryKey) : null;
       if (!searchResult) {
-        searchResult = await closureOfficialSearchTargetMonth(targetRocYear, targetMonth, queryToken, { allowLiveQuery:opts.manual === true });
+        searchResult = await closureOfficialSearchTargetMonth(targetRocYear, targetMonth, queryToken);
         if (queryToken !== closureOfficialQuerySequence) return;
         if (searchResult.covered) closureOfficialResultCache.set(queryKey, searchResult);
       }
@@ -10560,8 +10422,8 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         const targetOrdinal = closureOfficialMonthOrdinal(targetRocYear, targetMonth);
         const reconciliation = result.removed || result.reviewCount ? `；移除失效 ${result.removed} 筆、人工待確認 ${result.reviewCount} 筆` : "";
         if (targetOrdinal > currentOrdinal) closureOfficialSetStatus("尚未到該月份，無官方公告資料" + reconciliation, result.reviewCount ? "warn" : "ok");
-        else if (targetOrdinal === currentOrdinal) closureOfficialSetStatus("查詢完成：目前尚無停止辦公告" + reconciliation, result.reviewCount ? "warn" : "ok");
-        else closureOfficialSetStatus("查詢完成：本月無停止辦公告" + reconciliation, result.reviewCount ? "warn" : "ok");
+        else if (targetOrdinal === currentOrdinal) closureOfficialSetStatus("查詢完成：尚無停止辦公日之公告" + reconciliation, result.reviewCount ? "warn" : "ok");
+        else closureOfficialSetStatus("查詢完成：本月無停止辦公日之公告" + reconciliation, result.reviewCount ? "warn" : "ok");
       } else {
         closureOfficialSetStatus(`查詢完成：新增 ${result.added} 筆、既有 ${result.unchanged} 筆、移除失效 ${result.removed} 筆、人工保留 ${result.protectedCount} 筆${result.reviewCount ? `（${result.reviewCount} 筆待確認）` : ""}`, result.reviewCount ? "warn" : "ok");
       }

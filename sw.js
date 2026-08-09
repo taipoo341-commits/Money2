@@ -1,4 +1,4 @@
-const CACHE_NAME = "personal-overtime-shell-v3";
+const CACHE_NAME = "personal-overtime-shell-v4";
 const APP_SHELL = [
   "./",
   "./index.html",

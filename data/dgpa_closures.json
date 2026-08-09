@@ -1,8 +1,18 @@
 {
-  "schemaVersion": 1,
-  "updatedAt": "",
+  "schemaVersion": 2,
+  "updatedAt": "2026-08-09T12:27:11+08:00",
   "source": "https://www.dgpa.gov.tw",
-  "pagesScanned": 0,
-  "coverage": {},
+  "pagesScanned": 1,
+  "coverage": {
+    "minRocYear": 115,
+    "minMonth": 8,
+    "maxRocYear": 115,
+    "maxMonth": 8
+  },
+  "lastEvent": {
+    "rocYear": 115,
+    "month": 7,
+    "day": 20
+  },
   "events": []
 }

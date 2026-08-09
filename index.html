@@ -4338,6 +4338,11 @@
 }
 /* === 交接班獨立設定、期間例外與代理動態分鐘結束 === */
 </style>
+<style>
+/* === V13 自訂／複合假別與調班後請假 === */
+.code-picker-v13-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 14px 10px}.code-picker-v13-action{min-height:38px;border:1px solid rgba(246,196,83,.38);border-radius:11px;background:linear-gradient(90deg,rgba(246,196,83,.12),rgba(16,185,129,.10));color:#fde68a;font-size:12px;font-weight:950;cursor:pointer}.code-picker-v13-action.secondary{border-color:rgba(103,232,249,.34);background:rgba(14,116,144,.13);color:#a5f3fc}.code-picker-v13-action.restore{grid-column:1/-1;border-color:rgba(52,211,153,.48);background:rgba(16,185,129,.16);color:#a7f3d0}.custom-leave-form-v13,.compound-editor-v13{margin:0 14px 12px;padding:12px;border:1px solid rgba(246,196,83,.32);border-radius:15px;background:linear-gradient(135deg,rgba(54,30,9,.48),rgba(6,35,32,.42));display:grid;gap:9px}.custom-leave-form-v13-title,.compound-editor-v13-title{color:#fde68a;font-size:13px;font-weight:950}.custom-leave-form-v13-row{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:8px}.custom-leave-name-v13,.compound-item-select-v13,.compound-item-hours-v13{width:100%;min-width:0;height:38px;border:1px solid rgba(103,232,249,.34);border-radius:10px;background:rgba(0,0,0,.34);color:#ecfeff;padding:0 10px;font-size:13px;font-weight:900;outline:none}.custom-leave-save-v13,.compound-confirm-v13,.compound-add-v13{border:1px solid rgba(52,211,153,.5);border-radius:10px;background:rgba(16,185,129,.17);color:#a7f3d0;font-size:12px;font-weight:950;cursor:pointer}.custom-leave-hint-v13,.compound-hint-v13,.compound-message-v13{color:#94a3b8;font-size:10px;line-height:1.45}.compound-message-v13.error{color:#fda4af}.custom-leave-list-v13{display:grid;gap:7px}.custom-leave-row-v13{display:grid;grid-template-columns:minmax(0,1fr) 70px;gap:7px;align-items:center;min-height:50px;border:1px solid rgba(110,231,183,.18);border-radius:13px;background:rgba(16,185,129,.06);padding:5px 7px}.custom-leave-select-v13{height:40px;border:0;background:transparent;color:#d1fae5;text-align:left;padding:0 8px;font-size:15px;font-weight:950;cursor:pointer}.custom-leave-toggle-v13{height:34px;border:1px solid rgba(251,113,133,.34);border-radius:9px;background:rgba(244,63,94,.10);color:#fda4af;font-size:11px;font-weight:900;cursor:pointer}.compound-items-v13{display:grid;gap:7px}.compound-item-row-v13{display:grid;grid-template-columns:minmax(0,1fr) 82px 58px;gap:7px;align-items:center}.compound-item-hours-v13{text-align:center}.compound-item-remove-v13{height:38px;border:1px solid rgba(251,113,133,.38);border-radius:10px;background:rgba(244,63,94,.11);color:#fda4af;font-size:11px;font-weight:900;cursor:pointer}.compound-editor-actions-v13{display:grid;grid-template-columns:1fr 1fr;gap:8px}.compound-add-v13,.compound-confirm-v13{min-height:38px}.compound-summary-v13{display:flex;justify-content:space-between;gap:10px;color:#cbd5e1;font-size:11px;font-weight:900}.code-option-row.adjusted-underlay-v13{outline:1px solid rgba(52,211,153,.38)}
+@media(max-width:760px){.code-picker-v13-actions{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:0 10px 9px}.code-picker-v13-action{min-height:40px;padding:4px;font-size:10px;letter-spacing:0}.custom-leave-form-v13,.compound-editor-v13{margin:0 10px 10px}.custom-leave-form-v13-row{grid-template-columns:1fr}.custom-leave-save-v13{min-height:40px}.compound-item-row-v13{grid-template-columns:minmax(0,1fr) 68px 50px}.compound-item-select-v13,.compound-item-hours-v13,.compound-item-remove-v13{height:40px;padding:0 6px}.compound-editor-actions-v13{grid-template-columns:1fr}.custom-leave-select-v13{font-size:16px}}
+</style>
 </head>
 <body>
   <div class="app">
@@ -5179,7 +5184,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     }
     
     const PARAMETER_SETTINGS_STORAGE_KEY = "personalOvertimeParameterSettings";
-    const PARAMETER_DEFAULT_SETTINGS = { version: 12, sections: { shiftRulesEnabled: true, holidayOverridesEnabled: true }, shiftRules: [], holidayOverrides: [], calc: { hoursEnabled: false, handoverEnabled: false, salaryEnabled: false, codeHours: { "0": 0, "1": 9, "2": 8, "3": 7 }, hourExceptions: [], handoverMinutes: 30, handoverExceptions: [], core: { monthlyOvertimeCap: 46, salaryHourDivisor: 240, normalHoursPerDay: 8, attendanceYearStartMonth: 11, specialLeaveSubsidyMaxDays: 14, specialLeaveSubsidyPerDay: 1333 }, election: { effectiveStart: "00:00", effectiveEnd: "24:00", rules: [{id:"e3-1",shiftValue:3,occurrence:1,d10Minutes:30,publicLeaveHours:0,enabled:true},{id:"e3-2",shiftValue:3,occurrence:2,d10Minutes:120,publicLeaveHours:0,enabled:true},{id:"e3-3",shiftValue:3,occurrence:3,d10Minutes:120,publicLeaveHours:0,enabled:true},{id:"e2-1",shiftValue:2,occurrence:1,d10Minutes:0,publicLeaveHours:2,enabled:true},{id:"e2-2",shiftValue:2,occurrence:2,d10Minutes:0,publicLeaveHours:2,enabled:true},{id:"e2-3",shiftValue:2,occurrence:3,d10Minutes:0,publicLeaveHours:0.5,enabled:true}] }, rates: { code7: "4/3", code8: "5/3", code6: "8/3" }, fees: { initialNight: 250, deepNight: 400, breakfast: 75, lunchDinner: 150, redEnvelope: 600, reunionDinner: 800 } } };
+    const PARAMETER_DEFAULT_SETTINGS = { version: 13, sections: { shiftRulesEnabled: true, holidayOverridesEnabled: true }, shiftRules: [], holidayOverrides: [], calc: { hoursEnabled: false, handoverEnabled: false, salaryEnabled: false, codeHours: { "0": 0, "1": 9, "2": 8, "3": 7 }, hourExceptions: [], handoverMinutes: 30, handoverExceptions: [], customLeaveTypes: [], core: { monthlyOvertimeCap: 46, salaryHourDivisor: 240, normalHoursPerDay: 8, attendanceYearStartMonth: 11, specialLeaveSubsidyMaxDays: 14, specialLeaveSubsidyPerDay: 1333 }, election: { effectiveStart: "00:00", effectiveEnd: "24:00", rules: [{id:"e3-1",shiftValue:3,occurrence:1,d10Minutes:30,publicLeaveHours:0,enabled:true},{id:"e3-2",shiftValue:3,occurrence:2,d10Minutes:120,publicLeaveHours:0,enabled:true},{id:"e3-3",shiftValue:3,occurrence:3,d10Minutes:120,publicLeaveHours:0,enabled:true},{id:"e2-1",shiftValue:2,occurrence:1,d10Minutes:0,publicLeaveHours:2,enabled:true},{id:"e2-2",shiftValue:2,occurrence:2,d10Minutes:0,publicLeaveHours:2,enabled:true},{id:"e2-3",shiftValue:2,occurrence:3,d10Minutes:0,publicLeaveHours:0.5,enabled:true}] }, rates: { code7: "4/3", code8: "5/3", code6: "8/3" }, fees: { initialNight: 250, deepNight: 400, breakfast: 75, lunchDinner: 150, redEnvelope: 600, reunionDinner: 800 } } };
     let parameterSettings = JSON.parse(JSON.stringify(PARAMETER_DEFAULT_SETTINGS));
     let parameterDatePickerState = { target: "", index: -1, year: 2026, month: 1 };
     function deepCloneParameter(obj){ return JSON.parse(JSON.stringify(obj || PARAMETER_DEFAULT_SETTINGS)); }
@@ -5205,6 +5210,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       n.calc.codeHours={"0":sanitizeParameterNumber(calc.codeHours?.["0"],0),"1":sanitizeParameterNumber(calc.codeHours?.["1"],9),"2":sanitizeParameterNumber(calc.codeHours?.["2"],8),"3":sanitizeParameterNumber(calc.codeHours?.["3"],7)};
       n.calc.handoverMinutes=Math.max(0,sanitizeParameterNumber(calc.handoverMinutes,30));
       n.calc.handoverExceptions=(Array.isArray(calc.handoverExceptions)?calc.handoverExceptions:[]).map((x,i)=>({id:String(x.id||`handover-${Date.now()}-${i}`),startDate:normalizeIsoDateText(x.startDate),endDate:normalizeIsoDateText(x.endDate),minutes:Math.max(0,Math.round(sanitizeParameterNumber(x.minutes,30))),note:String(x.note||"").trim().slice(0,40),enabled:x.enabled!==false})).filter(x=>x.startDate&&x.endDate&&x.startDate<=x.endDate).sort((a,b)=>a.startDate.localeCompare(b.startDate)||a.endDate.localeCompare(b.endDate));
+      n.calc.customLeaveTypes=(Array.isArray(calc.customLeaveTypes)?calc.customLeaveTypes:[]).map((x,i)=>({id:String(x.id||`custom-leave-${Date.now()}-${i}`).replace(/[^a-zA-Z0-9_-]/g,"-").slice(0,80),name:String(x.name||"").trim().replace(/\s+/g," ").slice(0,20),enabled:x.enabled!==false,workRule:"special",statsCategory:"none",specialSubsidy:false})).filter(x=>x.name);
       n.calc.rates={code7:String(calc.rates?.code7||"4/3"),code8:String(calc.rates?.code8||"5/3"),code6:String(calc.rates?.code6||"8/3")};
       n.calc.fees={initialNight:Math.max(0,sanitizeParameterNumber(calc.fees?.initialNight,250)),deepNight:Math.max(0,sanitizeParameterNumber(calc.fees?.deepNight,400)),breakfast:Math.max(0,sanitizeParameterNumber(calc.fees?.breakfast,75)),lunchDinner:Math.max(0,sanitizeParameterNumber(calc.fees?.lunchDinner,150)),redEnvelope:Math.max(0,sanitizeParameterNumber(calc.fees?.redEnvelope,600)),reunionDinner:Math.max(0,sanitizeParameterNumber(calc.fees?.reunionDinner,800))};
       const core=calc.core&&typeof calc.core==="object"?calc.core:{};
@@ -10667,6 +10673,846 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   else initOfficialClosureQuery();
 })();
 /* === 停止辦公官方自動查詢：功能結束 === */
+</script>
+
+<script>
+/* === V13 自訂／複合假別與調班後請假：功能開始 === */
+(function () {
+  const LEGACY_COMPOUND_COMPONENTS = {
+    "5.1": [5, 6], "5.2": [5, 8], "5.3": [5, 7], "5.4": [5, 8.4], "5.5": [5, 4.2],
+    "6.1": [6, 8], "6.2": [6, 7], "6.4": [6, 8.4], "6.5": [6, 4.2],
+    "7.1": [8, 7], "7.2": [7, 8.4], "7.3": [8, 8.4], "8.7": [8.6, 5], "8.8": [8.6, 6]
+  };
+  const COMPOUND_COMPONENT_CODES = [4, 4.1, 4.2, 4.3, 5, 6, 6.3, 7, 8, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6];
+  let customLeaveFormOpenV13 = false;
+  let compoundEditorOpenV13 = false;
+  let compoundDraftV13 = [];
+  let compoundMessageV13 = "";
+
+  const normalizeParameterSettingsBeforeV13 = normalizeParameterSettings;
+  normalizeParameterSettings = function (raw) {
+    const normalized = normalizeParameterSettingsBeforeV13(raw);
+    const calc = raw && raw.calc && typeof raw.calc === "object" ? raw.calc : {};
+    const source = Array.isArray(calc.customLeaveTypes) ? calc.customLeaveTypes : (normalized.calc.customLeaveTypes || []);
+    const usedIds = new Set();
+    normalized.version = Math.max(13, Number(normalized.version || 0));
+    normalized.calc.customLeaveTypes = source.map(function (item, index) {
+      let id = String(item && item.id ? item.id : `custom-leave-${Date.now()}-${index}`).replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 80);
+      while (usedIds.has(id)) id += `-${index}`;
+      usedIds.add(id);
+      return {
+        id,
+        name: String(item && item.name ? item.name : "").trim().replace(/\s+/g, " ").slice(0, 20),
+        enabled: !item || item.enabled !== false,
+        workRule: "special",
+        statsCategory: "none",
+        specialSubsidy: false
+      };
+    }).filter(item => item.name);
+    return normalized;
+  };
+  parameterSettings = normalizeParameterSettings(parameterSettings);
+  saveParameterSettings();
+
+  function getCustomLeaveTypesV13(includeDisabled) {
+    const list = Array.isArray(parameterSettings.calc && parameterSettings.calc.customLeaveTypes) ? parameterSettings.calc.customLeaveTypes : [];
+    return includeDisabled ? list : list.filter(item => item.enabled !== false);
+  }
+  function getCustomLeaveTypeV13(id) {
+    return getCustomLeaveTypesV13(true).find(item => item.id === String(id || "")) || null;
+  }
+  function normalizeCustomLeaveNameV13(value) {
+    return String(value || "").trim().replace(/\s+/g, " ").slice(0, 20);
+  }
+  function getAdjustedCodeFromRecordV13(record) {
+    const explicit = Number(record && record.adjustedCode);
+    if (ADJUST_CODES.has(explicit)) return explicit;
+    const legacy = Number(record && record.code);
+    if (ADJUST_CODES.has(legacy)) return legacy;
+    return null;
+  }
+  function getPlannedCodeV13(dayInfo) {
+    const explicit = Number(dayInfo && dayInfo.plannedCode);
+    if (ADJUST_CODES.has(explicit)) return explicit;
+    const adjusted = Number(dayInfo && dayInfo.adjustedCode);
+    if (ADJUST_CODES.has(adjusted)) return adjusted;
+    return Number(dayInfo && dayInfo.baseCode || 0);
+  }
+  function getPlannedValueV13(dayInfo) {
+    return getCodeValue(getPlannedCodeV13(dayInfo));
+  }
+  function getConfiguredShiftHoursV13(value) {
+    const v = Number(value || 0);
+    const defaults = { 0: 0, 1: 9, 2: 8, 3: 7 };
+    if (parameterSettings.calc && parameterSettings.calc.hoursEnabled === true) {
+      const configured = Number(parameterSettings.calc.codeHours && parameterSettings.calc.codeHours[String(v)]);
+      if (Number.isFinite(configured)) return Math.max(0, configured);
+    }
+    return defaults[v] || 0;
+  }
+  function getPlannedHoursV13(dayInfo) {
+    const explicit = Number(dayInfo && dayInfo.plannedHours);
+    if (Number.isFinite(explicit) && explicit >= 0) return explicit;
+    if (ADJUST_CODES.has(getPlannedCodeV13(dayInfo))) return getConfiguredShiftHoursV13(getPlannedValueV13(dayInfo));
+    return Math.max(0, Number(dayInfo && dayInfo.baseHours || 0));
+  }
+  function hasAdjustedLayerV13(dayInfo) {
+    return ADJUST_CODES.has(Number(dayInfo && dayInfo.adjustedCode));
+  }
+  function getPlannedDisplayNameV13(dayInfo) {
+    const planned = getPlannedCodeV13(dayInfo);
+    return hasAdjustedLayerV13(dayInfo) ? getLabel(planned) : getBaseDisplayName(dayInfo);
+  }
+  function getItemCategoryV13(item) {
+    if (!item || item.customLeaveId) return "";
+    const code = Number(item.code);
+    if (code === 5) return "special";
+    if (code === 7) return "sick";
+    if (code === 8) return "personal";
+    if (code === 8.5) return "family";
+    if (code === 8.6) return "mind";
+    return "";
+  }
+  function componentKeyV13(item) {
+    if (item && item.customLeaveId) return `custom:${item.customLeaveId}`;
+    if (item && item.kind === "other") return "other";
+    return `code:${Number(item && item.code)}`;
+  }
+  function itemFromComponentKeyV13(key, day, hours) {
+    const text = String(key || "");
+    if (text.startsWith("custom:")) {
+      const id = text.slice(7);
+      const custom = getCustomLeaveTypeV13(id);
+      return custom ? { key: text, customLeaveId: id, label: custom.name, hours: Math.max(0, Number(hours) || 0), statsCategory: "none" } : null;
+    }
+    if (text === "other") {
+      const label = getOtherCodeLabelForDay(day);
+      return label !== "其他" ? { key: text, kind: "other", label, hours: Math.max(0, Number(hours) || 0), statsCategory: "none" } : null;
+    }
+    const code = Number(text.replace(/^code:/, ""));
+    if (!COMPOUND_COMPONENT_CODES.some(value => Number(value) === code)) return null;
+    const item = { key: `code:${code}`, code, label: getLabel(code), hours: Math.max(0, Number(hours) || 0) };
+    item.statsCategory = getItemCategoryV13(item);
+    return item;
+  }
+  function normalizeCompoundItemsV13(items, day) {
+    return (Array.isArray(items) ? items : []).map(function (item) {
+      const key = item && item.key ? item.key : componentKeyV13(item || {});
+      const normalized = itemFromComponentKeyV13(key, day, Math.round(Math.max(0, Number(item && item.hours) || 0) * 2) / 2);
+      if (!normalized && item && item.label) {
+        return { key: String(key || "other"), kind: "other", label: String(item.label).trim().slice(0, 20), hours: Math.round(Math.max(0, Number(item.hours) || 0) * 2) / 2, statsCategory: "none" };
+      }
+      return normalized;
+    }).filter(Boolean).slice(0, 4);
+  }
+  function getCompoundItemsForDayV13(day) {
+    const record = manualRecords[day] || {};
+    return normalizeCompoundItemsV13(record.compoundItems, day);
+  }
+  function splitKeyForItemV13(item, index) {
+    if (item.customLeaveId || item.kind === "other") return `自訂項目${index + 1}_${String(item.customLeaveId || "other").replace(/[^a-zA-Z0-9_-]/g, "")}`;
+    return String(item.label || getLabel(item.code));
+  }
+  function buildLegacySplitFromItemsV13(items) {
+    const split = {};
+    items.forEach(function (item, index) {
+      const hours = Math.max(0, Number(item.hours) || 0);
+      if (hours > 0) split[splitKeyForItemV13(item, index)] = hours;
+    });
+    return split;
+  }
+  function legacyItemsForCodeV13(code, day) {
+    const codes = LEGACY_COMPOUND_COMPONENTS[keyOf(code)] || [];
+    const split = manualRecords[day] && manualRecords[day].compoundSplit && typeof manualRecords[day].compoundSplit === "object" ? manualRecords[day].compoundSplit : {};
+    return codes.map(function (value) {
+      const label = getLabel(value);
+      return itemFromComponentKeyV13(`code:${value}`, day, Number(split[label] || 0));
+    }).filter(Boolean);
+  }
+  function getCompoundLabelV13(items) {
+    return items.map(item => item.label).filter(Boolean).join("+");
+  }
+  function findLegacyCompoundCodeV13(items) {
+    const signature = items.map(componentKeyV13).sort().join("|");
+    const match = Object.entries(LEGACY_COMPOUND_COMPONENTS).find(function (entry) {
+      const target = entry[1].map(code => `code:${code}`).sort().join("|");
+      return target === signature;
+    });
+    return match ? Number(match[0]) : 8.9;
+  }
+
+  const getLabelForDayBeforeV13 = getLabelForDay;
+  getLabelForDay = function (code, day) {
+    const record = manualRecords[day] || {};
+    const items = getCompoundItemsForDayV13(day);
+    if (items.length >= 2) return getCompoundLabelV13(items);
+    if (Number(code) === 8.9 && record.customLeaveId) {
+      const custom = getCustomLeaveTypeV13(record.customLeaveId);
+      return custom ? custom.name : normalizeOtherCodeLabel(record.otherLabel || "其他");
+    }
+    return getLabelForDayBeforeV13(code, day);
+  };
+  const getLabelForDayInfoBeforeV13 = getLabelForDayInfo;
+  getLabelForDayInfo = function (code, dayInfo) {
+    const items = normalizeCompoundItemsV13(dayInfo && dayInfo.compoundItems, dayInfo && dayInfo.day);
+    if (items.length >= 2) return getCompoundLabelV13(items);
+    if (Number(code) === 8.9 && dayInfo && dayInfo.customLeaveId) {
+      const custom = getCustomLeaveTypeV13(dayInfo.customLeaveId);
+      return custom ? custom.name : normalizeOtherCodeLabel(dayInfo.otherLabel || "其他");
+    }
+    return getLabelForDayInfoBeforeV13(code, dayInfo);
+  };
+  hasMeaningfulManualRecord = function (record) {
+    if (!record || typeof record !== "object") return false;
+    return record.code !== undefined || record.adjustedCode !== undefined || record.leaveHours !== undefined || record.trainingMode !== undefined || record.compoundSplit !== undefined || record.compoundItems !== undefined || record.otherLabel !== undefined || record.customLeaveId !== undefined;
+  };
+  isCompoundLeaveCodeForDay = function (code, day) {
+    const record = manualRecords[day] || {};
+    if (getCompoundItemsForDayV13(day).length >= 2) return true;
+    if (record.compoundSplit && typeof record.compoundSplit === "object" && Object.keys(record.compoundSplit).length >= 2) return true;
+    return Boolean(LEGACY_COMPOUND_COMPONENTS[keyOf(code)]);
+  };
+  getCompoundPartsForDay = function (code, day) {
+    const items = getCompoundItemsForDayV13(day);
+    if (items.length >= 2) return items.map(item => item.label);
+    const legacyItems = legacyItemsForCodeV13(code, day);
+    if (legacyItems.length >= 2) return legacyItems.map(item => item.label);
+    const split = manualRecords[day] && manualRecords[day].compoundSplit;
+    return split && typeof split === "object" ? Object.keys(split) : [];
+  };
+  getCompoundSplitRecord = function (day) {
+    const items = getCompoundItemsForDayV13(day);
+    if (items.length >= 2) return buildLegacySplitFromItemsV13(items);
+    const record = manualRecords[day] || {};
+    return record.compoundSplit && typeof record.compoundSplit === "object" ? record.compoundSplit : {};
+  };
+  hasCompoundSplitInput = function (dayInfo) {
+    return Object.values(getCompoundSplitRecord(dayInfo.day)).some(value => Number(value) > 0);
+  };
+  getCompoundSplitTotalHours = function (dayInfo) {
+    return Object.values(getCompoundSplitRecord(dayInfo.day)).reduce((sum, value) => sum + Math.max(0, Number(value) || 0), 0);
+  };
+  getCompoundFullDayThresholdHours = function (dayInfo) {
+    if (!dayInfo || !isLeaveCode(dayInfo.actualCode) || getPlannedValueV13(dayInfo) === 0) return 0;
+    return Math.max(0, calcD11BaseByWeight(dayInfo) + calcD11PositiveAdjustment(dayInfo) - calcCompoundFullDayDeduct(dayInfo));
+  };
+  isCompoundSplitPartialLeave = function (dayInfo) {
+    if (!isCompoundLeaveCodeForDay(dayInfo.actualCode, dayInfo.day) || !hasCompoundSplitInput(dayInfo)) return false;
+    const threshold = getCompoundFullDayThresholdHours(dayInfo);
+    return threshold > 0 && getCompoundSplitTotalHours(dayInfo) < threshold;
+  };
+  getEffectiveLeaveHours = function (dayInfo) {
+    const code = Number(dayInfo.actualCode);
+    if (!isLeaveCode(code)) return 0;
+    const record = manualRecords[dayInfo.day] || {};
+    if (isCompoundLeaveCodeForDay(code, dayInfo.day) && hasCompoundSplitInput(dayInfo)) return getCompoundSplitTotalHours(dayInfo);
+    if (record.leaveHours !== undefined && Number(record.leaveHours) > 0) return Number(record.leaveHours);
+    if (dayInfo.electionAutoPublicLeave && Number(dayInfo.leaveHours || 0) > 0) return Number(dayInfo.leaveHours || 0);
+    if (record.code !== undefined) return getPlannedHoursV13(dayInfo);
+    return Number(dayInfo.leaveHours || 0);
+  };
+
+  function clearLeavePayloadV13(record) {
+    delete record.leaveHours;
+    delete record.trainingMode;
+    delete record.compoundSplit;
+    delete record.compoundItems;
+    delete record.customLeaveId;
+    delete record.otherLabel;
+  }
+  function preserveLegacyAdjustedLayerV13(record) {
+    if (!ADJUST_CODES.has(Number(record.adjustedCode)) && ADJUST_CODES.has(Number(record.code))) record.adjustedCode = Number(record.code);
+  }
+  selectActualCodeForDay = function (day, code) {
+    pendingCodePickerReopen = null;
+    closeCodePickerPortal();
+    if (!manualRecords[day]) manualRecords[day] = {};
+    const record = manualRecords[day];
+    const numericCode = Number(code);
+    if (ADJUST_CODES.has(numericCode)) {
+      record.adjustedCode = numericCode;
+      record.code = numericCode;
+      clearLeavePayloadV13(record);
+    } else if (isLeaveCode(numericCode)) {
+      preserveLegacyAdjustedLayerV13(record);
+      record.code = numericCode;
+      delete record.compoundSplit;
+      delete record.compoundItems;
+      delete record.customLeaveId;
+      if (numericCode === 8.9) record.otherLabel = getOtherCodeLabelForDay(day);
+      else delete record.otherLabel;
+      if (numericCode !== 4) delete record.trainingMode;
+    } else {
+      record.code = numericCode;
+      delete record.adjustedCode;
+      clearLeavePayloadV13(record);
+      if (numericCode === 4) delete record.trainingMode;
+    }
+    markManualRecordSource(day, "manual");
+    saveCurrentMonthState();
+    renderAll(false);
+  };
+  function selectCustomLeaveForDayV13(day, customId) {
+    const custom = getCustomLeaveTypeV13(customId);
+    if (!custom || custom.enabled === false) return;
+    if (!manualRecords[day]) manualRecords[day] = {};
+    const record = manualRecords[day];
+    preserveLegacyAdjustedLayerV13(record);
+    record.code = 8.9;
+    record.customLeaveId = custom.id;
+    record.otherLabel = custom.name;
+    delete record.compoundSplit;
+    delete record.compoundItems;
+    delete record.trainingMode;
+    markManualRecordSource(day, "manual");
+    saveCurrentMonthState();
+    closeCodePickerPortal();
+    renderAll(false);
+  }
+  function restoreAdjustedShiftV13(day) {
+    const record = manualRecords[day];
+    const adjustedCode = getAdjustedCodeFromRecordV13(record);
+    if (!record || !ADJUST_CODES.has(Number(adjustedCode))) return;
+    clearLeavePayloadV13(record);
+    record.adjustedCode = Number(adjustedCode);
+    record.code = Number(adjustedCode);
+    markManualRecordSource(day, "manual");
+    saveCurrentMonthState();
+    closeCodePickerPortal();
+    renderAll(false);
+  }
+
+  function addCustomLeaveTypeV13(name) {
+    const normalizedName = normalizeCustomLeaveNameV13(name);
+    if (!normalizedName) return { ok: false, message: "請輸入假別名稱。" };
+    const reserved = CODE_OPTIONS.map(code => getLabel(code));
+    if (reserved.includes(normalizedName)) return { ok: false, message: "此名稱與現有假別相同，請直接使用原假別。" };
+    const existing = getCustomLeaveTypesV13(true).find(item => item.name === normalizedName);
+    if (existing) {
+      existing.enabled = true;
+      saveParameterSettings();
+      return { ok: true, item: existing };
+    }
+    const item = { id: `custom-leave-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, name: normalizedName, enabled: true, workRule: "special", statsCategory: "none", specialSubsidy: false };
+    parameterSettings.calc.customLeaveTypes.push(item);
+    saveParameterSettings();
+    return { ok: true, item };
+  }
+  function toggleCustomLeaveTypeV13(id) {
+    const item = getCustomLeaveTypeV13(id);
+    if (!item) return;
+    item.enabled = item.enabled === false;
+    saveParameterSettings();
+  }
+  function getComponentOptionsHtmlV13(selectedKey, day) {
+    const options = COMPOUND_COMPONENT_CODES.map(code => `<option value="code:${code}" ${selectedKey === `code:${code}` ? "selected" : ""}>${escapeHtml(getLabel(code))}</option>`);
+    const otherLabel = getOtherCodeLabelForDay(day);
+    if (otherLabel !== "其他") options.push(`<option value="other" ${selectedKey === "other" ? "selected" : ""}>${escapeHtml(otherLabel)}（本日其他）</option>`);
+    getCustomLeaveTypesV13(false).forEach(item => options.push(`<option value="custom:${escapeHtml(item.id)}" ${selectedKey === `custom:${item.id}` ? "selected" : ""}>${escapeHtml(item.name)}（自訂）</option>`));
+    return options.join("");
+  }
+  function getCompoundMaxHoursV13(day) {
+    const dayInfo = getDayInfoForCodePicker(day);
+    if (!dayInfo || getPlannedValueV13(dayInfo) === 0) return 0;
+    return Math.max(0, getPlannedHoursV13(dayInfo));
+  }
+  function initCompoundDraftV13(day) {
+    let items = getCompoundItemsForDayV13(day);
+    const record = manualRecords[day] || {};
+    if (items.length < 2) items = legacyItemsForCodeV13(record.code, day);
+    if (items.length < 2) {
+      let firstKey = "code:5";
+      if (record.customLeaveId && getCustomLeaveTypeV13(record.customLeaveId)) firstKey = `custom:${record.customLeaveId}`;
+      else if (Number(record.code) === 8.9 && getOtherCodeLabelForDay(day) !== "其他") firstKey = "other";
+      else if (isLeaveCode(record.code) && !LEGACY_COMPOUND_COMPONENTS[keyOf(record.code)] && Number(record.code) !== 8.9) firstKey = `code:${Number(record.code)}`;
+      const secondKey = firstKey === "code:5" ? "code:6" : "code:5";
+      items = [itemFromComponentKeyV13(firstKey, day, 0), itemFromComponentKeyV13(secondKey, day, 0)].filter(Boolean);
+    }
+    const maxHours = getCompoundMaxHoursV13(day);
+    if (items.length >= 2 && items.every(item => Number(item.hours || 0) <= 0) && maxHours > 0) {
+      const firstHours = Math.round((maxHours / 2) * 2) / 2;
+      items[0].hours = firstHours;
+      items[1].hours = Math.max(0, Math.round((maxHours - firstHours) * 2) / 2);
+    }
+    compoundDraftV13 = normalizeCompoundItemsV13(items, day);
+    compoundMessageV13 = "";
+  }
+  function captureCompoundDraftV13(portal, day) {
+    compoundDraftV13 = Array.from(portal.querySelectorAll("[data-compound-item-row-v13]")).map(row => {
+      const key = row.querySelector("[data-compound-item-key-v13]")?.value || "";
+      const rawHours = row.querySelector("[data-compound-item-hours-v13]")?.value || "0";
+      return itemFromComponentKeyV13(key, day, Math.round((Number(rawHours) || 0) * 2) / 2);
+    }).filter(Boolean);
+    return compoundDraftV13;
+  }
+  function buildCompoundEditorHtmlV13(day) {
+    if (!compoundEditorOpenV13) return "";
+    const maxHours = getCompoundMaxHoursV13(day);
+    const rows = compoundDraftV13.map((item, index) => `
+      <div class="compound-item-row-v13" data-compound-item-row-v13="${index}">
+        <select class="compound-item-select-v13" data-compound-item-key-v13="1">${getComponentOptionsHtmlV13(componentKeyV13(item), day)}</select>
+        <input class="compound-item-hours-v13" data-compound-item-hours-v13="1" type="text" inputmode="decimal" value="${escapeHtml(fmtHour(item.hours))}" aria-label="${escapeHtml(item.label)}時數">
+        <button class="compound-item-remove-v13" data-compound-remove-v13="${index}" type="button">移除</button>
+      </div>`).join("");
+    const total = compoundDraftV13.reduce((sum, item) => sum + Math.max(0, Number(item.hours) || 0), 0);
+    return `<div class="compound-editor-v13">
+      <div class="compound-editor-v13-title">複合式假別</div>
+      <div class="compound-items-v13">${rows}</div>
+      <div class="compound-summary-v13"><span>目前合計：${fmtHour(total)}HR</span><span>本班上限：${fmtHour(maxHours)}HR</span></div>
+      <div class="compound-hint-v13">每個假別必須明確選擇，不再依文字逐字拆分。自訂假別只套用特休工時計算，不列入特休統計與補助。</div>
+      <div class="compound-message-v13 ${compoundMessageV13 ? "error" : ""}">${escapeHtml(compoundMessageV13)}</div>
+      <div class="compound-editor-actions-v13"><button class="compound-add-v13" data-compound-add-v13="1" type="button">＋加入假別</button><button class="compound-confirm-v13" data-compound-save-v13="1" type="button">套用複合假別</button></div>
+    </div>`;
+  }
+  function buildCustomLeaveFormHtmlV13() {
+    if (!customLeaveFormOpenV13) return "";
+    return `<div class="custom-leave-form-v13"><div class="custom-leave-form-v13-title">新增常用假別</div><div class="custom-leave-form-v13-row"><input class="custom-leave-name-v13" data-custom-leave-name-v13="1" type="text" maxlength="20" placeholder="例如：活力假"><button class="custom-leave-save-v13" data-custom-leave-save-v13="1" type="button">新增並套用</button></div><div class="custom-leave-hint-v13">工時依特休規則計算；不納入特休統計，也不計算特休補助。新增後可在主月曆及批次套用。</div></div>`;
+  }
+  function buildCustomLeaveListHtmlV13(day) {
+    const items = getCustomLeaveTypesV13(false);
+    if (!items.length) return `<div class="code-empty-favorite">尚未新增常用假別</div>`;
+    return `<div class="custom-leave-list-v13">${items.map(item => `<div class="custom-leave-row-v13"><button class="custom-leave-select-v13" data-custom-leave-select-v13="${escapeHtml(item.id)}" type="button">${escapeHtml(item.name)}</button><button class="custom-leave-toggle-v13" data-custom-leave-toggle-v13="${escapeHtml(item.id)}" type="button">停用</button></div>`).join("")}</div>`;
+  }
+  buildCodeOptionRow = function (code, selectedCode, favoriteOnly, day) {
+    const favorite = isCodeFavorite(code);
+    const selected = Number(code) === Number(selectedCode);
+    if (Number(code) === 8.9) {
+      return `<div class="code-option-row code-other-row ${selected ? "selected" : ""}" data-code-row="${code}"><button class="code-star-btn" type="button" data-code-star="${code}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="code-option-btn" type="button" data-code-option="${code}">${favoriteOnly ? "★" : ""}${code}</button><input class="code-other-name-input" type="text" value="${escapeHtml(getOtherCodeLabelForDay(day))}" maxlength="20" data-other-code-input="1" data-other-code-day="${day}" title="預設為其他時會全選；自訂後可直接定位游標修字"></div>`;
+    }
+    return `<div class="code-option-row ${selected ? "selected" : ""}" data-code-row="${code}"><button class="code-star-btn" type="button" data-code-star="${code}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="code-option-btn" type="button" data-code-option="${code}">${favoriteOnly ? "★" : ""}${code} ${escapeHtml(getLabel(code))}</button></div>`;
+  };
+  buildCodePickerPortalHtml = function (day, selectedCode, allOpen) {
+    const favoriteOptions = getFavoriteCodeOptions();
+    const favoriteHtml = favoriteOptions.length ? favoriteOptions.map(code => buildCodeOptionRow(code, selectedCode, true, day)).join("") : `<div class="code-empty-favorite">未設定我的最愛</div>`;
+    const allHtml = CODE_OPTIONS.map(code => buildCodeOptionRow(code, selectedCode, false, day)).join("");
+    const record = manualRecords[day] || {};
+    const canRestore = isLeaveCode(selectedCode) && ADJUST_CODES.has(Number(record.adjustedCode));
+    return `<div class="code-picker-portal-backdrop" data-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="代碼選單" data-code-portal-day="${day}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${day} 日假別</div><div class="code-picker-portal-subtitle">假別、調班與最終出勤會分層保留</div></div><button class="code-picker-portal-close" type="button" data-code-portal-close="1">關閉</button></div><div class="code-picker-v13-actions"><button class="code-picker-v13-action secondary" type="button" data-code-portal-all-toggle="${day}">${allOpen ? "收合全部" : "全部假別"}</button><button class="code-picker-v13-action" type="button" data-custom-leave-form-toggle-v13="1">＋新增假別</button><button class="code-picker-v13-action" type="button" data-compound-open-v13="1">＋複合假別</button>${canRestore ? `<button class="code-picker-v13-action restore" type="button" data-restore-adjusted-v13="${day}">取消假別，恢復 ${escapeHtml(getLabel(record.adjustedCode))}</button>` : ""}</div><div class="code-picker-portal-scroll">${buildCustomLeaveFormHtmlV13()}${buildCompoundEditorHtmlV13(day)}<div class="code-picker-portal-section-title">常用自訂假別</div>${buildCustomLeaveListHtmlV13(day)}<div class="code-picker-portal-section-title">我的最愛</div><div class="code-picker-favorites">${favoriteHtml}</div><div class="code-picker-portal-section-title code-picker-all-title ${allOpen ? "" : "collapsed-detail"}">全部假別</div><div class="code-picker-all ${allOpen ? "" : "collapsed-detail"}" data-code-all-list="${day}">${allHtml}</div></div></div>`;
+  };
+  const openCodePickerByDayBeforeV13 = openCodePickerByDay;
+  openCodePickerByDay = function (day, openAllList, restoreScrollTop) {
+    customLeaveFormOpenV13 = false;
+    compoundEditorOpenV13 = false;
+    compoundDraftV13 = [];
+    compoundMessageV13 = "";
+    return openCodePickerByDayBeforeV13(day, openAllList, restoreScrollTop);
+  };
+  bindCodePickerPortalEvents = function (portal) {
+    portal.querySelectorAll("[data-code-portal-close]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); closeCodePickerPortal(); }));
+    portal.querySelectorAll("[data-code-portal-all-toggle]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      const scrollTop = portal.querySelector(".code-picker-portal-scroll")?.scrollTop || 0;
+      renderCodePickerPortal(activeCodePickerPortalState.day, !activeCodePickerPortalState.allOpen, scrollTop);
+    }));
+    portal.querySelectorAll(".code-star-btn").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      const scrollTop = portal.querySelector(".code-picker-portal-scroll")?.scrollTop || 0;
+      toggleCodeFavorite(btn.dataset.codeStar);
+      renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, scrollTop);
+    }));
+    portal.querySelectorAll(".code-option-btn").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (activeCodePickerPortalState) selectActualCodeForDay(activeCodePickerPortalState.day, Number(btn.dataset.codeOption));
+    }));
+    portal.querySelectorAll("[data-other-code-input]").forEach(input => {
+      const selectDefaultOnly = function () { if (normalizeOtherCodeLabel(input.value) === "其他") window.setTimeout(() => input.select(), 0); };
+      input.addEventListener("click", event => { event.stopPropagation(); selectDefaultOnly(); });
+      input.addEventListener("focus", selectDefaultOnly);
+      input.addEventListener("input", () => saveOtherCodeLabelForDay(Number(input.dataset.otherCodeDay), input.value));
+      input.addEventListener("change", () => {
+        saveOtherCodeLabelForDay(Number(input.dataset.otherCodeDay), input.value);
+        if (activeCodePickerPortalState) renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, 0);
+        renderAll(false);
+      });
+    });
+    portal.querySelectorAll("[data-custom-leave-select-v13]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); if (activeCodePickerPortalState) selectCustomLeaveForDayV13(activeCodePickerPortalState.day, btn.dataset.customLeaveSelectV13); }));
+    portal.querySelectorAll("[data-custom-leave-toggle-v13]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      toggleCustomLeaveTypeV13(btn.dataset.customLeaveToggleV13);
+      renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, portal.querySelector(".code-picker-portal-scroll")?.scrollTop || 0);
+    }));
+    portal.querySelectorAll("[data-custom-leave-form-toggle-v13]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      customLeaveFormOpenV13 = !customLeaveFormOpenV13;
+      renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, 0);
+    }));
+    portal.querySelectorAll("[data-custom-leave-save-v13]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      const result = addCustomLeaveTypeV13(portal.querySelector("[data-custom-leave-name-v13]")?.value || "");
+      if (result.ok) selectCustomLeaveForDayV13(activeCodePickerPortalState.day, result.item.id);
+      else { const hint = portal.querySelector(".custom-leave-hint-v13"); if (hint) { hint.textContent = result.message; hint.style.color = "#fda4af"; } }
+    }));
+    portal.querySelectorAll("[data-compound-open-v13]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      compoundEditorOpenV13 = !compoundEditorOpenV13;
+      if (compoundEditorOpenV13) initCompoundDraftV13(activeCodePickerPortalState.day);
+      renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, 0);
+    }));
+    portal.querySelectorAll("[data-compound-item-hours-v13]").forEach(input => {
+      input.addEventListener("focus", () => input.select());
+      input.addEventListener("input", () => { input.value = sanitizeCompoundHalfHourInputText(input.value); });
+    });
+    portal.querySelectorAll("[data-compound-add-v13]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      captureCompoundDraftV13(portal, activeCodePickerPortalState.day);
+      if (compoundDraftV13.length < 4) {
+        const used = new Set(compoundDraftV13.map(componentKeyV13));
+        const candidate = [...COMPOUND_COMPONENT_CODES.map(code => `code:${code}`), ...getCustomLeaveTypesV13(false).map(item => `custom:${item.id}`)].find(key => !used.has(key));
+        const item = itemFromComponentKeyV13(candidate || "code:5", activeCodePickerPortalState.day, 0);
+        if (item) compoundDraftV13.push(item);
+      }
+      renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, 0);
+    }));
+    portal.querySelectorAll("[data-compound-remove-v13]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      captureCompoundDraftV13(portal, activeCodePickerPortalState.day);
+      compoundDraftV13.splice(Number(btn.dataset.compoundRemoveV13), 1);
+      renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, 0);
+    }));
+    portal.querySelectorAll("[data-compound-save-v13]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      const day = activeCodePickerPortalState.day;
+      const items = captureCompoundDraftV13(portal, day);
+      const keys = items.map(componentKeyV13);
+      const total = Math.round(items.reduce((sum, item) => sum + Math.max(0, Number(item.hours) || 0), 0) * 2) / 2;
+      const maxHours = getCompoundMaxHoursV13(day);
+      if (items.length < 2) compoundMessageV13 = "複合假別至少需要兩個假別。";
+      else if (new Set(keys).size !== keys.length) compoundMessageV13 = "同一假別不可重複加入。";
+      else if (items.some(item => Number(item.hours || 0) <= 0)) compoundMessageV13 = "每個假別都必須輸入大於 0 的時數。";
+      else if (maxHours <= 0) compoundMessageV13 = "目前底層班次是空班，請先設定調班值別後再請假。";
+      else if (total > maxHours) compoundMessageV13 = `合計不可超過本班 ${fmtHour(maxHours)}HR。`;
+      else {
+        if (!manualRecords[day]) manualRecords[day] = {};
+        const record = manualRecords[day];
+        preserveLegacyAdjustedLayerV13(record);
+        const normalizedItems = normalizeCompoundItemsV13(items, day);
+        const finalCode = findLegacyCompoundCodeV13(normalizedItems);
+        record.code = finalCode;
+        record.compoundItems = normalizedItems;
+        record.compoundSplit = buildLegacySplitFromItemsV13(normalizedItems);
+        record.leaveHours = total >= maxHours ? 0 : total;
+        delete record.customLeaveId;
+        delete record.trainingMode;
+        if (finalCode === 8.9) record.otherLabel = normalizeOtherCodeLabel(getCompoundLabelV13(normalizedItems));
+        else delete record.otherLabel;
+        markManualRecordSource(day, "manual");
+        saveCurrentMonthState();
+        closeCodePickerPortal();
+        renderAll(false);
+        return;
+      }
+      renderCodePickerPortal(day, activeCodePickerPortalState.allOpen, 0);
+    }));
+    portal.querySelectorAll("[data-restore-adjusted-v13]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); restoreAdjustedShiftV13(Number(btn.dataset.restoreAdjustedV13)); }));
+  };
+
+  buildDays = function () {
+    const rocYear = Number(document.getElementById("rocYear").value);
+    const month = Number(document.getElementById("month").value);
+    const shiftGroup = document.getElementById("shiftGroup").value;
+    const year = rocYear + 1911;
+    const daysInMonth = new Date(year, month, 0).getDate();
+    const days = [];
+    for (let day = 1; day <= daysInMonth; day++) {
+      const current = new Date(year, month - 1, day);
+      const base = calcBaseShift(year, month, day, shiftGroup);
+      const record = manualRecords[day] || {};
+      const adjustedCode = getAdjustedCodeFromRecordV13(record);
+      const plannedCode = adjustedCode !== null ? adjustedCode : base.baseCode;
+      const plannedHours = adjustedCode !== null ? getConfiguredShiftHoursV13(getCodeValue(adjustedCode)) : base.baseHours;
+      let actualCode = record.code !== undefined ? Number(record.code) : plannedCode;
+      let leaveHours = record.leaveHours !== undefined ? Number(record.leaveHours) : 0;
+      const autoPublicLeaveProbe = { day, month, year, date: current, baseCode: base.baseCode, baseHours: base.baseHours, cycleIndex: base.cycleIndex, adjustedCode, plannedCode, plannedHours, actualCode, leaveHours };
+      if (shouldApplyElectionAutoPublicLeave(autoPublicLeaveProbe, record)) {
+        actualCode = 4.2;
+        leaveHours = calcElectionDefaultPublicLeaveHours({ ...autoPublicLeaveProbe, actualCode: plannedCode });
+      }
+      const compoundItems = normalizeCompoundItemsV13(record.compoundItems, day);
+      days.push(enrichDayInfo({
+        day, month, year, date: current,
+        weekIndex: getMondayFirstIndex(current), weekday: WEEK_LABELS[getMondayFirstIndex(current)],
+        baseCode: base.baseCode, baseHours: base.baseHours, cycleIndex: base.cycleIndex,
+        adjustedCode, plannedCode, plannedHours, actualCode, leaveHours,
+        customLeaveId: record.customLeaveId || "", otherLabel: record.otherLabel || "", compoundItems,
+        compoundSplit: compoundItems.length >= 2 ? buildLegacySplitFromItemsV13(compoundItems) : (record.compoundSplit || null),
+        electionAutoPublicLeave: actualCode === 4.2 && record.code === undefined,
+        holidayName: calendarData.holidayMap.get(dateKey(year, month, day)) || "",
+        isWeekend: current.getDay() === 0 || current.getDay() === 6
+      }));
+    }
+    return applySevenDayViolation(days);
+  };
+  getPreviousMonthCarryForFirstDay = function (days) {
+    if (!days.length) return 0;
+    const currentMonth = Number(days[0].month), currentYear = Number(days[0].year);
+    const shiftGroup = document.getElementById("shiftGroup")?.value || "D";
+    const previousDate = new Date(currentYear, currentMonth - 1, 0);
+    const previousYear = previousDate.getFullYear(), previousMonth = previousDate.getMonth() + 1;
+    const previousStorageKey = `personalOvertimeState:${shiftGroup}:${previousYear - 1911}:${previousMonth}`;
+    let previousManualRecords = {};
+    try { const data = JSON.parse(localStorage.getItem(previousStorageKey) || "null"); previousManualRecords = data && data.manualRecords && typeof data.manualRecords === "object" ? data.manualRecords : {}; } catch (err) { previousManualRecords = {}; }
+    let carry = 0;
+    const previousDaysInMonth = previousDate.getDate();
+    for (let day = previousDaysInMonth; day >= 1; day--) {
+      const current = new Date(previousYear, previousMonth - 1, day);
+      const base = calcBaseShift(previousYear, previousMonth, day, shiftGroup);
+      const record = previousManualRecords[day] || {};
+      const adjustedCode = getAdjustedCodeFromRecordV13(record);
+      const plannedCode = adjustedCode !== null ? adjustedCode : base.baseCode;
+      const plannedHours = adjustedCode !== null ? getConfiguredShiftHoursV13(getCodeValue(adjustedCode)) : base.baseHours;
+      const compoundItems = normalizeCompoundItemsV13(record.compoundItems, day);
+      const previousDayInfo = enrichDayInfo({ day, month: previousMonth, year: previousYear, date: current, weekIndex: getMondayFirstIndex(current), weekday: WEEK_LABELS[getMondayFirstIndex(current)], baseCode: base.baseCode, baseHours: base.baseHours, cycleIndex: base.cycleIndex, adjustedCode, plannedCode, plannedHours, actualCode: record.code !== undefined ? Number(record.code) : plannedCode, leaveHours: record.leaveHours !== undefined ? Number(record.leaveHours) : 0, customLeaveId: record.customLeaveId || "", otherLabel: record.otherLabel || "", compoundItems, compoundSplit: compoundItems.length >= 2 ? buildLegacySplitFromItemsV13(compoundItems) : (record.compoundSplit || null), holidayName: calendarData.holidayMap.get(dateKey(previousYear, previousMonth, day)) || "", isWeekend: current.getDay() === 0 || current.getDay() === 6 });
+      if (isWorkForContinuousWorkBlock(previousDayInfo)) carry += 1; else break;
+    }
+    if (Object.keys(previousManualRecords).length === 0 && carry === previousDaysInMonth) return PREVIOUS_MONTH_WORK_CARRY[Number(days[0].cycleIndex)] || 0;
+    return carry;
+  };
+
+  const calcD8ChangeTextBeforeV13 = calcD8ChangeText;
+  calcD8ChangeText = function (dayInfo) {
+    const result = calcD8ChangeTextBeforeV13(dayInfo);
+    if (!isLeaveCode(dayInfo.actualCode) || !hasAdjustedLayerV13(dayInfo) || result === "錯誤登錄") return result;
+    const leaveText = hasPartialLeaveHrText(dayInfo) ? `${getLabelForDayInfo(dayInfo.actualCode, dayInfo)}${fmtHourWithUnit(getEffectiveLeaveHours(dayInfo))}` : getLabelForDayInfo(dayInfo.actualCode, dayInfo);
+    return `${getBaseDisplayName(dayInfo)}→${getLabel(dayInfo.adjustedCode)}→${leaveText}`;
+  };
+  const getDisplayLabelBeforeV13 = getDisplayLabel;
+  getDisplayLabel = function (dayInfo) {
+    if (isLeaveCode(dayInfo.actualCode) && hasAdjustedLayerV13(dayInfo) && isValidActualCode(dayInfo)) {
+      const label = getLabelForDayInfo(dayInfo.actualCode, dayInfo);
+      const hours = hasPartialLeaveHrText(dayInfo) ? fmtHourWithUnit(getEffectiveLeaveHours(dayInfo)) : "";
+      return `${label}${hours}(${getLabel(dayInfo.adjustedCode)})`;
+    }
+    return getDisplayLabelBeforeV13(dayInfo);
+  };
+  getEffectiveShiftValueForHoliday = function (dayInfo) {
+    const codeValue = getCodeValue(dayInfo.actualCode);
+    if (codeValue > 0) return codeValue;
+    return isLeaveCode(dayInfo.actualCode) ? getPlannedValueV13(dayInfo) : 0;
+  };
+  getElectionRuleValue = function (dayInfo) {
+    return getCodeValue(dayInfo.actualCode) || getPlannedValueV13(dayInfo) || 0;
+  };
+  isValidActualCode = function (dayInfo) {
+    const code = Number(dayInfo.actualCode);
+    const baseCode = Number(dayInfo.baseCode);
+    if (!CODE_OPTIONS.some(value => Number(value) === code)) return false;
+    if (code > 4.3 && code < 9 && getPlannedValueV13(dayInfo) === 0) return false;
+    if (baseCode > 0 && baseCode < 4 && code > 20 && code < 24) return false;
+    return true;
+  };
+  const calcD11PositiveAdjustmentBeforeV13 = calcD11PositiveAdjustment;
+  calcD11PositiveAdjustment = function (dayInfo) {
+    return hasAdjustedLayerV13(dayInfo) ? 0 : calcD11PositiveAdjustmentBeforeV13(dayInfo);
+  };
+  const calcD11UsesCustomShiftHoursBeforeV13 = calcD11UsesCustomShiftHours;
+  calcD11UsesCustomShiftHours = function (dayInfo) {
+    return hasAdjustedLayerV13(dayInfo) ? false : calcD11UsesCustomShiftHoursBeforeV13(dayInfo);
+  };
+  const calcD11BaseByWeightBeforeV13 = calcD11BaseByWeight;
+  calcD11BaseByWeight = function (dayInfo) {
+    return hasAdjustedLayerV13(dayInfo) ? getPlannedHoursV13(dayInfo) : calcD11BaseByWeightBeforeV13(dayInfo);
+  };
+  calcD10OvertimeMinutes = function (dayInfo) {
+    const code = Number(dayInfo.actualCode);
+    const trainingMinutes = calcTrainingMinutes(dayInfo.day);
+    if (dayInfo.changeText === "錯誤登錄" || dayInfo.noteText === "錯誤登錄" || dayInfo.changeText === "違規") return 0;
+    if (isWeekendTrainingClass(dayInfo)) return 0;
+    if (code === 4 && isRestTextForD11(dayInfo.changeText)) return 0;
+    if (isSubstituteCode(code)) return getParameterHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) + trainingMinutes;
+    const overhaulOverrideMinutes = getOverhaulOverrideMinutes(dayInfo.day, dayInfo.year, dayInfo.month);
+    if (overhaulOverrideMinutes !== null) return overhaulOverrideMinutes;
+    if (isOverhaulActiveDay(dayInfo.day)) return 0;
+    if (code === 0 || code === 9 || code === 10) return trainingMinutes;
+    if (isLeaveCode(code)) {
+      if (isCompoundLeaveCodeForDay(code, dayInfo.day) && hasCompoundSplitInput(dayInfo)) return isCompoundSplitPartialLeave(dayInfo) ? getParameterPartialHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) + trainingMinutes : trainingMinutes;
+      if (getPlannedValueV13(dayInfo) > 0 && hasPartialLeaveHrText(dayInfo)) return getParameterPartialHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) + trainingMinutes;
+      return trainingMinutes;
+    }
+    let minutes = isWorkCode(code) ? getParameterHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) : 0;
+    return Math.max(0, minutes + calcElectionD10AdjustmentMinutes(dayInfo) + trainingMinutes);
+  };
+  calcD11AttendanceHours = function (dayInfo) {
+    const code = Number(dayInfo.actualCode);
+    const baseCode = Number(dayInfo.baseCode);
+    if (dayInfo.changeText === "違規") return "違規";
+    if (isD11Error(dayInfo) || !isValidActualCode(dayInfo)) return "錯誤登錄";
+    if (baseCode !== 0 && code === 35) return 0;
+    if (isWeekendTrainingClass(dayInfo)) return 8;
+    if (code === 0 || code === 10 || String(dayInfo.changeText || "") === "空班" || String(dayInfo.changeText || "") === "調班空班" || isRestTextForD11(dayInfo.changeText)) return 0;
+    if (code === 4 && getPlannedValueV13(dayInfo) === 0) return 8;
+    if (isLeaveCode(code) && getPlannedValueV13(dayInfo) > 0) return Math.max(0, calcD11BaseByWeight(dayInfo) + calcD11PositiveAdjustment(dayInfo) - calcD11FullDayDeduct(dayInfo));
+    if (isWorkCode(code)) {
+      const value = getCodeValue(code);
+      if (isElectionDay(dayInfo.day) && [2, 3].includes(getElectionRuleValue(dayInfo))) return Math.max(0, calcD11BaseByWeight(dayInfo) - calcD11BackDeduct(dayInfo));
+      const configuredBase = calcD11UsesCustomShiftHours(dayInfo) ? Math.max(0, Number(dayInfo.baseHours || 0)) : getConfiguredShiftHoursV13(value);
+      return Math.max(0, configuredBase + calcD11PositiveAdjustment(dayInfo) - calcD11BackDeduct(dayInfo));
+    }
+    return 0;
+  };
+  getEffectiveValueForCalendarClosure = function (dayInfo) {
+    if (!canUseDayInfoForCalendarClosure(dayInfo)) return 0;
+    return isLeaveCode(dayInfo.actualCode) ? getPlannedValueV13(dayInfo) : getCodeValue(dayInfo.actualCode);
+  };
+  getShiftIntervalsForClosure = function (dayInfo) {
+    const code = Number(dayInfo.actualCode);
+    const baseCode = Number(dayInfo.baseCode);
+    const cycleIndex = Number(dayInfo.cycleIndex);
+    let effectiveValue = getCodeValue(code), effectiveCode = code;
+    if (isLeaveCode(code)) { effectiveValue = getPlannedValueV13(dayInfo); effectiveCode = getPlannedCodeV13(dayInfo); }
+    if (effectiveValue === 1) return !hasAdjustedLayerV13(dayInfo) && cycleIndex === 5 ? [[-1.25, 7.75]] : [[0, 9]];
+    if (effectiveValue === 2) return !hasAdjustedLayerV13(dayInfo) && effectiveCode === baseCode && cycleIndex === 2 ? [[7.75, 14.25]] : [[7.75, 15.75]];
+    if (effectiveValue === 3) return !hasAdjustedLayerV13(dayInfo) && effectiveCode === baseCode && cycleIndex === 8 ? [[14.25, 22.75]] : [[15.75, 22.75]];
+    return [];
+  };
+  getActualWorkHoursForBenefit = function (dayInfo) {
+    const code = Number(dayInfo.actualCode);
+    const attendanceHours = typeof dayInfo.attendanceHours === "number" ? Number(dayInfo.attendanceHours || 0) : 0;
+    if (isLeaveCode(code) && hasPartialLeaveHrText(dayInfo)) return Math.max(0, getPlannedHoursV13(dayInfo) - getEffectiveLeaveHours(dayInfo));
+    if (isLeaveCode(code) && isFullDayLeave(dayInfo)) return 0;
+    return attendanceHours;
+  };
+  isValidBenefitWorkDay = function (dayInfo) {
+    if (dayInfo.changeText === "錯誤登錄" || dayInfo.noteText === "錯誤登錄") return false;
+    if (isWorkCode(dayInfo.actualCode)) return true;
+    return isLeaveCode(dayInfo.actualCode) && getPlannedValueV13(dayInfo) > 0;
+  };
+  shouldCountMealBenefit = function (dayInfo, validCodes, allDays) {
+    if (dayInfo.isViolation || dayInfo.changeText === "錯誤登錄" || dayInfo.noteText === "錯誤登錄") return false;
+    const mealCode = isLeaveCode(dayInfo.actualCode) && hasPartialLeaveHrText(dayInfo) ? getPlannedCodeV13(dayInfo) : Number(dayInfo.actualCode);
+    if (!validCodes.includes(mealCode)) return false;
+    if (hasClosure(dayInfo.day)) return isClosureMealTimeCovered(dayInfo, getMealHourForShiftValue(getCodeValue(mealCode)), allDays);
+    if (!isSpecialMealBenefitDay(dayInfo) || (isLeaveCode(dayInfo.actualCode) && isFullDayLeave(dayInfo))) return false;
+    const leaveHours = hasPartialLeaveHrText(dayInfo) ? getEffectiveLeaveHours(dayInfo) : 0;
+    return leaveHours === 0 || getMealActualWorkHours(dayInfo) >= 2;
+  };
+  const classifyLeaveStatByCodeBeforeV13 = classifyLeaveStatByCode;
+  classifyLeaveStatByCode = function (code, dayInfo) {
+    if (Number(code) === 8.9) return "";
+    return classifyLeaveStatByCodeBeforeV13(code, dayInfo);
+  };
+
+  const normalizeBatchRangeRecordBeforeV13 = normalizeBatchRangeRecord;
+  normalizeBatchRangeRecord = function (record) {
+    const normalized = normalizeBatchRangeRecordBeforeV13(record || {});
+    normalized.customLeaveId = String(record && record.customLeaveId || "");
+    if (normalized.lastApplied) normalized.lastApplied.customLeaveId = String(record && record.lastApplied && record.lastApplied.customLeaveId || "");
+    return normalized;
+  };
+  const getBatchAppliedSnapshotBeforeV13 = getBatchAppliedSnapshot;
+  getBatchAppliedSnapshot = function (record) {
+    const snapshot = getBatchAppliedSnapshotBeforeV13(record);
+    snapshot.customLeaveId = String(record && record.customLeaveId || "");
+    return snapshot;
+  };
+  buildBatchCodePickerHtml = function (index, selectedCode) {
+    const record = normalizeBatchRangeRecord(batchRangeRecords[index] || {});
+    const custom = getCustomLeaveTypeV13(record.customLeaveId);
+    const label = custom ? custom.name : (Number(selectedCode) === 8.9 ? normalizeOtherCodeLabel(record.otherLabel || "其他") : getLabel(selectedCode));
+    return `<div class="batch-code-picker" data-batch-code-picker="${index}"><button class="batch-code-picker-button" type="button" data-batch-code-button="${index}" data-selected-code="${selectedCode}">${custom ? "自訂" : selectedCode} ${escapeHtml(label)}</button></div>`;
+  };
+  buildBatchCodePickerPortalHtml = function (index) {
+    const record = normalizeBatchRangeRecord(batchRangeRecords[index] || {});
+    const optionHtml = BATCH_RANGE_CODES.map(code => buildBatchCodeOptionRow(code, record.code, index)).join("");
+    const customHtml = getCustomLeaveTypesV13(false).length ? `<div class="custom-leave-list-v13">${getCustomLeaveTypesV13(false).map(item => `<div class="custom-leave-row-v13"><button class="custom-leave-select-v13" data-batch-custom-leave-v13="${escapeHtml(item.id)}" type="button">${escapeHtml(item.name)}</button></div>`).join("")}</div>` : `<div class="code-empty-favorite">尚未新增常用假別</div>`;
+    return `<div class="code-picker-portal-backdrop" data-batch-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="批次假別選單" data-batch-code-portal-index="${index}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${index + 1} 筆假別</div><div class="code-picker-portal-subtitle">常用自訂假別可直接套用整段日期</div></div><button class="code-picker-portal-close" type="button" data-batch-code-portal-close="1">關閉</button></div><div class="code-picker-portal-scroll"><div class="code-picker-portal-section-title">常用自訂假別</div>${customHtml}<div class="code-picker-portal-section-title">全部假別</div><div class="batch-code-option-list">${optionHtml}</div></div></div>`;
+  };
+  selectBatchCode = function (index, code) {
+    if (!batchRangeRecords[index]) batchRangeRecords[index] = { startDay: 0, endDay: 0, code: 5, leaveHours: 0, mode: "workOnly", otherLabel: "其他", customLeaveId: "", lastApplied: null };
+    batchRangeRecords[index].code = Number(code);
+    delete batchRangeRecords[index].customLeaveId;
+    if (Number(code) === 8.9) batchRangeRecords[index].otherLabel = normalizeOtherCodeLabel(batchRangeRecords[index].otherLabel || "其他");
+    if (Number(code) === 4) batchRangeRecords[index].mode = "all";
+    saveCurrentMonthState(); closeBatchCodePickerPortal(); renderAll(false);
+  };
+  function selectBatchCustomLeaveV13(index, id) {
+    const custom = getCustomLeaveTypeV13(id);
+    if (!custom) return;
+    if (!batchRangeRecords[index]) batchRangeRecords[index] = { startDay: 0, endDay: 0, code: 8.9, leaveHours: 0, mode: "workOnly", otherLabel: custom.name, customLeaveId: custom.id, lastApplied: null };
+    batchRangeRecords[index].code = 8.9;
+    batchRangeRecords[index].customLeaveId = custom.id;
+    batchRangeRecords[index].otherLabel = custom.name;
+    saveCurrentMonthState(); closeBatchCodePickerPortal(); renderAll(false);
+  }
+  bindBatchCodePickerPortalEvents = function (portal, index) {
+    portal.querySelectorAll("[data-batch-code-portal-close]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); closeBatchCodePickerPortal(); }));
+    portal.querySelectorAll("[data-batch-code-option]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); selectBatchCode(index, Number(btn.dataset.batchCodeOption)); }));
+    portal.querySelectorAll("[data-batch-custom-leave-v13]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); selectBatchCustomLeaveV13(index, btn.dataset.batchCustomLeaveV13); }));
+    portal.querySelectorAll("[data-batch-other-code-input]").forEach(input => {
+      const selectDefaultOnly = function () { if (normalizeOtherCodeLabel(input.value) === "其他") window.setTimeout(() => input.select(), 0); };
+      input.addEventListener("click", event => { event.stopPropagation(); selectDefaultOnly(); });
+      input.addEventListener("focus", selectDefaultOnly);
+      input.addEventListener("input", () => { if (!batchRangeRecords[index]) batchRangeRecords[index] = { startDay: 0, endDay: 0, code: 8.9, leaveHours: 0, mode: "workOnly", otherLabel: "其他" }; batchRangeRecords[index].otherLabel = normalizeOtherCodeLabel(input.value); delete batchRangeRecords[index].customLeaveId; saveCurrentMonthState({ coalesceGroup: `batch-other-label:${index}` }); });
+      input.addEventListener("change", () => { batchRangeRecords[index].otherLabel = normalizeOtherCodeLabel(input.value); delete batchRangeRecords[index].customLeaveId; saveCurrentMonthState({ coalesceGroup: `batch-other-label:${index}` }); renderBatchCodePickerPortal(index); renderAll(false); });
+    });
+  };
+  isSameBatchAppliedManualRecord = function (current, applied) {
+    if (!current || !applied) return false;
+    return (current.source === undefined || current.source === "batch") && Number(current.code) === Number(applied.code) && Number(current.leaveHours || 0) === Number(applied.leaveHours || 0) && String(current.customLeaveId || "") === String(applied.customLeaveId || "") && (Number(applied.code) !== 8.9 || normalizeOtherCodeLabel(current.otherLabel || "其他") === normalizeOtherCodeLabel(applied.otherLabel || "其他"));
+  };
+  clearAppliedBatchRange = function (applied) {
+    if (!applied || Number(applied.startDay || 0) <= 0 || Number(applied.endDay || 0) <= 0) return;
+    for (let day = Math.min(Number(applied.startDay), Number(applied.endDay)); day <= Math.max(Number(applied.startDay), Number(applied.endDay)); day++) {
+      const current = manualRecords[day];
+      if (!isSameBatchAppliedManualRecord(current, applied)) continue;
+      const adjustedCode = getAdjustedCodeFromRecordV13(current);
+      if (ADJUST_CODES.has(Number(adjustedCode))) manualRecords[day] = { code: adjustedCode, adjustedCode, source: "manual", updatedAt: new Date().toISOString() };
+      else delete manualRecords[day];
+    }
+  };
+  applyBatchRangeRecord = async function (index) {
+    const originalRecord = batchRangeRecords[index] || {};
+    const record = normalizeBatchRangeRecord(originalRecord);
+    if (record.startDay <= 0 || record.endDay <= 0) return;
+    const previousApplied = originalRecord.lastApplied ? getBatchAppliedSnapshot(originalRecord.lastApplied) : null;
+    const rocYear = Number(document.getElementById("rocYear").value), month = Number(document.getElementById("month").value), shiftGroup = document.getElementById("shiftGroup").value, year = rocYear + 1911;
+    const finalEnd = Math.min(record.endDay, new Date(year, month, 0).getDate());
+    const targetDays = [];
+    for (let day = record.startDay; day <= finalEnd; day++) {
+      const base = calcBaseShift(year, month, day, shiftGroup);
+      const adjusted = getAdjustedCodeFromRecordV13(manualRecords[day] || {});
+      const plannedValue = adjusted !== null ? getCodeValue(adjusted) : getCodeValue(base.baseCode);
+      if (record.mode === "workOnly" && plannedValue === 0) continue;
+      targetDays.push(day);
+    }
+    const conflicts = targetDays.filter(day => {
+      const current = manualRecords[day];
+      if (!current) return false;
+      const adjustedOnly = ADJUST_CODES.has(Number(getAdjustedCodeFromRecordV13(current))) && ADJUST_CODES.has(Number(current.code));
+      if (adjustedOnly && isLeaveCode(record.code)) return false;
+      const previouslyApplied = previousApplied && day >= Math.min(previousApplied.startDay, previousApplied.endDay) && day <= Math.max(previousApplied.startDay, previousApplied.endDay) && isSameBatchAppliedManualRecord(current, previousApplied);
+      return !previouslyApplied;
+    });
+    if (conflicts.length) {
+      const preview = conflicts.slice(0, 12).join("、") + (conflicts.length > 12 ? ` 等 ${conflicts.length} 日` : " 日");
+      const confirmed = await parameterConfirmDialog({ variant: "warning", title: "批次套用發現既有資料", message: `共有 ${conflicts.length} 天已有人工或其他批次資料：${preview}`, detail: "按確認才會覆寫這些日期；調班底層會在套用假別時保留。" });
+      if (!confirmed) return;
+    }
+    clearAppliedBatchRange(previousApplied);
+    targetDays.forEach(day => {
+      const current = manualRecords[day] || {};
+      const adjustedCode = getAdjustedCodeFromRecordV13(current);
+      const next = { code: record.code, source: "batch", updatedAt: new Date().toISOString() };
+      if (isLeaveCode(record.code) && ADJUST_CODES.has(Number(adjustedCode))) next.adjustedCode = Number(adjustedCode);
+      if (Number(record.code) === 8.9) { next.otherLabel = normalizeOtherCodeLabel(record.otherLabel || "其他"); if (record.customLeaveId) next.customLeaveId = record.customLeaveId; }
+      if (record.leaveHours > 0) next.leaveHours = record.leaveHours;
+      manualRecords[day] = next;
+    });
+    batchRangeRecords[index] = { ...record, lastApplied: getBatchAppliedSnapshot(record) };
+    saveCurrentMonthState(); renderAll(false);
+  };
+  const loadStateByKeyBeforeV13 = loadStateByKey;
+  loadStateByKey = function (storageKey) {
+    loadStateByKeyBeforeV13(storageKey);
+    try {
+      const data = JSON.parse(localStorage.getItem(storageKey) || "null");
+      if (data && Array.isArray(data.batchRangeRecords)) data.batchRangeRecords.forEach((item, index) => {
+        if (!batchRangeRecords[index]) return;
+        batchRangeRecords[index].customLeaveId = String(item.customLeaveId || "");
+        if (batchRangeRecords[index].lastApplied && item.lastApplied) batchRangeRecords[index].lastApplied.customLeaveId = String(item.lastApplied.customLeaveId || "");
+      });
+    } catch (err) { console.warn("自訂假別批次資料讀取失敗", err); }
+  };
+})();
+/* === V13 自訂／複合假別與調班後請假：功能結束 === */
 </script>
 
 </body>

@@ -4227,17 +4227,17 @@
 @media(max-width:760px){.closure-official-region-select{min-height:30px;font-size:10px;padding-left:6px}.closure-official-query-btn{padding:0 11px!important}}
 /* === 停止辦公地區與月份自動查詢修正結束 === */
 
-/* === 停止辦公動態歷史翻頁查詢開始 === */
+/* === 停止辦公歷史快照狀態提示開始 === */
 .closure-official-status.warn { animation: closure-query-pulse 1.5s ease-in-out infinite; }
 @keyframes closure-query-pulse { 0%,100%{opacity:1} 50%{opacity:.72} }
-/* === 停止辦公動態歷史翻頁查詢結束 === */
+/* === 停止辦公歷史快照狀態提示結束 === */
 
 /* === 同源官方資料檔讀取修正開始 === */
-/* GitHub Pages 正式環境優先讀取 ./data/dgpa_closures.json，避免跨來源限制。 */
+/* GitHub Pages 正式環境只讀取完整官方歷史快照，避免跨來源限制。 */
 /* === 同源官方資料檔讀取修正結束 === */
 
 /* === 目前月份涵蓋判斷修正開始 === */
-/* 同源 JSON 的 updatedAt 代表資料實際更新月份，與最後一筆停止辦公事件月份分開判斷。 */
+/* historyComplete 表示完整歷史建置成功；更新日期與最後一筆事件月份分開判斷。 */
 /* === 目前月份涵蓋判斷修正結束 === */
 /* === 手機版參數設定排版微調 === */
 @media (max-width:760px){
@@ -4402,7 +4402,7 @@
                 <label class="closure-official-region" for="closureOfficialRegionSelect">適用地區：<select id="closureOfficialRegionSelect" class="closure-official-region-select"><option value="高雄市">高雄市</option><option value="臺南市">台南市</option></select></label>
                 <button id="closureOfficialQueryBtn" class="closure-official-query-btn" type="button">查詢官方</button>
               </div>
-              <div id="closureOfficialStatus" class="closure-official-status">尚未查詢。系統會先讀取同源官方資料快照；資料尚未同步時，可按「查詢官方」重試或手動新增。既有設定不會被清除。</div>
+              <div id="closureOfficialStatus" class="closure-official-status">尚未查詢。系統會讀取同源官方歷史快照；歷史資料尚未完成建置時，會顯示目前涵蓋範圍。既有設定不會被清除。</div>
               <div id="closureRecordList" class="special-record-list"></div>
             </div>
             <div class="special-card">
@@ -7728,8 +7728,8 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         btn.onclick = function() { setSpecialDateValue(this.dataset.specialResetGroup, Number(this.dataset.index), 0); };
       });
     }
-    function getSpecialDateLabel(day) { return Number(day) > 0 ? `${Number(day)} 日` : "選擇日期"; }
-    function buildSpecialDateButton(group, index, day) { return `<div class="special-date-row"><button class="special-date-btn" type="button" data-special-date-group="${group}" data-index="${index}">${getSpecialDateLabel(day)}</button><button class="special-date-reset-btn" type="button" data-special-reset-group="${group}" data-index="${index}">RESET</button></div>`; }
+    function getSpecialDateLabel(day, group) { return Number(day) > 0 ? `${Number(day)} 日` : (group === "overhaulStart" || group === "overhaulEnd" ? "選日期" : "選擇日期"); }
+    function buildSpecialDateButton(group, index, day) { return `<div class="special-date-row"><button class="special-date-btn" type="button" data-special-date-group="${group}" data-index="${index}">${getSpecialDateLabel(day, group)}</button><button class="special-date-reset-btn" type="button" data-special-reset-group="${group}" data-index="${index}">RESET</button></div>`; }
     function setSpecialDateValue(group, index, value) {
       const day = Number(value) || 0;
       if (group === "closure") {
@@ -10286,6 +10286,23 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   function closureOfficialMonthOrdinal(rocYear, month) {
     return (Number(rocYear) + 1911) * 12 + Number(month) - 1;
   }
+  function closureOfficialFormatRocMonth(rocYear, month) {
+    return `${Number(rocYear)}年${Number(month)}月`;
+  }
+  function closureOfficialFormatUpdatedAt(value) {
+    const date = value ? new Date(value) : null;
+    if (!date || Number.isNaN(date.getTime())) return "";
+    const pad = function (number) { return String(number).padStart(2, "0"); };
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  }
+  function closureOfficialCoverageMessage(result) {
+    const coverage = result && result.coverage;
+    if (!coverage || coverage.minRocYear === undefined || coverage.maxRocYear === undefined) {
+      return "歷史資料尚未完成建置，目前尚無可用涵蓋範圍";
+    }
+    const prefix = result && result.historyComplete ? "官方歷史資料未涵蓋此月份，目前涵蓋" : "歷史資料尚未完成建置，目前涵蓋";
+    return `${prefix}${closureOfficialFormatRocMonth(coverage.minRocYear, coverage.minMonth)}至${closureOfficialFormatRocMonth(coverage.maxRocYear, coverage.maxMonth)}`;
+  }
   async function closureOfficialLoadSameOriginData(targetRocYear, targetMonth, targetRegion) {
     const dataUrl = new URL("./data/dgpa_closures.json", window.location.href);
     dataUrl.searchParams.set("v", String(Date.now()));
@@ -10308,11 +10325,18 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const updatedOrdinal = closureOfficialMonthOrdinal(updatedDate.getFullYear() - 1911, updatedDate.getMonth() + 1);
       maxOrdinal = maxOrdinal === null ? updatedOrdinal : Math.max(maxOrdinal, updatedOrdinal);
     }
-    const covered = minOrdinal !== null && maxOrdinal !== null && targetOrdinal >= minOrdinal && targetOrdinal <= maxOrdinal;
+    const historyComplete = payload.historyComplete === true;
+    const coverage = payload.coverage && payload.coverage.minRocYear && payload.coverage.minMonth && payload.coverage.maxRocYear && payload.coverage.maxMonth ? {
+      minRocYear: Number(payload.coverage.minRocYear),
+      minMonth: Number(payload.coverage.minMonth),
+      maxRocYear: Number(payload.coverage.maxRocYear),
+      maxMonth: Number(payload.coverage.maxMonth)
+    } : null;
+    const covered = historyComplete && minOrdinal !== null && maxOrdinal !== null && targetOrdinal >= minOrdinal && targetOrdinal <= maxOrdinal;
     const events = payload.events.filter(function (event) {
       return Number(event.rocYear) === Number(targetRocYear) && Number(event.month) === Number(targetMonth) && event.region === targetRegion;
     });
-    return { events:events, covered:covered, pagesScanned:Number(payload.pagesScanned || 0), source:"same-origin", updatedAt:payload.updatedAt || "", current:targetOrdinal === currentOrdinal };
+    return { events:events, covered:covered, historyComplete:historyComplete, coverage:coverage, pagesScanned:Number(payload.pagesScanned || 0), source:"same-origin", updatedAt:payload.updatedAt || "", current:targetOrdinal === currentOrdinal };
 
   }
   async function closureOfficialSearchTargetMonth(targetRocYear, targetMonth, queryToken) {
@@ -10333,9 +10357,12 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     return {
       events: sameOriginResult && Array.isArray(sameOriginResult.events) ? sameOriginResult.events : [],
       covered: false,
+      historyComplete: sameOriginResult ? sameOriginResult.historyComplete === true : false,
+      coverage: sameOriginResult ? sameOriginResult.coverage : null,
       pagesScanned: sameOriginResult ? Number(sameOriginResult.pagesScanned || 0) : 0,
       source: sameOriginResult ? sameOriginResult.source : "same-origin-unavailable",
       offline: true,
+      loadFailed: !sameOriginResult,
       updatedAt: sameOriginResult ? (sameOriginResult.updatedAt || "") : ""
     };
   }
@@ -10399,12 +10426,15 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const unique = Array.from(new Map((searchResult.events || []).map(function (event) {
         return [event.rocYear + "-" + event.month + "-" + event.day + "-" + event.region, event];
       })).values());
-      if (searchResult.offline && !searchResult.covered && unique.length === 0) {
-        closureOfficialSetStatus("官方資料尚未同步至此月份，請按「查詢官方」重試或手動新增。", "warn");
-        return;
-      }
-      if (!searchResult.covered && unique.length === 0) {
-        closureOfficialSetStatus(`查詢未完成：已搜尋 ${searchResult.pagesScanned} 頁，尚未涵蓋目標月份`, "warn");
+      if (!searchResult.covered) {
+        if (searchResult.loadFailed) {
+          const lastUpdated = closureOfficialFormatUpdatedAt(searchResult.updatedAt);
+          closureOfficialSetStatus(`官方資料更新失敗：保留既有設定${lastUpdated ? `；最後成功更新：${lastUpdated}` : ""}`, "error");
+        } else {
+          const coverageMessage = closureOfficialCoverageMessage(searchResult);
+          const lastUpdated = closureOfficialFormatUpdatedAt(searchResult.updatedAt);
+          closureOfficialSetStatus(coverageMessage + (lastUpdated ? `；最後成功更新：${lastUpdated}` : ""), "warn");
+        }
         return;
       }
       const currentRocYear = Number(document.getElementById("rocYear").value);

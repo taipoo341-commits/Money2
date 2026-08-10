@@ -4341,7 +4341,7 @@
 <style>
 /* === V13 自訂／複合假別與調班後請假 === */
 .code-picker-v13-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:0 14px 10px}.code-picker-v13-action{min-height:38px;border:1px solid rgba(246,196,83,.38);border-radius:11px;background:linear-gradient(90deg,rgba(246,196,83,.12),rgba(16,185,129,.10));color:#fde68a;font-size:12px;font-weight:950;cursor:pointer}.code-picker-v13-action.secondary{border-color:rgba(103,232,249,.34);background:rgba(14,116,144,.13);color:#a5f3fc}.code-picker-v13-action.restore{grid-column:1/-1;border-color:rgba(52,211,153,.48);background:rgba(16,185,129,.16);color:#a7f3d0}.custom-leave-form-v13,.compound-editor-v13{margin:0 14px 12px;padding:12px;border:1px solid rgba(246,196,83,.32);border-radius:15px;background:linear-gradient(135deg,rgba(54,30,9,.48),rgba(6,35,32,.42));display:grid;gap:9px}.custom-leave-form-v13-title,.compound-editor-v13-title{color:#fde68a;font-size:13px;font-weight:950}.custom-leave-form-v13-row{display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:8px}.custom-leave-name-v13,.compound-item-select-v13,.compound-item-hours-v13{width:100%;min-width:0;height:38px;border:1px solid rgba(103,232,249,.34);border-radius:10px;background:rgba(0,0,0,.34);color:#ecfeff;padding:0 10px;font-size:13px;font-weight:900;outline:none}.custom-leave-save-v13,.compound-confirm-v13,.compound-add-v13{border:1px solid rgba(52,211,153,.5);border-radius:10px;background:rgba(16,185,129,.17);color:#a7f3d0;font-size:12px;font-weight:950;cursor:pointer}.custom-leave-hint-v13,.compound-hint-v13,.compound-message-v13{color:#94a3b8;font-size:10px;line-height:1.45}.compound-message-v13.error{color:#fda4af}.custom-leave-list-v13{display:grid;gap:7px}.custom-leave-row-v13{display:grid;grid-template-columns:minmax(0,1fr) 70px;gap:7px;align-items:center;min-height:50px;border:1px solid rgba(110,231,183,.18);border-radius:13px;background:rgba(16,185,129,.06);padding:5px 7px}.custom-leave-select-v13{height:40px;border:0;background:transparent;color:#d1fae5;text-align:left;padding:0 8px;font-size:15px;font-weight:950;cursor:pointer}.custom-leave-toggle-v13{height:34px;border:1px solid rgba(251,113,133,.34);border-radius:9px;background:rgba(244,63,94,.10);color:#fda4af;font-size:11px;font-weight:900;cursor:pointer}.compound-items-v13{display:grid;gap:7px}.compound-item-row-v13{display:grid;grid-template-columns:minmax(0,1fr) 82px 58px;gap:7px;align-items:center}.compound-item-hours-v13{text-align:center}.compound-item-remove-v13{height:38px;border:1px solid rgba(251,113,133,.38);border-radius:10px;background:rgba(244,63,94,.11);color:#fda4af;font-size:11px;font-weight:900;cursor:pointer}.compound-editor-actions-v13{display:grid;grid-template-columns:1fr 1fr;gap:8px}.compound-add-v13,.compound-confirm-v13{min-height:38px}.compound-summary-v13{display:flex;justify-content:space-between;gap:10px;color:#cbd5e1;font-size:11px;font-weight:900}.code-option-row.adjusted-underlay-v13{outline:1px solid rgba(52,211,153,.38)}
-@media(max-width:760px){.code-picker-v13-actions{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:0 10px 9px}.code-picker-v13-action{min-height:40px;padding:4px;font-size:10px;letter-spacing:0}.custom-leave-form-v13,.compound-editor-v13{margin:0 10px 10px}.custom-leave-form-v13-row{grid-template-columns:1fr}.custom-leave-save-v13{min-height:40px}.compound-item-row-v13{grid-template-columns:minmax(0,1fr) 68px 50px}.compound-item-select-v13,.compound-item-hours-v13,.compound-item-remove-v13{height:40px;padding:0 6px}.compound-editor-actions-v13{grid-template-columns:1fr}.custom-leave-select-v13{font-size:16px}}
+@media(max-width:760px){.code-picker-v13-actions{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:0 10px 9px}.code-picker-v13-action{min-height:40px;padding:4px;font-size:10px;letter-spacing:0}.custom-leave-form-v13,.compound-editor-v13{margin:0 10px 10px}.custom-leave-form-v13-row{grid-template-columns:1fr}.custom-leave-save-v13{min-height:40px}.compound-item-row-v13{grid-template-columns:minmax(0,1fr) 68px 50px}.compound-item-select-v13,.compound-item-hours-v13,.compound-item-remove-v13{height:40px;padding:0 6px}.compound-editor-actions-v13{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.compound-editor-actions-v13>*{min-width:0}.custom-leave-select-v13{font-size:16px}}
 /* V14：複合假別定義與當日時數分離，選單改為視窗置中。 */
 .code-picker-v13-actions{padding:12px 14px 10px;border-bottom:1px solid rgba(246,196,83,.14);background:rgba(0,0,0,.12)}
 .custom-compound-row-v14{display:grid;grid-template-columns:minmax(0,1fr) 48px;gap:7px;align-items:center;min-height:50px;border:1px solid rgba(246,196,83,.22);border-radius:13px;background:rgba(246,196,83,.06);padding:5px 7px}
@@ -11249,13 +11249,13 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   }
   function buildCustomLeaveFormHtmlV13() {
     if (!customLeaveFormOpenV13) return "";
-    return `<div class="custom-leave-form-v13"><div class="custom-leave-form-v13-title">新增假別</div><div class="custom-leave-form-v13-row"><input class="custom-leave-name-v13" data-custom-leave-name-v13="1" type="text" maxlength="20" placeholder="例如：活力假"><button class="custom-leave-save-v13" data-custom-leave-save-v13="1" type="button">新增並套用</button></div><div class="custom-leave-hint-v13">工時依特休規則計算；不納入特休統計，也不計算特休補助。新增後會加入全部假別，並可自行加入我的最愛。</div></div>`;
+    return `<div class="custom-leave-form-v13"><div class="custom-leave-form-v13-title">新增假別</div><div class="custom-leave-form-v13-row"><input class="custom-leave-name-v13" data-custom-leave-name-v13="1" type="text" maxlength="20" placeholder="例如：活力假"><button class="custom-leave-save-v13" data-custom-leave-save-v13="1" type="button">儲存假別</button></div><div class="custom-leave-hint-v13">工時依特休規則計算；不納入特休統計，也不計算特休補助。儲存後只會加入全部假別，不會套用到目前日期；需要使用時再點假別名稱。</div></div>`;
   }
   function buildCustomLeaveCatalogRowV15(item, day, favoriteOnly) {
     const favoriteKey = customLeaveFavoriteKeyV15(item.id);
     const favorite = isCustomFavoriteV15(favoriteKey);
     const selected = Number((manualRecords[day] || {}).code) === 8.9 && String((manualRecords[day] || {}).customLeaveId || "") === item.id;
-    return `<div class="code-option-row custom-catalog-row-v15 custom-leave-catalog-row-v15 ${favoriteOnly ? "favorite-v15" : ""} ${selected ? "selected" : ""}"><button class="code-star-btn" type="button" data-custom-favorite-v15="${escapeHtml(favoriteKey)}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="custom-leave-select-v13" data-custom-leave-select-v13="${escapeHtml(item.id)}" type="button">${escapeHtml(item.name)}</button>${favoriteOnly ? "" : `<button class="custom-delete-v15" data-custom-leave-delete-v15="${escapeHtml(item.id)}" type="button">刪除</button>`}</div>`;
+    return `<div class="code-option-row custom-catalog-row-v15 custom-leave-catalog-row-v15 ${favoriteOnly ? "favorite-v15" : ""} ${selected ? "selected" : ""}" data-custom-leave-row-v16="${escapeHtml(item.id)}"><button class="code-star-btn" type="button" data-custom-favorite-v15="${escapeHtml(favoriteKey)}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="custom-leave-select-v13" data-custom-leave-select-v13="${escapeHtml(item.id)}" type="button">${escapeHtml(item.name)}</button>${favoriteOnly ? "" : `<button class="custom-delete-v15" data-custom-leave-delete-v15="${escapeHtml(item.id)}" type="button">刪除</button>`}</div>`;
   }
   function buildCustomCompoundCatalogRowV15(definition, day, favoriteOnly) {
     const name = getCustomCompoundNameV13(definition, day);
@@ -11263,12 +11263,24 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     const favoriteKey = customCompoundFavoriteKeyV15(definition.id);
     const favorite = isCustomFavoriteV15(favoriteKey);
     const selected = Number((manualRecords[day] || {}).code) === 8.9 && String((manualRecords[day] || {}).customCompoundId || "") === definition.id;
-    return `<div class="code-option-row custom-catalog-row-v15 custom-compound-catalog-row-v15 ${favoriteOnly ? "favorite-v15" : ""} ${selected ? "selected" : ""}"><button class="code-star-btn" type="button" data-custom-favorite-v15="${escapeHtml(favoriteKey)}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="custom-leave-select-v13" data-custom-compound-select-v14="${escapeHtml(definition.id)}" type="button">${escapeHtml(name)}</button><button class="compound-row-plus-v14" data-compound-hours-custom-v14="${escapeHtml(definition.id)}" type="button" aria-label="輸入 ${escapeHtml(name)} 當日時數">＋</button>${favoriteOnly ? "" : `<button class="custom-delete-v15" data-custom-compound-delete-v15="${escapeHtml(definition.id)}" type="button">刪除</button>`}</div>`;
+    return `<div class="code-option-row custom-catalog-row-v15 custom-compound-catalog-row-v15 ${favoriteOnly ? "favorite-v15" : ""} ${selected ? "selected" : ""}" data-custom-compound-row-v16="${escapeHtml(definition.id)}"><button class="code-star-btn" type="button" data-custom-favorite-v15="${escapeHtml(favoriteKey)}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="custom-leave-select-v13" data-custom-compound-select-v14="${escapeHtml(definition.id)}" type="button">${escapeHtml(name)}</button><button class="compound-row-plus-v14" data-compound-hours-custom-v14="${escapeHtml(definition.id)}" type="button" aria-label="輸入 ${escapeHtml(name)} 當日時數">＋</button>${favoriteOnly ? "" : `<button class="custom-delete-v15" data-custom-compound-delete-v15="${escapeHtml(definition.id)}" type="button">刪除</button>`}</div>`;
   }
   function buildCustomCatalogRowsV15(day, favoriteOnly) {
     const leaveRows = getCustomLeaveTypesV13(false).filter(item => !favoriteOnly || isCustomFavoriteV15(customLeaveFavoriteKeyV15(item.id))).map(item => buildCustomLeaveCatalogRowV15(item, day, favoriteOnly));
     const compoundRows = getCustomCompoundTypesV13(false).filter(item => !favoriteOnly || isCustomFavoriteV15(customCompoundFavoriteKeyV15(item.id))).map(item => buildCustomCompoundCatalogRowV15(item, day, favoriteOnly));
     return leaveRows.concat(compoundRows).filter(Boolean).join("");
+  }
+  function revealCustomCatalogRowV16(kind, id) {
+    window.setTimeout(() => {
+      const portal = document.getElementById("codePickerPortal");
+      const scroll = portal?.querySelector(".code-picker-portal-scroll");
+      const attribute = kind === "compound" ? "data-custom-compound-row-v16" : "data-custom-leave-row-v16";
+      const row = Array.from(portal?.querySelectorAll(`.code-picker-all [${attribute}]`) || []).find(element => element.getAttribute(attribute) === String(id || ""));
+      if (!scroll || !row) return;
+      const scrollRect = scroll.getBoundingClientRect();
+      const rowRect = row.getBoundingClientRect();
+      scroll.scrollTop += rowRect.top - scrollRect.top - Math.max(0, (scroll.clientHeight - rowRect.height) / 2);
+    }, 0);
   }
   buildCodeOptionRow = function (code, selectedCode, favoriteOnly, day) {
     const favorite = isCodeFavorite(code);
@@ -11332,13 +11344,15 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     portal.querySelectorAll("[data-custom-leave-select-v13]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); if (activeCodePickerPortalState) selectCustomLeaveForDayV13(activeCodePickerPortalState.day, btn.dataset.customLeaveSelectV13); }));
     portal.querySelectorAll("[data-custom-leave-delete-v15]").forEach(btn => btn.addEventListener("click", async event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
-      const day = activeCodePickerPortalState.day, allOpen = activeCodePickerPortalState.allOpen;
-      if (await deleteCustomLeaveTypeV15(btn.dataset.customLeaveDeleteV15)) renderCodePickerPortal(day, allOpen, 0);
+      const day = activeCodePickerPortalState.day;
+      const scrollTop = portal.querySelector(".code-picker-portal-scroll")?.scrollTop || 0;
+      if (await deleteCustomLeaveTypeV15(btn.dataset.customLeaveDeleteV15)) renderCodePickerPortal(day, true, scrollTop);
     }));
     portal.querySelectorAll("[data-custom-compound-delete-v15]").forEach(btn => btn.addEventListener("click", async event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
-      const day = activeCodePickerPortalState.day, allOpen = activeCodePickerPortalState.allOpen;
-      if (await deleteCustomCompoundTypeV15(btn.dataset.customCompoundDeleteV15)) renderCodePickerPortal(day, allOpen, 0);
+      const day = activeCodePickerPortalState.day;
+      const scrollTop = portal.querySelector(".code-picker-portal-scroll")?.scrollTop || 0;
+      if (await deleteCustomCompoundTypeV15(btn.dataset.customCompoundDeleteV15)) renderCodePickerPortal(day, true, scrollTop);
     }));
     portal.querySelectorAll("[data-custom-leave-form-toggle-v13]").forEach(btn => btn.addEventListener("click", event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
@@ -11347,8 +11361,13 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     }));
     portal.querySelectorAll("[data-custom-leave-save-v13]").forEach(btn => btn.addEventListener("click", event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      const day = activeCodePickerPortalState.day;
       const result = addCustomLeaveTypeV13(portal.querySelector("[data-custom-leave-name-v13]")?.value || "");
-      if (result.ok) selectCustomLeaveForDayV13(activeCodePickerPortalState.day, result.item.id);
+      if (result.ok) {
+        customLeaveFormOpenV13 = false;
+        renderCodePickerPortal(day, true, 0);
+        revealCustomCatalogRowV16("leave", result.item.id);
+      }
       else { const hint = portal.querySelector(".custom-leave-hint-v13"); if (hint) { hint.textContent = result.message; hint.style.color = "#fda4af"; } }
     }));
     portal.querySelectorAll("[data-custom-compound-select-v14]").forEach(btn => btn.addEventListener("click", event => {
@@ -11411,6 +11430,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         compoundMessageV13 = "";
       } else compoundMessageV13 = result.message;
       renderCodePickerPortal(day, result.ok ? true : activeCodePickerPortalState.allOpen, 0);
+      if (result.ok) revealCustomCatalogRowV16("compound", result.item.id);
     }));
     portal.querySelectorAll("[data-compound-save-v13]").forEach(btn => btn.addEventListener("click", event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;

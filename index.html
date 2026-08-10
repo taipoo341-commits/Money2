@@ -4310,7 +4310,7 @@
 .parameter-date-modal.handover-date-mode{z-index:165000}
 .parameter-date-day-btn:disabled{cursor:not-allowed;opacity:.28;filter:grayscale(1)}
 .handover-exception-message{min-height:18px;margin-top:8px;color:#fde68a;font-size:11px;font-weight:900;line-height:1.45}
-.handover-exception-footer{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:13px 18px;border-top:1px solid rgba(251,146,60,.16)}
+.handover-exception-footer{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:13px 18px;border-top:1px solid rgba(251,146,60,.16)}
 .handover-exception-action{min-height:40px;border:1px solid rgba(148,163,184,.28);border-radius:11px;background:rgba(30,41,59,.62);color:#cbd5e1;font-size:12px;font-weight:950;cursor:pointer}
 .handover-exception-action.primary{border-color:rgba(251,146,60,.52);background:rgba(194,65,12,.26);color:#ffedd5}
 .overhaul-choice-btn span,.overhaul-choice-btn strong{display:block}
@@ -4351,12 +4351,23 @@
 .compound-creator-v14 .compound-item-row-v13{grid-template-columns:minmax(0,1fr) 58px}
 .compound-hours-row-v14{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:8px;align-items:center}
 .compound-hours-label-v14{min-width:0;color:#e5e7eb;font-size:13px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.code-picker-portal .custom-leave-catalog-row-v15{grid-template-columns:62px minmax(0,1fr) 58px!important;border-color:rgba(110,231,183,.18)!important;background:rgba(16,185,129,.055)}
+.code-picker-portal .custom-leave-catalog-row-v15.favorite-v15{grid-template-columns:62px minmax(0,1fr)!important}
+.code-picker-portal .custom-compound-catalog-row-v15{grid-template-columns:62px minmax(0,1fr) 48px 58px!important;border-color:rgba(246,196,83,.20)!important;background:rgba(246,196,83,.05)}
+.code-picker-portal .custom-compound-catalog-row-v15.favorite-v15{grid-template-columns:62px minmax(0,1fr) 48px!important}
+.custom-catalog-row-v15 .custom-leave-select-v13{min-width:0;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.custom-delete-v15{height:34px;margin-right:6px;border:1px solid rgba(251,113,133,.38);border-radius:9px;background:rgba(190,24,93,.12);color:#fda4af;font-size:11px;font-weight:950;cursor:pointer}
 .code-picker-portal-sheet{top:50%!important;bottom:auto!important;transform:translate(-50%,-50%)!important;max-height:min(84dvh,720px)!important;animation:none!important}
 .code-picker-portal.all-open .code-picker-portal-sheet{top:50%!important;bottom:auto!important;max-height:min(84dvh,720px)!important}
 @media(max-width:760px){
   .code-picker-v13-actions{gap:5px;padding:11px 10px 9px}
   .code-picker-portal-sheet,.code-picker-portal.all-open .code-picker-portal-sheet{top:50%!important;bottom:auto!important;transform:translateY(-50%)!important;max-height:min(84dvh,720px)!important;border-radius:18px!important}
   .code-picker-portal .code-option-row.has-compound-plus-v14{grid-template-columns:64px minmax(0,1fr) 48px!important}
+  .code-picker-portal .custom-leave-catalog-row-v15{grid-template-columns:64px minmax(0,1fr) 54px!important}
+  .code-picker-portal .custom-leave-catalog-row-v15.favorite-v15{grid-template-columns:64px minmax(0,1fr)!important}
+  .code-picker-portal .custom-compound-catalog-row-v15{grid-template-columns:64px minmax(0,1fr) 46px 54px!important}
+  .code-picker-portal .custom-compound-catalog-row-v15.favorite-v15{grid-template-columns:64px minmax(0,1fr) 46px!important}
+  .custom-delete-v15{margin-right:4px;padding:0 5px;font-size:10px}
   .compound-creator-v14 .compound-item-row-v13{grid-template-columns:minmax(0,1fr) 54px}
   .compound-hours-row-v14{grid-template-columns:minmax(0,1fr) 78px}
 }
@@ -4838,7 +4849,6 @@
   <div class="handover-exception-card" role="dialog" aria-modal="true" aria-labelledby="handoverExceptionTitle">
     <div class="handover-exception-head">
       <div><div id="handoverExceptionTitle" class="handover-exception-title">交接班期間例外</div><div class="handover-exception-subtitle">期間依班次起始日判定；超過訖日後會自動恢復一般交接班分鐘。</div></div>
-      <button id="handoverExceptionCloseBtn" class="handover-exception-close" type="button" aria-label="關閉">×</button>
     </div>
     <div class="handover-exception-body">
       <div class="handover-exception-section-label">已設定期間</div>
@@ -4854,7 +4864,7 @@
         <div id="handoverExceptionMessage" class="handover-exception-message" aria-live="polite"></div>
       </div>
     </div>
-    <div class="handover-exception-footer"><button id="handoverExceptionSaveBtn" class="handover-exception-action primary" type="button">儲存例外</button><button id="handoverExceptionResetBtn" class="handover-exception-action" type="button">取消編輯</button></div>
+    <div class="handover-exception-footer"><button id="handoverExceptionSaveBtn" class="handover-exception-action primary" type="button">儲存例外</button><button id="handoverExceptionResetBtn" class="handover-exception-action" type="button">取消編輯</button><button id="handoverExceptionCloseBtn" class="handover-exception-action" type="button">關閉</button></div>
   </div>
 </div>
 <!-- 交接班期間例外：主月曆快捷視窗結束 -->
@@ -5202,7 +5212,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     }
     
     const PARAMETER_SETTINGS_STORAGE_KEY = "personalOvertimeParameterSettings";
-    const PARAMETER_DEFAULT_SETTINGS = { version: 14, sections: { shiftRulesEnabled: true, holidayOverridesEnabled: true }, shiftRules: [], holidayOverrides: [], calc: { hoursEnabled: false, handoverEnabled: false, salaryEnabled: false, codeHours: { "0": 0, "1": 9, "2": 8, "3": 7 }, hourExceptions: [], handoverMinutes: 30, handoverExceptions: [], customLeaveTypes: [], customCompoundTypes: [], core: { monthlyOvertimeCap: 46, salaryHourDivisor: 240, normalHoursPerDay: 8, attendanceYearStartMonth: 11, specialLeaveSubsidyMaxDays: 14, specialLeaveSubsidyPerDay: 1333 }, election: { effectiveStart: "00:00", effectiveEnd: "24:00", rules: [{id:"e3-1",shiftValue:3,occurrence:1,d10Minutes:30,publicLeaveHours:0,enabled:true},{id:"e3-2",shiftValue:3,occurrence:2,d10Minutes:120,publicLeaveHours:0,enabled:true},{id:"e3-3",shiftValue:3,occurrence:3,d10Minutes:120,publicLeaveHours:0,enabled:true},{id:"e2-1",shiftValue:2,occurrence:1,d10Minutes:0,publicLeaveHours:2,enabled:true},{id:"e2-2",shiftValue:2,occurrence:2,d10Minutes:0,publicLeaveHours:2,enabled:true},{id:"e2-3",shiftValue:2,occurrence:3,d10Minutes:0,publicLeaveHours:0.5,enabled:true}] }, rates: { code7: "4/3", code8: "5/3", code6: "8/3" }, fees: { initialNight: 250, deepNight: 400, breakfast: 75, lunchDinner: 150, redEnvelope: 600, reunionDinner: 800 } } };
+    const PARAMETER_DEFAULT_SETTINGS = { version: 15, sections: { shiftRulesEnabled: true, holidayOverridesEnabled: true }, shiftRules: [], holidayOverrides: [], calc: { hoursEnabled: false, handoverEnabled: false, salaryEnabled: false, codeHours: { "0": 0, "1": 9, "2": 8, "3": 7 }, hourExceptions: [], handoverMinutes: 30, handoverExceptions: [], customLeaveTypes: [], customCompoundTypes: [], core: { monthlyOvertimeCap: 46, salaryHourDivisor: 240, normalHoursPerDay: 8, attendanceYearStartMonth: 11, specialLeaveSubsidyMaxDays: 14, specialLeaveSubsidyPerDay: 1333 }, election: { effectiveStart: "00:00", effectiveEnd: "24:00", rules: [{id:"e3-1",shiftValue:3,occurrence:1,d10Minutes:30,publicLeaveHours:0,enabled:true},{id:"e3-2",shiftValue:3,occurrence:2,d10Minutes:120,publicLeaveHours:0,enabled:true},{id:"e3-3",shiftValue:3,occurrence:3,d10Minutes:120,publicLeaveHours:0,enabled:true},{id:"e2-1",shiftValue:2,occurrence:1,d10Minutes:0,publicLeaveHours:2,enabled:true},{id:"e2-2",shiftValue:2,occurrence:2,d10Minutes:0,publicLeaveHours:2,enabled:true},{id:"e2-3",shiftValue:2,occurrence:3,d10Minutes:0,publicLeaveHours:0.5,enabled:true}] }, rates: { code7: "4/3", code8: "5/3", code6: "8/3" }, fees: { initialNight: 250, deepNight: 400, breakfast: 75, lunchDinner: 150, redEnvelope: 600, reunionDinner: 800 } } };
     let parameterSettings = JSON.parse(JSON.stringify(PARAMETER_DEFAULT_SETTINGS));
     let parameterDatePickerState = { target: "", index: -1, year: 2026, month: 1 };
     function deepCloneParameter(obj){ return JSON.parse(JSON.stringify(obj || PARAMETER_DEFAULT_SETTINGS)); }
@@ -5249,7 +5259,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     function getParameterBaseHandoverMinutes(){return parameterSettings.calc?.handoverEnabled===true ? Math.max(0,Number(parameterSettings.calc?.handoverMinutes??30)) : 30;}
     function getParameterHandoverExceptionForDate(year,month,day){const y=Number(year),m=Number(month),d=Number(day);if(!Number.isFinite(y)||!Number.isFinite(m)||!Number.isFinite(d))return null;const iso=ymdToParameterIso(y,m,d);return (parameterSettings.calc?.handoverExceptions||[]).filter(x=>x.enabled!==false&&x.startDate<=iso&&x.endDate>=iso).sort((a,b)=>b.startDate.localeCompare(a.startDate)||b.endDate.localeCompare(a.endDate))[0]||null;}
     function getParameterHandoverMinutes(year,month,day){const exception=getParameterHandoverExceptionForDate(year,month,day);return exception?Math.max(0,Number(exception.minutes||0)):getParameterBaseHandoverMinutes();}
-    function getParameterPartialHandoverMinutes(year,month,day){return Math.round(getParameterHandoverMinutes(year,month,day)/2);}
+    function getParameterPartialHandoverMinutes(year,month,day){const exception=getParameterHandoverExceptionForDate(year,month,day);if(exception)return Math.max(0,Number(exception.minutes||0));return Math.round(getParameterBaseHandoverMinutes()/2);}
     function parseParameterFraction(text,fallback){const s=String(text||"").trim(); const m=s.match(/^(-?\d+(?:\.\d+)?)\s*\/\s*(-?\d+(?:\.\d+)?)$/); if(m){const a=Number(m[1]),b=Number(m[2]); if(Number.isFinite(a)&&Number.isFinite(b)&&b!==0)return a/b;} const n=Number(s); return Number.isFinite(n)?n:fallback;}
     function getParameterRate(key){const f={code7:4/3,code8:5/3,code6:8/3}; return parameterSettings.calc?.salaryEnabled===true ? parseParameterFraction(parameterSettings.calc?.rates?.[key],f[key]) : f[key];}
     function getParameterFee(key){const f={initialNight:250,deepNight:400,breakfast:75,lunchDinner:150,redEnvelope:600,reunionDinner:800}; return parameterSettings.calc?.salaryEnabled===true ? Math.max(0,Number(parameterSettings.calc?.fees?.[key]??f[key]??0)) : (f[key]??0);}
@@ -5425,10 +5435,12 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     function renderHandoverExceptionList(){const listEl=document.getElementById("handoverExceptionList");if(!listEl)return;const list=getHandoverExceptions().slice().sort((a,b)=>a.startDate.localeCompare(b.startDate)||a.endDate.localeCompare(b.endDate));if(!list.length){listEl.innerHTML='<div class="handover-exception-empty">尚未設定交接班期間例外。</div>';return;}listEl.innerHTML=list.map(item=>`<div class="handover-exception-item"><div class="handover-exception-range">${parameterSettingsEscapeHtml(formatHandoverExceptionRange(item))}</div><div class="handover-exception-minutes">${Number(item.minutes)||0} 分</div><div class="handover-exception-note">${parameterSettingsEscapeHtml(item.note||"未填備註")}</div><div class="handover-exception-item-actions"><button class="handover-exception-small-btn" type="button" data-handover-exception-edit="${parameterSettingsEscapeHtml(item.id)}">編輯</button><button class="handover-exception-small-btn danger" type="button" data-handover-exception-delete="${parameterSettingsEscapeHtml(item.id)}">刪除</button></div></div>`).join("");}
     function openHandoverExceptionModal(){loadParameterSettings();renderHandoverExceptionList();resetHandoverExceptionForm();const modal=document.getElementById("handoverExceptionModal");if(!modal)return;handoverExceptionPreviousBodyOverflow=document.body.style.overflow;document.body.style.overflow="hidden";modal.classList.add("open");modal.setAttribute("aria-hidden","false");document.getElementById("handoverExceptionStartDate")?.focus();}
     function closeHandoverExceptionModal(){const modal=document.getElementById("handoverExceptionModal");if(!modal)return;closeParameterDatePicker();modal.classList.remove("open");modal.setAttribute("aria-hidden","true");document.body.style.overflow=handoverExceptionPreviousBodyOverflow;handoverExceptionEditingId="";}
+    function handoverExceptionFormIsDirty(){const start=normalizeIsoDateText(document.getElementById("handoverExceptionStartDate")?.value),end=normalizeIsoDateText(document.getElementById("handoverExceptionEndDate")?.value),minutes=String(document.getElementById("handoverExceptionMinutes")?.value||"").trim(),note=String(document.getElementById("handoverExceptionNote")?.value||"").trim();return Boolean(handoverExceptionEditingId||start||end||note||minutes!=="30");}
+    async function requestCloseHandoverExceptionModal(){if(handoverExceptionFormIsDirty()){const confirmed=await parameterConfirmDialog({variant:"warning",title:"關閉交接班例外",message:"目前有尚未儲存的輸入，確定要關閉嗎？",detail:"關閉後只會捨棄目前表單內容，已儲存的交接班例外不受影響。"});if(!confirmed)return;}closeHandoverExceptionModal();}
     function editHandoverException(id){const item=getHandoverExceptions().find(x=>x.id===id);if(!item)return;handoverExceptionEditingId=item.id;setHandoverExceptionDateButtonValue("handoverExceptionStartDate",item.startDate);setHandoverExceptionDateButtonValue("handoverExceptionEndDate",item.endDate);document.getElementById("handoverExceptionMinutes").value=String(item.minutes);document.getElementById("handoverExceptionNote").value=item.note||"";document.getElementById("handoverExceptionSaveBtn").textContent="更新例外";setHandoverExceptionMessage("正在編輯既有期間。",false);document.getElementById("handoverExceptionStartDate")?.focus();}
     async function saveHandoverExceptionFromQuickUi(){const startDate=normalizeIsoDateText(document.getElementById("handoverExceptionStartDate")?.value);const endDate=normalizeIsoDateText(document.getElementById("handoverExceptionEndDate")?.value);const rawMinutes=String(document.getElementById("handoverExceptionMinutes")?.value||"").trim();const minutes=Math.round(Number(rawMinutes));const note=String(document.getElementById("handoverExceptionNote")?.value||"").trim().slice(0,40);if(!startDate||!endDate){setHandoverExceptionMessage("請選擇起始與結束班次日期。",true);return;}if(startDate>endDate){setHandoverExceptionMessage("起始班次日期不可晚於結束班次日期。",true);return;}if(rawMinutes===""||!Number.isFinite(minutes)||minutes<0){setHandoverExceptionMessage("交接班分鐘必須是 0 以上的整數。",true);return;}const overlap=getHandoverExceptions().find(x=>x.enabled!==false&&x.id!==handoverExceptionEditingId&&x.startDate<=endDate&&x.endDate>=startDate);if(overlap){setHandoverExceptionMessage(`此期間與「${formatHandoverExceptionRange(overlap)}」重疊，請先修改原有項目。`,true);return;}const confirmed=await parameterConfirmDialog({variant:"warning",title:handoverExceptionEditingId?"更新交接班例外":"新增交接班例外",message:`將 ${formatHandoverExceptionRange({startDate,endDate})} 的交接班改為 ${minutes} 分鐘，是否套用？`,detail:"日期依班次起始日判定，超過訖日後自動恢復一般設定。"});if(!confirmed)return;const item={id:handoverExceptionEditingId||`handover-${Date.now()}`,startDate,endDate,minutes,note,enabled:true};const index=getHandoverExceptions().findIndex(x=>x.id===handoverExceptionEditingId);if(index>=0)parameterSettings.calc.handoverExceptions[index]=item;else parameterSettings.calc.handoverExceptions.push(item);parameterSettings=normalizeParameterSettings(parameterSettings);saveParameterSettings();renderHandoverExceptionList();resetHandoverExceptionForm();updateHandoverExceptionQuickButton();renderAll(false);setHandoverExceptionMessage("已儲存並立即套用交接班期間例外。",false);}
     async function deleteHandoverException(id){const item=getHandoverExceptions().find(x=>x.id===id);if(!item)return;const confirmed=await parameterConfirmDialog({variant:"danger",title:"刪除交接班例外",message:`確定刪除 ${formatHandoverExceptionRange(item)} 的 ${item.minutes} 分鐘設定嗎？`,detail:"刪除後該期間會立即恢復一般交接班設定。"});if(!confirmed)return;parameterSettings.calc.handoverExceptions=parameterSettings.calc.handoverExceptions.filter(x=>x.id!==id);saveParameterSettings();renderHandoverExceptionList();resetHandoverExceptionForm();updateHandoverExceptionQuickButton();renderAll(false);setHandoverExceptionMessage("已刪除交接班期間例外。",false);}
-    function bindHandoverExceptionQuickEvents(){const modal=document.getElementById("handoverExceptionModal");if(!modal||modal.dataset.bound==="true")return;modal.dataset.bound="true";document.getElementById("handoverExceptionQuickBtn")?.addEventListener("click",openHandoverExceptionModal);document.getElementById("handoverExceptionCloseBtn")?.addEventListener("click",closeHandoverExceptionModal);document.getElementById("handoverExceptionResetBtn")?.addEventListener("click",resetHandoverExceptionForm);document.getElementById("handoverExceptionSaveBtn")?.addEventListener("click",saveHandoverExceptionFromQuickUi);document.getElementById("handoverExceptionStartDate")?.addEventListener("click",()=>openParameterDatePicker("handover-start",-1));document.getElementById("handoverExceptionEndDate")?.addEventListener("click",()=>openParameterDatePicker("handover-end",-1));document.getElementById("handoverExceptionMinutes")?.addEventListener("focus",function(){this.select();});document.getElementById("handoverExceptionList")?.addEventListener("click",event=>{const edit=event.target.closest("[data-handover-exception-edit]"),remove=event.target.closest("[data-handover-exception-delete]");if(edit)editHandoverException(edit.dataset.handoverExceptionEdit);if(remove)deleteHandoverException(remove.dataset.handoverExceptionDelete);});modal.addEventListener("click",event=>{if(event.target===modal)closeHandoverExceptionModal();});document.addEventListener("keydown",event=>{if(event.key!=="Escape"||!modal.classList.contains("open"))return;const dateModal=document.getElementById("parameterDateModal");if(dateModal?.classList.contains("open")&&parameterDatePickerIsHandoverTarget(parameterDatePickerState.target)){closeParameterDatePicker();return;}closeHandoverExceptionModal();});}
+    function bindHandoverExceptionQuickEvents(){const modal=document.getElementById("handoverExceptionModal");if(!modal||modal.dataset.bound==="true")return;modal.dataset.bound="true";document.getElementById("handoverExceptionQuickBtn")?.addEventListener("click",openHandoverExceptionModal);document.getElementById("handoverExceptionCloseBtn")?.addEventListener("click",requestCloseHandoverExceptionModal);document.getElementById("handoverExceptionResetBtn")?.addEventListener("click",resetHandoverExceptionForm);document.getElementById("handoverExceptionSaveBtn")?.addEventListener("click",saveHandoverExceptionFromQuickUi);document.getElementById("handoverExceptionStartDate")?.addEventListener("click",()=>openParameterDatePicker("handover-start",-1));document.getElementById("handoverExceptionEndDate")?.addEventListener("click",()=>openParameterDatePicker("handover-end",-1));document.getElementById("handoverExceptionMinutes")?.addEventListener("focus",function(){this.select();});document.getElementById("handoverExceptionList")?.addEventListener("click",event=>{const edit=event.target.closest("[data-handover-exception-edit]"),remove=event.target.closest("[data-handover-exception-delete]");if(edit)editHandoverException(edit.dataset.handoverExceptionEdit);if(remove)deleteHandoverException(remove.dataset.handoverExceptionDelete);});modal.addEventListener("click",event=>{if(event.target===modal)requestCloseHandoverExceptionModal();});document.addEventListener("keydown",event=>{if(event.key!=="Escape"||!modal.classList.contains("open"))return;const dateModal=document.getElementById("parameterDateModal");if(dateModal?.classList.contains("open")&&parameterDatePickerIsHandoverTarget(parameterDatePickerState.target)){closeParameterDatePicker();return;}requestCloseHandoverExceptionModal();});}
 
     function getCurrentStorageKey() {
       const rocYear = document.getElementById("rocYear") ? Number(document.getElementById("rocYear").value) : toRocYear(new Date());
@@ -5963,7 +5975,12 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       try {
         const arr = typeof rawValue === "string" && rawValue ? JSON.parse(rawValue) : rawValue;
         const validCodeKeys = new Set(CODE_OPTIONS.map(code => keyOf(code)));
-        return (Array.isArray(arr) ? arr : []).map(value => keyOf(value)).filter(value => validCodeKeys.has(value));
+        return Array.from(new Set((Array.isArray(arr) ? arr : []).map(value => {
+          const text = String(value || "");
+          if (/^custom-(?:leave|compound):[a-zA-Z0-9_-]{1,80}$/.test(text)) return text;
+          const codeKey = keyOf(value);
+          return validCodeKeys.has(codeKey) ? codeKey : "";
+        }).filter(Boolean)));
       } catch (err) {
         return [];
       }
@@ -10716,7 +10733,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     const calc = raw && raw.calc && typeof raw.calc === "object" ? raw.calc : {};
     const source = Array.isArray(calc.customLeaveTypes) ? calc.customLeaveTypes : (normalized.calc.customLeaveTypes || []);
     const usedIds = new Set();
-    normalized.version = Math.max(14, Number(normalized.version || 0));
+    normalized.version = Math.max(15, Number(normalized.version || 0));
     normalized.calc.customLeaveTypes = source.map(function (item, index) {
       let id = String(item && item.id ? item.id : `custom-leave-${Date.now()}-${index}`).replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 80);
       while (usedIds.has(id)) id += `-${index}`;
@@ -10729,7 +10746,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         statsCategory: "none",
         specialSubsidy: false
       };
-    }).filter(item => item.name);
+    }).filter(item => item.name && item.enabled !== false).map(item => ({ ...item, enabled: true }));
     const validCustomIds = new Set(normalized.calc.customLeaveTypes.map(item => item.id));
     const validComponentKey = function (key) {
       const text = String(key || "");
@@ -10745,7 +10762,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       usedCompoundIds.add(id);
       const componentKeys = Array.from(new Set((Array.isArray(item && item.componentKeys) ? item.componentKeys : []).map(String).filter(validComponentKey))).slice(0, 4);
       return { id, componentKeys, enabled: !item || item.enabled !== false };
-    }).filter(item => item.componentKeys.length >= 2);
+    }).filter(item => item.componentKeys.length >= 2 && item.enabled !== false).map(item => ({ ...item, enabled: true }));
     return normalized;
   };
   parameterSettings = normalizeParameterSettings(parameterSettings);
@@ -10765,6 +10782,26 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   function getCustomCompoundTypeV13(id) {
     return getCustomCompoundTypesV13(true).find(item => item.id === String(id || "")) || null;
   }
+  function customLeaveFavoriteKeyV15(id) { return `custom-leave:${String(id || "")}`; }
+  function customCompoundFavoriteKeyV15(id) { return `custom-compound:${String(id || "")}`; }
+  function isCustomFavoriteV15(key) { return codeFavoriteSet.has(String(key || "")); }
+  function toggleCustomFavoriteV15(key) {
+    const favoriteKey = String(key || "");
+    if (!favoriteKey) return;
+    if (codeFavoriteSet.has(favoriteKey)) codeFavoriteSet.delete(favoriteKey);
+    else codeFavoriteSet.add(favoriteKey);
+    saveCodeFavorites();
+  }
+  function removeCustomFavoriteV15(key) {
+    if (codeFavoriteSet.delete(String(key || ""))) saveCodeFavorites();
+  }
+  const normalizeCodeFavoriteArrayBeforeV15 = normalizeCodeFavoriteArray;
+  normalizeCodeFavoriteArray = function (rawValue) {
+    const numericKeys = new Set(CODE_OPTIONS.map(code => keyOf(code)));
+    const leaveKeys = new Set(getCustomLeaveTypesV13(false).map(item => customLeaveFavoriteKeyV15(item.id)));
+    const compoundKeys = new Set(getCustomCompoundTypesV13(false).map(item => customCompoundFavoriteKeyV15(item.id)));
+    return normalizeCodeFavoriteArrayBeforeV15(rawValue).filter(key => numericKeys.has(key) || leaveKeys.has(key) || compoundKeys.has(key));
+  };
   function normalizeCustomLeaveNameV13(value) {
     return String(value || "").trim().replace(/\s+/g, " ").slice(0, 20);
   }
@@ -11088,11 +11125,35 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     saveParameterSettings();
     return { ok: true, item };
   }
-  function toggleCustomLeaveTypeV13(id) {
+  async function deleteCustomLeaveTypeV15(id) {
     const item = getCustomLeaveTypeV13(id);
-    if (!item) return;
-    item.enabled = item.enabled === false;
+    if (!item) return false;
+    const componentKey = `custom:${item.id}`;
+    const dependentCompounds = getCustomCompoundTypesV13(true).filter(definition => definition.componentKeys.includes(componentKey));
+    const detail = dependentCompounds.length
+      ? `同時會從清單移除 ${dependentCompounds.length} 個包含此假別的自訂複合假別；已套用於日期的歷史紀錄仍會保留。`
+      : "只會從可選清單移除，已套用於日期的歷史紀錄仍會保留。";
+    const confirmed = await parameterConfirmDialog({ variant: "danger", title: "刪除自訂假別", message: `確定刪除「${item.name}」嗎？`, detail });
+    if (!confirmed) return false;
+    parameterSettings.calc.customLeaveTypes = getCustomLeaveTypesV13(true).filter(current => current.id !== item.id);
+    const dependentIds = new Set(dependentCompounds.map(definition => definition.id));
+    parameterSettings.calc.customCompoundTypes = getCustomCompoundTypesV13(true).filter(definition => !dependentIds.has(definition.id));
+    codeFavoriteSet.delete(customLeaveFavoriteKeyV15(item.id));
+    dependentIds.forEach(compoundId => codeFavoriteSet.delete(customCompoundFavoriteKeyV15(compoundId)));
+    saveCodeFavorites();
     saveParameterSettings();
+    return true;
+  }
+  async function deleteCustomCompoundTypeV15(id) {
+    const definition = getCustomCompoundTypeV13(id);
+    if (!definition) return false;
+    const name = getCustomCompoundNameV13(definition, activeCodePickerPortalState && activeCodePickerPortalState.day);
+    const confirmed = await parameterConfirmDialog({ variant: "danger", title: "刪除自訂複合假別", message: `確定刪除「${name}」嗎？`, detail: "只會從可選清單移除，已套用於日期的歷史紀錄仍會保留。" });
+    if (!confirmed) return false;
+    parameterSettings.calc.customCompoundTypes = getCustomCompoundTypesV13(true).filter(current => current.id !== definition.id);
+    removeCustomFavoriteV15(customCompoundFavoriteKeyV15(definition.id));
+    saveParameterSettings();
+    return true;
   }
   function addCustomCompoundTypeV13(items) {
     const keys = (Array.isArray(items) ? items : []).map(componentKeyV13);
@@ -11161,9 +11222,9 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         <button class="compound-item-remove-v13" data-compound-remove-v13="${index}" type="button">移除</button>
       </div>`).join("");
     return `<div class="compound-editor-v13 compound-creator-v14">
-      <div class="compound-editor-v13-title">新增常用複合假別</div>
+      <div class="compound-editor-v13-title">新增複合假別</div>
       <div class="compound-items-v13">${rows}</div>
-      <div class="compound-hint-v13">只儲存假別組合，不儲存預設時數。日後點名稱可直接套用全日；點右側「＋」再輸入當日各項時數。</div>
+      <div class="compound-hint-v13">只儲存假別組合，不儲存預設時數。儲存後會加入全部假別；點名稱可直接套用全日，點右側「＋」再輸入當日各項時數。</div>
       <div class="compound-message-v13 ${compoundMessageV13 ? "error" : ""}">${escapeHtml(compoundMessageV13)}</div>
       <div class="compound-editor-actions-v13"><button class="compound-add-v13" data-compound-add-v13="1" type="button">＋加入假別</button><button class="compound-confirm-v13" data-compound-create-save-v14="1" type="button">儲存組合</button></div>
     </div>`;
@@ -11188,17 +11249,26 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   }
   function buildCustomLeaveFormHtmlV13() {
     if (!customLeaveFormOpenV13) return "";
-    return `<div class="custom-leave-form-v13"><div class="custom-leave-form-v13-title">新增常用假別</div><div class="custom-leave-form-v13-row"><input class="custom-leave-name-v13" data-custom-leave-name-v13="1" type="text" maxlength="20" placeholder="例如：活力假"><button class="custom-leave-save-v13" data-custom-leave-save-v13="1" type="button">新增並套用</button></div><div class="custom-leave-hint-v13">工時依特休規則計算；不納入特休統計，也不計算特休補助。新增後可在主月曆及批次套用。</div></div>`;
+    return `<div class="custom-leave-form-v13"><div class="custom-leave-form-v13-title">新增假別</div><div class="custom-leave-form-v13-row"><input class="custom-leave-name-v13" data-custom-leave-name-v13="1" type="text" maxlength="20" placeholder="例如：活力假"><button class="custom-leave-save-v13" data-custom-leave-save-v13="1" type="button">新增並套用</button></div><div class="custom-leave-hint-v13">工時依特休規則計算；不納入特休統計，也不計算特休補助。新增後會加入全部假別，並可自行加入我的最愛。</div></div>`;
   }
-  function buildCustomLeaveListHtmlV13(day) {
-    const items = getCustomLeaveTypesV13(false);
-    if (!items.length) return `<div class="code-empty-favorite">尚未新增常用假別</div>`;
-    return `<div class="custom-leave-list-v13">${items.map(item => `<div class="custom-leave-row-v13"><button class="custom-leave-select-v13" data-custom-leave-select-v13="${escapeHtml(item.id)}" type="button">${escapeHtml(item.name)}</button><button class="custom-leave-toggle-v13" data-custom-leave-toggle-v13="${escapeHtml(item.id)}" type="button">停用</button></div>`).join("")}</div>`;
+  function buildCustomLeaveCatalogRowV15(item, day, favoriteOnly) {
+    const favoriteKey = customLeaveFavoriteKeyV15(item.id);
+    const favorite = isCustomFavoriteV15(favoriteKey);
+    const selected = Number((manualRecords[day] || {}).code) === 8.9 && String((manualRecords[day] || {}).customLeaveId || "") === item.id;
+    return `<div class="code-option-row custom-catalog-row-v15 custom-leave-catalog-row-v15 ${favoriteOnly ? "favorite-v15" : ""} ${selected ? "selected" : ""}"><button class="code-star-btn" type="button" data-custom-favorite-v15="${escapeHtml(favoriteKey)}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="custom-leave-select-v13" data-custom-leave-select-v13="${escapeHtml(item.id)}" type="button">${escapeHtml(item.name)}</button>${favoriteOnly ? "" : `<button class="custom-delete-v15" data-custom-leave-delete-v15="${escapeHtml(item.id)}" type="button">刪除</button>`}</div>`;
   }
-  function buildCustomCompoundListHtmlV13(day) {
-    const items = getCustomCompoundTypesV13(false).map(definition => ({ definition, name: getCustomCompoundNameV13(definition, day) })).filter(item => item.name);
-    if (!items.length) return `<div class="code-empty-favorite">尚未新增常用複合假別</div>`;
-    return `<div class="custom-leave-list-v13">${items.map(item => `<div class="custom-compound-row-v14"><button class="custom-leave-select-v13" data-custom-compound-select-v14="${escapeHtml(item.definition.id)}" type="button">${escapeHtml(item.name)}</button><button class="compound-row-plus-v14" data-compound-hours-custom-v14="${escapeHtml(item.definition.id)}" type="button" aria-label="輸入 ${escapeHtml(item.name)} 當日時數">＋</button></div>`).join("")}</div>`;
+  function buildCustomCompoundCatalogRowV15(definition, day, favoriteOnly) {
+    const name = getCustomCompoundNameV13(definition, day);
+    if (!name) return "";
+    const favoriteKey = customCompoundFavoriteKeyV15(definition.id);
+    const favorite = isCustomFavoriteV15(favoriteKey);
+    const selected = Number((manualRecords[day] || {}).code) === 8.9 && String((manualRecords[day] || {}).customCompoundId || "") === definition.id;
+    return `<div class="code-option-row custom-catalog-row-v15 custom-compound-catalog-row-v15 ${favoriteOnly ? "favorite-v15" : ""} ${selected ? "selected" : ""}"><button class="code-star-btn" type="button" data-custom-favorite-v15="${escapeHtml(favoriteKey)}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="custom-leave-select-v13" data-custom-compound-select-v14="${escapeHtml(definition.id)}" type="button">${escapeHtml(name)}</button><button class="compound-row-plus-v14" data-compound-hours-custom-v14="${escapeHtml(definition.id)}" type="button" aria-label="輸入 ${escapeHtml(name)} 當日時數">＋</button>${favoriteOnly ? "" : `<button class="custom-delete-v15" data-custom-compound-delete-v15="${escapeHtml(definition.id)}" type="button">刪除</button>`}</div>`;
+  }
+  function buildCustomCatalogRowsV15(day, favoriteOnly) {
+    const leaveRows = getCustomLeaveTypesV13(false).filter(item => !favoriteOnly || isCustomFavoriteV15(customLeaveFavoriteKeyV15(item.id))).map(item => buildCustomLeaveCatalogRowV15(item, day, favoriteOnly));
+    const compoundRows = getCustomCompoundTypesV13(false).filter(item => !favoriteOnly || isCustomFavoriteV15(customCompoundFavoriteKeyV15(item.id))).map(item => buildCustomCompoundCatalogRowV15(item, day, favoriteOnly));
+    return leaveRows.concat(compoundRows).filter(Boolean).join("");
   }
   buildCodeOptionRow = function (code, selectedCode, favoriteOnly, day) {
     const favorite = isCodeFavorite(code);
@@ -11212,11 +11282,14 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   };
   buildCodePickerPortalHtml = function (day, selectedCode, allOpen) {
     const favoriteOptions = getFavoriteCodeOptions();
-    const favoriteHtml = favoriteOptions.length ? favoriteOptions.map(code => buildCodeOptionRow(code, selectedCode, true, day)).join("") : `<div class="code-empty-favorite">未設定我的最愛</div>`;
-    const allHtml = CODE_OPTIONS.map(code => buildCodeOptionRow(code, selectedCode, false, day)).join("");
+    const customFavoriteHtml = buildCustomCatalogRowsV15(day, true);
+    const favoriteRowsHtml = favoriteOptions.map(code => buildCodeOptionRow(code, selectedCode, true, day)).join("") + customFavoriteHtml;
+    const favoriteHtml = favoriteRowsHtml || `<div class="code-empty-favorite">未設定我的最愛</div>`;
+    const customCatalogHtml = buildCustomCatalogRowsV15(day, false);
+    const allHtml = CODE_OPTIONS.map(code => buildCodeOptionRow(code, selectedCode, false, day) + (Number(code) === 8.9 ? customCatalogHtml : "")).join("");
     const record = manualRecords[day] || {};
     const canRestore = isLeaveCode(selectedCode) && ADJUST_CODES.has(Number(record.adjustedCode));
-    return `<div class="code-picker-portal-backdrop" data-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="代碼選單" data-code-portal-day="${day}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${day} 日假別</div><div class="code-picker-portal-subtitle">假別、調班與最終出勤會分層保留</div></div><button class="code-picker-portal-close" type="button" data-code-portal-close="1">關閉</button></div><div class="code-picker-v13-actions"><button class="code-picker-v13-action secondary" type="button" data-code-portal-all-toggle="${day}">${allOpen ? "收合全部" : "全部假別"}</button><button class="code-picker-v13-action" type="button" data-custom-leave-form-toggle-v13="1">＋新增假別</button><button class="code-picker-v13-action" type="button" data-compound-create-open-v14="1">＋新增複合</button>${canRestore ? `<button class="code-picker-v13-action restore" type="button" data-restore-adjusted-v13="${day}">取消假別，恢復 ${escapeHtml(getLabel(record.adjustedCode))}</button>` : ""}</div><div class="code-picker-portal-scroll">${buildCustomLeaveFormHtmlV13()}${buildCompoundCreatorHtmlV13(day)}${buildCompoundEditorHtmlV13(day)}<div class="code-picker-portal-section-title">常用自訂假別</div>${buildCustomLeaveListHtmlV13(day)}<div class="code-picker-portal-section-title">常用複合假別</div>${buildCustomCompoundListHtmlV13(day)}<div class="code-picker-portal-section-title">我的最愛</div><div class="code-picker-favorites">${favoriteHtml}</div><div class="code-picker-portal-section-title code-picker-all-title ${allOpen ? "" : "collapsed-detail"}">全部假別</div><div class="code-picker-all ${allOpen ? "" : "collapsed-detail"}" data-code-all-list="${day}">${allHtml}</div></div></div>`;
+    return `<div class="code-picker-portal-backdrop" data-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="代碼選單" data-code-portal-day="${day}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${day} 日假別</div><div class="code-picker-portal-subtitle">假別、調班與最終出勤會分層保留</div></div><button class="code-picker-portal-close" type="button" data-code-portal-close="1">關閉</button></div><div class="code-picker-v13-actions"><button class="code-picker-v13-action secondary" type="button" data-code-portal-all-toggle="${day}">${allOpen ? "收合全部" : "全部假別"}</button><button class="code-picker-v13-action" type="button" data-custom-leave-form-toggle-v13="1">＋新增假別</button><button class="code-picker-v13-action" type="button" data-compound-create-open-v14="1">＋新增複合</button>${canRestore ? `<button class="code-picker-v13-action restore" type="button" data-restore-adjusted-v13="${day}">取消假別，恢復 ${escapeHtml(getLabel(record.adjustedCode))}</button>` : ""}</div><div class="code-picker-portal-scroll">${buildCustomLeaveFormHtmlV13()}${buildCompoundCreatorHtmlV13(day)}${buildCompoundEditorHtmlV13(day)}<div class="code-picker-portal-section-title">我的最愛</div><div class="code-picker-favorites">${favoriteHtml}</div><div class="code-picker-portal-section-title code-picker-all-title ${allOpen ? "" : "collapsed-detail"}">全部假別</div><div class="code-picker-all ${allOpen ? "" : "collapsed-detail"}" data-code-all-list="${day}">${allHtml}</div></div></div>`;
   };
   const openCodePickerByDayBeforeV13 = openCodePickerByDay;
   openCodePickerByDay = function (day, openAllList, restoreScrollTop) {
@@ -11238,7 +11311,8 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     portal.querySelectorAll(".code-star-btn").forEach(btn => btn.addEventListener("click", event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
       const scrollTop = portal.querySelector(".code-picker-portal-scroll")?.scrollTop || 0;
-      toggleCodeFavorite(btn.dataset.codeStar);
+      if (btn.dataset.customFavoriteV15) toggleCustomFavoriteV15(btn.dataset.customFavoriteV15);
+      else toggleCodeFavorite(btn.dataset.codeStar);
       renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, scrollTop);
     }));
     portal.querySelectorAll(".code-option-btn").forEach(btn => btn.addEventListener("click", event => {
@@ -11256,10 +11330,15 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       });
     });
     portal.querySelectorAll("[data-custom-leave-select-v13]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); if (activeCodePickerPortalState) selectCustomLeaveForDayV13(activeCodePickerPortalState.day, btn.dataset.customLeaveSelectV13); }));
-    portal.querySelectorAll("[data-custom-leave-toggle-v13]").forEach(btn => btn.addEventListener("click", event => {
+    portal.querySelectorAll("[data-custom-leave-delete-v15]").forEach(btn => btn.addEventListener("click", async event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
-      toggleCustomLeaveTypeV13(btn.dataset.customLeaveToggleV13);
-      renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, portal.querySelector(".code-picker-portal-scroll")?.scrollTop || 0);
+      const day = activeCodePickerPortalState.day, allOpen = activeCodePickerPortalState.allOpen;
+      if (await deleteCustomLeaveTypeV15(btn.dataset.customLeaveDeleteV15)) renderCodePickerPortal(day, allOpen, 0);
+    }));
+    portal.querySelectorAll("[data-custom-compound-delete-v15]").forEach(btn => btn.addEventListener("click", async event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      const day = activeCodePickerPortalState.day, allOpen = activeCodePickerPortalState.allOpen;
+      if (await deleteCustomCompoundTypeV15(btn.dataset.customCompoundDeleteV15)) renderCodePickerPortal(day, allOpen, 0);
     }));
     portal.querySelectorAll("[data-custom-leave-form-toggle-v13]").forEach(btn => btn.addEventListener("click", event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
@@ -11331,7 +11410,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         compoundDraftV13 = [];
         compoundMessageV13 = "";
       } else compoundMessageV13 = result.message;
-      renderCodePickerPortal(day, activeCodePickerPortalState.allOpen, 0);
+      renderCodePickerPortal(day, result.ok ? true : activeCodePickerPortalState.allOpen, 0);
     }));
     portal.querySelectorAll("[data-compound-save-v13]").forEach(btn => btn.addEventListener("click", event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
@@ -11560,8 +11639,8 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   buildBatchCodePickerPortalHtml = function (index) {
     const record = normalizeBatchRangeRecord(batchRangeRecords[index] || {});
     const optionHtml = BATCH_RANGE_CODES.map(code => buildBatchCodeOptionRow(code, record.code, index)).join("");
-    const customHtml = getCustomLeaveTypesV13(false).length ? `<div class="custom-leave-list-v13">${getCustomLeaveTypesV13(false).map(item => `<div class="custom-leave-row-v13"><button class="custom-leave-select-v13" data-batch-custom-leave-v13="${escapeHtml(item.id)}" type="button">${escapeHtml(item.name)}</button></div>`).join("")}</div>` : `<div class="code-empty-favorite">尚未新增常用假別</div>`;
-    return `<div class="code-picker-portal-backdrop" data-batch-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="批次假別選單" data-batch-code-portal-index="${index}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${index + 1} 筆假別</div><div class="code-picker-portal-subtitle">常用自訂假別可直接套用整段日期</div></div><button class="code-picker-portal-close" type="button" data-batch-code-portal-close="1">關閉</button></div><div class="code-picker-portal-scroll"><div class="code-picker-portal-section-title">常用自訂假別</div>${customHtml}<div class="code-picker-portal-section-title">全部假別</div><div class="batch-code-option-list">${optionHtml}</div></div></div>`;
+    const customHtml = getCustomLeaveTypesV13(false).length ? `<div class="custom-leave-list-v13">${getCustomLeaveTypesV13(false).map(item => `<div class="custom-leave-row-v13"><button class="custom-leave-select-v13" data-batch-custom-leave-v13="${escapeHtml(item.id)}" type="button">${escapeHtml(item.name)}</button></div>`).join("")}</div>` : "";
+    return `<div class="code-picker-portal-backdrop" data-batch-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="批次假別選單" data-batch-code-portal-index="${index}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${index + 1} 筆假別</div><div class="code-picker-portal-subtitle">自訂假別與系統假別皆列於全部假別</div></div><button class="code-picker-portal-close" type="button" data-batch-code-portal-close="1">關閉</button></div><div class="code-picker-portal-scroll"><div class="code-picker-portal-section-title">全部假別</div>${customHtml}<div class="batch-code-option-list">${optionHtml}</div></div></div>`;
   };
   selectBatchCode = function (index, code) {
     if (!batchRangeRecords[index]) batchRangeRecords[index] = { startDay: 0, endDay: 0, code: 5, leaveHours: 0, mode: "workOnly", otherLabel: "其他", customLeaveId: "", lastApplied: null };

@@ -9189,7 +9189,8 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         switchMonthState(true);
       });
       document.addEventListener("click", event => {
-        if (!event.target.closest(".code-picker") && !event.target.closest("#codePickerPortal")) closeAllCodePickers(null);
+        const isParameterDialogClick = Boolean(event.target.closest("#parameterTechDialogModal"));
+        if (!isParameterDialogClick && !event.target.closest(".code-picker") && !event.target.closest("#codePickerPortal")) closeAllCodePickers(null);
         if (!event.target.closest(".batch-code-picker") && !event.target.closest("#batchCodePickerPortal")) closeBatchCodePickerPortal();
       });
       bindHandoverExceptionQuickEvents();
@@ -11346,13 +11347,15 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
       const day = activeCodePickerPortalState.day;
       const scrollTop = portal.querySelector(".code-picker-portal-scroll")?.scrollTop || 0;
-      if (await deleteCustomLeaveTypeV15(btn.dataset.customLeaveDeleteV15)) renderCodePickerPortal(day, true, scrollTop);
+      const deleted = await deleteCustomLeaveTypeV15(btn.dataset.customLeaveDeleteV15);
+      if (deleted || !document.getElementById("codePickerPortal")?.classList.contains("open")) renderCodePickerPortal(day, true, scrollTop);
     }));
     portal.querySelectorAll("[data-custom-compound-delete-v15]").forEach(btn => btn.addEventListener("click", async event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
       const day = activeCodePickerPortalState.day;
       const scrollTop = portal.querySelector(".code-picker-portal-scroll")?.scrollTop || 0;
-      if (await deleteCustomCompoundTypeV15(btn.dataset.customCompoundDeleteV15)) renderCodePickerPortal(day, true, scrollTop);
+      const deleted = await deleteCustomCompoundTypeV15(btn.dataset.customCompoundDeleteV15);
+      if (deleted || !document.getElementById("codePickerPortal")?.classList.contains("open")) renderCodePickerPortal(day, true, scrollTop);
     }));
     portal.querySelectorAll("[data-custom-leave-form-toggle-v13]").forEach(btn => btn.addEventListener("click", event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;

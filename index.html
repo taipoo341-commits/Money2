@@ -5293,7 +5293,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
  modal.innerHTML=`<div class="g-tech-dialog-card ${variant}" role="dialog" aria-modal="true" aria-labelledby="parameterConfirmTitle"><div class="g-tech-dialog-head"><div class="g-tech-dialog-icon">${parameterDialogIcon(variant)}</div><div id="parameterConfirmTitle" class="g-tech-dialog-title">${escapeHtml(title)}</div></div><div class="g-tech-dialog-body">${escapeHtml(message)}${detail?`<div class="g-tech-dialog-detail">${escapeHtml(detail)}</div>`:""}</div><div class="g-tech-dialog-actions"><button class="g-tech-dialog-btn primary" type="button" data-parameter-confirm="1">確認</button><button class="g-tech-dialog-btn" type="button" data-parameter-cancel="1">關閉</button></div></div>`;
  modal.classList.add("open");
  modal.setAttribute("aria-hidden","false");
- return new Promise(resolve=>{const close=result=>{modal.classList.remove("open");modal.setAttribute("aria-hidden","true");modal.innerHTML="";resolve(result);};modal.querySelector("[data-parameter-confirm]")?.addEventListener("click",()=>close(true));modal.querySelector("[data-parameter-cancel]")?.addEventListener("click",()=>close(false));modal.addEventListener("click",event=>{if(event.target===modal)close(false);},{once:true});});
+ return new Promise(resolve=>{const close=result=>{modal.classList.remove("open");modal.setAttribute("aria-hidden","true");modal.innerHTML="";resolve(result);};modal.querySelector("[data-parameter-confirm]")?.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();close(true);});modal.querySelector("[data-parameter-cancel]")?.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();close(false);});modal.addEventListener("click",event=>{event.stopPropagation();if(event.target===modal)close(false);},{once:true});});
  }
  function getParameterSectionEnabled(section){if(section==="hours")return parameterSettings.calc?.hoursEnabled===true;if(section==="handover")return parameterSettings.calc?.handoverEnabled===true;if(section==="salary")return parameterSettings.calc?.salaryEnabled===true;return true;}
  function setParameterSectionEnabled(section,enabled){if(!parameterSettings.sections||typeof parameterSettings.sections!=="object")parameterSettings.sections={shiftRulesEnabled:true,holidayOverridesEnabled:true};if(section==="hours")parameterSettings.calc.hoursEnabled=enabled===true;if(section==="handover")parameterSettings.calc.handoverEnabled=enabled===true;if(section==="salary")parameterSettings.calc.salaryEnabled=enabled===true;}
@@ -9189,7 +9189,8 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         switchMonthState(true);
       });
       document.addEventListener("click", event => {
-        const isParameterDialogClick = Boolean(event.target.closest("#parameterTechDialogModal"));
+        const eventPath = typeof event.composedPath === "function" ? event.composedPath() : [];
+        const isParameterDialogClick = eventPath.some(node => node && node.id === "parameterTechDialogModal") || Boolean(event.target.closest("#parameterTechDialogModal"));
         if (!isParameterDialogClick && !event.target.closest(".code-picker") && !event.target.closest("#codePickerPortal")) closeAllCodePickers(null);
         if (!event.target.closest(".batch-code-picker") && !event.target.closest("#batchCodePickerPortal")) closeBatchCodePickerPortal();
       });

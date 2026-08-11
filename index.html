@@ -4943,7 +4943,7 @@
 <section class="parameter-settings-section" data-parameter-section="hours"><div class="parameter-settings-section-title"><span>值別時數與交接班</span></div><div class="parameter-hours-layout"><div class="parameter-control-group" data-parameter-control-group="hours"><div class="parameter-control-title"><span>值別時數</span><div class="parameter-control-title-actions"><button id="parameterHoursEnabled" class="parameter-section-toggle-btn" type="button" data-parameter-section-toggle="hours">未啟用</button><button id="parameterAddHourExceptionBtn" class="parameter-settings-add-btn" type="button">新增時數例外</button></div></div><div class="parameter-control-content"><div class="parameter-settings-grid parameter-hours-inline-grid"><label class="parameter-settings-field"><span>0空班(HR)</span><input id="parameterHour0" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>1一值(HR)</span><input id="parameterHour1" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>2二值(HR)</span><input id="parameterHour2" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>3三值(HR)</span><input id="parameterHour3" class="parameter-settings-input" type="text" inputmode="decimal"></label></div><div class="parameter-settings-note">未啟用時沿用內建週期時數，包含三值第一天與二連一等特殊時數。</div><div id="parameterHourExceptionList" class="parameter-settings-list"></div></div></div><div class="parameter-control-group" data-parameter-control-group="handover"><div class="parameter-control-title"><span>一般交接班</span></div><div class="parameter-handover-control-row"><div class="parameter-control-content"><div class="parameter-handover-inline-grid"><label class="parameter-settings-field"><span>交接班(分)</span><input id="parameterHandoverMinutes" class="parameter-settings-input" type="text" inputmode="numeric"></label></div></div><button id="parameterHandoverEnabled" class="parameter-section-toggle-btn" type="button" data-parameter-section-toggle="handover">未啟用</button></div><div class="parameter-settings-note">未啟用時使用系統預設 30 分鐘；不定期測試請由主月曆的「交接班例外」設定。</div></div></div></section>
 <section class="parameter-settings-section" data-parameter-section="election"><div class="parameter-settings-section-title"><span>選舉日自訂規則</span><button id="parameterAddElectionRuleBtn" class="parameter-settings-add-btn" type="button">新增規則</button></div><div class="parameter-settings-grid parameter-election-grid"><label class="parameter-settings-field"><span>選舉日開始時間</span><input id="parameterElectionStartTime" class="parameter-settings-input parameter-time-input" type="text" inputmode="numeric" placeholder="0000"></label><label class="parameter-settings-field"><span>選舉日結束時間</span><input id="parameterElectionEndTime" class="parameter-settings-input parameter-time-input" type="text" inputmode="numeric" placeholder="2400"></label></div><div id="parameterElectionPatternHint" class="parameter-settings-note"></div><div id="parameterElectionRuleList" class="parameter-settings-list"></div></section>
 <section class="parameter-settings-section" data-parameter-section="salary"><div class="parameter-settings-section-title"><span>薪資倍率與金額</span><button id="parameterSalaryEnabled" class="parameter-section-toggle-btn" type="button" data-parameter-section-toggle="salary">未啟用</button></div><div class="parameter-settings-grid parameter-salary-rate-grid"><label class="parameter-settings-field"><span>超時2HR以內的倍數，請填分數</span><input id="parameterRateCode7" class="parameter-settings-input" type="text" placeholder="4/3"></label><label class="parameter-settings-field"><span>超時2~8HR內的倍數，請填分數</span><input id="parameterRateCode8" class="parameter-settings-input" type="text" placeholder="5/3"></label><label class="parameter-settings-field"><span>超時8HR以上的倍數，請填分數</span><input id="parameterRateCode6" class="parameter-settings-input" type="text" placeholder="8/3"></label></div><div class="parameter-settings-grid six parameter-salary-fee-grid"><label class="parameter-settings-field"><span>初夜點</span><input id="parameterInitialNightFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>深夜點</span><input id="parameterDeepNightFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>初一紅包</span><input id="parameterRedEnvelopeFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>早餐</span><input id="parameterBreakfastFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>午晚餐</span><input id="parameterLunchDinnerFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>年夜飯</span><input id="parameterReunionDinnerFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label></div></section>
-<section class="parameter-settings-section" data-parameter-section="core"><div class="parameter-settings-section-title"><span>工時與年度核心參數</span></div><div class="parameter-settings-grid parameter-core-grid"><label class="parameter-settings-field"><span>每月加班上限(HR)</span><input id="parameterMonthlyOvertimeCap" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>月薪換算時數</span><input id="parameterSalaryHourDivisor" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>每日正常工時(HR)</span><input id="parameterNormalHoursPerDay" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>考勤年度起始月</span><select id="parameterAttendanceYearStartMonth" class="parameter-settings-select"><option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option></select></label><label class="parameter-settings-field"><span>會計年度起始月</span><select id="parameterAccountingYearStartMonth" class="parameter-settings-select"><option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option></select></label><label class="parameter-settings-field"><span>特休上限／補助上限(日)</span><input id="parameterSpecialLeaveSubsidyMaxDays" class="parameter-settings-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>身心上限(日)</span><input id="parameterMindLeaveMaxDays" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>家庭上限(日)</span><input id="parameterFamilyLeaveMaxDays" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>事假獎金安全上限(HR)</span><input id="parameterPersonalLeaveBonusSafeHours" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>病假獎金安全上限(HR)</span><input id="parameterSickLeaveBonusSafeHours" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field parameter-core-last-field"><span>特休每日補助(元)</span><input id="parameterSpecialLeaveSubsidyPerDay" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label></div><div class="parameter-settings-note">以上參數始終套用；事假與病假填寫不扣獎金的最高安全時數，超過後只顯示警示，不會阻止請假或改寫既有紀錄。</div></section>
+<section class="parameter-settings-section" data-parameter-section="core"><div class="parameter-settings-section-title"><span>工時與年度核心參數</span></div><div class="parameter-settings-grid parameter-core-grid"><label class="parameter-settings-field"><span>每月加班上限(HR)</span><input id="parameterMonthlyOvertimeCap" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>月薪換算時數</span><input id="parameterSalaryHourDivisor" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>每日正常工時(HR)</span><input id="parameterNormalHoursPerDay" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>考勤年度起始月</span><select id="parameterAttendanceYearStartMonth" class="parameter-settings-select"><option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option></select></label><label class="parameter-settings-field"><span>會計年度起始月</span><select id="parameterAccountingYearStartMonth" class="parameter-settings-select"><option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option></select></label><label class="parameter-settings-field"><span>特休上限／補助上限(日)</span><input id="parameterSpecialLeaveSubsidyMaxDays" class="parameter-settings-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>身心上限(日)</span><input id="parameterMindLeaveMaxDays" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>家庭上限(日)</span><input id="parameterFamilyLeaveMaxDays" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>事假獎金安全上限(HR)</span><input id="parameterPersonalLeaveBonusSafeHours" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>病假獎金安全上限(HR)</span><input id="parameterSickLeaveBonusSafeHours" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field parameter-core-last-field"><span>特休每日補助(元)</span><input id="parameterSpecialLeaveSubsidyPerDay" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label></div><div class="parameter-settings-note">以上參數始終套用；身心與家庭為考勤年度可請上限，超過時會阻止套用；特休為補助上限，事假與病假為獎金安全門檻，超過後仍可登錄。</div></section>
 <section class="parameter-settings-section"><div class="parameter-settings-section-title"><span>參數匯入／匯出</span></div><div class="g-backup-local-grid"><button id="parameterExportBtn" class="parameter-settings-small-btn file" type="button">下載參數 JSON</button><button id="parameterImportBtn" class="parameter-settings-small-btn file" type="button">匯入參數 JSON</button></div><input id="parameterImportFileInput" class="parameter-settings-file-input" type="file" accept="application/json,.json"></section><div id="parameterSettingsMessage" class="parameter-settings-message" aria-live="polite"></div></div><div class="parameter-settings-footer"><button id="parameterSaveBtn" class="parameter-settings-footer-btn primary" type="button">儲存並套用</button><button id="parameterInitialBtn" class="parameter-settings-footer-btn warning" type="button">初始設定</button><button id="parameterCloseBtn" class="parameter-settings-footer-btn" type="button">關閉</button></div></div></div>
 <div id="parameterDateModal" class="parameter-date-modal" aria-hidden="true"><div class="parameter-date-card"><div class="parameter-date-head"><button id="parameterDatePrevBtn" class="parameter-date-nav" type="button">‹</button><div id="parameterDateTitle" class="parameter-date-title">選擇日期</div><button id="parameterDateNextBtn" class="parameter-date-nav" type="button">›</button></div><div id="parameterDateWeekGrid" class="parameter-date-week-grid"></div><div id="parameterDateCalendarGrid" class="parameter-date-calendar-grid"></div><div class="parameter-date-actions"><button id="parameterDateClearBtn" class="parameter-date-action-btn" type="button">清除日期</button><button id="parameterDateCancelBtn" class="parameter-date-action-btn" type="button">取消</button></div></div></div>
 <!-- 參數設定：浮動視窗結束 -->
@@ -7595,7 +7595,13 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       return Number(dayInfo.leaveHours || 0);
     }
     function buildLeaveHourOptionsForDay(dayInfo, trainingClassSelected) {
-      const maxPartialHours = getMaxPartialLeaveHours(dayInfo);
+      const configuredMaxPartialHours = getMaxPartialLeaveHours(dayInfo);
+      const limitedRemainingHours = typeof window.getAttendanceLeaveRemainingHoursV21 === "function"
+        ? window.getAttendanceLeaveRemainingHoursV21(dayInfo.day, dayInfo.actualCode)
+        : null;
+      const maxPartialHours = Number.isFinite(limitedRemainingHours)
+        ? Math.min(configuredMaxPartialHours, Math.max(0, limitedRemainingHours))
+        : configuredMaxPartialHours;
       const selectedLeaveHours = getCompoundLinkedLeaveSelectValue(dayInfo);
       const values = [0];
       for (let h = 0.5; h <= maxPartialHours + 0.0001; h += 0.5) {
@@ -8492,7 +8498,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         pendingCodePickerReopen = null;
       }
       dayGrid.querySelectorAll(".hour-select").forEach(sel => {
-        sel.addEventListener("change", function() {
+        sel.addEventListener("change", async function() {
           const day = Number(this.dataset.day);
           if (!manualRecords[day]) manualRecords[day] = {};
           const currentDayInfo = buildDays().find(item => Number(item.day) === day);
@@ -8502,6 +8508,15 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
             delete manualRecords[day].leaveHours;
             delete manualRecords[day].compoundSplit;
           } else {
+            const selectedHours = Number(this.value);
+            const validation = typeof window.validateAttendanceLeaveLimitForDayV21 === "function"
+              ? window.validateAttendanceLeaveLimitForDayV21(day, currentDayInfo && currentDayInfo.actualCode, selectedHours > 0 ? selectedHours : null)
+              : { ok: true };
+            if (!validation.ok) {
+              if (typeof window.showAttendanceLeaveLimitWarningV21 === "function") await window.showAttendanceLeaveLimitWarningV21(validation, "partial");
+              renderAll(false);
+              return;
+            }
             manualRecords[day].leaveHours = Number(this.value);
             delete manualRecords[day].trainingMode;
             delete manualRecords[day].compoundSplit;
@@ -8734,7 +8749,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       el.textContent = formatLeaveStatValue(hours);
       el.classList.toggle("empty", roundLeaveStatHours(hours) <= 0);
     }
-    function setAnnualLeaveLimitLabel(id, text, thresholdReached) {
+    function setAnnualLeaveLimitLabel(id, text, thresholdReached, badgeText = "已達扣獎金門檻") {
       const label = document.getElementById(id);
       if (!label) return;
       label.textContent = text;
@@ -8743,21 +8758,26 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       if (thresholdReached === true) {
         const badge = document.createElement("span");
         badge.className = "leave-bonus-threshold-badge";
-        badge.textContent = "已達扣獎金門檻";
+        badge.textContent = badgeText;
         label.appendChild(badge);
       }
     }
-    function updateAnnualLeaveLimitLabels(accountingStats) {
+    function updateAnnualLeaveLimitLabels(attendanceStats, accountingStats) {
       const specialDays = Math.max(0, getParameterCoreNumber("specialLeaveSubsidyMaxDays"));
       const mindDays = Math.max(0, getParameterCoreNumber("mindLeaveMaxDays"));
       const familyDays = Math.max(0, getParameterCoreNumber("familyLeaveMaxDays"));
+      const normalHoursPerDay = Math.max(0.01, getParameterCoreNumber("normalHoursPerDay"));
       const personalSafeHours = Math.max(0, getParameterCoreNumber("personalLeaveBonusSafeHours"));
       const sickSafeHours = Math.max(0, getParameterCoreNumber("sickLeaveBonusSafeHours"));
+      const mindHours = roundLeaveStatHours((attendanceStats || {}).mind || 0);
+      const familyHours = roundLeaveStatHours((attendanceStats || {}).family || 0);
+      const mindLimitHours = roundLeaveStatHours(mindDays * normalHoursPerDay);
+      const familyLimitHours = roundLeaveStatHours(familyDays * normalHoursPerDay);
       const personalHours = roundLeaveStatHours((accountingStats || {}).personal || 0);
       const sickHours = roundLeaveStatHours((accountingStats || {}).sick || 0);
       setAnnualLeaveLimitLabel("leaveAttendanceSpecialLabel", `特休(${fmtHour(specialDays)}天)`, false);
-      setAnnualLeaveLimitLabel("leaveAttendanceMindLabel", `身心(${fmtHour(mindDays)}天)`, false);
-      setAnnualLeaveLimitLabel("leaveAttendanceFamilyLabel", `家庭(${fmtHour(familyDays)}天)`, false);
+      setAnnualLeaveLimitLabel("leaveAttendanceMindLabel", `身心(${fmtHour(mindDays)}天)`, mindHours > mindLimitHours, `已超過上限 ${fmtHour(Math.max(0, mindHours - mindLimitHours))}HR`);
+      setAnnualLeaveLimitLabel("leaveAttendanceFamilyLabel", `家庭(${fmtHour(familyDays)}天)`, familyHours > familyLimitHours, `已超過上限 ${fmtHour(Math.max(0, familyHours - familyLimitHours))}HR`);
       setAnnualLeaveLimitLabel("leaveAccountingPersonalLabel", `事假(${formatLeaveStatValue(personalSafeHours)})`, personalHours > roundLeaveStatHours(personalSafeHours));
       setAnnualLeaveLimitLabel("leaveAccountingSickLabel", `病假(${formatLeaveStatValue(sickSafeHours)})`, sickHours > roundLeaveStatHours(sickSafeHours));
     }
@@ -8960,7 +8980,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const accountingStats = collectLeaveStatsForPairs(getAccountingYearMonthPairs(accountingYear), shiftGroup, days);
       const specialLeaveSubsidy = calcSpecialLeaveSubsidy(monthStats, attendanceYear, rocYear, month, shiftGroup);
       updateSpecialLeaveSubsidyDisplay(specialLeaveSubsidy);
-      updateAnnualLeaveLimitLabels(accountingStats);
+      updateAnnualLeaveLimitLabels(attendanceStats, accountingStats);
       const monthTitle = document.getElementById("leaveStatsMonthTitle");
       if (monthTitle) monthTitle.textContent = `${month}月假別統計資訊`;
       const leaveStatsPanelTitle = document.getElementById("leaveStatsPanelTitle");
@@ -11046,6 +11066,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   let compoundDraftV13 = [];
   let compoundMessageV13 = "";
   let compoundTargetV13 = null;
+  let limitedLeaveEditorCodeV21 = null;
 
   const normalizeParameterSettingsBeforeV13 = normalizeParameterSettings;
   normalizeParameterSettings = function (raw) {
@@ -11174,6 +11195,82 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     if (code === 8.6) return "mind";
     return "";
   }
+  const ATTENDANCE_LEAVE_LIMITS_V21 = {
+    mind: { code: 8.6, label: "身心調適假", parameterKey: "mindLeaveMaxDays" },
+    family: { code: 8.5, label: "家庭照顧假", parameterKey: "familyLeaveMaxDays" }
+  };
+  function getAttendanceLeaveLimitConfigByCodeV21(code) {
+    const numericCode = Number(code);
+    return Object.values(ATTENDANCE_LEAVE_LIMITS_V21).find(item => Number(item.code) === numericCode) || null;
+  }
+  function getAttendanceLeaveLimitConfigByCategoryV21(category) {
+    return ATTENDANCE_LEAVE_LIMITS_V21[String(category || "")] || null;
+  }
+  function getAttendanceLeaveLimitCategoryByConfigV21(config) {
+    return Object.keys(ATTENDANCE_LEAVE_LIMITS_V21).find(key => ATTENDANCE_LEAVE_LIMITS_V21[key] === config) || "";
+  }
+  function getAttendanceLeaveStatsExcludingDaysV21(excludedDays) {
+    const excluded = excludedDays instanceof Set ? excludedDays : new Set((excludedDays || []).map(Number));
+    const rocYear = Number(document.getElementById("rocYear").value);
+    const month = Number(document.getElementById("month").value);
+    const shiftGroup = document.getElementById("shiftGroup").value;
+    const attendanceStartMonth = Math.max(1, Math.min(12, Math.round(getParameterCoreNumber("attendanceYearStartMonth"))));
+    const attendanceYear = getLeaveYearForMonth(rocYear, month, attendanceStartMonth);
+    const currentDays = buildDays().filter(dayInfo => !excluded.has(Number(dayInfo.day)));
+    return collectLeaveStatsForPairs(getAttendanceYearMonthPairs(attendanceYear), shiftGroup, currentDays);
+  }
+  function validateAttendanceLeaveCandidatesV21(candidateHoursByCategory, excludedDays) {
+    const candidates = candidateHoursByCategory && typeof candidateHoursByCategory === "object" ? candidateHoursByCategory : {};
+    const relevantCategories = Object.keys(ATTENDANCE_LEAVE_LIMITS_V21).filter(category => Number(candidates[category] || 0) > 0);
+    if (!relevantCategories.length) return { ok: true };
+    const stats = getAttendanceLeaveStatsExcludingDaysV21(excludedDays);
+    const normalHoursPerDay = Math.max(0.01, getParameterCoreNumber("normalHoursPerDay"));
+    for (const category of relevantCategories) {
+      const config = getAttendanceLeaveLimitConfigByCategoryV21(category);
+      const maxDays = Math.max(0, getParameterCoreNumber(config.parameterKey));
+      const limitHours = roundLeaveStatHours(maxDays * normalHoursPerDay);
+      const usedHours = roundLeaveStatHours(stats[category] || 0);
+      const remainingHours = roundLeaveStatHours(Math.max(0, limitHours - usedHours));
+      const requestedHours = roundLeaveStatHours(candidates[category] || 0);
+      if (requestedHours > remainingHours) return { ok: false, category, config, maxDays, limitHours, usedHours, remainingHours, requestedHours };
+    }
+    return { ok: true };
+  }
+  function getAttendanceLeaveCandidateForDayV21(day, code, proposedHours) {
+    const config = getAttendanceLeaveLimitConfigByCodeV21(code);
+    if (!config) return { ok: true };
+    const numericHours = Number(proposedHours);
+    const requestedHours = Number.isFinite(numericHours) && numericHours > 0 ? numericHours : getCompoundMaxHoursV13(day);
+    return validateAttendanceLeaveCandidatesV21({ [getAttendanceLeaveLimitCategoryByConfigV21(config)]: requestedHours }, new Set([Number(day)]));
+  }
+  async function showAttendanceLeaveLimitWarningV21(result, context) {
+    if (!result || result.ok !== false) return;
+    const config = result.config || getAttendanceLeaveLimitConfigByCategoryV21(result.category);
+    const remainingText = `${fmtHour(Math.max(0, result.remainingHours))}HR`;
+    const requestedText = `${fmtHour(result.requestedHours)}HR`;
+    let detail = `本次資料未變更，請改選不超過 ${remainingText} 的時數或其他假別。`;
+    if (context === "full") detail = result.remainingHours > 0
+      ? `請按假別右側「＋」設定不超過 ${remainingText} 的部分請假，或重選其他假別。`
+      : "此假別已無剩餘時數，請重選其他假別。";
+    if (context === "compound") detail = `請調整複合假別中的${config.label}時數，不得超過剩餘 ${remainingText}。`;
+    if (context === "batch") detail = "本次批次完全未套用，請縮短日期區間或改選其他假別。";
+    await parameterConfirmDialog({
+      variant: "danger",
+      title: `超過${config.label}上限`,
+      message: `本考勤年度上限為 ${fmtHour(result.maxDays)} 天（${fmtHour(result.limitHours)}HR），目前剩餘 ${remainingText}，本次需要 ${requestedText}。`,
+      detail
+    });
+  }
+  window.validateAttendanceLeaveLimitForDayV21 = getAttendanceLeaveCandidateForDayV21;
+  window.showAttendanceLeaveLimitWarningV21 = showAttendanceLeaveLimitWarningV21;
+  window.getAttendanceLeaveRemainingHoursV21 = function (day, code) {
+    const config = getAttendanceLeaveLimitConfigByCodeV21(code);
+    if (!config) return null;
+    const category = getAttendanceLeaveLimitCategoryByConfigV21(config);
+    const stats = getAttendanceLeaveStatsExcludingDaysV21(new Set([Number(day)]));
+    const limitHours = Math.max(0, getParameterCoreNumber(config.parameterKey)) * Math.max(0.01, getParameterCoreNumber("normalHoursPerDay"));
+    return roundLeaveStatHours(Math.max(0, limitHours - Number(stats[category] || 0)));
+  };
   function componentKeyV13(item) {
     if (item && item.customLeaveId) return `custom:${item.customLeaveId}`;
     if (item && item.kind === "other") return "other";
@@ -11342,12 +11439,23 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   function preserveLegacyAdjustedLayerV13(record) {
     if (!ADJUST_CODES.has(Number(record.adjustedCode)) && ADJUST_CODES.has(Number(record.code))) record.adjustedCode = Number(record.code);
   }
-  selectActualCodeForDay = function (day, code) {
+  selectActualCodeForDay = async function (day, code) {
     pendingCodePickerReopen = null;
+    const numericCode = Number(code);
+    const limitedConfig = getAttendanceLeaveLimitConfigByCodeV21(numericCode);
+    if (limitedConfig) {
+      const validation = getAttendanceLeaveCandidateForDayV21(day, numericCode, null);
+      if (!validation.ok) {
+        const reopenAll = Boolean(activeCodePickerPortalState && activeCodePickerPortalState.allOpen);
+        const reopenScrollTop = document.querySelector("#codePickerPortal .code-picker-portal-scroll")?.scrollTop || 0;
+        await showAttendanceLeaveLimitWarningV21(validation, "full");
+        window.setTimeout(() => openCodePickerByDay(day, reopenAll, reopenScrollTop), 0);
+        return;
+      }
+    }
     closeCodePickerPortal();
     if (!manualRecords[day]) manualRecords[day] = {};
     const record = manualRecords[day];
-    const numericCode = Number(code);
     if (ADJUST_CODES.has(numericCode)) {
       record.adjustedCode = numericCode;
       record.code = numericCode;
@@ -11419,11 +11527,69 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     closeCodePickerPortal();
     renderAll(false);
   }
+  async function applyLimitedLeaveHoursV21(day, code, hours) {
+    const numericHours = roundLeaveStatHours(hours);
+    const maxHours = getCompoundMaxHoursV13(day);
+    if (maxHours <= 0) {
+      compoundMessageV13 = "目前底層班次是空班，請先設定調班值別後再請假。";
+      renderCodePickerPortal(day, activeCodePickerPortalState && activeCodePickerPortalState.allOpen, 0);
+      return;
+    }
+    if (numericHours <= 0) {
+      compoundMessageV13 = "請輸入大於 0 的時數。";
+      renderCodePickerPortal(day, activeCodePickerPortalState && activeCodePickerPortalState.allOpen, 0);
+      return;
+    }
+    if (numericHours > maxHours) {
+      compoundMessageV13 = `時數不可超過本班 ${fmtHour(maxHours)}HR。`;
+      renderCodePickerPortal(day, activeCodePickerPortalState && activeCodePickerPortalState.allOpen, 0);
+      return;
+    }
+    const validation = getAttendanceLeaveCandidateForDayV21(day, code, numericHours);
+    if (!validation.ok) {
+      compoundMessageV13 = `${validation.config.label}本考勤年度僅剩 ${fmtHour(validation.remainingHours)}HR。`;
+      renderCodePickerPortal(day, activeCodePickerPortalState && activeCodePickerPortalState.allOpen, 0);
+      return;
+    }
+    if (!manualRecords[day]) manualRecords[day] = {};
+    const record = manualRecords[day];
+    preserveLegacyAdjustedLayerV13(record);
+    record.code = Number(code);
+    record.leaveHours = numericHours;
+    delete record.compoundSplit;
+    delete record.compoundItems;
+    delete record.customLeaveId;
+    delete record.customCompoundId;
+    delete record.otherLabel;
+    delete record.trainingMode;
+    markManualRecordSource(day, "manual");
+    saveCurrentMonthState();
+    closeCodePickerPortal();
+    renderAll(false);
+  }
+  function compoundItemsHaveAttendanceLimitV21(items) {
+    return normalizeCompoundItemsV13(items, activeCodePickerPortalState && activeCodePickerPortalState.day).some(item => {
+      const category = getItemCategoryV13(item);
+      return category === "mind" || category === "family";
+    });
+  }
+  function openLimitedCompoundEditorV21(day, target, message) {
+    compoundCreatorOpenV13 = false;
+    compoundEditorOpenV13 = true;
+    limitedLeaveEditorCodeV21 = null;
+    initCompoundHoursDraftV13(day, target);
+    compoundMessageV13 = message || "此組合包含年度上限假別，請輸入各假別時數。";
+    renderCodePickerPortal(day, activeCodePickerPortalState && activeCodePickerPortalState.allOpen, 0);
+  }
   function selectCustomCompoundForDayV13(day, id) {
     const definition = getCustomCompoundTypeV13(id);
     if (!definition || definition.enabled === false) return;
     const items = getCompoundDefinitionItemsV13(definition, day, {});
     if (items.length < 2) return;
+    if (compoundItemsHaveAttendanceLimitV21(items)) {
+      openLimitedCompoundEditorV21(day, { kind: "custom", id: definition.id, name: getCustomCompoundNameV13(definition, day), componentKeys: definition.componentKeys.slice() });
+      return;
+    }
     applyCompoundToDayV13(day, { kind: "custom", id: definition.id }, items, 0);
   }
   function restoreAdjustedShiftV13(day) {
@@ -11554,7 +11720,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     return `<div class="compound-editor-v13 compound-creator-v14">
       <div class="compound-editor-v13-title">新增複合假別</div>
       <div class="compound-items-v13">${rows}</div>
-      <div class="compound-hint-v13">只儲存假別組合，不儲存預設時數。儲存後會加入全部假別；點名稱可直接套用全日，點右側「＋」再輸入當日各項時數。</div>
+      <div class="compound-hint-v13">只儲存假別組合，不儲存預設時數。一般組合點名稱可直接套用全日；含身心或家庭時，會要求先輸入各項時數。</div>
       <div class="compound-message-v13 ${compoundMessageV13 ? "error" : ""}">${escapeHtml(compoundMessageV13)}</div>
       <div class="compound-editor-actions-v13"><button class="compound-add-v13" data-compound-add-v13="1" type="button">＋加入假別</button><button class="compound-confirm-v13" data-compound-create-save-v14="1" type="button">儲存組合</button></div>
     </div>`;
@@ -11562,6 +11728,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   function buildCompoundEditorHtmlV13(day) {
     if (!compoundEditorOpenV13) return "";
     const maxHours = getCompoundMaxHoursV13(day);
+    const requiresAttendanceLimitBreakdown = compoundItemsHaveAttendanceLimitV21(compoundDraftV13);
     const rows = compoundDraftV13.map((item, index) => `
       <div class="compound-hours-row-v14" data-compound-hours-row-v14="${index}" data-compound-key-v14="${escapeHtml(componentKeyV13(item))}">
         <span class="compound-hours-label-v14">${escapeHtml(item.label)}</span>
@@ -11572,9 +11739,26 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       <div class="compound-editor-v13-title">${escapeHtml(compoundTargetV13 && compoundTargetV13.name || "複合假別")}－當日時數</div>
       <div class="compound-items-v13">${rows}</div>
       <div class="compound-summary-v13"><span>目前合計：${fmtHour(total)}HR</span><span>本班上限：${fmtHour(maxHours)}HR</span></div>
-      <div class="compound-hint-v13">兩欄都不輸入時視為全日請假；若要分項統計，請輸入本日各假別時數。時數不會帶到其他日期。</div>
+      <div class="compound-hint-v13">${requiresAttendanceLimitBreakdown ? "此組合包含身心或家庭，必須輸入本日各假別時數；各項會分別檢查考勤年度剩餘額度。" : "兩欄都不輸入時視為全日請假；若要分項統計，請輸入本日各假別時數。時數不會帶到其他日期。"}</div>
       <div class="compound-message-v13 ${compoundMessageV13 ? "error" : ""}">${escapeHtml(compoundMessageV13)}</div>
       <button class="compound-confirm-v13" data-compound-save-v13="1" type="button">套用複合假別</button>
+    </div>`;
+  }
+  function buildLimitedLeaveEditorHtmlV21(day) {
+    const config = getAttendanceLeaveLimitConfigByCodeV21(limitedLeaveEditorCodeV21);
+    if (!config) return "";
+    const remainingHours = window.getAttendanceLeaveRemainingHoursV21(day, config.code);
+    const maxHours = getCompoundMaxHoursV13(day);
+    return `<div class="compound-editor-v13">
+      <div class="compound-editor-v13-title">${escapeHtml(config.label)}－部分時數</div>
+      <div class="compound-hours-row-v14">
+        <span class="compound-hours-label-v14">本日請假時數</span>
+        <input class="compound-item-hours-v13" data-limited-leave-hours-input-v21="1" type="text" inputmode="decimal" placeholder="時數" aria-label="${escapeHtml(config.label)}部分請假時數">
+      </div>
+      <div class="compound-summary-v13"><span>年度剩餘：${fmtHour(remainingHours)}HR</span><span>本班上限：${fmtHour(maxHours)}HR</span></div>
+      <div class="compound-hint-v13">僅允許整數或 .5；不得超過年度剩餘時數及本班工時。</div>
+      <div class="compound-message-v13 ${compoundMessageV13 ? "error" : ""}">${escapeHtml(compoundMessageV13)}</div>
+      <button class="compound-confirm-v13" data-limited-leave-save-v21="1" type="button">套用部分請假</button>
     </div>`;
   }
   function buildCustomLeaveFormHtmlV13() {
@@ -11619,8 +11803,11 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       return `<div class="code-option-row code-other-row ${selected ? "selected" : ""}" data-code-row="${code}"><button class="code-star-btn" type="button" data-code-star="${code}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="code-option-btn" type="button" data-code-option="${code}">${favoriteOnly ? "★" : ""}${code}</button><input class="code-other-name-input" type="text" value="${escapeHtml(getOtherCodeLabelForDay(day))}" maxlength="20" data-other-code-input="1" data-other-code-day="${day}" title="預設為其他時會全選；自訂後可直接定位游標修字"></div>`;
     }
     const componentKeys = (LEGACY_COMPOUND_COMPONENTS[keyOf(code)] || []).map(value => `code:${value}`);
-    const plus = componentKeys.length >= 2 ? `<button class="compound-row-plus-v14" data-compound-hours-code-v14="${code}" type="button" aria-label="輸入 ${escapeHtml(getLabel(code))} 當日時數">＋</button>` : "";
-    return `<div class="code-option-row ${componentKeys.length >= 2 ? "has-compound-plus-v14" : ""} ${selected ? "selected" : ""}" data-code-row="${code}"><button class="code-star-btn" type="button" data-code-star="${code}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="code-option-btn" type="button" data-code-option="${code}">${favoriteOnly ? "★" : ""}${code} ${escapeHtml(getLabel(code))}</button>${plus}</div>`;
+    const limitedConfig = getAttendanceLeaveLimitConfigByCodeV21(code);
+    const plus = componentKeys.length >= 2
+      ? `<button class="compound-row-plus-v14" data-compound-hours-code-v14="${code}" type="button" aria-label="輸入 ${escapeHtml(getLabel(code))} 當日時數">＋</button>`
+      : (limitedConfig ? `<button class="compound-row-plus-v14" data-limited-leave-hours-code-v21="${code}" type="button" aria-label="輸入 ${escapeHtml(limitedConfig.label)}部分時數">＋</button>` : "");
+    return `<div class="code-option-row ${componentKeys.length >= 2 || limitedConfig ? "has-compound-plus-v14" : ""} ${selected ? "selected" : ""}" data-code-row="${code}"><button class="code-star-btn" type="button" data-code-star="${code}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="code-option-btn" type="button" data-code-option="${code}">${favoriteOnly ? "★" : ""}${code} ${escapeHtml(getLabel(code))}</button>${plus}</div>`;
   };
   buildCodePickerPortalHtml = function (day, selectedCode, allOpen) {
     const favoriteOptions = getFavoriteCodeOptions();
@@ -11631,7 +11818,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     const allHtml = CODE_OPTIONS.map(code => buildCodeOptionRow(code, selectedCode, false, day) + (Number(code) === 8.9 ? customCatalogHtml : "")).join("");
     const record = manualRecords[day] || {};
     const canRestore = isLeaveCode(selectedCode) && ADJUST_CODES.has(Number(record.adjustedCode));
-    return `<div class="code-picker-portal-backdrop" data-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="代碼選單" data-code-portal-day="${day}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${day} 日假別</div><div class="code-picker-portal-subtitle">假別、調班與最終出勤會分層保留</div></div><button class="code-picker-portal-close" type="button" data-code-portal-close="1">關閉</button></div><div class="code-picker-v13-actions"><button class="code-picker-v13-action secondary" type="button" data-code-portal-all-toggle="${day}">${allOpen ? "收合全部" : "全部假別"}</button><button class="code-picker-v13-action" type="button" data-custom-leave-form-toggle-v13="1">＋新增假別</button><button class="code-picker-v13-action" type="button" data-compound-create-open-v14="1">＋新增複合</button>${canRestore ? `<button class="code-picker-v13-action restore" type="button" data-restore-adjusted-v13="${day}">取消假別，恢復 ${escapeHtml(getLabel(record.adjustedCode))}</button>` : ""}</div><div class="code-picker-portal-scroll">${buildCustomLeaveFormHtmlV13()}${buildCompoundCreatorHtmlV13(day)}${buildCompoundEditorHtmlV13(day)}<div class="code-picker-portal-section-title">我的最愛</div><div class="code-picker-favorites">${favoriteHtml}</div><div class="code-picker-portal-section-title code-picker-all-title ${allOpen ? "" : "collapsed-detail"}">全部假別</div><div class="code-picker-all ${allOpen ? "" : "collapsed-detail"}" data-code-all-list="${day}">${allHtml}</div></div></div>`;
+    return `<div class="code-picker-portal-backdrop" data-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="代碼選單" data-code-portal-day="${day}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${day} 日假別</div><div class="code-picker-portal-subtitle">假別、調班與最終出勤會分層保留</div></div><button class="code-picker-portal-close" type="button" data-code-portal-close="1">關閉</button></div><div class="code-picker-v13-actions"><button class="code-picker-v13-action secondary" type="button" data-code-portal-all-toggle="${day}">${allOpen ? "收合全部" : "全部假別"}</button><button class="code-picker-v13-action" type="button" data-custom-leave-form-toggle-v13="1">＋新增假別</button><button class="code-picker-v13-action" type="button" data-compound-create-open-v14="1">＋新增複合</button>${canRestore ? `<button class="code-picker-v13-action restore" type="button" data-restore-adjusted-v13="${day}">取消假別，恢復 ${escapeHtml(getLabel(record.adjustedCode))}</button>` : ""}</div><div class="code-picker-portal-scroll">${buildCustomLeaveFormHtmlV13()}${buildCompoundCreatorHtmlV13(day)}${buildLimitedLeaveEditorHtmlV21(day)}${buildCompoundEditorHtmlV13(day)}<div class="code-picker-portal-section-title">我的最愛</div><div class="code-picker-favorites">${favoriteHtml}</div><div class="code-picker-portal-section-title code-picker-all-title ${allOpen ? "" : "collapsed-detail"}">全部假別</div><div class="code-picker-all ${allOpen ? "" : "collapsed-detail"}" data-code-all-list="${day}">${allHtml}</div></div></div>`;
   };
   const openCodePickerByDayBeforeV13 = openCodePickerByDay;
   openCodePickerByDay = function (day, openAllList, restoreScrollTop) {
@@ -11641,6 +11828,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     compoundDraftV13 = [];
     compoundMessageV13 = "";
     compoundTargetV13 = null;
+    limitedLeaveEditorCodeV21 = null;
     return openCodePickerByDayBeforeV13(day, openAllList, restoreScrollTop);
   };
   bindCodePickerPortalEvents = function (portal) {
@@ -11657,8 +11845,17 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       else toggleCodeFavorite(btn.dataset.codeStar);
       renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, scrollTop);
     }));
-    portal.querySelectorAll(".code-option-btn").forEach(btn => btn.addEventListener("click", event => {
-      event.preventDefault(); event.stopPropagation(); if (activeCodePickerPortalState) selectActualCodeForDay(activeCodePickerPortalState.day, Number(btn.dataset.codeOption));
+    portal.querySelectorAll(".code-option-btn").forEach(btn => btn.addEventListener("click", async event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      const day = activeCodePickerPortalState.day;
+      const code = Number(btn.dataset.codeOption);
+      const componentKeys = (LEGACY_COMPOUND_COMPONENTS[keyOf(code)] || []).map(value => `code:${value}`);
+      const items = componentKeys.map(key => itemFromComponentKeyV13(key, day, 0)).filter(Boolean);
+      if (componentKeys.length >= 2 && compoundItemsHaveAttendanceLimitV21(items)) {
+        openLimitedCompoundEditorV21(day, { kind: "legacy", code, name: `${code} ${getLabel(code)}`, componentKeys });
+        return;
+      }
+      await selectActualCodeForDay(day, code);
     }));
     portal.querySelectorAll("[data-other-code-input]").forEach(input => {
       const selectDefaultOnly = function () { if (normalizeOtherCodeLabel(input.value) === "其他") window.setTimeout(() => input.select(), 0); };
@@ -11709,6 +11906,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
       compoundCreatorOpenV13 = !compoundCreatorOpenV13;
       compoundEditorOpenV13 = false;
+      limitedLeaveEditorCodeV21 = null;
       compoundTargetV13 = null;
       if (compoundCreatorOpenV13) initCompoundCreatorDraftV13(activeCodePickerPortalState.day);
       renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, 0);
@@ -11719,6 +11917,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const componentKeys = (LEGACY_COMPOUND_COMPONENTS[keyOf(code)] || []).map(value => `code:${value}`);
       compoundCreatorOpenV13 = false;
       compoundEditorOpenV13 = true;
+      limitedLeaveEditorCodeV21 = null;
       initCompoundHoursDraftV13(activeCodePickerPortalState.day, { kind: "legacy", code, name: `${code} ${getLabel(code)}`, componentKeys });
       renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, 0);
     }));
@@ -11728,13 +11927,32 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       if (!definition) return;
       compoundCreatorOpenV13 = false;
       compoundEditorOpenV13 = true;
+      limitedLeaveEditorCodeV21 = null;
       initCompoundHoursDraftV13(activeCodePickerPortalState.day, { kind: "custom", id: definition.id, name: getCustomCompoundNameV13(definition, activeCodePickerPortalState.day), componentKeys: definition.componentKeys.slice() });
+      renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, 0);
+    }));
+    portal.querySelectorAll("[data-limited-leave-hours-code-v21]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
+      limitedLeaveEditorCodeV21 = Number(btn.dataset.limitedLeaveHoursCodeV21);
+      compoundCreatorOpenV13 = false;
+      compoundEditorOpenV13 = false;
+      compoundTargetV13 = null;
+      compoundMessageV13 = "";
       renderCodePickerPortal(activeCodePickerPortalState.day, activeCodePickerPortalState.allOpen, 0);
     }));
     portal.querySelectorAll("[data-compound-item-hours-v13]").forEach(input => {
       input.addEventListener("focus", () => input.select());
       input.addEventListener("input", () => { input.value = sanitizeCompoundHalfHourInputText(input.value); });
     });
+    portal.querySelectorAll("[data-limited-leave-hours-input-v21]").forEach(input => {
+      input.addEventListener("focus", () => input.select());
+      input.addEventListener("input", () => { input.value = sanitizeCompoundHalfHourInputText(input.value); });
+    });
+    portal.querySelectorAll("[data-limited-leave-save-v21]").forEach(btn => btn.addEventListener("click", async event => {
+      event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState || !limitedLeaveEditorCodeV21) return;
+      const input = portal.querySelector("[data-limited-leave-hours-input-v21]");
+      await applyLimitedLeaveHoursV21(activeCodePickerPortalState.day, limitedLeaveEditorCodeV21, Number(input && input.value));
+    }));
     portal.querySelectorAll("[data-compound-add-v13]").forEach(btn => btn.addEventListener("click", event => {
       event.preventDefault(); event.stopPropagation(); if (!activeCodePickerPortalState) return;
       captureCompoundCreatorDraftV13(portal, activeCodePickerPortalState.day);
@@ -11773,9 +11991,21 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const hasAnyHours = items.some(item => Number(item.hours || 0) > 0);
       if (items.length < 2 || !compoundTargetV13) compoundMessageV13 = "找不到這個複合假別組合，請關閉後重試。";
       else if (hasAnyHours && items.some(item => Number(item.hours || 0) <= 0)) compoundMessageV13 = "若要分項統計，每個假別都必須輸入大於 0 的時數；全部留白則視為全日。";
+      else if (compoundItemsHaveAttendanceLimitV21(items) && !hasAnyHours) compoundMessageV13 = "此組合包含身心或家庭，請輸入各假別時數後再套用。";
       else if (maxHours <= 0) compoundMessageV13 = "目前底層班次是空班，請先設定調班值別後再請假。";
       else if (total > maxHours) compoundMessageV13 = `合計不可超過本班 ${fmtHour(maxHours)}HR。`;
       else {
+        const candidateHours = items.reduce((result, item) => {
+          const category = getItemCategoryV13(item);
+          if (category === "mind" || category === "family") result[category] = roundLeaveStatHours((result[category] || 0) + Math.max(0, Number(item.hours) || 0));
+          return result;
+        }, {});
+        const validation = validateAttendanceLeaveCandidatesV21(candidateHours, new Set([Number(day)]));
+        if (!validation.ok) {
+          compoundMessageV13 = `${validation.config.label}本考勤年度僅剩 ${fmtHour(validation.remainingHours)}HR，本次輸入 ${fmtHour(validation.requestedHours)}HR。`;
+          renderCodePickerPortal(day, activeCodePickerPortalState.allOpen, 0);
+          return;
+        }
         applyCompoundToDayV13(day, compoundTargetV13, items, total);
         return;
       }
@@ -12092,6 +12322,23 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const plannedValue = adjusted !== null ? getCodeValue(adjusted) : getCodeValue(base.baseCode);
       if (record.mode === "workOnly" && plannedValue === 0) continue;
       targetDays.push(day);
+    }
+    const limitedConfig = getAttendanceLeaveLimitConfigByCodeV21(record.code);
+    if (limitedConfig && targetDays.length) {
+      const category = getAttendanceLeaveLimitCategoryByConfigV21(limitedConfig);
+      const excludedDays = new Set(targetDays.map(Number));
+      if (previousApplied) {
+        for (let day = Math.min(Number(previousApplied.startDay), Number(previousApplied.endDay)); day <= Math.max(Number(previousApplied.startDay), Number(previousApplied.endDay)); day++) {
+          if (isSameBatchAppliedManualRecord(manualRecords[day], previousApplied)) excludedDays.add(day);
+        }
+      }
+      const dayInfoMap = new Map(buildDays().map(dayInfo => [Number(dayInfo.day), dayInfo]));
+      const requestedHours = roundLeaveStatHours(targetDays.reduce((sum, day) => sum + Math.max(0, getPlannedHoursV13(dayInfoMap.get(Number(day)))), 0));
+      const validation = validateAttendanceLeaveCandidatesV21({ [category]: requestedHours }, excludedDays);
+      if (!validation.ok) {
+        await showAttendanceLeaveLimitWarningV21(validation, "batch");
+        return;
+      }
     }
     const conflicts = targetDays.filter(day => {
       const current = manualRecords[day];

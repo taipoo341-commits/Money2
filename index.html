@@ -4398,13 +4398,11 @@
 }
 </style>
 <style>
-/* === V18 月份快速選擇、額外加班步進器、批次假別最愛 === */
+/* === V19 月份快速選擇、額外加班單列、批次假別最愛 === */
 .control-field{min-width:0}
-.month-control{position:relative;display:grid;grid-template-columns:38px minmax(0,1fr) 38px;gap:6px;align-items:center}
-.month-nav-btn,.month-picker-open-btn{height:46px;min-width:0;border:1px solid rgba(0,240,255,.28);background:#12161c;color:#e0f2fe;font-weight:950;cursor:pointer;outline:none}
-.month-nav-btn{border-radius:12px;font-size:24px;line-height:1}
-.month-picker-open-btn{border-radius:12px;font-size:18px;white-space:nowrap}
-.month-nav-btn:hover,.month-nav-btn:focus-visible,.month-picker-open-btn:hover,.month-picker-open-btn:focus-visible{border-color:rgba(0,240,255,.85);box-shadow:0 0 16px rgba(0,240,255,.24);background:rgba(14,116,144,.18)}
+.month-control{position:relative;display:block}
+.month-picker-open-btn{width:100%;height:46px;min-width:0;border:1px solid rgba(0,240,255,.28);border-radius:12px;background:#12161c;color:#e0f2fe;font-size:18px;font-weight:950;white-space:nowrap;cursor:pointer;outline:none}
+.month-picker-open-btn:hover,.month-picker-open-btn:focus-visible{border-color:rgba(0,240,255,.85);box-shadow:0 0 16px rgba(0,240,255,.24);background:rgba(14,116,144,.18)}
 .month-state-select{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;overflow:hidden!important}
 .month-picker-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.68);z-index:10002}
 .month-picker-modal.open{display:flex}
@@ -4425,6 +4423,14 @@
 .training-hour-unit{color:#94a3b8;font-size:10px;font-weight:900}
 .training-hour-error{min-height:12px;color:#fda4af;font-size:9px;line-height:1.25;text-align:center}
 .training-hour-error:empty{display:none}
+.special-record.with-delete-space:has(.training-hour-control){grid-template-columns:minmax(110px,1.1fr) minmax(150px,1fr) 72px 48px!important;gap:8px!important;align-items:center!important}
+.special-record.with-delete-space:has(.training-hour-control):has(.placeholder-delete){grid-template-columns:minmax(110px,1.1fr) minmax(150px,1fr) 72px!important}
+.special-record.with-delete-space:has(.training-hour-control) .special-date-row{display:contents!important}
+.special-record.with-delete-space:has(.training-hour-control) .special-date-btn{grid-column:1;grid-row:1;order:initial!important}
+.special-record.with-delete-space:has(.training-hour-control) .training-hour-control{grid-column:2;grid-row:1;width:100%;min-width:0;order:initial!important}
+.special-record.with-delete-space:has(.training-hour-control) .special-date-reset-btn{grid-column:3;grid-row:1;order:initial!important}
+.special-record.with-delete-space:has(.training-hour-control) .special-delete-btn:not(.placeholder-delete){grid-column:4;grid-row:1;min-width:0!important;order:initial!important}
+.special-record.with-delete-space:has(.training-hour-control) .special-delete-btn.placeholder-delete{display:none!important}
 .batch-code-picker-actions-v18{display:grid;grid-template-columns:1fr;padding:0 14px 10px}
 .batch-code-all-toggle-v18{min-height:38px;border:1px solid rgba(103,232,249,.34);border-radius:11px;background:rgba(14,116,144,.13);color:#a5f3fc;font-size:12px;font-weight:950;cursor:pointer}
 .batch-code-option-row.batch-with-star-v18{grid-template-columns:62px minmax(0,1fr)}
@@ -4432,31 +4438,42 @@
 .batch-code-option-row.batch-with-star-v18 .code-star-btn{justify-self:center}
 .batch-current-label-v18{color:#fde68a}
 @media(max-width:760px){
-  .controls-grid{grid-template-columns:1fr .9fr 1.45fr .82fr .82fr!important}
+  .controls-grid{grid-template-columns:1fr .9fr 1.45fr .82fr .82fr!important;align-items:end!important}
   .controls-grid>.control-field{min-width:0!important}
-  .month-control{grid-template-columns:20px minmax(0,1fr) 20px;gap:2px}
-  .month-nav-btn,.month-picker-open-btn{height:34px;border-radius:9px;padding:0}
-  .month-nav-btn{font-size:18px}
+  .month-picker-open-btn{height:34px;border-radius:9px;padding:0}
   .month-picker-open-btn{font-size:12px;overflow:hidden}
   .month-picker-modal{padding:10px}
   .month-picker-card{padding:13px}
   .month-picker-option{height:48px;font-size:15px}
-  .training-hour-stepper{grid-template-columns:42px minmax(0,1fr) 42px}
+  .training-hour-stepper{grid-template-columns:40px minmax(0,1fr) 40px;gap:3px}
   .training-hour-step-btn,.training-hour-input-wrap{height:40px}
+  .training-hour-input-wrap{grid-template-columns:minmax(0,1fr) 22px}
   .training-hour-input{height:38px;font-size:14px}
+  .training-hour-unit{font-size:9px}
   .training-hour-error{font-size:10px}
-  .special-record.with-delete-space:has(.training-hour-control){grid-template-columns:minmax(0,1fr) 58px!important;gap:6px!important}
+  .special-record.with-delete-space:has(.training-hour-control){grid-template-columns:minmax(78px,.95fr) minmax(124px,1.35fr) 50px 38px!important;gap:4px!important}
+  .special-record.with-delete-space:has(.training-hour-control):has(.placeholder-delete){grid-template-columns:minmax(90px,1fr) minmax(132px,1.4fr) 52px!important}
   .special-record.with-delete-space:has(.training-hour-control) .special-date-btn{grid-column:1;grid-row:1}
-  .special-record.with-delete-space:has(.training-hour-control) .special-date-reset-btn{grid-column:2;grid-row:1}
-  .special-record.with-delete-space:has(.training-hour-control) .training-hour-control{grid-column:1/-1;grid-row:2;width:100%;min-width:0}
-  .special-record.with-delete-space:has(.training-hour-control) .special-delete-btn:not(.placeholder-delete){grid-column:1/-1;grid-row:3;width:100%!important}
-  .special-record.with-delete-space:has(.training-hour-control) .special-delete-btn.placeholder-delete{display:none!important}
+  .special-record.with-delete-space:has(.training-hour-control) .training-hour-control{grid-column:2;grid-row:1}
+  .special-record.with-delete-space:has(.training-hour-control) .special-date-reset-btn{grid-column:3;grid-row:1}
+  .special-record.with-delete-space:has(.training-hour-control) .special-delete-btn:not(.placeholder-delete){grid-column:4;grid-row:1;width:100%!important}
+  .special-record.with-delete-space:has(.training-hour-control) .special-date-btn,
+  .special-record.with-delete-space:has(.training-hour-control) .special-date-reset-btn,
+  .special-record.with-delete-space:has(.training-hour-control) .special-delete-btn{height:40px!important;min-height:40px!important;padding:0 2px!important;font-size:10px!important;letter-spacing:0!important}
   .batch-code-picker-actions-v18{padding:0 10px 9px}
   .batch-code-all-toggle-v18{min-height:40px;font-size:11px}
   .batch-code-option-row.batch-with-star-v18{grid-template-columns:58px minmax(0,1fr)}
   .batch-code-option-row.batch-other-row.batch-with-star-v18{grid-template-columns:58px 72px minmax(0,1fr)}
 }
-/* === V18 功能樣式結束 === */
+@media(max-width:380px){
+  .special-record.with-delete-space:has(.training-hour-control){grid-template-columns:minmax(0,1fr) 52px 40px!important;gap:5px!important}
+  .special-record.with-delete-space:has(.training-hour-control):has(.placeholder-delete){grid-template-columns:minmax(0,1fr) 52px!important}
+  .special-record.with-delete-space:has(.training-hour-control) .special-date-btn{grid-column:1;grid-row:1}
+  .special-record.with-delete-space:has(.training-hour-control) .special-date-reset-btn{grid-column:2;grid-row:1}
+  .special-record.with-delete-space:has(.training-hour-control) .special-delete-btn:not(.placeholder-delete){grid-column:3;grid-row:1}
+  .special-record.with-delete-space:has(.training-hour-control) .training-hour-control{grid-column:1/-1;grid-row:2}
+}
+/* === V19 功能樣式結束 === */
 </style>
 </head>
 <body>
@@ -4483,18 +4500,14 @@
           <div class="control-field">
             <span class="field-label">月份</span>
             <div class="month-control">
-              <button id="previousMonthBtn" class="month-nav-btn" type="button" aria-label="前一個月">‹</button>
               <button id="monthPickerOpenBtn" class="month-picker-open-btn" type="button" aria-haspopup="dialog" aria-expanded="false"><span id="monthPickerButtonLabel">1 月</span></button>
-              <button id="nextMonthBtn" class="month-nav-btn" type="button" aria-label="下一個月">›</button>
               <select id="month" class="month-state-select" tabindex="-1" aria-hidden="true" hidden></select>
             </div>
           </div>
           <label class="reset-field">
-            <span class="field-label reset-warning-label">⚠ 當月RESET</span>
             <button id="monthResetBtn" class="sub-panel-toggle reset-danger" type="button">當月 RESET</button>
           </label>
           <label class="reset-field">
-            <span class="field-label reset-warning-label">⚠ 當年RESET</span>
             <button id="yearResetBtn" class="sub-panel-toggle reset-danger" type="button" onclick="resetCurrentYearState()">當年 RESET</button>
           </label>
         </div>
@@ -4585,7 +4598,7 @@
           </div>
           <div id="syncMessage" class="sync-message">初始化中...</div>
         </div>
-        <details id="dataQualityPanel" class="data-quality-panel">
+        <details id="dataQualityPanel" class="data-quality-panel" hidden>
           <summary id="dataQualitySummary">資料檢查：正常</summary>
           <ul id="dataQualityList"></ul>
         </details>
@@ -4678,7 +4691,7 @@
             <div id="overhaulCalendarGrid" class="overhaul-calendar-grid"></div>
           </div>
           <div class="overhaul-note">
-            未設定大修起訖日時，代理小月曆不可使用。單側交接為當日有效交接班分鐘的一半，雙側交接為全額；若該日位於交接班期間例外，會自動改用例外分鐘。只有大修區間內且非空班日期可以設定代理 D10；若當日為代班，D10 仍依代班優先計算。
+            未設定大修起訖日時，代理小月曆不可使用。單側交接為當日有效交接班分鐘的一半，雙側交接為全額；若該日位於交接班期間例外，會自動改用例外分鐘。代理小月曆會依主月曆最終出勤狀態同步調班、代班與部分請假；大修期間未設定代理交接時，交接班一律為 0 分。
           </div>
         </div>
       </section>
@@ -5016,7 +5029,7 @@
   </div>
   <div id="overhaulChoiceModal" class="overhaul-choice-modal" aria-hidden="true">
     <div class="overhaul-choice-card">
-      <div id="overhaulChoiceTitle" class="overhaul-choice-title">選擇代理 D10</div>
+      <div id="overhaulChoiceTitle" class="overhaul-choice-title">選擇代理交接</div>
       <div class="overhaul-choice-buttons">
         <button class="overhaul-choice-btn" type="button" data-overhaul-choice="single"><span>單側交接</span><strong id="overhaulChoiceSingleValue">15 分</strong></button>
         <button class="overhaul-choice-btn default-choice" type="button" data-overhaul-choice="full"><span>雙側交接</span><strong id="overhaulChoiceFullValue">30 分</strong></button>
@@ -6692,10 +6705,11 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         delete overhaulSettings.overrides[dayKey];
       }
     }
-    function isOverhaulProxySelectableDay(day, year, month, shiftGroup) {
+    function isOverhaulProxySelectableDay(day, dayInfo) {
       if (!isOverhaulActiveDay(day)) return false;
-      const base = calcBaseShift(year, month, day, shiftGroup);
-      return Number(base.baseCode) !== 0;
+      if (!dayInfo || Number(dayInfo.day) !== Number(day)) return false;
+      if (dayInfo.isViolation || dayInfo.changeText === "錯誤登錄" || dayInfo.noteText === "錯誤登錄") return false;
+      return isWorkCode(dayInfo.actualCode);
     }
     function calcD7ActualCode(dayInfo) {
       return Number(dayInfo.actualCode);
@@ -7967,7 +7981,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const month = Number(document.getElementById("month")?.value || 0);
       const singleValue = document.getElementById("overhaulChoiceSingleValue");
       const fullValue = document.getElementById("overhaulChoiceFullValue");
-      if (title) title.textContent = `${selectedOverhaulDay} 日代理 D10`;
+      if (title) title.textContent = `${selectedOverhaulDay} 日代理交接`;
       if (singleValue) singleValue.textContent = `${getParameterPartialHandoverMinutes(year, month, selectedOverhaulDay)} 分`;
       if (fullValue) fullValue.textContent = `${getParameterHandoverMinutes(year, month, selectedOverhaulDay)} 分`;
       if (modal) {
@@ -7995,11 +8009,11 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       closeOverhaulChoiceModal();
       renderAll(false);
     }
-    function handleOverhaulCalendarClick(day, year, month, shiftGroup) {
-      if (!isOverhaulProxySelectableDay(day, year, month, shiftGroup)) return;
+    function handleOverhaulCalendarClick(day, dayInfo) {
+      if (!isOverhaulProxySelectableDay(day, dayInfo)) return;
       openOverhaulChoiceModal(day);
     }
-    function renderOverhaulCalendar(daysInMonth, firstOffset, year, month, shiftGroup) {
+    function renderOverhaulCalendar(daysInMonth, firstOffset, year, month, dayInfoMap) {
       const weekGrid = document.getElementById("overhaulWeekGrid");
       const grid = document.getElementById("overhaulCalendarGrid");
       if (!weekGrid || !grid) return;
@@ -8014,7 +8028,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         }
         const minutes = getOverhaulOverrideMinutes(day, year, month);
         const inRange = isOverhaulActiveDay(day);
-        const selectable = isOverhaulProxySelectableDay(day, year, month, shiftGroup);
+        const selectable = isOverhaulProxySelectableDay(day, dayInfoMap.get(day));
         html += `
           <button class="overhaul-day-btn ${selectable ? "in-range" : "out-of-range"} ${minutes !== null ? "proxy-mark" : ""}" type="button" data-overhaul-day="${day}" ${selectable ? "" : "disabled"}>
             <span>${day}</span>
@@ -8025,7 +8039,8 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       grid.innerHTML = html;
       grid.querySelectorAll("button[data-overhaul-day]").forEach(btn => {
         btn.addEventListener("click", function() {
-          handleOverhaulCalendarClick(Number(this.dataset.overhaulDay), year, month, shiftGroup);
+          const day = Number(this.dataset.overhaulDay);
+          handleOverhaulCalendarClick(day, dayInfoMap.get(day));
         });
       });
     }
@@ -8033,9 +8048,9 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const rocYear = Number(document.getElementById("rocYear").value);
       const month = Number(document.getElementById("month").value);
       const year = rocYear + 1911;
-      const shiftGroup = document.getElementById("shiftGroup").value;
       const daysInMonth = new Date(year, month, 0).getDate();
       const firstOffset = getDisplayWeekIndex(new Date(year, month - 1, 1));
+      const dayInfoMap = new Map(buildDays().map(dayInfo => [Number(dayInfo.day), dayInfo]));
       const startSelect = document.getElementById("overhaulStartDay");
       const endSelect = document.getElementById("overhaulEndDay");
       if (!startSelect || !endSelect) return;
@@ -8044,7 +8059,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       bindSpecialDateButtonEvents(startSelect);
       bindSpecialDateButtonEvents(endSelect);
       Object.keys(overhaulSettings.overrides || {}).forEach(day => {
-        if (!isOverhaulProxySelectableDay(Number(day), year, month, shiftGroup)) delete overhaulSettings.overrides[day];
+        if (!isOverhaulProxySelectableDay(Number(day), dayInfoMap.get(Number(day)))) delete overhaulSettings.overrides[day];
       });
       const clearBtn = document.getElementById("overhaulClearBtn");
       if (clearBtn) {
@@ -8055,7 +8070,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
           renderAll(false);
         };
       }
-      renderOverhaulCalendar(daysInMonth, firstOffset, year, month, shiftGroup);
+      renderOverhaulCalendar(daysInMonth, firstOffset, year, month, dayInfoMap);
       updateOverhaulSummary();
     }
     function updateSpecialSummary() {
@@ -8081,7 +8096,13 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       });
     }
     function getSpecialDateLabel(day, group) { return Number(day) > 0 ? `${Number(day)} 日` : (group === "overhaulStart" || group === "overhaulEnd" ? "選日期" : "選擇日期"); }
-    function buildSpecialDateButton(group, index, day) { return `<div class="special-date-row"><button class="special-date-btn" type="button" data-special-date-group="${group}" data-index="${index}">${getSpecialDateLabel(day, group)}</button><button class="special-date-reset-btn" type="button" data-special-reset-group="${group}" data-index="${index}">RESET</button></div>`; }
+    function buildSpecialDateButton(group, index, day) {
+      const clearDateLabels = { closure: "停止辦公", election: "選舉日設定", training: "額外加班" };
+      const clearDateLabel = clearDateLabels[group] || "";
+      const resetText = clearDateLabel ? "清除" : "RESET";
+      const resetAria = clearDateLabel ? ` aria-label="清除第 ${Number(index) + 1} 筆${clearDateLabel}日期"` : "";
+      return `<div class="special-date-row"><button class="special-date-btn" type="button" data-special-date-group="${group}" data-index="${index}">${getSpecialDateLabel(day, group)}</button><button class="special-date-reset-btn" type="button" data-special-reset-group="${group}" data-index="${index}"${resetAria}>${resetText}</button></div>`;
+    }
     function setSpecialDateValue(group, index, value) {
       const day = Number(value) || 0;
       if (group === "closure") {
@@ -8179,19 +8200,19 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         <div class="special-record with-delete-space">
           ${buildSpecialDateButton("closure", idx, record.day)}
           ${buildClosureTypeControl(record, idx)}
-          <button class="special-delete-btn ${idx === 0 ? "placeholder-delete" : ""}" type="button" data-special-delete-group="closure" data-special-delete-index="${idx}">刪除列</button>
+          <button class="special-delete-btn ${idx === 0 ? "placeholder-delete" : ""}" type="button" data-special-delete-group="closure" data-special-delete-index="${idx}" aria-label="刪除第 ${idx + 1} 筆停止辦公">刪</button>
           ${record.source === "official" ? `<div class="closure-source-badge ${record.manualOverride ? "manual" : "official"}">${record.officialMissing ? "官方資料已撤回，保留人工覆寫待確認" : (record.manualOverride ? "官方＋人工覆寫" : "官方自動帶入")}${record.officialText ? `<span>${record.officialText}</span>` : ""}</div>` : ""}
         </div>`).join("");
       document.getElementById("electionRecordList").innerHTML = specialDates.election.map((value, idx) => `
         <div class="special-record election-with-delete-space">
           ${buildSpecialDateButton("election", idx, value)}
-          <button class="special-delete-btn ${idx === 0 ? "placeholder-delete" : ""}" type="button" data-special-delete-group="election" data-special-delete-index="${idx}">刪除列</button>
+          <button class="special-delete-btn ${idx === 0 ? "placeholder-delete" : ""}" type="button" data-special-delete-group="election" data-special-delete-index="${idx}" aria-label="刪除第 ${idx + 1} 筆選舉日">刪</button>
         </div>`).join("");
       document.getElementById("trainingRecordList").innerHTML = (specialDates.training || []).map((record, idx) => `
         <div class="special-record with-delete-space">
           ${buildSpecialDateButton("training", idx, record.day)}
           ${buildTrainingHourControl(record, idx)}
-          <button class="special-delete-btn ${idx === 0 ? "placeholder-delete" : ""}" type="button" data-special-delete-group="training" data-special-delete-index="${idx}">刪除列</button>
+          <button class="special-delete-btn ${idx === 0 ? "placeholder-delete" : ""}" type="button" data-special-delete-group="training" data-special-delete-index="${idx}" aria-label="刪除第 ${idx + 1} 筆額外加班">刪</button>
         </div>`).join("");
       bindSpecialDateButtonEvents(document);
       document.querySelectorAll(".special-type-select").forEach(sel => {
@@ -8365,10 +8386,12 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const list = document.getElementById("dataQualityList");
       if (!panel || !summary || !list) return;
       const warnings = collectDataQualityWarnings(daysInMonth);
-      panel.classList.toggle("warn", warnings.length > 0);
-      summary.textContent = warnings.length > 0 ? `資料檢查：${warnings.length} 項提醒（點此查看）` : "資料檢查：正常";
+      const hasWarnings = warnings.length > 0;
+      panel.hidden = !hasWarnings;
+      panel.classList.toggle("warn", hasWarnings);
+      summary.textContent = hasWarnings ? `資料檢查：${warnings.length} 項提醒（點此查看）` : "資料檢查：正常";
       list.innerHTML = warnings.map(message => `<li>${escapeHtml(message)}</li>`).join("");
-      if (!warnings.length) panel.open = false;
+      if (!hasWarnings) panel.open = false;
     }
     function renderCalendar() {
       const rocYear = Number(document.getElementById("rocYear").value);
@@ -9355,8 +9378,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       });
       const returnTodayBtn = document.getElementById("returnTodayBtn");
       if (returnTodayBtn) returnTodayBtn.addEventListener("click", () => returnToTodayMonth());
-      document.getElementById("previousMonthBtn")?.addEventListener("click", () => selectDisplayedMonth(Number(document.getElementById("month")?.value || 1) - 1));
-      document.getElementById("nextMonthBtn")?.addEventListener("click", () => selectDisplayedMonth(Number(document.getElementById("month")?.value || 1) + 1));
       document.getElementById("monthPickerOpenBtn")?.addEventListener("click", () => openMonthPickerModal());
       document.getElementById("monthPickerCloseBtn")?.addEventListener("click", () => closeMonthPickerModal(true));
       document.querySelectorAll("[data-month-picker-value]").forEach(button => {
@@ -11298,6 +11319,16 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     if (record.code !== undefined) return getPlannedHoursV13(dayInfo);
     return Number(dayInfo.leaveHours || 0);
   };
+  isOverhaulProxySelectableDay = function (day, dayInfo) {
+    if (!isOverhaulActiveDay(day)) return false;
+    if (!dayInfo || Number(dayInfo.day) !== Number(day)) return false;
+    if (dayInfo.isViolation || dayInfo.changeText === "錯誤登錄" || dayInfo.noteText === "錯誤登錄") return false;
+    if (isWorkCode(dayInfo.actualCode)) return true;
+    if (!isLeaveCode(dayInfo.actualCode) || !hasPartialLeaveHrText(dayInfo)) return false;
+    const plannedHours = Math.max(0, getPlannedHoursV13(dayInfo));
+    const leaveHours = Math.max(0, getEffectiveLeaveHours(dayInfo));
+    return plannedHours > 0 && leaveHours < plannedHours;
+  };
 
   function clearLeavePayloadV13(record) {
     delete record.leaveHours;
@@ -11865,10 +11896,9 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     if (dayInfo.changeText === "錯誤登錄" || dayInfo.noteText === "錯誤登錄" || dayInfo.changeText === "違規") return 0;
     if (isWeekendTrainingClass(dayInfo)) return 0;
     if (code === 4 && isRestTextForD11(dayInfo.changeText)) return 0;
-    if (isSubstituteCode(code)) return getParameterHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) + trainingMinutes;
     const overhaulOverrideMinutes = getOverhaulOverrideMinutes(dayInfo.day, dayInfo.year, dayInfo.month);
-    if (overhaulOverrideMinutes !== null) return overhaulOverrideMinutes;
-    if (isOverhaulActiveDay(dayInfo.day)) return 0;
+    if (isOverhaulActiveDay(dayInfo.day)) return overhaulOverrideMinutes !== null ? overhaulOverrideMinutes : 0;
+    if (isSubstituteCode(code)) return getParameterHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) + trainingMinutes;
     if (code === 0 || code === 9 || code === 10) return trainingMinutes;
     if (isLeaveCode(code)) {
       if (isCompoundLeaveCodeForDay(code, dayInfo.day) && hasCompoundSplitInput(dayInfo)) return isCompoundSplitPartialLeave(dayInfo) ? getParameterPartialHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) + trainingMinutes : trainingMinutes;

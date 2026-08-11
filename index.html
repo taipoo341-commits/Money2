@@ -4397,6 +4397,67 @@
   .compound-hours-row-v14{grid-template-columns:minmax(0,1fr) 78px}
 }
 </style>
+<style>
+/* === V18 月份快速選擇、額外加班步進器、批次假別最愛 === */
+.control-field{min-width:0}
+.month-control{position:relative;display:grid;grid-template-columns:38px minmax(0,1fr) 38px;gap:6px;align-items:center}
+.month-nav-btn,.month-picker-open-btn{height:46px;min-width:0;border:1px solid rgba(0,240,255,.28);background:#12161c;color:#e0f2fe;font-weight:950;cursor:pointer;outline:none}
+.month-nav-btn{border-radius:12px;font-size:24px;line-height:1}
+.month-picker-open-btn{border-radius:12px;font-size:18px;white-space:nowrap}
+.month-nav-btn:hover,.month-nav-btn:focus-visible,.month-picker-open-btn:hover,.month-picker-open-btn:focus-visible{border-color:rgba(0,240,255,.85);box-shadow:0 0 16px rgba(0,240,255,.24);background:rgba(14,116,144,.18)}
+.month-state-select{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;overflow:hidden!important}
+.month-picker-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.68);z-index:10002}
+.month-picker-modal.open{display:flex}
+.month-picker-card{width:min(390px,100%);border:1px solid rgba(103,232,249,.40);border-radius:18px;background:#101722;box-shadow:0 0 30px rgba(0,240,255,.18);padding:16px}
+.month-picker-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.month-picker-title{color:#e5e7eb;font-size:16px;font-weight:950;letter-spacing:.08em}
+.month-picker-year{margin-top:3px;color:#67e8f9;font-size:11px;font-weight:900}
+.month-picker-close{height:36px;padding:0 14px;border:1px solid rgba(148,163,184,.28);border-radius:10px;background:rgba(148,163,184,.10);color:#cbd5e1;font-weight:900;cursor:pointer}
+.month-picker-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.month-picker-option{height:50px;border:1px solid rgba(103,232,249,.24);border-radius:11px;background:rgba(0,0,0,.28);color:#e5e7eb;font-size:15px;font-weight:950;cursor:pointer}
+.month-picker-option:hover,.month-picker-option:focus-visible,.month-picker-option.selected{border-color:rgba(52,211,153,.72);background:linear-gradient(90deg,rgba(16,185,129,.28),rgba(37,99,235,.24));color:#d1fae5;box-shadow:0 0 14px rgba(16,185,129,.16)}
+.training-hour-control{min-width:0;display:grid;gap:4px}
+.training-hour-stepper{display:grid;grid-template-columns:38px minmax(0,1fr) 38px;gap:5px;align-items:center}
+.training-hour-step-btn{height:34px;border:1px solid rgba(103,232,249,.32);border-radius:9px;background:rgba(14,116,144,.14);color:#a5f3fc;font-size:20px;font-weight:950;line-height:1;cursor:pointer}
+.training-hour-step-btn:disabled{opacity:.32;cursor:not-allowed}
+.training-hour-input-wrap{min-width:0;height:34px;display:grid;grid-template-columns:minmax(0,1fr) 28px;align-items:center;border:1px solid rgba(255,255,255,.16);border-radius:9px;background:rgba(0,0,0,.46);overflow:hidden}
+.training-hour-input{width:100%;min-width:0;height:32px;border:0;background:transparent;color:#e2e8f0;text-align:center;font-size:12px;font-weight:900;outline:none}
+.training-hour-unit{color:#94a3b8;font-size:10px;font-weight:900}
+.training-hour-error{min-height:12px;color:#fda4af;font-size:9px;line-height:1.25;text-align:center}
+.training-hour-error:empty{display:none}
+.batch-code-picker-actions-v18{display:grid;grid-template-columns:1fr;padding:0 14px 10px}
+.batch-code-all-toggle-v18{min-height:38px;border:1px solid rgba(103,232,249,.34);border-radius:11px;background:rgba(14,116,144,.13);color:#a5f3fc;font-size:12px;font-weight:950;cursor:pointer}
+.batch-code-option-row.batch-with-star-v18{grid-template-columns:62px minmax(0,1fr)}
+.batch-code-option-row.batch-other-row.batch-with-star-v18{grid-template-columns:62px 76px minmax(0,1fr);gap:8px;padding-right:8px}
+.batch-code-option-row.batch-with-star-v18 .code-star-btn{justify-self:center}
+.batch-current-label-v18{color:#fde68a}
+@media(max-width:760px){
+  .controls-grid{grid-template-columns:1fr .9fr 1.45fr .82fr .82fr!important}
+  .controls-grid>.control-field{min-width:0!important}
+  .month-control{grid-template-columns:20px minmax(0,1fr) 20px;gap:2px}
+  .month-nav-btn,.month-picker-open-btn{height:34px;border-radius:9px;padding:0}
+  .month-nav-btn{font-size:18px}
+  .month-picker-open-btn{font-size:12px;overflow:hidden}
+  .month-picker-modal{padding:10px}
+  .month-picker-card{padding:13px}
+  .month-picker-option{height:48px;font-size:15px}
+  .training-hour-stepper{grid-template-columns:42px minmax(0,1fr) 42px}
+  .training-hour-step-btn,.training-hour-input-wrap{height:40px}
+  .training-hour-input{height:38px;font-size:14px}
+  .training-hour-error{font-size:10px}
+  .special-record.with-delete-space:has(.training-hour-control){grid-template-columns:minmax(0,1fr) 58px!important;gap:6px!important}
+  .special-record.with-delete-space:has(.training-hour-control) .special-date-btn{grid-column:1;grid-row:1}
+  .special-record.with-delete-space:has(.training-hour-control) .special-date-reset-btn{grid-column:2;grid-row:1}
+  .special-record.with-delete-space:has(.training-hour-control) .training-hour-control{grid-column:1/-1;grid-row:2;width:100%;min-width:0}
+  .special-record.with-delete-space:has(.training-hour-control) .special-delete-btn:not(.placeholder-delete){grid-column:1/-1;grid-row:3;width:100%!important}
+  .special-record.with-delete-space:has(.training-hour-control) .special-delete-btn.placeholder-delete{display:none!important}
+  .batch-code-picker-actions-v18{padding:0 10px 9px}
+  .batch-code-all-toggle-v18{min-height:40px;font-size:11px}
+  .batch-code-option-row.batch-with-star-v18{grid-template-columns:58px minmax(0,1fr)}
+  .batch-code-option-row.batch-other-row.batch-with-star-v18{grid-template-columns:58px 72px minmax(0,1fr)}
+}
+/* === V18 功能樣式結束 === */
+</style>
 </head>
 <body>
   <div class="app">
@@ -4419,10 +4480,15 @@
             <span class="field-label">民國年份</span>
             <input id="rocYear" class="cyber-input" type="text" inputmode="numeric" maxlength="3" />
           </label>
-          <label>
+          <div class="control-field">
             <span class="field-label">月份</span>
-            <select id="month" class="cyber-select"></select>
-          </label>
+            <div class="month-control">
+              <button id="previousMonthBtn" class="month-nav-btn" type="button" aria-label="前一個月">‹</button>
+              <button id="monthPickerOpenBtn" class="month-picker-open-btn" type="button" aria-haspopup="dialog" aria-expanded="false"><span id="monthPickerButtonLabel">1 月</span></button>
+              <button id="nextMonthBtn" class="month-nav-btn" type="button" aria-label="下一個月">›</button>
+              <select id="month" class="month-state-select" tabindex="-1" aria-hidden="true" hidden></select>
+            </div>
+          </div>
           <label class="reset-field">
             <span class="field-label reset-warning-label">⚠ 當月RESET</span>
             <button id="monthResetBtn" class="sub-panel-toggle reset-danger" type="button">當月 RESET</button>
@@ -4923,6 +4989,31 @@
       </div>
     </div>
   </div>
+  <div id="monthPickerModal" class="month-picker-modal" aria-hidden="true">
+    <div class="month-picker-card" role="dialog" aria-modal="true" aria-labelledby="monthPickerTitle">
+      <div class="month-picker-header">
+        <div>
+          <div id="monthPickerTitle" class="month-picker-title">選擇月份</div>
+          <div id="monthPickerYearLabel" class="month-picker-year">民國年度</div>
+        </div>
+        <button id="monthPickerCloseBtn" class="month-picker-close" type="button">關閉</button>
+      </div>
+      <div id="monthPickerGrid" class="month-picker-grid">
+        <button class="month-picker-option" type="button" data-month-picker-value="1">1 月</button>
+        <button class="month-picker-option" type="button" data-month-picker-value="2">2 月</button>
+        <button class="month-picker-option" type="button" data-month-picker-value="3">3 月</button>
+        <button class="month-picker-option" type="button" data-month-picker-value="4">4 月</button>
+        <button class="month-picker-option" type="button" data-month-picker-value="5">5 月</button>
+        <button class="month-picker-option" type="button" data-month-picker-value="6">6 月</button>
+        <button class="month-picker-option" type="button" data-month-picker-value="7">7 月</button>
+        <button class="month-picker-option" type="button" data-month-picker-value="8">8 月</button>
+        <button class="month-picker-option" type="button" data-month-picker-value="9">9 月</button>
+        <button class="month-picker-option" type="button" data-month-picker-value="10">10 月</button>
+        <button class="month-picker-option" type="button" data-month-picker-value="11">11 月</button>
+        <button class="month-picker-option" type="button" data-month-picker-value="12">12 月</button>
+      </div>
+    </div>
+  </div>
   <div id="overhaulChoiceModal" class="overhaul-choice-modal" aria-hidden="true">
     <div class="overhaul-choice-card">
       <div id="overhaulChoiceTitle" class="overhaul-choice-title">選擇代理 D10</div>
@@ -5161,18 +5252,17 @@
     const ADJUST_CODES = new Set([10, 11, 12, 13]);
     const SUBSTITUTE_CODES = new Set([21, 22, 23]);
     const manualRecords = {};
-    const BATCH_RANGE_CODES = [5, 4, 7, 8.1, 8.2, 8.5, 8.6, 8.9];
-    const BATCH_RANGE_LABELS = {
-      5: "特休",
-      4: "受訓",
-      7: "病假",
-      8.1: "喪假",
-      8.2: "婚假",
-      8.5: "家庭照顧假",
-      8.6: "身心照顧假",
-      8.9: "其他"
-    };
+    const BATCH_EXCLUDED_LEAVE_CODES = new Set([
+      5.1, 5.2, 5.3, 5.4, 5.5,
+      6.1, 6.2, 6.4, 6.5,
+      7.1, 7.2, 7.3,
+      8.4, 8.7, 8.8
+    ]);
+    function getBatchEligibleSystemLeaveCodes() {
+      return CODE_OPTIONS.filter(code => LEAVE_CODES.has(code) && !BATCH_EXCLUDED_LEAVE_CODES.has(code));
+    }
     const batchRangeRecords = [];
+    let batchCodePickerAllOpen = false;
     const overhaulSettings = {
       startDay: 0,
       endDay: 0,
@@ -7577,13 +7667,36 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const customFields = record.type === "custom" ? `<div class="closure-custom-times"><input class="closure-custom-time-input" data-closure-time="start" data-index="${index}" value="${startTime}" inputmode="numeric" maxlength="5" autocomplete="off" aria-label="停止辦公開始時間"><span>至</span><input class="closure-custom-time-input" data-closure-time="end" data-index="${index}" value="${endTime}" inputmode="numeric" maxlength="5" autocomplete="off" aria-label="停止辦公結束時間"></div>` : "";
       return `<div class="closure-type-control"><select class="special-type-select" data-group="closureType" data-index="${index}">${buildClosureTypeOptions(record.type)}</select>${customFields}</div>`;
     }
-    function buildTrainingHourOptions(selectedValue) {
-      let html = "";
-      for (let h = 0.5; h <= 5; h += 0.5) {
-        const value = Math.round(h * 10) / 10;
-        html += `<option value="${value}" ${Number(selectedValue) === value ? "selected" : ""}>${fmtHour(value)} HR</option>`;
+    function normalizeTrainingHourValue(value, fallback = 3) {
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric)) return fallback;
+      return Math.min(24, Math.max(0.5, Math.round(numeric * 2) / 2));
+    }
+    function parseTrainingHourInput(value) {
+      const text = String(value ?? "").trim().replace(",", ".");
+      if (!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(text)) return null;
+      const numeric = Number(text);
+      if (!Number.isFinite(numeric) || numeric < 0.5 || numeric > 24 || Math.abs(numeric * 2 - Math.round(numeric * 2)) > 0.0001) return null;
+      return Math.round(numeric * 2) / 2;
+    }
+    function buildTrainingHourControl(record, index) {
+      const value = normalizeTrainingHourValue(record && record.hours, 3);
+      return `<div class="training-hour-control"><div class="training-hour-stepper"><button class="training-hour-step-btn" type="button" data-training-hour-step="-0.5" data-index="${index}" aria-label="減少額外加班時數" ${value <= 0.5 ? "disabled" : ""}>－</button><label class="training-hour-input-wrap"><input class="training-hour-input" type="text" inputmode="decimal" maxlength="4" value="${fmtHour(value)}" data-training-hours-input="1" data-index="${index}" aria-label="第 ${index + 1} 筆額外加班時數"><span class="training-hour-unit">HR</span></label><button class="training-hour-step-btn" type="button" data-training-hour-step="0.5" data-index="${index}" aria-label="增加額外加班時數" ${value >= 24 ? "disabled" : ""}>＋</button></div><div class="training-hour-error" data-training-hour-error="${index}" aria-live="polite"></div></div>`;
+    }
+    function commitTrainingHourInput(input) {
+      const index = Number(input && input.dataset.index);
+      const parsed = parseTrainingHourInput(input && input.value);
+      const error = document.querySelector(`[data-training-hour-error="${index}"]`);
+      if (parsed === null) {
+        input.setAttribute("aria-invalid", "true");
+        if (error) error.textContent = "請輸入 0.5～24，並以 0.5 小時為單位";
+        return false;
       }
-      return html;
+      if (!specialDates.training[index]) return false;
+      specialDates.training[index].hours = parsed;
+      saveCurrentMonthState();
+      renderAll(false);
+      return true;
     }
     function updateBatchSummary() {
       const activeCount = batchRangeRecords.filter(item => Number(item.startDay) > 0 && Number(item.endDay) > 0).length;
@@ -7617,11 +7730,11 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     }
     function buildBatchCodePickerPortalHtml(index) {
       const record = normalizeBatchRangeRecord(batchRangeRecords[index] || {});
-      const optionHtml = BATCH_RANGE_CODES.map(code => buildBatchCodeOptionRow(code, record.code, index)).join("");
+      const optionHtml = getBatchEligibleSystemLeaveCodes().map(code => buildBatchCodeOptionRow(code, record.code, index)).join("");
       return `<div class="code-picker-portal-backdrop" data-batch-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="批次假別選單" data-batch-code-portal-index="${index}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${index + 1} 筆假別</div><div class="code-picker-portal-subtitle">點選假別即可套用，8.9 名稱為本批次專用</div></div><button class="code-picker-portal-close" type="button" data-batch-code-portal-close="1">關閉</button></div><div class="code-picker-portal-scroll"><div class="code-picker-portal-section-title">全部假別</div><div class="batch-code-option-list">${optionHtml}</div></div></div>`;
     }
-    function renderBatchCodePickerPortal(index) { const portal = ensureBatchCodePickerPortal(); portal.innerHTML = buildBatchCodePickerPortalHtml(index); portal.classList.add("open", "all-open"); portal.setAttribute("aria-hidden", "false"); bindBatchCodePickerPortalEvents(portal, index); }
-    function openBatchCodePicker(index) { closeCodePickerPortal(); renderBatchCodePickerPortal(index); }
+    function renderBatchCodePickerPortal(index, restoreScrollTop = 0) { const portal = ensureBatchCodePickerPortal(); portal.innerHTML = buildBatchCodePickerPortalHtml(index); portal.classList.add("open"); portal.classList.toggle("all-open", batchCodePickerAllOpen); portal.setAttribute("aria-hidden", "false"); bindBatchCodePickerPortalEvents(portal, index); const scroll = portal.querySelector(".code-picker-portal-scroll"); if (scroll && restoreScrollTop > 0) scroll.scrollTop = restoreScrollTop; }
+    function openBatchCodePicker(index) { batchCodePickerAllOpen = false; closeCodePickerPortal(); renderBatchCodePickerPortal(index); }
     function selectBatchCode(index, code) { if (!batchRangeRecords[index]) batchRangeRecords[index] = { startDay: 0, endDay: 0, code: 5, leaveHours: 0, mode: "workOnly", otherLabel: "其他", lastApplied: null }; batchRangeRecords[index].code = Number(code); if (Number(code) === 8.9) batchRangeRecords[index].otherLabel = normalizeOtherCodeLabel(batchRangeRecords[index].otherLabel || "其他"); if (Number(code) === 4) batchRangeRecords[index].mode = "all"; saveCurrentMonthState(); closeBatchCodePickerPortal(); renderAll(false); }
     function bindBatchCodePickerPortalEvents(portal, index) {
       portal.querySelectorAll("[data-batch-code-portal-close]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); closeBatchCodePickerPortal(); }));
@@ -7631,9 +7744,8 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     function bindBatchCodePickerEvents(container) { container.querySelectorAll("[data-batch-code-button]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); openBatchCodePicker(Number(btn.dataset.batchCodeButton)); })); }
 
     function buildBatchCodeOptions(selectedCode) {
-      return BATCH_RANGE_CODES.map(code => {
-        const label = BATCH_RANGE_LABELS[keyOf(code)] || getLabel(code);
-        return `<option value="${code}" ${Number(selectedCode) === Number(code) ? "selected" : ""}>${code} ${label}</option>`;
+      return getBatchEligibleSystemLeaveCodes().map(code => {
+        return `<option value="${code}" ${Number(selectedCode) === Number(code) ? "selected" : ""}>${code} ${getLabel(code)}</option>`;
       }).join("");
     }
     function buildBatchHourOptions(selectedValue) {
@@ -8078,17 +8190,48 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       document.getElementById("trainingRecordList").innerHTML = (specialDates.training || []).map((record, idx) => `
         <div class="special-record with-delete-space">
           ${buildSpecialDateButton("training", idx, record.day)}
-          <select class="special-hour-select" data-group="trainingHours" data-index="${idx}">${buildTrainingHourOptions(record.hours)}</select>
+          ${buildTrainingHourControl(record, idx)}
           <button class="special-delete-btn ${idx === 0 ? "placeholder-delete" : ""}" type="button" data-special-delete-group="training" data-special-delete-index="${idx}">刪除列</button>
         </div>`).join("");
       bindSpecialDateButtonEvents(document);
-      document.querySelectorAll(".special-type-select, .special-hour-select").forEach(sel => {
+      document.querySelectorAll(".special-type-select").forEach(sel => {
         sel.addEventListener("change", function() {
           const group = this.dataset.group;
           const index = Number(this.dataset.index);
           if (group === "closureType") { specialDates.closure[index].type = this.value; if (this.value === "custom") { specialDates.closure[index].startTime = ""; specialDates.closure[index].endTime = ""; } if (this.value === "none") specialDates.closure[index].day = 0; if (specialDates.closure[index].source === "official") { specialDates.closure[index].manualOverride = true; specialDates.closure[index].manualUpdatedAt = new Date().toISOString(); } }
-          if (group === "trainingHours") specialDates.training[index].hours = Number(this.value);
           saveCurrentMonthState(); renderAll(false);
+        });
+      });
+      document.querySelectorAll("[data-training-hour-step]").forEach(button => {
+        button.addEventListener("click", function() {
+          const index = Number(this.dataset.index);
+          const record = specialDates.training[index];
+          if (!record) return;
+          const nextValue = normalizeTrainingHourValue(Number(record.hours || 3) + Number(this.dataset.trainingHourStep || 0), 3);
+          if (nextValue === Number(record.hours)) return;
+          record.hours = nextValue;
+          saveCurrentMonthState();
+          renderAll(false);
+        });
+      });
+      document.querySelectorAll("[data-training-hours-input]").forEach(input => {
+        const selectAll = function() { this.select(); };
+        input.addEventListener("focus", selectAll);
+        input.addEventListener("click", selectAll);
+        input.addEventListener("input", function() {
+          let text = String(this.value || "").replace(",", ".").replace(/[^0-9.]/g, "");
+          const dotIndex = text.indexOf(".");
+          if (dotIndex >= 0) text = text.slice(0, dotIndex + 1) + text.slice(dotIndex + 1).replace(/\./g, "");
+          this.value = text.slice(0, 4);
+          this.removeAttribute("aria-invalid");
+          const error = document.querySelector(`[data-training-hour-error="${this.dataset.index}"]`);
+          if (error) error.textContent = "";
+        });
+        input.addEventListener("keydown", function(event) {
+          if (event.key === "Enter") { event.preventDefault(); commitTrainingHourInput(this); }
+        });
+        input.addEventListener("change", function() {
+          commitTrainingHourInput(this);
         });
       });
       document.querySelectorAll("[data-closure-time]").forEach(input => {
@@ -9087,6 +9230,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     }
     async function renderAll(needLoadCalendar) {
       if (needLoadCalendar) await loadCalendar();
+      syncMonthControlUI();
       updateHandoverExceptionQuickButton();
       renderSpecialDateControls();
       renderBatchRangeControls();
@@ -9099,6 +9243,66 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     }
     function clearSpecialDates() {
       resetSpecialDatesToDefault();
+    }
+    function syncMonthControlUI() {
+      const monthSelect = document.getElementById("month");
+      const month = Math.min(12, Math.max(1, Number(monthSelect?.value || 1)));
+      const rocYear = Number(document.getElementById("rocYear")?.value || toRocYear(new Date()));
+      const label = document.getElementById("monthPickerButtonLabel");
+      const yearLabel = document.getElementById("monthPickerYearLabel");
+      if (label) label.textContent = `${month} 月`;
+      if (yearLabel) yearLabel.textContent = `民國 ${rocYear} 年`;
+      document.querySelectorAll("[data-month-picker-value]").forEach(button => {
+        const selected = Number(button.dataset.monthPickerValue) === month;
+        button.classList.toggle("selected", selected);
+        if (selected) button.setAttribute("aria-current", "true");
+        else button.removeAttribute("aria-current");
+      });
+    }
+    function closeMonthPickerModal(restoreFocus = false) {
+      const modal = document.getElementById("monthPickerModal");
+      const openButton = document.getElementById("monthPickerOpenBtn");
+      if (modal) {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+      }
+      if (openButton) {
+        openButton.setAttribute("aria-expanded", "false");
+        if (restoreFocus) openButton.focus();
+      }
+    }
+    function openMonthPickerModal() {
+      closeCodePickerPortal();
+      closeBatchCodePickerPortal();
+      syncMonthControlUI();
+      const modal = document.getElementById("monthPickerModal");
+      const openButton = document.getElementById("monthPickerOpenBtn");
+      if (modal) {
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+      if (openButton) openButton.setAttribute("aria-expanded", "true");
+    }
+    function selectDisplayedMonth(targetMonth) {
+      const monthSelect = document.getElementById("month");
+      const rocYearInput = document.getElementById("rocYear");
+      if (!monthSelect || !rocYearInput) return;
+      const currentMonth = Math.min(12, Math.max(1, Number(monthSelect.value || 1)));
+      const currentRocYear = Number(rocYearInput.value || toRocYear(new Date()));
+      let nextMonth = Number(targetMonth);
+      let nextRocYear = currentRocYear;
+      while (nextMonth < 1) { nextMonth += 12; nextRocYear -= 1; }
+      while (nextMonth > 12) { nextMonth -= 12; nextRocYear += 1; }
+      if (nextRocYear < 1) return;
+      closeMonthPickerModal(false);
+      if (currentMonth === nextMonth && currentRocYear === nextRocYear) {
+        syncMonthControlUI();
+        return;
+      }
+      rocYearInput.value = nextRocYear;
+      monthSelect.value = nextMonth;
+      syncMonthControlUI();
+      switchMonthState(nextRocYear !== currentRocYear);
     }
     function returnToTodayMonth() {
       saveCurrentMonthState({ passive: true });
@@ -9122,6 +9326,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         if (i === now.getMonth() + 1) opt.selected = true;
         monthSelect.appendChild(opt);
       }
+      syncMonthControlUI();
       try {
         const savedWeekStartMode = localStorage.getItem("personalOvertimeWeekStartMode");
         weekStartMode = savedWeekStartMode === "sunday" ? "sunday" : "monday";
@@ -9150,6 +9355,19 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       });
       const returnTodayBtn = document.getElementById("returnTodayBtn");
       if (returnTodayBtn) returnTodayBtn.addEventListener("click", () => returnToTodayMonth());
+      document.getElementById("previousMonthBtn")?.addEventListener("click", () => selectDisplayedMonth(Number(document.getElementById("month")?.value || 1) - 1));
+      document.getElementById("nextMonthBtn")?.addEventListener("click", () => selectDisplayedMonth(Number(document.getElementById("month")?.value || 1) + 1));
+      document.getElementById("monthPickerOpenBtn")?.addEventListener("click", () => openMonthPickerModal());
+      document.getElementById("monthPickerCloseBtn")?.addEventListener("click", () => closeMonthPickerModal(true));
+      document.querySelectorAll("[data-month-picker-value]").forEach(button => {
+        button.addEventListener("click", () => selectDisplayedMonth(Number(button.dataset.monthPickerValue)));
+      });
+      document.getElementById("monthPickerModal")?.addEventListener("click", event => {
+        if (event.target && event.target.id === "monthPickerModal") closeMonthPickerModal(true);
+      });
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && document.getElementById("monthPickerModal")?.classList.contains("open")) closeMonthPickerModal(true);
+      });
       document.getElementById("closureAddBtn")?.addEventListener("click", () => addSpecialDateRecord("closure"));
       document.getElementById("electionAddBtn")?.addEventListener("click", () => addSpecialDateRecord("election"));
       document.getElementById("trainingAddBtn")?.addEventListener("click", () => addSpecialDateRecord("training"));
@@ -9255,6 +9473,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         switchMonthState(false);
       });
       document.getElementById("month").addEventListener("change", () => {
+        syncMonthControlUI();
         switchMonthState(false);
       });
       document.getElementById("rocYear").addEventListener("change", () => {
@@ -11738,11 +11957,36 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     const label = custom ? custom.name : (Number(selectedCode) === 8.9 ? normalizeOtherCodeLabel(record.otherLabel || "其他") : getLabel(selectedCode));
     return `<div class="batch-code-picker" data-batch-code-picker="${index}"><button class="batch-code-picker-button" type="button" data-batch-code-button="${index}" data-selected-code="${selectedCode}">${custom ? "自訂" : selectedCode} ${escapeHtml(label)}</button></div>`;
   };
+  function getBatchCurrentLabelV18(record) {
+    const custom = getCustomLeaveTypeV13(record.customLeaveId);
+    if (custom) return `自訂 ${custom.name}`;
+    const label = Number(record.code) === 8.9 ? normalizeOtherCodeLabel(record.otherLabel || "其他") : getLabel(record.code);
+    return `${record.code} ${label}`;
+  }
+  function buildBatchSystemLeaveRowV18(code, record) {
+    const favorite = isCodeFavorite(code);
+    const selected = Number(code) === Number(record.code) && (Number(code) !== 8.9 || !record.customLeaveId);
+    const star = `<button class="code-star-btn" type="button" data-batch-code-star-v18="${code}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button>`;
+    if (Number(code) === 8.9) {
+      return `<div class="batch-code-option-row batch-other-row batch-with-star-v18 ${selected ? "selected" : ""}" data-batch-code-row="${code}">${star}<button class="batch-code-option-btn" type="button" data-batch-code-option="${code}">${code}</button><input class="batch-other-name-input" type="text" value="${escapeHtml(normalizeOtherCodeLabel(record.otherLabel || "其他"))}" maxlength="20" data-batch-other-code-input="1" title="點一下全選，可改成這一筆批次專用名稱"></div>`;
+    }
+    return `<div class="batch-code-option-row batch-with-star-v18 ${selected ? "selected" : ""}" data-batch-code-row="${code}">${star}<button class="batch-code-option-btn" type="button" data-batch-code-option="${code}">${code} ${escapeHtml(getLabel(code))}</button></div>`;
+  }
+  function buildBatchCustomLeaveRowV18(item, record) {
+    const favoriteKey = customLeaveFavoriteKeyV15(item.id);
+    const favorite = isCustomFavoriteV15(favoriteKey);
+    const selected = String(record.customLeaveId || "") === item.id;
+    return `<div class="batch-code-option-row batch-with-star-v18 ${selected ? "selected" : ""}" data-batch-custom-leave-row-v18="${escapeHtml(item.id)}"><button class="code-star-btn" type="button" data-batch-custom-star-v18="${escapeHtml(item.id)}" title="${favorite ? "取消我的最愛" : "加入我的最愛"}">${favorite ? "★" : "☆"}</button><button class="batch-code-option-btn" data-batch-custom-leave-v13="${escapeHtml(item.id)}" type="button">自訂 ${escapeHtml(item.name)}</button></div>`;
+  }
   buildBatchCodePickerPortalHtml = function (index) {
     const record = normalizeBatchRangeRecord(batchRangeRecords[index] || {});
-    const optionHtml = BATCH_RANGE_CODES.map(code => buildBatchCodeOptionRow(code, record.code, index)).join("");
-    const customHtml = getCustomLeaveTypesV13(false).length ? `<div class="custom-leave-list-v13">${getCustomLeaveTypesV13(false).map(item => `<div class="custom-leave-row-v13"><button class="custom-leave-select-v13" data-batch-custom-leave-v13="${escapeHtml(item.id)}" type="button">${escapeHtml(item.name)}</button></div>`).join("")}</div>` : "";
-    return `<div class="code-picker-portal-backdrop" data-batch-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="批次假別選單" data-batch-code-portal-index="${index}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${index + 1} 筆假別</div><div class="code-picker-portal-subtitle">自訂假別與系統假別皆列於全部假別</div></div><button class="code-picker-portal-close" type="button" data-batch-code-portal-close="1">關閉</button></div><div class="code-picker-portal-scroll"><div class="code-picker-portal-section-title">全部假別</div>${customHtml}<div class="batch-code-option-list">${optionHtml}</div></div></div>`;
+    const systemCodes = getBatchEligibleSystemLeaveCodes();
+    const customLeaves = getCustomLeaveTypesV13(false);
+    const allHtml = systemCodes.map(code => buildBatchSystemLeaveRowV18(code, record)).join("") + customLeaves.map(item => buildBatchCustomLeaveRowV18(item, record)).join("");
+    const favoriteHtml = systemCodes.filter(code => isCodeFavorite(code)).map(code => buildBatchSystemLeaveRowV18(code, record)).join("") + customLeaves.filter(item => isCustomFavoriteV15(customLeaveFavoriteKeyV15(item.id))).map(item => buildBatchCustomLeaveRowV18(item, record)).join("");
+    const favoriteContent = favoriteHtml || `<div class="code-empty-favorite">尚未設定常用假別，請展開全部假別並點選星號。</div>`;
+    const allCollapsedClass = batchCodePickerAllOpen ? "" : "collapsed-detail";
+    return `<div class="code-picker-portal-backdrop" data-batch-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="批次假別選單" data-batch-code-portal-index="${index}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${index + 1} 筆假別</div><div class="code-picker-portal-subtitle">目前選擇：<span class="batch-current-label-v18">${escapeHtml(getBatchCurrentLabelV18(record))}</span></div></div><button class="code-picker-portal-close" type="button" data-batch-code-portal-close="1">關閉</button></div><div class="batch-code-picker-actions-v18"><button class="batch-code-all-toggle-v18" type="button" data-batch-code-all-toggle-v18="1">${batchCodePickerAllOpen ? "收合全部假別" : "全部假別"}</button></div><div class="code-picker-portal-scroll"><div class="code-picker-portal-section-title">我的最愛</div><div class="batch-code-option-list">${favoriteContent}</div><div class="code-picker-portal-section-title ${allCollapsedClass}">全部假別</div><div class="batch-code-option-list ${allCollapsedClass}">${allHtml}</div></div></div>`;
   };
   selectBatchCode = function (index, code) {
     if (!batchRangeRecords[index]) batchRangeRecords[index] = { startDay: 0, endDay: 0, code: 5, leaveHours: 0, mode: "workOnly", otherLabel: "其他", customLeaveId: "", lastApplied: null };
@@ -11763,6 +12007,23 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   }
   bindBatchCodePickerPortalEvents = function (portal, index) {
     portal.querySelectorAll("[data-batch-code-portal-close]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); closeBatchCodePickerPortal(); }));
+    portal.querySelectorAll("[data-batch-code-all-toggle-v18]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation();
+      batchCodePickerAllOpen = !batchCodePickerAllOpen;
+      renderBatchCodePickerPortal(index, 0);
+    }));
+    portal.querySelectorAll("[data-batch-code-star-v18]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation();
+      const scrollTop = portal.querySelector(".code-picker-portal-scroll")?.scrollTop || 0;
+      toggleCodeFavorite(Number(btn.dataset.batchCodeStarV18));
+      renderBatchCodePickerPortal(index, scrollTop);
+    }));
+    portal.querySelectorAll("[data-batch-custom-star-v18]").forEach(btn => btn.addEventListener("click", event => {
+      event.preventDefault(); event.stopPropagation();
+      const scrollTop = portal.querySelector(".code-picker-portal-scroll")?.scrollTop || 0;
+      toggleCustomFavoriteV15(customLeaveFavoriteKeyV15(btn.dataset.batchCustomStarV18));
+      renderBatchCodePickerPortal(index, scrollTop);
+    }));
     portal.querySelectorAll("[data-batch-code-option]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); selectBatchCode(index, Number(btn.dataset.batchCodeOption)); }));
     portal.querySelectorAll("[data-batch-custom-leave-v13]").forEach(btn => btn.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); selectBatchCustomLeaveV13(index, btn.dataset.batchCustomLeaveV13); }));
     portal.querySelectorAll("[data-batch-other-code-input]").forEach(input => {

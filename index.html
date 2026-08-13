@@ -3449,7 +3449,7 @@
 .parameter-settings-section-title{display:grid!important;grid-template-columns:34px minmax(0,1fr) auto auto!important;gap:10px!important;align-items:center!important;}
 .parameter-settings-section-title>span{white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;}
 .parameter-settings-section-title .parameter-settings-add-btn{justify-self:end!important;}
-.parameter-settings-section.parameter-mobile-collapsed>.parameter-settings-note,.parameter-settings-section.parameter-mobile-collapsed>.parameter-settings-grid,.parameter-settings-section.parameter-mobile-collapsed>.parameter-settings-list,.parameter-settings-section.parameter-mobile-collapsed>.parameter-hours-layout,.parameter-settings-section.parameter-mobile-collapsed>.g-backup-local-grid,.parameter-settings-section.parameter-mobile-collapsed>.parameter-settings-file-input{display:none!important;}
+.parameter-settings-section.parameter-mobile-collapsed>.parameter-settings-note,.parameter-settings-section.parameter-mobile-collapsed>.parameter-settings-grid,.parameter-settings-section.parameter-mobile-collapsed>.parameter-settings-list,.parameter-settings-section.parameter-mobile-collapsed>.parameter-hours-layout,.parameter-settings-section.parameter-mobile-collapsed>.g-backup-local-grid,.parameter-settings-section.parameter-mobile-collapsed>.parameter-settings-file-input,.parameter-settings-section.parameter-mobile-collapsed>.parameter-allowance-group{display:none!important;}
 .parameter-settings-section.parameter-mobile-collapsed .parameter-settings-add-btn{display:none!important;}
 .parameter-rate-invalid{border-color:rgba(248,113,113,.95)!important;background:rgba(127,29,29,.30)!important;color:#fecaca!important;box-shadow:0 0 14px rgba(239,68,68,.28),inset 0 0 12px rgba(239,68,68,.08)!important;}
 .parameter-rate-invalid-hint{display:none;color:#fecaca;font-size:10px;font-weight:950;line-height:1.3;text-shadow:0 0 8px rgba(248,113,113,.34);}
@@ -4503,6 +4503,13 @@
 .leave-detail-policy-summary{margin-bottom:10px;padding:10px;border:1px solid rgba(103,232,249,.22);border-radius:10px;background:rgba(14,116,144,.09);color:#cbd5e1;font-size:11px;line-height:1.7}
 @media(max-width:760px){.salary-detail-modal,.timed-leave-modal{align-items:flex-end;padding:0}.salary-detail-card,.timed-leave-card{width:100%;max-height:94vh;border-radius:18px 18px 0 0}.salary-detail-header,.timed-leave-header{padding:14px 15px}.annual-policy-grid{grid-template-columns:1fr}.timed-leave-section-head{align-items:flex-start}.timed-leave-form{grid-template-columns:1fr}.timed-leave-form-actions,.timed-leave-message{grid-column:1}.timed-leave-manager-row{grid-template-columns:minmax(0,1fr) auto}.timed-leave-manager-row .timed-leave-action.danger{grid-column:2}.parameter-allowance-grid,.parameter-leave-policy-grid{grid-template-columns:1fr!important}.salary-detail-open-card::after{font-size:8px}.code-option-row.has-timed-leave{grid-template-columns:38px minmax(0,1fr) auto 34px}}
 /* === V25 功能樣式結束 === */
+
+/* === V27 獎金考核專區與期限資格管理 === */
+.annual-policy-hub{margin-top:12px}.annual-policy-hub-btn{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px 14px;border:1px solid rgba(103,232,249,.28);border-radius:14px;background:linear-gradient(135deg,rgba(14,116,144,.12),rgba(3,7,18,.5));color:#e2e8f0;text-align:left;cursor:pointer}.annual-policy-hub-btn:hover,.annual-policy-hub-btn:focus-visible{border-color:rgba(103,232,249,.65);outline:none}.annual-policy-hub-title{color:#a5f3fc;font-size:13px;font-weight:950}.annual-policy-hub-summary{margin-top:5px;color:#cbd5e1;font-size:10px;line-height:1.5}.annual-policy-hub-status{min-width:72px;color:#86efac;font-size:11px;font-weight:950;text-align:right}.annual-policy-hub-btn.status-warning .annual-policy-hub-status{color:#fdba74}.annual-policy-hub-btn.status-danger .annual-policy-hub-status{color:#fda4af}.annual-policy-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.76);z-index:10070}.annual-policy-modal.open{display:flex}.annual-policy-card{width:min(760px,100%);max-height:min(88vh,820px);display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(103,232,249,.42);border-radius:20px;background:linear-gradient(160deg,#101a28,#090d14 72%);box-shadow:0 24px 80px rgba(0,0,0,.62),0 0 34px rgba(34,211,238,.15)}.annual-policy-modal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:18px 20px;border-bottom:1px solid rgba(148,163,184,.2)}.annual-policy-modal-title{color:#f8fafc;font-size:22px;font-weight:950;letter-spacing:.06em}.annual-policy-modal-subtitle{margin-top:4px;color:#67e8f9;font-size:12px;font-weight:850}.annual-policy-modal-body{overflow:auto;padding:16px 18px 18px}.annual-policy-modal .annual-policy-grid{margin-top:0}
+.timed-leave-toolbar{display:flex;justify-content:flex-end;margin-bottom:10px}.timed-leave-add-btn{min-height:38px;padding:0 15px;border:1px solid rgba(103,232,249,.4);border-radius:9px;background:rgba(8,145,178,.18);color:#cffafe;font-weight:950;cursor:pointer}.timed-leave-form[hidden],.timed-leave-toolbar[hidden],.timed-leave-field[hidden]{display:none!important}.timed-leave-close-btn.icon-only{width:38px;padding:0;font-size:22px;line-height:1}.timed-leave-manager-row{grid-template-columns:minmax(0,1fr) auto auto auto}.timed-leave-action.delete{border-color:rgba(251,113,133,.52);background:rgba(159,18,57,.2);color:#fecdd3}
+.annual-leave-stats-year-grid .leave-stats-year-box.other-timed-leave-year{grid-column:1/-1}.other-timed-leave-year .leave-stats-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:760px){.annual-policy-modal{align-items:flex-end;padding:0}.annual-policy-card{width:100%;max-height:94vh;border-radius:18px 18px 0 0}.annual-policy-modal-header{padding:14px 15px}.annual-policy-hub-btn{grid-template-columns:1fr}.annual-policy-hub-status{text-align:left}.timed-leave-manager-row{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}.timed-leave-manager-row>div:first-child{grid-column:1/-1}.timed-leave-action{width:100%;padding:0 6px}.other-timed-leave-year .leave-stats-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* === V27 功能樣式結束 === */
 </style>
 </head>
 <body>
@@ -4599,25 +4606,23 @@
                 <div class="leave-stat-item"><div id="leaveAccountingSickLabel" class="leave-stat-label">病假(10天7.5HR)</div><div id="leaveAccountingSick" class="leave-stat-value empty">0HR</div></div>
               </div>
             </div>
+            <div class="leave-stats-year-box other-timed-leave-year">
+              <div class="leave-stats-year-title">其他假別｜考勤年度</div>
+              <div class="leave-stats-grid">
+                <div class="leave-stat-item"><div class="leave-stat-label">婚假</div><div id="leaveAttendanceMarriage" class="leave-stat-value empty">0HR</div></div>
+                <div class="leave-stat-item"><div class="leave-stat-label">喪假</div><div id="leaveAttendanceBereavement" class="leave-stat-value empty">0HR</div></div>
+                <div class="leave-stat-item"><div class="leave-stat-label">補假</div><div id="leaveAttendanceComp" class="leave-stat-value empty">0HR</div></div>
+              </div>
+            </div>
           </div>
-          <div class="annual-policy-grid">
-            <div class="annual-policy-box accounting-policy-box">
-              <div class="annual-policy-title">工作獎金｜會計年度</div>
-              <div class="annual-policy-row"><span>事假扣發</span><strong id="workBonusPersonalDeduction">0日</strong></div>
-              <div class="annual-policy-row"><span>病假扣發</span><strong id="workBonusSickDeduction">0日</strong></div>
-              <div class="annual-policy-row"><span>獎金資格</span><strong id="workBonusEligibility">未達不核發門檻</strong></div>
-              <button class="annual-policy-detail-btn" type="button" data-leave-policy-detail="bonus">查看計算明細</button>
-            </div>
-            <div class="annual-policy-box assessment-policy-box">
-              <div class="annual-policy-title">考核甲等｜考勤年度</div>
-              <div class="annual-policy-row"><span>考核計入</span><strong id="assessmentCountedDays">0日</strong></div>
-              <div class="annual-policy-row"><span>甲等資格</span><strong id="assessmentEligibility">有機會考甲</strong></div>
-              <div class="annual-policy-note">僅表示是否超過事、病假日數門檻，不代表最終考核等次。</div>
-              <button class="annual-policy-detail-btn" type="button" data-leave-policy-detail="assessment">查看計算明細</button>
-            </div>
+          <div class="annual-policy-hub">
+            <button id="annualPolicyHubBtn" class="annual-policy-hub-btn" type="button" aria-haspopup="dialog" aria-controls="annualPolicyModal">
+              <span><span class="annual-policy-hub-title">獎金與考核資訊</span><span id="annualPolicyHubSummary" class="annual-policy-hub-summary">工作獎金：未達不核發門檻｜考核：有機會考甲</span></span>
+              <span id="annualPolicyHubStatus" class="annual-policy-hub-status">查看專區</span>
+            </button>
           </div>
           <div id="timedLeaveSummarySection" class="timed-leave-section" hidden>
-            <div class="timed-leave-section-head"><div><div class="timed-leave-section-title">期限假別資格</div><div class="timed-leave-section-note">婚假、喪假以 8HR 折算一日；只有目前有效且仍有額度的資格會顯示。</div></div></div>
+            <div class="timed-leave-section-head"><div><div class="timed-leave-section-title">期限假別資格</div><div class="timed-leave-section-note">資格額度以 8HR 折算一日；只有目前有效且仍有額度的資格會顯示。</div></div></div>
             <div id="timedLeaveActiveList" class="timed-leave-active-list"></div>
           </div>
         </div>
@@ -8867,7 +8872,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
 
     /* === 假別統計資訊：計算邏輯 BEGIN === */
     function createEmptyLeaveStats() {
-      return { special: 0, mind: 0, sick: 0, personal: 0, family: 0, policySick: 0, policyPersonal: 0 };
+      return { special: 0, mind: 0, sick: 0, personal: 0, family: 0, marriage: 0, bereavement: 0, comp: 0, policySick: 0, policyPersonal: 0 };
     }
     function addLeaveStats(target, source) {
       Object.keys(target).forEach(key => { target[key] += Number(source[key] || 0); });
@@ -8925,10 +8930,16 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       if (n >= 5 && n < 6) return "special";
       if (n >= 7 && n < 8) return "sick";
       if (n === 8) return "personal";
+      if (n === 8.1) return "bereavement";
+      if (n === 8.2) return "marriage";
       if (n === 8.5) return "family";
       if (n === 8.6) return "mind";
+      if (n >= 6 && n < 7) return "comp";
       if (n === 8.9) {
         const label = typeof getLabelForDayInfo === "function" ? getLabelForDayInfo(n, dayInfo) : String(dayInfo.otherLabel || "");
+        if (label.includes("婚")) return "marriage";
+        if (label.includes("喪")) return "bereavement";
+        if (label.includes("補")) return "comp";
         if (label.includes("特")) return "special";
         if (label.includes("身")) return "mind";
         if (label.includes("家")) return "family";
@@ -8947,6 +8958,9 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         if (key.includes("特")) { stats.special += value; used += value; return; }
         if (key.includes("身")) { stats.mind += value; used += value; return; }
         if (key.includes("家")) { stats.family += value; used += value; return; }
+        if (key.includes("婚")) { stats.marriage += value; used += value; return; }
+        if (key.includes("喪")) { stats.bereavement += value; used += value; return; }
+        if (key.includes("補")) { stats.comp += value; used += value; return; }
         if (key.includes("病")) { stats.sick += value; stats.policySick += value; used += value; return; }
         if (key.includes("事")) { stats.personal += value; stats.policyPersonal += value; used += value; return; }
       });
@@ -9147,6 +9161,9 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       setLeaveStatText("leaveAttendanceFamily", attendanceStats.family);
       setLeaveStatText("leaveAccountingPersonal", accountingStats.personal);
       setLeaveStatText("leaveAccountingSick", accountingStats.sick);
+      setLeaveStatText("leaveAttendanceMarriage", attendanceStats.marriage);
+      setLeaveStatText("leaveAttendanceBereavement", attendanceStats.bereavement);
+      setLeaveStatText("leaveAttendanceComp", attendanceStats.comp);
       renderLeavePolicySummary(attendanceStats, accountingStats, attendanceYear, accountingYear);
       if (typeof window.renderTimedLeaveSummaryV25 === "function") window.renderTimedLeaveSummaryV25();
     }
@@ -9175,6 +9192,10 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       setPolicyValue("workBonusEligibility",noBonus?"不予核發":"未達不核發門檻",noBonus);
       setPolicyValue("assessmentCountedDays",formatPolicyDays(assessmentCountedDays),assessmentOver);
       setPolicyValue("assessmentEligibility",assessmentEffective?(assessmentOver?"不得考列甲等":"有機會考甲"):"規則尚未生效",assessmentOver);
+      const hub=document.getElementById("annualPolicyHubBtn"),hubSummary=document.getElementById("annualPolicyHubSummary"),hubStatus=document.getElementById("annualPolicyHubStatus");
+      if(hubSummary)hubSummary.textContent=`工作獎金：${noBonus?"不予核發":personalDeduction>0||sickDeduction>0?`事假扣 ${formatPolicyDays(personalDeduction)}、病假扣 ${formatPolicyDays(sickDeduction)}`:"未達不核發門檻"}｜考核：${assessmentEffective?(assessmentOver?"不得考列甲等":`有機會考甲（計入 ${formatPolicyDays(assessmentCountedDays)}）`):"規則尚未生效"}`;
+      if(hub){hub.classList.toggle("status-danger",noBonus||assessmentOver);hub.classList.toggle("status-warning",!noBonus&&!assessmentOver&&(personalDeduction>0||sickDeduction>0));}
+      if(hubStatus)hubStatus.textContent=noBonus||assessmentOver?"需注意":personalDeduction>0||sickDeduction>0?"已有扣發":"查看專區";
       currentLeavePolicySummary={hoursPerDay,personalHours,sickHours,personalFullDays,sickExcessFullDays,personalDeduction,sickDeduction,combinedBonusDays,noBonus,attendancePersonalHours,attendanceSickHours,assessmentCountedDays,assessmentEffective,assessmentOver,attendanceYear,accountingYear};
     }
     /* === 假別統計資訊：計算邏輯 END === */
@@ -10761,6 +10782,35 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   內容：參數設定僅保留有效時間、三值加班分鐘、二值預設公假、二連一補入；二值選舉日由預設公假自動寫入主月曆，D10回歸部分請假邏輯，D11回歸班表工時邏輯。
 -->
 
+<!-- 獎金與考核資訊：浮動視窗開始 -->
+<div id="annualPolicyModal" class="annual-policy-modal" aria-hidden="true">
+  <div class="annual-policy-card" role="dialog" aria-modal="true" aria-labelledby="annualPolicyModalTitle">
+    <div class="annual-policy-modal-header">
+      <div><div id="annualPolicyModalTitle" class="annual-policy-modal-title">獎金與考核資訊</div><div class="annual-policy-modal-subtitle">需要時再查看工作獎金與考核門檻。</div></div>
+      <button id="annualPolicyModalCloseBtn" class="salary-detail-close-btn" type="button">關閉</button>
+    </div>
+    <div class="annual-policy-modal-body">
+      <div class="annual-policy-grid">
+        <div class="annual-policy-box accounting-policy-box">
+          <div class="annual-policy-title">工作獎金｜會計年度</div>
+          <div class="annual-policy-row"><span>事假扣發</span><strong id="workBonusPersonalDeduction">0日</strong></div>
+          <div class="annual-policy-row"><span>病假扣發</span><strong id="workBonusSickDeduction">0日</strong></div>
+          <div class="annual-policy-row"><span>獎金資格</span><strong id="workBonusEligibility">未達不核發門檻</strong></div>
+          <button class="annual-policy-detail-btn" type="button" data-leave-policy-detail="bonus">查看計算明細</button>
+        </div>
+        <div class="annual-policy-box assessment-policy-box">
+          <div class="annual-policy-title">考核甲等｜考勤年度</div>
+          <div class="annual-policy-row"><span>考核計入</span><strong id="assessmentCountedDays">0日</strong></div>
+          <div class="annual-policy-row"><span>甲等資格</span><strong id="assessmentEligibility">有機會考甲</strong></div>
+          <div class="annual-policy-note">僅表示是否超過事、病假日數門檻，不代表最終考核等次。</div>
+          <button class="annual-policy-detail-btn" type="button" data-leave-policy-detail="assessment">查看計算明細</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 獎金與考核資訊：浮動視窗結束 -->
+
 <!-- 年度請假明細查詢：浮動視窗開始 -->
 <div id="leaveDetailModal" class="leave-detail-modal" role="dialog" aria-modal="true" aria-labelledby="leaveDetailTitle" aria-hidden="true">
   <div class="leave-detail-card">
@@ -10780,23 +10830,26 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
 <!-- 期限假別資格：浮動視窗開始 -->
 <div id="timedLeaveModal" class="timed-leave-modal" aria-hidden="true">
   <div class="timed-leave-card" role="dialog" aria-modal="true" aria-labelledby="timedLeaveTitle">
-    <div class="timed-leave-header"><div><div id="timedLeaveTitle" class="timed-leave-title">期限假別資格</div><div class="timed-leave-subtitle">新增婚假或喪假事件，系統依資格期間與剩餘額度控制可選假別。</div></div><button id="timedLeaveCloseBtn" class="timed-leave-close-btn" type="button">關閉</button></div>
+    <div class="timed-leave-header"><div><div id="timedLeaveTitle" class="timed-leave-title">期限假別資格</div><div class="timed-leave-subtitle">資格追蹤為選填；未建立資格仍可正常套用補假、婚假或喪假。</div></div><button id="timedLeaveCloseBtn" class="timed-leave-close-btn icon-only" type="button" aria-label="關閉期限假別資格">×</button></div>
     <div class="timed-leave-body">
-      <div class="timed-leave-form">
-        <label class="timed-leave-field"><span>假別</span><select id="timedLeaveType" class="timed-leave-select"><option value="marriage">婚假</option><option value="bereavement">喪假</option></select></label>
+      <div id="timedLeaveToolbar" class="timed-leave-toolbar"><button id="timedLeaveAddBtn" class="timed-leave-add-btn" type="button">＋新增資格</button></div>
+      <div id="timedLeaveForm" class="timed-leave-form" hidden>
+        <label class="timed-leave-field"><span>假別</span><select id="timedLeaveType" class="timed-leave-select"><option value="marriage">婚假</option><option value="bereavement">喪假</option><option value="custom">自訂期限假別</option></select></label>
         <label id="timedLeaveRelationField" class="timed-leave-field" hidden><span>喪亡關係</span><select id="timedLeaveRelation" class="timed-leave-select"><option value="parent-spouse">父母、養父母、繼父母、配偶（14天）</option><option value="child">子女（10天）</option><option value="spouse-parent">配偶之父母、養父母、繼父母（10天）</option><option value="grandparent">祖父母（7天）</option><option value="spouse-grandparent">配偶之祖父母（7天）</option><option value="sibling">兄弟姊妹（3天）</option><option value="great-grandparent">曾祖父母（3天）</option><option value="concubine-main-wife">庶子之嫡母（7天）</option></select></label>
+        <label id="timedLeaveCustomNameField" class="timed-leave-field" hidden><span>假別名稱</span><input id="timedLeaveCustomName" class="timed-leave-input" type="text" maxlength="20" placeholder="例如：補假"></label>
+        <label id="timedLeaveBaseCodeField" class="timed-leave-field" hidden><span>套用方式</span><select id="timedLeaveBaseCode" class="timed-leave-select"><option value="6">補假</option><option value="8.2">婚假</option><option value="8.1">喪假</option></select></label>
         <label class="timed-leave-field"><span id="timedLeaveEventDateLabel">結婚登記日</span><button id="timedLeaveEventDateBtn" class="timed-leave-date-btn" type="button" data-value="">選擇日期</button></label>
         <label class="timed-leave-field"><span>自動有效起日</span><div id="timedLeaveValidStart" class="timed-leave-readonly">－</div></label>
-        <label class="timed-leave-field"><span>原規定有效訖日</span><div id="timedLeaveBaseValidEnd" class="timed-leave-readonly">－</div></label>
-        <label class="timed-leave-field"><span>特殊延長</span><select id="timedLeaveExtensionMode" class="timed-leave-select"><option value="none">無</option><option value="year">原期限再延長一年</option><option value="custom">自訂訖日</option></select></label>
-        <label id="timedLeaveCustomEndField" class="timed-leave-field" hidden><span>自訂有效訖日</span><button id="timedLeaveCustomEndBtn" class="timed-leave-date-btn" type="button" data-value="">選擇日期</button></label>
-        <label class="timed-leave-field"><span>最終有效訖日</span><div id="timedLeaveValidEnd" class="timed-leave-readonly">－</div></label>
+        <label id="timedLeaveBaseValidEndField" class="timed-leave-field"><span>原規定有效訖日</span><div id="timedLeaveBaseValidEnd" class="timed-leave-readonly">－</div></label>
+        <label id="timedLeaveExtensionModeField" class="timed-leave-field"><span>特殊延長</span><select id="timedLeaveExtensionMode" class="timed-leave-select"><option value="none">無</option><option value="year">原期限再延長一年</option><option value="custom">自訂訖日</option></select></label>
+        <label id="timedLeaveCustomEndField" class="timed-leave-field" hidden><span id="timedLeaveCustomEndLabel">自訂有效訖日</span><button id="timedLeaveCustomEndBtn" class="timed-leave-date-btn" type="button" data-value="">選擇日期</button></label>
+        <label id="timedLeaveValidEndField" class="timed-leave-field"><span>最終有效訖日</span><div id="timedLeaveValidEnd" class="timed-leave-readonly">－</div></label>
         <label class="timed-leave-field"><span>核准額度(日，8HR／日)</span><input id="timedLeaveQuotaDays" class="timed-leave-input" type="text" inputmode="decimal" value="14"></label>
         <label id="timedLeaveExtensionReasonField" class="timed-leave-field" hidden><span>特殊延長原因</span><input id="timedLeaveExtensionReason" class="timed-leave-input" type="text" maxlength="40" placeholder="例如：疫情期間公司放寬"></label>
         <label class="timed-leave-field"><span>備註</span><input id="timedLeaveNote" class="timed-leave-input" type="text" maxlength="40" placeholder="選填"></label>
         <div id="timedLeaveExtensionNote" class="timed-leave-extension-note" hidden></div>
         <div id="timedLeaveMessage" class="timed-leave-message"></div>
-        <div class="timed-leave-form-actions"><button id="timedLeaveCancelEditBtn" class="timed-leave-cancel-edit" type="button" hidden>取消編輯</button><button id="timedLeaveSaveBtn" class="timed-leave-save" type="button">儲存資格</button></div>
+        <div class="timed-leave-form-actions"><button id="timedLeaveCancelEditBtn" class="timed-leave-cancel-edit" type="button">取消</button><button id="timedLeaveSaveBtn" class="timed-leave-save" type="button">儲存</button></div>
       </div>
       <div id="timedLeaveManagerList" class="timed-leave-manager-list"></div>
     </div>
@@ -10812,10 +10865,14 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     leaveAttendanceSpecial: { yearType: "attendance", category: "special", name: "特別休假" },
     leaveAttendanceMind: { yearType: "attendance", category: "mind", name: "身心調適假" },
     leaveAttendanceFamily: { yearType: "attendance", category: "family", name: "家庭照顧假" },
+    leaveAttendanceMarriage: { yearType: "attendance", category: "marriage", name: "婚假" },
+    leaveAttendanceBereavement: { yearType: "attendance", category: "bereavement", name: "喪假" },
+    leaveAttendanceComp: { yearType: "attendance", category: "comp", name: "補假" },
     leaveAccountingPersonal: { yearType: "accounting", category: "personal", name: "事假" },
     leaveAccountingSick: { yearType: "accounting", category: "sick", name: "病假" }
   };
   let leaveDetailPreviousBodyOverflow = "";
+  let annualPolicyPreviousBodyOverflow = "";
 
   function leaveDetailRoundHours(value) {
     return typeof roundLeaveStatHours === "function" ? roundLeaveStatHours(value) : Math.round((Number(value) || 0) * 2) / 2;
@@ -10830,6 +10887,9 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       if (category === "special" && key.includes("特")) total += value;
       if (category === "mind" && key.includes("身")) total += value;
       if (category === "family" && key.includes("家")) total += value;
+      if (category === "marriage" && key.includes("婚")) total += value;
+      if (category === "bereavement" && key.includes("喪")) total += value;
+      if (category === "comp" && key.includes("補")) total += value;
       if (category === "sick" && key.includes("病")) total += value;
       if (category === "personal" && key.includes("事")) total += value;
     });
@@ -11050,11 +11110,17 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   function initLeaveDetailFeature() {
     bindLeaveDetailTriggers();
     document.querySelectorAll("[data-leave-policy-detail]").forEach(button=>button.addEventListener("click",()=>openLeavePolicyDetailV25(button.dataset.leavePolicyDetail)));
+    const policyModal=document.getElementById("annualPolicyModal"),policyOpen=document.getElementById("annualPolicyHubBtn"),policyClose=document.getElementById("annualPolicyModalCloseBtn");
+    const closePolicy=()=>{if(!policyModal)return;policyModal.classList.remove("open");policyModal.setAttribute("aria-hidden","true");document.body.style.overflow=annualPolicyPreviousBodyOverflow;policyOpen?.focus();};
+    const openPolicy=()=>{if(!policyModal)return;annualPolicyPreviousBodyOverflow=document.body.style.overflow;document.body.style.overflow="hidden";policyModal.classList.add("open");policyModal.setAttribute("aria-hidden","false");policyClose?.focus();};
+    policyOpen?.addEventListener("click",openPolicy);
+    policyClose?.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();closePolicy();});
+    policyModal?.addEventListener("click",event=>{if(event.target===policyModal)closePolicy();});
     const modal = document.getElementById("leaveDetailModal");
     const closeBtn = document.getElementById("leaveDetailCloseBtn");
     if (closeBtn) closeBtn.addEventListener("click", closeLeaveDetailModal);
     if (modal) modal.addEventListener("click", function (event) { if (event.target === modal) closeLeaveDetailModal(); });
-    document.addEventListener("keydown", function (event) { if (event.key === "Escape" && modal && modal.classList.contains("open")) closeLeaveDetailModal(); });
+    document.addEventListener("keydown", function (event) { if(event.key!=="Escape")return;if(modal&&modal.classList.contains("open")){closeLeaveDetailModal();return;}if(policyModal?.classList.contains("open"))closePolicy(); });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initLeaveDetailFeature);
   else initLeaveDetailFeature();
@@ -12643,9 +12709,10 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
 </script>
 
 <script>
-/* === V26 期限假別資格：功能開始 === */
+/* === V27 期限假別資格：功能開始 === */
 (function () {
   const STORAGE_KEY="personalOvertimeTimedLeaveEntitlements";
+  const DAY_HOURS=8;
   const RELATIONS={
     "parent-spouse":{label:"父母、養父母、繼父母、配偶",days:14},child:{label:"子女",days:10},"spouse-parent":{label:"配偶之父母、養父母、繼父母",days:10},grandparent:{label:"祖父母",days:7},"spouse-grandparent":{label:"配偶之祖父母",days:7},sibling:{label:"兄弟姊妹",days:3},"great-grandparent":{label:"曾祖父母",days:3},"concubine-main-wife":{label:"庶子之嫡母",days:7}
   };
@@ -12659,7 +12726,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   function addDays(value,days){const date=parseIso(value);if(!date)return "";date.setDate(date.getDate()+Number(days||0));return toIso(date);}
   function addMonths(value,months){const date=parseIso(value);if(!date)return "";const targetDay=date.getDate();date.setDate(1);date.setMonth(date.getMonth()+Number(months||0));date.setDate(Math.min(targetDay,new Date(date.getFullYear(),date.getMonth()+1,0).getDate()));return toIso(date);}
   function formatRocDate(value){const date=parseIso(value);return date?`${date.getFullYear()-1911}/${pad(date.getMonth()+1)}/${pad(date.getDate())}`:"－";}
-  function deriveBaseDates(type,eventDate){return type==="bereavement"?{validStart:eventDate,baseValidEnd:addDays(eventDate,99)}:{validStart:addMonths(eventDate,-3),baseValidEnd:addMonths(eventDate,3)};}
+  function deriveBaseDates(type,eventDate){if(type==="bereavement")return{validStart:eventDate,baseValidEnd:addDays(eventDate,99)};if(type==="custom")return{validStart:eventDate,baseValidEnd:""};return{validStart:addMonths(eventDate,-3),baseValidEnd:addMonths(eventDate,3)};}
   function deriveFinalEnd(baseValidEnd,extensionMode,customValidEnd){if(extensionMode==="year")return addMonths(baseValidEnd,12);if(extensionMode==="custom")return String(customValidEnd||"");return baseValidEnd;}
   function normalize(raw){
     const used=new Set();
@@ -12667,24 +12734,28 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       let id=String(item?.id||`timed-${Date.now()}-${index}`).replace(/[^a-zA-Z0-9_-]/g,"-").slice(0,80);
       while(used.has(id))id+=`-${index}`;
       used.add(id);
-      const type=item?.type==="bereavement"?"bereavement":"marriage";
+      const type=["marriage","bereavement","custom"].includes(item?.type)?item.type:"marriage";
       const relation=type==="bereavement"&&RELATIONS[item?.relation]?item.relation:"parent-spouse";
       const eventDate=String(item?.eventDate||"");
       const base=deriveBaseDates(type,eventDate);
       let extensionMode=["none","year","custom"].includes(item?.extensionMode)?item.extensionMode:"";
       if(!extensionMode)extensionMode=item?.validEnd&&item.validEnd!==base.baseValidEnd?"custom":"none";
       if(type==="bereavement"&&extensionMode==="year")extensionMode="custom";
-      const customValidEnd=String(item?.customValidEnd||(extensionMode==="custom"?item?.validEnd:"")||"");
+      if(type==="custom")extensionMode="custom";
+      const customValidEnd=String(item?.customValidEnd||((extensionMode==="custom"||type==="custom")?item?.validEnd:"")||"");
       const validStart=String(item?.validStart||base.validStart||"");
       const validEnd=String(deriveFinalEnd(base.baseValidEnd,extensionMode,customValidEnd)||item?.validEnd||"");
-      return{id,type,relation,eventDate,validStart,baseValidEnd:base.baseValidEnd,validEnd,extensionMode,customValidEnd,extensionReason:String(item?.extensionReason||"").trim().slice(0,40),quotaHours:Math.max(.5,Number(item?.quotaHours)||((type==="bereavement"?RELATIONS[relation]?.days:14)||14)*8),enabled:item?.enabled!==false,note:String(item?.note||"").trim().slice(0,40),createdAt:String(item?.createdAt||new Date().toISOString())};
+      const baseCode=[6,8.1,8.2].includes(Number(item?.baseCode))?Number(item.baseCode):6;
+      const customName=String(item?.customName||"").trim().slice(0,20);
+      const defaultDays=type==="custom"?1:(type==="bereavement"?RELATIONS[relation]?.days:14)||14;
+      return{id,type,relation,customName,baseCode,eventDate,validStart,baseValidEnd:base.baseValidEnd||validEnd,validEnd,extensionMode,customValidEnd,extensionReason:String(item?.extensionReason||"").trim().slice(0,40),quotaHours:Math.max(.5,Number(item?.quotaHours)||defaultDays*DAY_HOURS),enabled:item?.enabled!==false,note:String(item?.note||"").trim().slice(0,40),createdAt:String(item?.createdAt||new Date().toISOString())};
     }).filter(item=>parseIso(item.eventDate)&&parseIso(item.validStart)&&parseIso(item.validEnd)&&item.validStart<=item.validEnd);
   }
   function load(){try{entitlements=normalize(JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]"));}catch(error){entitlements=[];console.warn("期限假別資格讀取失敗",error);}return entitlements;}
   function persist(){entitlements=normalize(entitlements);try{localStorage.setItem(STORAGE_KEY,JSON.stringify(entitlements));}catch(error){console.warn("期限假別資格儲存失敗",error);}}
   function getById(id){return entitlements.find(item=>item.id===String(id||""))||null;}
-  function getTypeCode(item){return item?.type==="bereavement"?8.1:8.2;}
-  function getName(item){return item?.type==="bereavement"?`喪假－${RELATIONS[item.relation]?.label||"喪亡事件"}`:"婚假";}
+  function getTypeCode(item){if(item?.type==="custom")return[6,8.1,8.2].includes(Number(item.baseCode))?Number(item.baseCode):6;return item?.type==="bereavement"?8.1:8.2;}
+  function getName(item){if(item?.type==="custom")return item.customName||"自訂期限假別";return item?.type==="bereavement"?`喪假－${RELATIONS[item.relation]?.label||"喪亡事件"}`:"婚假";}
   function currentMonthKey(){return typeof getCurrentStorageKey==="function"?getCurrentStorageKey():"";}
   function collectUsage(id,excludedKey,excludedDay){let total=0;const currentKey=currentMonthKey();const addRecords=(records,key)=>Object.entries(records||{}).forEach(([day,record])=>{if(key===excludedKey&&Number(day)===Number(excludedDay))return;if(String(record?.entitlementId||"")!==String(id)||Number(record?.code)!==getTypeCode(getById(id)))return;total+=Math.max(0,Number(record.entitlementHours??record.leaveHours??8)||0);});try{Object.keys(localStorage).filter(key=>/^personalOvertimeState:[ABCD]:\d{1,3}:(?:[1-9]|1[0-2])$/.test(key)&&key!==currentKey).forEach(key=>{try{addRecords(JSON.parse(localStorage.getItem(key)||"null")?.manualRecords,key);}catch(error){}});}catch(error){}addRecords(manualRecords,currentKey);return Math.round(total*2)/2;}
   function remainingHours(item,excludedDay){return Math.max(0,Math.round((item.quotaHours-collectUsage(item.id,currentMonthKey(),excludedDay))*2)/2);}
@@ -12692,47 +12763,57 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   function isAvailable(item,day){const date=dateForDay(day);return item.enabled!==false&&date>=item.validStart&&date<=item.validEnd&&remainingHours(item,Number(day))>=.5;}
   function availableForDay(day,code){return entitlements.filter(item=>getTypeCode(item)===Number(code)&&isAvailable(item,day));}
   function statusFor(item){const today=toIso(new Date()),remaining=remainingHours(item,null);if(item.enabled===false)return"停用";if(remaining<.5)return"額度已用完";if(today>item.validEnd)return"已到期";if(today<item.validStart)return"尚未生效";return"使用中";}
-  function extensionLabel(item){if(item.extensionMode==="year")return"原期限延長一年";if(item.extensionMode==="custom")return`自訂延長至 ${formatRocDate(item.validEnd)}`;return"";}
+  function extensionLabel(item){if(item?.type==="custom")return"";if(item.extensionMode==="year")return"原期限延長一年";if(item.extensionMode==="custom")return`自訂延長至 ${formatRocDate(item.validEnd)}`;return"";}
   function summaryRow(item){const used=Math.max(0,item.quotaHours-remainingHours(item,null)),extension=extensionLabel(item);return `<div class="timed-leave-item"><div><div class="timed-leave-item-title">${escapeHtml(getName(item))}</div><div class="timed-leave-item-meta">${formatRocDate(item.validStart)}～${formatRocDate(item.validEnd)}${extension?`｜${escapeHtml(extension)}`:""}${item.note?`｜${escapeHtml(item.note)}`:""}</div></div><div class="timed-leave-item-balance">${fmtHour(used)}／${fmtHour(item.quotaHours)}HR</div></div>`;}
   function renderSummary(){const active=entitlements.filter(item=>statusFor(item)==="使用中");const section=document.getElementById("timedLeaveSummarySection"),activeList=document.getElementById("timedLeaveActiveList"),openButton=document.getElementById("timedLeaveOpenBtn");if(section)section.hidden=active.length===0;if(activeList)activeList.innerHTML=active.map(summaryRow).join("");if(openButton)openButton.textContent=entitlements.length?"管理期限假別":"＋期限假別";}
   window.renderTimedLeaveSummaryV25=renderSummary;
-  function managerRow(item){const extension=extensionLabel(item);return `<div class="timed-leave-manager-row"><div><div class="timed-leave-item-title">${escapeHtml(getName(item))}</div><div class="timed-leave-item-meta">事件日 ${formatRocDate(item.eventDate)}｜原期限 ${formatRocDate(item.baseValidEnd)}｜最終期限 ${formatRocDate(item.validEnd)}${extension?`｜${escapeHtml(extension)}`:""}${item.extensionReason?`｜${escapeHtml(item.extensionReason)}`:""}<br>額度 ${fmtHour(item.quotaHours)}HR｜剩餘 ${fmtHour(remainingHours(item,null))}HR｜${statusFor(item)}</div></div><button class="timed-leave-action" type="button" data-timed-edit="${escapeHtml(item.id)}">編輯</button><button class="timed-leave-action danger" type="button" data-timed-toggle="${escapeHtml(item.id)}">${item.enabled===false?"啟用":"停用"}</button></div>`;}
+  function managerRow(item){const extension=extensionLabel(item),dateMeta=item.type==="custom"?`有效期間 ${formatRocDate(item.validStart)}～${formatRocDate(item.validEnd)}`:`事件日 ${formatRocDate(item.eventDate)}｜原期限 ${formatRocDate(item.baseValidEnd)}｜最終期限 ${formatRocDate(item.validEnd)}`;return `<div class="timed-leave-manager-row"><div><div class="timed-leave-item-title">${escapeHtml(getName(item))}</div><div class="timed-leave-item-meta">${dateMeta}${extension?`｜${escapeHtml(extension)}`:""}${item.extensionReason?`｜${escapeHtml(item.extensionReason)}`:""}<br>額度 ${fmtHour(item.quotaHours)}HR｜剩餘 ${fmtHour(remainingHours(item,null))}HR｜${statusFor(item)}</div></div><button class="timed-leave-action" type="button" data-timed-edit="${escapeHtml(item.id)}">編輯</button><button class="timed-leave-action danger" type="button" data-timed-toggle="${escapeHtml(item.id)}">${item.enabled===false?"啟用":"停用"}</button><button class="timed-leave-action delete" type="button" data-timed-delete="${escapeHtml(item.id)}">刪除</button></div>`;}
   function renderManager(){const list=document.getElementById("timedLeaveManagerList");if(list)list.innerHTML=entitlements.length?entitlements.map(managerRow).join(""):'<div class="timed-leave-empty">尚未建立期限假別資格</div>';renderSummary();}
   function setDateButton(id,value){const button=document.getElementById(id);if(!button)return;button.dataset.value=String(value||"");button.textContent=value?formatRocDate(value):"選擇日期";}
   function getDateButtonValue(id){return document.getElementById(id)?.dataset.value||"";}
+  function setFormVisible(visible){const form=document.getElementById("timedLeaveForm"),toolbar=document.getElementById("timedLeaveToolbar");if(form)form.hidden=!visible;if(toolbar)toolbar.hidden=visible;}
   function syncFormType(options={}){
-    const type=document.getElementById("timedLeaveType").value,bereavement=type==="bereavement",eventDate=getDateButtonValue("timedLeaveEventDateBtn"),modeSelect=document.getElementById("timedLeaveExtensionMode");
+    const type=document.getElementById("timedLeaveType").value,bereavement=type==="bereavement",custom=type==="custom",eventDate=getDateButtonValue("timedLeaveEventDateBtn"),modeSelect=document.getElementById("timedLeaveExtensionMode");
     document.getElementById("timedLeaveRelationField").hidden=!bereavement;
-    document.getElementById("timedLeaveEventDateLabel").textContent=bereavement?"死亡日":"結婚登記日";
+    document.getElementById("timedLeaveCustomNameField").hidden=!custom;
+    document.getElementById("timedLeaveBaseCodeField").hidden=!custom;
+    document.getElementById("timedLeaveEventDateLabel").textContent=bereavement?"死亡日":custom?"資格起日":"結婚登記日";
     const yearOption=modeSelect?.querySelector('option[value="year"]');if(yearOption){yearOption.hidden=bereavement;yearOption.disabled=bereavement;}
     if(bereavement&&modeSelect?.value==="year")modeSelect.value="none";
-    if(options.updateQuota){document.getElementById("timedLeaveQuotaDays").value=bereavement?String(RELATIONS[document.getElementById("timedLeaveRelation").value]?.days||14):"14";}
+    if(options.updateQuota){document.getElementById("timedLeaveQuotaDays").value=custom?"":bereavement?String(RELATIONS[document.getElementById("timedLeaveRelation").value]?.days||14):"14";}
     const base=deriveBaseDates(type,eventDate),mode=modeSelect?.value||"none",customButton=document.getElementById("timedLeaveCustomEndBtn");
     if(mode==="custom"&&customButton?.dataset.value&&base.baseValidEnd&&customButton.dataset.value<base.baseValidEnd)setDateButton("timedLeaveCustomEndBtn","");
-    const customEnd=getDateButtonValue("timedLeaveCustomEndBtn"),finalEnd=deriveFinalEnd(base.baseValidEnd,mode,customEnd);
+    const customEnd=getDateButtonValue("timedLeaveCustomEndBtn"),finalEnd=custom?customEnd:deriveFinalEnd(base.baseValidEnd,mode,customEnd);
     document.getElementById("timedLeaveValidStart").textContent=formatRocDate(base.validStart);
     document.getElementById("timedLeaveBaseValidEnd").textContent=formatRocDate(base.baseValidEnd);
     document.getElementById("timedLeaveValidEnd").textContent=formatRocDate(finalEnd);
-    document.getElementById("timedLeaveCustomEndField").hidden=mode!=="custom";
-    document.getElementById("timedLeaveExtensionReasonField").hidden=mode==="none";
+    document.getElementById("timedLeaveBaseValidEndField").hidden=custom;
+    document.getElementById("timedLeaveExtensionModeField").hidden=custom;
+    document.getElementById("timedLeaveValidEndField").hidden=custom;
+    document.getElementById("timedLeaveCustomEndField").hidden=!custom&&mode!=="custom";
+    document.getElementById("timedLeaveCustomEndLabel").textContent=custom?"有效訖日":"自訂有效訖日";
+    document.getElementById("timedLeaveExtensionReasonField").hidden=custom||mode==="none";
     const extensionNote=document.getElementById("timedLeaveExtensionNote");
-    extensionNote.hidden=mode==="none";
+    extensionNote.hidden=custom||mode==="none";
     extensionNote.textContent=mode==="year"?`原規定訖日 ${formatRocDate(base.baseValidEnd)}，延長一年後為 ${formatRocDate(finalEnd)}。`:mode==="custom"?`原規定訖日 ${formatRocDate(base.baseValidEnd)}，請用小月曆選擇較晚的核准訖日。`:"";
   }
-  function resetForm(){editingId="";const today=toIso(new Date());document.getElementById("timedLeaveType").value="marriage";document.getElementById("timedLeaveRelation").value="parent-spouse";setDateButton("timedLeaveEventDateBtn",today);document.getElementById("timedLeaveExtensionMode").value="none";setDateButton("timedLeaveCustomEndBtn","");document.getElementById("timedLeaveExtensionReason").value="";document.getElementById("timedLeaveQuotaDays").value="14";document.getElementById("timedLeaveNote").value="";document.getElementById("timedLeaveMessage").textContent="";document.getElementById("timedLeaveCancelEditBtn").hidden=true;document.getElementById("timedLeaveSaveBtn").textContent="儲存資格";syncFormType();}
+  function resetForm(show=false){editingId="";const today=toIso(new Date());document.getElementById("timedLeaveType").value="marriage";document.getElementById("timedLeaveRelation").value="parent-spouse";document.getElementById("timedLeaveCustomName").value="";document.getElementById("timedLeaveBaseCode").value="6";setDateButton("timedLeaveEventDateBtn",today);document.getElementById("timedLeaveExtensionMode").value="none";setDateButton("timedLeaveCustomEndBtn","");document.getElementById("timedLeaveExtensionReason").value="";document.getElementById("timedLeaveQuotaDays").value="14";document.getElementById("timedLeaveNote").value="";document.getElementById("timedLeaveMessage").textContent="";document.getElementById("timedLeaveSaveBtn").textContent="儲存";syncFormType();setFormVisible(show);}
   function openModal(){const modal=document.getElementById("timedLeaveModal");if(!modal)return;resetForm();renderManager();previousBodyOverflow=document.body.style.overflow;document.body.style.overflow="hidden";modal.classList.add("open");modal.setAttribute("aria-hidden","false");document.getElementById("timedLeaveCloseBtn").focus();}
   function closeModal(){const modal=document.getElementById("timedLeaveModal");if(!modal)return;if(document.getElementById("parameterDateModal")?.classList.contains("open")&&String(parameterDatePickerState?.target||"").startsWith("timed-"))closeParameterDatePicker();modal.classList.remove("open");modal.setAttribute("aria-hidden","true");document.body.style.overflow=previousBodyOverflow;document.getElementById("timedLeaveOpenBtn")?.focus();}
-  function edit(item){editingId=item.id;document.getElementById("timedLeaveType").value=item.type;document.getElementById("timedLeaveRelation").value=item.relation;setDateButton("timedLeaveEventDateBtn",item.eventDate);document.getElementById("timedLeaveExtensionMode").value=item.extensionMode||"none";setDateButton("timedLeaveCustomEndBtn",item.customValidEnd||"");document.getElementById("timedLeaveExtensionReason").value=item.extensionReason||"";document.getElementById("timedLeaveQuotaDays").value=String(item.quotaHours/Math.max(.5,getLeavePolicyNumber("hoursPerDay")));document.getElementById("timedLeaveNote").value=item.note;document.getElementById("timedLeaveCancelEditBtn").hidden=false;document.getElementById("timedLeaveSaveBtn").textContent="儲存修改";syncFormType();document.querySelector("#timedLeaveModal .timed-leave-body")?.scrollTo({top:0,behavior:"smooth"});}
+  function edit(item){if(!item)return;editingId=item.id;document.getElementById("timedLeaveType").value=item.type;document.getElementById("timedLeaveRelation").value=item.relation;document.getElementById("timedLeaveCustomName").value=item.customName||"";document.getElementById("timedLeaveBaseCode").value=String(item.baseCode||6);setDateButton("timedLeaveEventDateBtn",item.eventDate);document.getElementById("timedLeaveExtensionMode").value=item.extensionMode||"none";setDateButton("timedLeaveCustomEndBtn",item.customValidEnd||item.type==="custom"&&item.validEnd||"");document.getElementById("timedLeaveExtensionReason").value=item.extensionReason||"";document.getElementById("timedLeaveQuotaDays").value=String(item.quotaHours/DAY_HOURS);document.getElementById("timedLeaveNote").value=item.note;document.getElementById("timedLeaveSaveBtn").textContent="儲存";syncFormType();setFormVisible(true);document.querySelector("#timedLeaveModal .timed-leave-body")?.scrollTo({top:0,behavior:"smooth"});}
   function saveForm(){
-    const type=document.getElementById("timedLeaveType").value==="bereavement"?"bereavement":"marriage",relation=document.getElementById("timedLeaveRelation").value,eventDate=getDateButtonValue("timedLeaveEventDateBtn"),extensionMode=document.getElementById("timedLeaveExtensionMode").value||"none",customValidEnd=getDateButtonValue("timedLeaveCustomEndBtn"),base=deriveBaseDates(type,eventDate),validEnd=deriveFinalEnd(base.baseValidEnd,extensionMode,customValidEnd),quotaDays=Number(document.getElementById("timedLeaveQuotaDays").value),message=document.getElementById("timedLeaveMessage");
-    if(!parseIso(eventDate)||!parseIso(base.validStart)||!parseIso(base.baseValidEnd)){message.textContent="請用小月曆選擇有效的事件日期。";return;}
-    if(extensionMode==="custom"&&(!parseIso(customValidEnd)||customValidEnd<base.baseValidEnd)){message.textContent=`自訂訖日不得早於原規定訖日 ${formatRocDate(base.baseValidEnd)}。`;return;}
+    const rawType=document.getElementById("timedLeaveType").value,type=["marriage","bereavement","custom"].includes(rawType)?rawType:"marriage",relation=document.getElementById("timedLeaveRelation").value,customName=document.getElementById("timedLeaveCustomName").value.trim(),baseCode=Number(document.getElementById("timedLeaveBaseCode").value),eventDate=getDateButtonValue("timedLeaveEventDateBtn"),extensionMode=type==="custom"?"custom":document.getElementById("timedLeaveExtensionMode").value||"none",customValidEnd=getDateButtonValue("timedLeaveCustomEndBtn"),base=deriveBaseDates(type,eventDate),validEnd=type==="custom"?customValidEnd:deriveFinalEnd(base.baseValidEnd,extensionMode,customValidEnd),quotaDays=Number(document.getElementById("timedLeaveQuotaDays").value),message=document.getElementById("timedLeaveMessage");
+    if(!parseIso(eventDate)||!parseIso(base.validStart)||(type!=="custom"&&!parseIso(base.baseValidEnd))){message.textContent=`請用小月曆選擇有效的${type==="custom"?"資格起日":"事件日期"}。`;return;}
+    if(type==="custom"&&!customName){message.textContent="請輸入自訂期限假別名稱。";return;}
+    if(type==="custom"&&(!parseIso(customValidEnd)||customValidEnd<eventDate)){message.textContent="有效訖日不得早於資格起日。";return;}
+    if(type!=="custom"&&extensionMode==="custom"&&(!parseIso(customValidEnd)||customValidEnd<base.baseValidEnd)){message.textContent=`自訂訖日不得早於原規定訖日 ${formatRocDate(base.baseValidEnd)}。`;return;}
     if(!parseIso(validEnd)){message.textContent="請確認特殊延長後的有效訖日。";return;}
     if(!Number.isFinite(quotaDays)||quotaDays<=0){message.textContent="核准額度必須大於 0 日。";return;}
-    const existing=getById(editingId),item={id:existing?.id||`timed-leave-${Date.now()}`,type,relation,eventDate,validStart:base.validStart,baseValidEnd:base.baseValidEnd,validEnd,extensionMode,customValidEnd:extensionMode==="custom"?customValidEnd:"",extensionReason:extensionMode==="none"?"":document.getElementById("timedLeaveExtensionReason").value,quotaHours:Math.round(quotaDays*Math.max(.5,getLeavePolicyNumber("hoursPerDay"))*2)/2,enabled:existing?.enabled!==false,note:document.getElementById("timedLeaveNote").value,createdAt:existing?.createdAt||new Date().toISOString()};
+    const existing=getById(editingId),item={id:existing?.id||`timed-leave-${Date.now()}`,type,relation,customName:type==="custom"?customName:"",baseCode:type==="custom"&&[6,8.1,8.2].includes(baseCode)?baseCode:6,eventDate,validStart:base.validStart,baseValidEnd:base.baseValidEnd||validEnd,validEnd,extensionMode,customValidEnd:extensionMode==="custom"?customValidEnd:"",extensionReason:type==="custom"||extensionMode==="none"?"":document.getElementById("timedLeaveExtensionReason").value,quotaHours:Math.round(quotaDays*DAY_HOURS*2)/2,enabled:existing?.enabled!==false,note:document.getElementById("timedLeaveNote").value,createdAt:existing?.createdAt||new Date().toISOString()};
     const used=existing?collectUsage(existing.id,"",null):0;if(item.quotaHours<used){message.textContent=`額度不可低於已使用的 ${fmtHour(used)}HR。`;return;}
-    if(existing)entitlements=entitlements.map(current=>current.id===existing.id?item:current);else entitlements.push(item);persist();resetForm();renderManager();renderAll(false);
+    if(existing)entitlements=entitlements.map(current=>current.id===existing.id?item:current);else entitlements.push(item);persist();resetForm(false);renderManager();renderAll(false);
   }
+  async function deleteItem(item){if(!item)return;const used=collectUsage(item.id,"",null);if(used>0){await parameterConfirmDialog({variant:"warning",title:"無法刪除資格",message:`${getName(item)}已有 ${fmtHour(used)}HR 使用紀錄。`,detail:"請先清除所有相關日期，或改用停用保留歷史資格。"});document.getElementById("timedLeaveModal")?.classList.add("open");return;}const confirmed=await parameterConfirmDialog({variant:"danger",title:"刪除期限假別資格",message:`確定永久刪除「${getName(item)}」？`,detail:"刪除後無法復原；本操作不會關閉期限假別資格視窗。"});if(!confirmed){document.getElementById("timedLeaveModal")?.classList.add("open");return;}entitlements=entitlements.filter(current=>current.id!==item.id);persist();if(editingId===item.id)resetForm(false);renderManager();renderAll(false);document.getElementById("timedLeaveModal")?.classList.add("open");document.getElementById("timedLeaveAddBtn")?.focus();}
   function isTimedCalendarTarget(target){return target==="timed-event"||target==="timed-custom-end";}
   const baseOpenParameterDatePickerV26=openParameterDatePicker;
   const baseGetParameterDatePickerCurrentValueV26=getParameterDatePickerCurrentValue;
@@ -12741,7 +12822,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   openParameterDatePicker=function(target,index){
     const clearButton=document.getElementById("parameterDateClearBtn");
     if(!isTimedCalendarTarget(target)){if(clearButton)clearButton.hidden=false;return baseOpenParameterDatePickerV26(target,index);}
-    const current=target==="timed-event"?getDateButtonValue("timedLeaveEventDateBtn"):getDateButtonValue("timedLeaveCustomEndBtn")||deriveBaseDates(document.getElementById("timedLeaveType").value,getDateButtonValue("timedLeaveEventDateBtn")).baseValidEnd;
+    const current=target==="timed-event"?getDateButtonValue("timedLeaveEventDateBtn"):getDateButtonValue("timedLeaveCustomEndBtn")||deriveBaseDates(document.getElementById("timedLeaveType").value,getDateButtonValue("timedLeaveEventDateBtn")).baseValidEnd||getDateButtonValue("timedLeaveEventDateBtn");
     const date=parseIso(current)||new Date();
     parameterDatePickerState={target,index:-1,year:date.getFullYear(),month:date.getMonth()+1};
     if(clearButton)clearButton.hidden=true;
@@ -12754,7 +12835,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     if(!isTimedCalendarTarget(parameterDatePickerState.target))return;
     const title=document.getElementById("parameterDateTitle");if(title)title.textContent=`民國 ${parameterDatePickerState.year-1911} 年 ${parameterDatePickerState.month} 月`;
     if(parameterDatePickerState.target==="timed-custom-end"){
-      const baseEnd=deriveBaseDates(document.getElementById("timedLeaveType").value,getDateButtonValue("timedLeaveEventDateBtn")).baseValidEnd;
+      const type=document.getElementById("timedLeaveType").value,baseEnd=deriveBaseDates(type,getDateButtonValue("timedLeaveEventDateBtn")).baseValidEnd||getDateButtonValue("timedLeaveEventDateBtn");
       document.querySelectorAll("#parameterDateCalendarGrid [data-parameter-date-choice]").forEach(button=>{button.disabled=Boolean(baseEnd&&button.dataset.parameterDateChoice<baseEnd);});
     }
   };
@@ -12765,23 +12846,23 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     if(target==="timed-event")setDateButton("timedLeaveEventDateBtn",value);else setDateButton("timedLeaveCustomEndBtn",value);
     syncFormType();closeParameterDatePicker();
   };
-  function buildTimedRows(code,selectedCode,favoriteOnly,day){const rows=availableForDay(day,code);const current=manualRecords[day]||{};if(!rows.length){if(Number(current.code)===Number(code))return `<div class="code-option-row timed-leave-unavailable selected"><button class="code-option-btn" type="button" disabled>${code} ${escapeHtml(getLabel(code))}（歷史紀錄）</button></div>`;return"";}const favorite=isCodeFavorite(code);return rows.map(item=>{const remaining=remainingHours(item,day),selected=Number(selectedCode)===Number(code)&&String(current.entitlementId||"")===item.id;return `<div class="code-option-row has-timed-leave ${selected?"selected":""}" data-code-row="${code}"><button class="code-star-btn" type="button" data-code-star="${code}" title="${favorite?"取消我的最愛":"加入我的最愛"}">${favorite?"★":"☆"}</button><button class="custom-leave-select-v13" data-timed-leave-select="${escapeHtml(item.id)}" type="button">${favoriteOnly?"★ ":""}${code} ${escapeHtml(getName(item))}</button><span class="timed-leave-balance">剩 ${fmtHour(remaining)}HR</span><button class="compound-row-plus-v14" data-timed-leave-hours="${escapeHtml(item.id)}" type="button" aria-label="輸入部分請假時數">＋</button></div>`;}).join("");}
+  function buildTimedRows(code,selectedCode,favoriteOnly,day){const rows=availableForDay(day,code),current=manualRecords[day]||{},favorite=isCodeFavorite(code);return rows.map(item=>{const remaining=remainingHours(item,day),selected=Number(selectedCode)===Number(code)&&String(current.entitlementId||"")===item.id;return `<div class="code-option-row has-timed-leave ${selected?"selected":""}" data-code-row="${code}"><button class="code-star-btn" type="button" data-code-star="${code}" title="${favorite?"取消我的最愛":"加入我的最愛"}">${favorite?"★":"☆"}</button><button class="custom-leave-select-v13" data-timed-leave-select="${escapeHtml(item.id)}" type="button">${favoriteOnly?"★ ":""}${code} ${escapeHtml(getName(item))}</button><span class="timed-leave-balance">資格剩 ${fmtHour(remaining)}HR</span><button class="compound-row-plus-v14" data-timed-leave-hours="${escapeHtml(item.id)}" type="button" aria-label="輸入部分請假時數">＋</button></div>`;}).join("");}
   const baseBuildCodeOptionRow=buildCodeOptionRow;
-  buildCodeOptionRow=function(code,selectedCode,favoriteOnly,day){if(Number(code)===8.1||Number(code)===8.2)return buildTimedRows(Number(code),selectedCode,favoriteOnly,day);return baseBuildCodeOptionRow(code,selectedCode,favoriteOnly,day);};
+  buildCodeOptionRow=function(code,selectedCode,favoriteOnly,day){const numberCode=Number(code);if(![6,8.1,8.2].includes(numberCode))return baseBuildCodeOptionRow(code,selectedCode,favoriteOnly,day);const current=manualRecords[day]||{},genericSelected=String(current.entitlementId||"")&&Number(current.code)===numberCode?Number.NaN:selectedCode;return baseBuildCodeOptionRow(code,genericSelected,favoriteOnly,day)+buildTimedRows(numberCode,selectedCode,favoriteOnly,day);};
   function buildEditor(day){const item=getById(timedEditorId);if(!item)return"";const remaining=remainingHours(item,day),dayInfo=typeof getDayInfoForCodePicker==="function"?getDayInfoForCodePicker(day):null,maxHours=Math.max(0,Math.min(remaining,Number(dayInfo?.plannedHours??dayInfo?.baseHours??8)||0));return `<div class="compound-editor-v13"><div class="compound-editor-v13-title">${escapeHtml(getName(item))}－部分時數</div><div class="compound-hours-row-v14"><span class="compound-hours-label-v14">本日請假時數</span><input class="compound-item-hours-v13" data-timed-leave-hours-input="1" type="text" inputmode="decimal" placeholder="時數"></div><div class="compound-summary-v13"><span>資格剩餘：${fmtHour(remaining)}HR</span><span>本日上限：${fmtHour(maxHours)}HR</span></div><div class="compound-hint-v13">最少 0.5HR，僅允許 0.5HR 級距；不得超過資格剩餘額度與本班工時。</div><div id="timedLeavePickerMessage" class="compound-message-v13"></div><button class="compound-confirm-v13" data-timed-leave-hours-save="${escapeHtml(item.id)}" type="button">套用部分請假</button></div>`;}
   const baseBuildPortal=buildCodePickerPortalHtml;
   buildCodePickerPortalHtml=function(day,selectedCode,allOpen){const html=baseBuildPortal(day,selectedCode,allOpen);return html.replace('<div class="code-picker-portal-scroll">',`<div class="code-picker-portal-scroll">${buildEditor(day)}`);};
   const baseOpenPicker=openCodePickerByDay;
   openCodePickerByDay=function(day,openAllList,restoreScrollTop){timedEditorId="";return baseOpenPicker(day,openAllList,restoreScrollTop);};
-  async function applyTimed(item,day,hours){const dayInfo=typeof getDayInfoForCodePicker==="function"?getDayInfoForCodePicker(day):null,plannedHours=Math.max(0,Number(dayInfo?.plannedHours??dayInfo?.baseHours??0)||0),partial=Number.isFinite(Number(hours)),quotaUse=partial?Math.round(Number(hours)*2)/2:Math.max(.5,getLeavePolicyNumber("hoursPerDay")),remaining=remainingHours(item,day);if(plannedHours<=0){await parameterConfirmDialog({variant:"warning",title:"目前是空班",message:"請先設定調班或代班值別，再套用期限假別。",detail:"本次資料未變更。"});return;}if(quotaUse<.5||quotaUse>remaining||partial&&quotaUse>plannedHours){const message=document.getElementById("timedLeavePickerMessage");if(message)message.textContent=`請輸入 0.5HR 級距，且不得超過剩餘 ${fmtHour(remaining)}HR 與本班 ${fmtHour(plannedHours)}HR。`;return;}if(!partial&&remaining<quotaUse){await parameterConfirmDialog({variant:"warning",title:"剩餘額度不足一日",message:`${getName(item)}目前只剩 ${fmtHour(remaining)}HR。`,detail:"請按右側「＋」改用部分時數；本次資料未變更。"});return;}const record=manualRecords[day]||{};if(ADJUST_CODES.has(Number(record.code))&&!ADJUST_CODES.has(Number(record.adjustedCode)))record.adjustedCode=Number(record.code);record.code=getTypeCode(item);record.entitlementId=item.id;record.entitlementHours=quotaUse;if(partial)record.leaveHours=quotaUse;else delete record.leaveHours;delete record.compoundSplit;delete record.compoundItems;delete record.customLeaveId;delete record.customCompoundId;delete record.otherLabel;delete record.trainingMode;markManualRecordSource(day,"manual");manualRecords[day]=record;saveCurrentMonthState();timedEditorId="";closeCodePickerPortal();renderAll(false);}
+  async function applyTimed(item,day,hours){const dayInfo=typeof getDayInfoForCodePicker==="function"?getDayInfoForCodePicker(day):null,plannedHours=Math.max(0,Number(dayInfo?.plannedHours??dayInfo?.baseHours??0)||0),partial=Number.isFinite(Number(hours)),quotaUse=partial?Math.round(Number(hours)*2)/2:DAY_HOURS,remaining=remainingHours(item,day);if(plannedHours<=0){await parameterConfirmDialog({variant:"warning",title:"目前是空班",message:"請先設定調班或代班值別，再套用期限假別。",detail:"本次資料未變更。"});return;}if(quotaUse<.5||quotaUse>remaining||partial&&quotaUse>plannedHours){const message=document.getElementById("timedLeavePickerMessage");if(message)message.textContent=`請輸入 0.5HR 級距，且不得超過剩餘 ${fmtHour(remaining)}HR 與本班 ${fmtHour(plannedHours)}HR。`;return;}if(!partial&&remaining<quotaUse){await parameterConfirmDialog({variant:"warning",title:"剩餘額度不足一日",message:`${getName(item)}目前只剩 ${fmtHour(remaining)}HR。`,detail:"請按右側「＋」改用部分時數；本次資料未變更。"});return;}const record=manualRecords[day]||{};if(ADJUST_CODES.has(Number(record.code))&&!ADJUST_CODES.has(Number(record.adjustedCode)))record.adjustedCode=Number(record.code);record.code=getTypeCode(item);record.entitlementId=item.id;record.entitlementHours=quotaUse;if(partial)record.leaveHours=quotaUse;else delete record.leaveHours;delete record.compoundSplit;delete record.compoundItems;delete record.customLeaveId;delete record.customCompoundId;delete record.otherLabel;delete record.trainingMode;markManualRecordSource(day,"manual");manualRecords[day]=record;saveCurrentMonthState();timedEditorId="";closeCodePickerPortal();renderAll(false);}
   const baseBindPortal=bindCodePickerPortalEvents;
   bindCodePickerPortalEvents=function(portal){baseBindPortal(portal);portal.querySelectorAll("[data-timed-leave-select]").forEach(button=>button.addEventListener("click",async event=>{event.preventDefault();event.stopPropagation();const item=getById(button.dataset.timedLeaveSelect);if(item&&activeCodePickerPortalState)await applyTimed(item,activeCodePickerPortalState.day); }));portal.querySelectorAll("[data-timed-leave-hours]").forEach(button=>button.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();if(!activeCodePickerPortalState)return;timedEditorId=button.dataset.timedLeaveHours;renderCodePickerPortal(activeCodePickerPortalState.day,activeCodePickerPortalState.allOpen,0);}));portal.querySelectorAll("[data-timed-leave-hours-input]").forEach(input=>{input.addEventListener("focus",()=>input.select());input.addEventListener("input",()=>{const cleaned=String(input.value||"").replace(/[^0-9.]/g,"");input.value=cleaned;});});portal.querySelectorAll("[data-timed-leave-hours-save]").forEach(button=>button.addEventListener("click",async event=>{event.preventDefault();event.stopPropagation();const item=getById(button.dataset.timedLeaveHoursSave),input=portal.querySelector("[data-timed-leave-hours-input]");if(item&&activeCodePickerPortalState)await applyTimed(item,activeCodePickerPortalState.day,Number(input?.value));}));};
   const baseSelectActualCode=selectActualCodeForDay;
-  selectActualCodeForDay=async function(day,code){if(Number(code)===8.1||Number(code)===8.2){await parameterConfirmDialog({variant:"info",title:"請先建立期限資格",message:"婚假與喪假必須從對應的期限假別資格套用。",detail:"請在年度請假資訊的「期限假別資格」新增或管理事件。"});return;}await baseSelectActualCode(day,code);const record=manualRecords[day];if(record&&Number(record.code)!==8.1&&Number(record.code)!==8.2){delete record.entitlementId;delete record.entitlementHours;saveCurrentMonthState();}};
-  function init(){load();renderSummary();document.getElementById("timedLeaveOpenBtn")?.addEventListener("click",openModal);document.getElementById("timedLeaveCloseBtn")?.addEventListener("click",closeModal);document.getElementById("timedLeaveModal")?.addEventListener("click",event=>{if(event.target.id==="timedLeaveModal")closeModal();const editButton=event.target.closest("[data-timed-edit]");if(editButton)edit(getById(editButton.dataset.timedEdit));const toggleButton=event.target.closest("[data-timed-toggle]");if(toggleButton){const item=getById(toggleButton.dataset.timedToggle);if(item){item.enabled=!item.enabled;persist();renderManager();renderAll(false);}}});document.getElementById("timedLeaveType")?.addEventListener("change",()=>syncFormType({updateQuota:true}));document.getElementById("timedLeaveRelation")?.addEventListener("change",()=>syncFormType({updateQuota:true}));document.getElementById("timedLeaveExtensionMode")?.addEventListener("change",()=>syncFormType());document.getElementById("timedLeaveEventDateBtn")?.addEventListener("click",()=>openParameterDatePicker("timed-event",-1));document.getElementById("timedLeaveCustomEndBtn")?.addEventListener("click",()=>openParameterDatePicker("timed-custom-end",-1));document.getElementById("timedLeaveSaveBtn")?.addEventListener("click",saveForm);document.getElementById("timedLeaveCancelEditBtn")?.addEventListener("click",resetForm);document.addEventListener("keydown",event=>{if(event.key!=="Escape"||!document.getElementById("timedLeaveModal")?.classList.contains("open"))return;if(document.getElementById("parameterDateModal")?.classList.contains("open")&&isTimedCalendarTarget(parameterDatePickerState.target)){closeParameterDatePicker();return;}closeModal();});}
+  selectActualCodeForDay=async function(day,code){await baseSelectActualCode(day,code);const record=manualRecords[day];if(record){delete record.entitlementId;delete record.entitlementHours;saveCurrentMonthState();}};
+  function init(){load();renderSummary();document.getElementById("timedLeaveOpenBtn")?.addEventListener("click",openModal);document.getElementById("timedLeaveCloseBtn")?.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();closeModal();});document.getElementById("timedLeaveAddBtn")?.addEventListener("click",()=>resetForm(true));document.getElementById("timedLeaveModal")?.addEventListener("click",async event=>{if(event.target.id==="timedLeaveModal"){closeModal();return;}const editButton=event.target.closest("[data-timed-edit]");if(editButton){edit(getById(editButton.dataset.timedEdit));return;}const toggleButton=event.target.closest("[data-timed-toggle]");if(toggleButton){const item=getById(toggleButton.dataset.timedToggle);if(item){item.enabled=!item.enabled;persist();renderManager();renderAll(false);}return;}const deleteButton=event.target.closest("[data-timed-delete]");if(deleteButton)await deleteItem(getById(deleteButton.dataset.timedDelete));});document.getElementById("timedLeaveType")?.addEventListener("change",()=>syncFormType({updateQuota:true}));document.getElementById("timedLeaveRelation")?.addEventListener("change",()=>syncFormType({updateQuota:true}));document.getElementById("timedLeaveExtensionMode")?.addEventListener("change",()=>syncFormType());document.getElementById("timedLeaveEventDateBtn")?.addEventListener("click",()=>openParameterDatePicker("timed-event",-1));document.getElementById("timedLeaveCustomEndBtn")?.addEventListener("click",()=>openParameterDatePicker("timed-custom-end",-1));document.getElementById("timedLeaveSaveBtn")?.addEventListener("click",saveForm);document.getElementById("timedLeaveCancelEditBtn")?.addEventListener("click",()=>resetForm(false));document.addEventListener("keydown",event=>{if(event.key!=="Escape"||!document.getElementById("timedLeaveModal")?.classList.contains("open"))return;if(document.getElementById("parameterTechDialogModal")?.classList.contains("open"))return;if(document.getElementById("parameterDateModal")?.classList.contains("open")&&isTimedCalendarTarget(parameterDatePickerState.target)){closeParameterDatePicker();return;}closeModal();});}
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();
-/* === V26 期限假別資格：功能結束 === */
+/* === V27 期限假別資格：功能結束 === */
 </script>
 
 </body>

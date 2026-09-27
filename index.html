@@ -193,14 +193,13 @@
       margin-top: 3px;
     }
     .calendar-panel { overflow: visible; }
-    .calendar-panel .calendar-body { touch-action: pan-y; }
-    .month-swipe-track { display: flex; width: 300%; transform: translate3d(-33.333333%, 0, 0); transition: none; will-change: transform; }
-    .month-swipe-track.is-settling { transition: transform var(--month-swipe-duration, 260ms) cubic-bezier(.22,1,.36,1); }
-    .month-swipe-track.is-dragging { user-select: none; -webkit-user-select: none; }
-    .month-swipe-page { flex: 0 0 33.333333%; min-width: 0; }
-    .month-swipe-preview { pointer-events: none; user-select: none; -webkit-user-select: none; }
+    .calendar-panel .calendar-body {
+      touch-action: pan-y;
+      transition: opacity var(--calendar-month-fade-duration, 130ms) ease-out;
+    }
+    .calendar-panel .calendar-body.month-content-faded { opacity: 0; }
     @media (prefers-reduced-motion: reduce) {
-      .month-swipe-track.is-settling { transition-duration: 1ms; }
+      .calendar-panel .calendar-body { transition-duration: 1ms; }
     }
     .calendar-head {
       display: flex;
@@ -329,7 +328,6 @@
       white-space: nowrap;
     }
     .calendar-body { padding: 14px; overflow: visible; }
-    .calendar-body.month-swipe-viewport { overflow: hidden; }
     .week-grid,
     .day-grid {
       display: grid;
@@ -1168,7 +1166,6 @@
         text-shadow: 0 0 8px rgba(255, 51, 51, 0.95), 0 0 18px rgba(255, 51, 51, 0.5) !important;
       }
       .calendar-body { padding: 6px !important; overflow: visible !important; }
-      .calendar-body.month-swipe-viewport { overflow: hidden !important; }
       .core-stats-grid {
         display: grid !important;
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -4745,15 +4742,9 @@
           <summary id="dataQualitySummary">資料檢查：正常</summary>
           <ul id="dataQualityList"></ul>
         </details>
-        <div class="calendar-body month-swipe-viewport">
-          <div id="monthSwipeTrack" class="month-swipe-track">
-            <div class="month-swipe-page month-swipe-preview" data-month-swipe-slot="previous" aria-hidden="true"></div>
-            <div class="month-swipe-page month-swipe-current" data-month-swipe-slot="current">
-              <div id="weekGrid" class="week-grid"></div>
-              <div id="dayGrid" class="day-grid"></div>
-            </div>
-            <div class="month-swipe-page month-swipe-preview" data-month-swipe-slot="next" aria-hidden="true"></div>
-          </div>
+        <div class="calendar-body">
+          <div id="weekGrid" class="week-grid"></div>
+          <div id="dayGrid" class="day-grid"></div>
         </div>
       </section>
       <section class="panel special-panel">
@@ -6061,7 +6052,40 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       renderAll(false);
     }
     window.resetCurrentYearState = resetCurrentYearState;
-    function switchMonthState(needLoadCalendar) {
+    function animateCalendarBodyFade(body, fadeOut, duration) {
+      if (!body) return Promise.resolve();
+      return new Promise(resolve => {
+        let finished = false;
+        let timeout = 0;
+        const finish = () => {
+          if (finished) return;
+          finished = true;
+          window.clearTimeout(timeout);
+          body.removeEventListener("transitionend", onTransitionEnd);
+          body.style.removeProperty("--calendar-month-fade-duration");
+          resolve();
+        };
+        const onTransitionEnd = event => {
+          if (event.target === body && event.propertyName === "opacity") finish();
+        };
+        body.addEventListener("transitionend", onTransitionEnd);
+        body.style.setProperty("--calendar-month-fade-duration", `${duration}ms`);
+        body.classList.toggle("month-content-faded", Boolean(fadeOut));
+        timeout = window.setTimeout(finish, duration + 100);
+      });
+    }
+    async function renderMonthStateWithFade(needLoadCalendar) {
+      if (needLoadCalendar) await loadCalendar();
+      const calendarBody = document.querySelector(".calendar-panel .calendar-body");
+      if (!calendarBody) return renderAll(false);
+      await animateCalendarBodyFade(calendarBody, true, 70);
+      try {
+        await renderAll(false);
+      } finally {
+        await animateCalendarBodyFade(calendarBody, false, 130);
+      }
+    }
+    function switchMonthState(needLoadCalendar, options = {}) {
       saveCurrentMonthState({ passive: true });
       try {
         const savedWeekStartMode = localStorage.getItem("personalOvertimeWeekStartMode");
@@ -6075,7 +6099,9 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       updateCalculationInfoToggleUI();
       activeStorageKey = getCurrentStorageKey();
       loadStateByKey(activeStorageKey);
-      const renderPromise = renderAll(needLoadCalendar, true);
+      const renderPromise = options.fadeCalendar
+        ? renderMonthStateWithFade(needLoadCalendar)
+        : renderAll(needLoadCalendar);
       if (typeof window.requestClosureOfficialAutoQuery === "function") {
         setTimeout(function() { window.requestClosureOfficialAutoQuery(); }, 220);
       }
@@ -8674,23 +8700,19 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       list.innerHTML = warnings.map(message => `<li>${escapeHtml(message)}</li>`).join("");
       if (!hasWarnings) panel.open = false;
     }
-    function renderCalendar(options = {}) {
-      const previewRoot = options.previewRoot || null;
+    function renderCalendar() {
       const rocYear = Number(document.getElementById("rocYear").value);
       const month = Number(document.getElementById("month").value);
       const shiftGroup = document.getElementById("shiftGroup").value;
-      if (!previewRoot) {
-        document.getElementById("calendarTitle").textContent = `班別：${shiftGroup}　民國 ${rocYear} 年　${month} 月`;
-        updateCalendarNoteText();
-        const salaryTrialTitle = document.getElementById("salaryTrialTitle");
-        if (salaryTrialTitle) salaryTrialTitle.textContent = `${month}月加班費明細區`;
-        const topSalaryMonthLabel = document.getElementById("topSalaryMonthLabel");
-        if (topSalaryMonthLabel) topSalaryMonthLabel.textContent = `${month}月加班費`;
-        updateWeekStartToggleUI();
-        updateCalculationInfoToggleUI();
-      }
-      const renderPage = previewRoot || document.querySelector(".month-swipe-page.month-swipe-current");
-      const weekGrid = renderPage?.querySelector(".week-grid") || document.getElementById("weekGrid");
+      document.getElementById("calendarTitle").textContent = `班別：${shiftGroup}　民國 ${rocYear} 年　${month} 月`;
+      updateCalendarNoteText();
+      const salaryTrialTitle = document.getElementById("salaryTrialTitle");
+      if (salaryTrialTitle) salaryTrialTitle.textContent = `${month}月加班費明細區`;
+      const topSalaryMonthLabel = document.getElementById("topSalaryMonthLabel");
+      if (topSalaryMonthLabel) topSalaryMonthLabel.textContent = `${month}月加班費`;
+      updateWeekStartToggleUI();
+      updateCalculationInfoToggleUI();
+      const weekGrid = document.getElementById("weekGrid");
       weekGrid.innerHTML = getCalendarWeekLabels().map((x, index) => {
         const weekClass = weekStartMode === "sunday"
           ? (index === 0 ? "sunday-cell" : (index === 6 ? "saturday-cell" : "weekday-cell"))
@@ -8700,7 +8722,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const days = buildDays();
       const firstOffset = days[0] ? getDisplayWeekIndex(days[0].date) : 0;
       const totalCells = Math.ceil((firstOffset + days.length) / 7) * 7;
-      const dayGrid = renderPage?.querySelector(".day-grid") || document.getElementById("dayGrid");
+      const dayGrid = document.getElementById("dayGrid");
       let html = "";
       for (let i = 0; i < totalCells; i++) {
         const dayIndex = i - firstOffset;
@@ -8772,12 +8794,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         `;
       }
       dayGrid.innerHTML = html;
-      if (previewRoot) {
-        previewRoot.querySelectorAll("[id]").forEach(element => element.removeAttribute("id"));
-        previewRoot.querySelectorAll("button, select, input, textarea").forEach(element => { element.disabled = true; });
-        previewRoot.setAttribute("aria-hidden", "true");
-        return;
-      }
       bindCodePickerEvents(dayGrid);
       if (pendingCodePickerReopen && pendingCodePickerReopen.day) {
         openCodePickerByDay(pendingCodePickerReopen.day, pendingCodePickerReopen.allOpen, pendingCodePickerReopen.scrollTop);
@@ -9653,80 +9669,13 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       showCalendarImportPrompt("無法讀取行事曆資料，已套用本機參數覆寫");
       console.warn("行事曆遠端與快取來源皆失敗", failLogs);
     }
-    let monthSwipePreviewsDirty = true;
-    let monthSwipePreviewBuildInProgress = false;
     function getMonthSwipeContext(rocYear, month, delta) {
       const date = new Date(Number(rocYear) + 1911, Number(month) - 1 + Number(delta || 0), 1);
       const nextRocYear = date.getFullYear() - 1911;
       if (nextRocYear < 1) return null;
       return { rocYear: nextRocYear, month: date.getMonth() + 1 };
     }
-    function renderMonthSwipePreview(page, rocYear, month) {
-      if (!page) return;
-      page.replaceChildren();
-      page.classList.add("month-swipe-page", "month-swipe-preview");
-      if (rocYear < 1) return;
-      const rocYearInput = document.getElementById("rocYear");
-      const monthSelect = document.getElementById("month");
-      const shiftGroup = String(document.getElementById("shiftGroup")?.value || "D");
-      if (!rocYearInput || !monthSelect) return;
-      const originalRocYear = String(rocYearInput.value || "");
-      const originalMonth = String(monthSelect.value || "1");
-      const originalStorageKey = activeStorageKey || getCurrentStorageKey();
-      const originalCalendarData = calendarData;
-      const originalPendingCodePickerReopen = pendingCodePickerReopen;
-      try {
-        saveCurrentMonthState({ passive: true });
-        rocYearInput.value = String(rocYear);
-        monthSelect.value = String(month);
-        const previewStorageKey = `personalOvertimeState:${shiftGroup}:${rocYear}:${month}`;
-        activeStorageKey = previewStorageKey;
-        loadStateByKey(previewStorageKey);
-        const westernYear = Number(rocYear) + 1911;
-        calendarData = westernYear === Number(originalRocYear) + 1911
-          ? originalCalendarData
-          : getCalendarDataForStoredYear(westernYear);
-        page.innerHTML = '<div class="week-grid"></div><div class="day-grid"></div>';
-        renderCalendar({ previewRoot: page });
-        page.dataset.previewMonth = `${rocYear}-${String(month).padStart(2, "0")}`;
-      } catch (error) {
-        page.replaceChildren();
-        console.warn("無法建立月份滑動預覽", error);
-      } finally {
-        rocYearInput.value = originalRocYear;
-        monthSelect.value = originalMonth;
-        activeStorageKey = originalStorageKey;
-        calendarData = originalCalendarData;
-        pendingCodePickerReopen = originalPendingCodePickerReopen;
-        loadStateByKey(originalStorageKey);
-      }
-    }
-    function refreshMonthSwipePreviews() {
-      if (monthSwipePreviewBuildInProgress) return;
-      const track = document.getElementById("monthSwipeTrack");
-      if (!track || track.children.length !== 3) return;
-      const currentPage = track.querySelector(".month-swipe-current");
-      if (!currentPage || track.children[1] !== currentPage) return;
-      const rocYear = Number(document.getElementById("rocYear")?.value || 0);
-      const month = Number(document.getElementById("month")?.value || 0);
-      if (rocYear < 1 || month < 1 || month > 12) return;
-      monthSwipePreviewBuildInProgress = true;
-      try {
-        const previous = getMonthSwipeContext(rocYear, month, -1);
-        const next = getMonthSwipeContext(rocYear, month, 1);
-        const pages = Array.from(track.children);
-        pages[0].classList.remove("month-swipe-current");
-        pages[0].classList.add("month-swipe-preview");
-        pages[2].classList.remove("month-swipe-current");
-        pages[2].classList.add("month-swipe-preview");
-        renderMonthSwipePreview(pages[0], previous?.rocYear || 0, previous?.month || 0);
-        renderMonthSwipePreview(pages[2], next?.rocYear || 0, next?.month || 0);
-        monthSwipePreviewsDirty = false;
-      } finally {
-        monthSwipePreviewBuildInProgress = false;
-      }
-    }
-    async function renderAll(needLoadCalendar, refreshSwipePreviews = Boolean(needLoadCalendar)) {
+    async function renderAll(needLoadCalendar) {
       if (needLoadCalendar) await loadCalendar();
       syncMonthControlUI();
       updateHandoverExceptionQuickButton();
@@ -9735,8 +9684,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       renderOverhaulControls();
       renderCalendar();
       updateShiftSelectStyle();
-      if (refreshSwipePreviews) refreshMonthSwipePreviews();
-      else monthSwipePreviewsDirty = true;
     }
     function clearManualRecords() {
       Object.keys(manualRecords).forEach(k => delete manualRecords[k]);
@@ -9801,131 +9748,31 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       }
       rocYearInput.value = nextRocYear;
       monthSelect.value = nextMonth;
-      syncMonthControlUI();
-      if (options.updateTitleImmediately) {
-        const shiftGroup = document.getElementById("shiftGroup")?.value || "D";
-        const calendarTitle = document.getElementById("calendarTitle");
-        if (calendarTitle) calendarTitle.textContent = `班別：${shiftGroup}　民國 ${nextRocYear} 年　${nextMonth} 月`;
-      }
-      return switchMonthState(nextRocYear !== currentRocYear);
+      if (!options.fadeCalendar) syncMonthControlUI();
+      return switchMonthState(nextRocYear !== currentRocYear, { fadeCalendar: Boolean(options.fadeCalendar) });
     }
     function bindCalendarMonthSwipe() {
       const calendarBody = document.querySelector(".calendar-panel .calendar-body");
-      const track = document.getElementById("monthSwipeTrack");
-      if (!calendarBody || !track || calendarBody.dataset.monthSwipeBound === "true") return;
+      if (!calendarBody || calendarBody.dataset.monthSwipeBound === "true") return;
       calendarBody.dataset.monthSwipeBound = "true";
       let swipeStart = null;
       let monthSwipeBusy = false;
-      let pendingDirection = "";
-      let settleVersion = 0;
-      let settleTimer = 0;
       let suppressClick = false;
       let suppressClickTimer = 0;
       const interactiveSelector = "a, input, select, textarea, [contenteditable='true']";
-      const centerTransform = "translate3d(-33.333333%, 0, 0)";
-      function getMonthSwipeWidth() {
-        const currentPage = track.querySelector(".month-swipe-current");
-        return Math.max(1, currentPage?.getBoundingClientRect().width || calendarBody.clientWidth);
-      }
-      function applyMonthSwipeOffset(start, deltaX) {
-        const rocYear = Number(document.getElementById("rocYear")?.value || 0);
-        const month = Number(document.getElementById("month")?.value || 0);
-        const intendedDelta = deltaX < 0 ? 1 : -1;
-        const canChangeMonth = Boolean(getMonthSwipeContext(rocYear, month, intendedDelta));
-        const resistedDelta = canChangeMonth ? Math.max(-start.width, Math.min(start.width, deltaX)) : deltaX * 0.18;
-        start.lastOffset = resistedDelta;
-        track.style.transform = `translate3d(${-start.width + resistedDelta}px, 0, 0)`;
-      }
-      function completeMonthSwipeSettle(version) {
-        if (version !== settleVersion) return;
-        window.clearTimeout(settleTimer);
-        settleTimer = 0;
-        track.classList.remove("is-settling", "is-dragging");
-        track.style.removeProperty("--month-swipe-duration");
-        const direction = pendingDirection;
-        pendingDirection = "";
-        if (!direction) {
-          track.style.transform = centerTransform;
-          monthSwipeBusy = false;
-          return;
-        }
-        const pages = Array.from(track.children);
-        if (pages.length !== 3) {
-          track.style.transform = centerTransform;
-          monthSwipeBusy = false;
-          return;
-        }
-        if (direction === "next") track.appendChild(pages[0]);
-        else track.insertBefore(pages[2], pages[0]);
-        Array.from(track.children).forEach(page => {
-          page.classList.remove("month-swipe-current");
-          page.classList.add("month-swipe-preview");
-          page.setAttribute("aria-hidden", "true");
-          page.querySelectorAll("[id]").forEach(element => element.removeAttribute("id"));
-          page.querySelectorAll("button, select, input, textarea").forEach(element => { element.disabled = true; });
-        });
-        const currentPage = track.children[1];
-        currentPage.classList.remove("month-swipe-preview");
-        currentPage.classList.add("month-swipe-current");
-        currentPage.removeAttribute("aria-hidden");
-        currentPage.querySelector(".week-grid")?.setAttribute("id", "weekGrid");
-        currentPage.querySelector(".day-grid")?.setAttribute("id", "dayGrid");
-        track.style.transform = centerTransform;
-        monthSwipePreviewsDirty = true;
-        const month = Number(document.getElementById("month")?.value || 1);
-        const monthChange = selectDisplayedMonth(month + (direction === "next" ? 1 : -1), { updateTitleImmediately: true });
-        Promise.resolve(monthChange).then(() => {
-          if (version !== settleVersion) return;
-          monthSwipeBusy = false;
-          if (monthSwipePreviewsDirty) refreshMonthSwipePreviews();
-        }, error => {
-          if (version !== settleVersion) return;
-          monthSwipeBusy = false;
-          console.warn("月份滑動後更新月曆失敗", error);
-        });
-      }
-      function settleMonthSwipe(direction, start, deltaX) {
-        monthSwipeBusy = true;
-        pendingDirection = direction || "";
-        const width = start?.width || getMonthSwipeWidth();
-        const offset = Number(deltaX || 0);
-        track.classList.remove("is-settling");
-        track.classList.remove("is-dragging");
-        track.style.transform = `translate3d(${-width + offset}px, 0, 0)`;
-        void track.offsetWidth;
-        let targetOffset = -width;
-        let duration = 190;
-        if (direction) {
-          targetOffset = direction === "next" ? -2 * width : 0;
-          const progress = Math.max(0, Math.min(1, Math.abs((-width + offset) - targetOffset) / width));
-          duration = Math.round(135 + (1 - progress) * 110);
-        }
-        track.style.setProperty("--month-swipe-duration", `${duration}ms`);
-        const version = ++settleVersion;
-        track.classList.add("is-settling");
-        track.style.transform = `translate3d(${targetOffset}px, 0, 0)`;
-        window.clearTimeout(settleTimer);
-        settleTimer = window.setTimeout(() => completeMonthSwipeSettle(version), 360);
-      }
-      track.addEventListener("transitionend", event => {
-        if (event.target === track && event.propertyName === "transform") completeMonthSwipeSettle(settleVersion);
-      });
       calendarBody.addEventListener("pointerdown", event => {
         if (event.pointerType !== "touch" || !event.isPrimary || monthSwipeBusy) return;
         const target = event.target instanceof Element ? event.target : null;
         if (!target || target.closest(interactiveSelector)) return;
-        if (monthSwipePreviewsDirty) refreshMonthSwipePreviews();
-        const width = getMonthSwipeWidth();
         swipeStart = {
           x: event.clientX,
           y: event.clientY,
           pointerId: event.pointerId,
-          width,
+          width: Math.max(1, calendarBody.getBoundingClientRect().width),
           axis: "",
           lastX: event.clientX,
           lastMoveAt: event.timeStamp,
           velocityX: 0,
-          lastOffset: 0,
           moved: false
         };
       }, { passive: true });
@@ -9941,7 +9788,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
           }
           if (Math.abs(deltaX) > 12 && Math.abs(deltaX) > Math.abs(deltaY) * 1.1) {
             start.axis = "x";
-            track.classList.add("is-dragging");
           }
         }
         const elapsed = Math.max(1, event.timeStamp - start.lastMoveAt);
@@ -9950,7 +9796,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         start.lastMoveAt = event.timeStamp;
         if (start.axis !== "x") return;
         start.moved = true;
-        applyMonthSwipeOffset(start, deltaX);
       }, { passive: true });
       document.addEventListener("pointerup", event => {
         if (!swipeStart || event.pointerId !== swipeStart.pointerId) return;
@@ -9964,7 +9809,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         const finalMoveTime = Math.max(1, event.timeStamp - start.lastMoveAt);
         if (Math.abs(finalMove) > 0 && finalMoveTime <= 120) start.velocityX = finalMove / finalMoveTime;
         if (Math.abs(deltaX) > 8) start.moved = true;
-        applyMonthSwipeOffset(start, deltaX);
         if (start.moved) {
           suppressClick = true;
           window.clearTimeout(suppressClickTimer);
@@ -9979,13 +9823,19 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         const rocYear = Number(document.getElementById("rocYear")?.value || 0);
         const month = Number(document.getElementById("month")?.value || 0);
         const canChangeMonth = Boolean(getMonthSwipeContext(rocYear, month, changeDelta));
-        settleMonthSwipe(canChangeMonth && (absDeltaX >= threshold || fastEnough) ? direction : "", start, start.lastOffset);
+        if (!canChangeMonth || (absDeltaX < threshold && !fastEnough)) return;
+        monthSwipeBusy = true;
+        const monthChange = selectDisplayedMonth(month + changeDelta, { fadeCalendar: true });
+        Promise.resolve(monthChange).then(() => {
+          monthSwipeBusy = false;
+        }, error => {
+          monthSwipeBusy = false;
+          console.warn("月份滑動後更新月曆失敗", error);
+        });
       }, { passive: true });
       document.addEventListener("pointercancel", event => {
         if (!swipeStart || swipeStart.pointerId !== event.pointerId) return;
-        const start = swipeStart;
         swipeStart = null;
-        if (start.axis === "x" && start.moved) settleMonthSwipe("", start, start.lastOffset);
       }, { passive: true });
       document.addEventListener("click", event => {
         if (!suppressClick) return;

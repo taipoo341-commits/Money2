@@ -6045,7 +6045,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       renderAll(false);
     }
     window.resetCurrentYearState = resetCurrentYearState;
-    function switchMonthState(needLoadCalendar) {
+    function switchMonthState(needLoadCalendar, monthTransitionDirection) {
       saveCurrentMonthState({ passive: true });
       try {
         const savedWeekStartMode = localStorage.getItem("personalOvertimeWeekStartMode");
@@ -6059,7 +6059,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       updateCalculationInfoToggleUI();
       activeStorageKey = getCurrentStorageKey();
       loadStateByKey(activeStorageKey);
-      renderAll(needLoadCalendar);
+      renderAll(needLoadCalendar, monthTransitionDirection);
       if (typeof window.requestClosureOfficialAutoQuery === "function") {
         setTimeout(function() { window.requestClosureOfficialAutoQuery(); }, 220);
       }
@@ -9625,7 +9625,18 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       showCalendarImportPrompt("無法讀取行事曆資料，已套用本機參數覆寫");
       console.warn("行事曆遠端與快取來源皆失敗", failLogs);
     }
-    async function renderAll(needLoadCalendar) {
+    function animateCalendarMonthTransition(direction) {
+      const panel = document.querySelector(".calendar-panel");
+      if (!panel || typeof panel.animate !== "function") return;
+      const reduceMotion = typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion) return;
+      const startX = direction === "prev" ? -14 : 14;
+      panel.animate([
+        { opacity: 0.76, transform: `translateX(${startX}px)` },
+        { opacity: 1, transform: "translateX(0)" }
+      ], { duration: 210, easing: "cubic-bezier(.22,.61,.36,1)" });
+    }
+    async function renderAll(needLoadCalendar, monthTransitionDirection) {
       if (needLoadCalendar) await loadCalendar();
       syncMonthControlUI();
       updateHandoverExceptionQuickButton();
@@ -9634,6 +9645,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       renderOverhaulControls();
       renderCalendar();
       updateShiftSelectStyle();
+      if (monthTransitionDirection) animateCalendarMonthTransition(monthTransitionDirection);
     }
     function clearManualRecords() {
       Object.keys(manualRecords).forEach(k => delete manualRecords[k]);
@@ -9699,7 +9711,9 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       rocYearInput.value = nextRocYear;
       monthSelect.value = nextMonth;
       syncMonthControlUI();
-      switchMonthState(nextRocYear !== currentRocYear);
+      const currentMonthOrdinal = currentRocYear * 12 + currentMonth;
+      const nextMonthOrdinal = nextRocYear * 12 + nextMonth;
+      switchMonthState(nextRocYear !== currentRocYear, nextMonthOrdinal < currentMonthOrdinal ? "prev" : "next");
     }
     function bindCalendarMonthSwipe() {
       const calendarBody = document.querySelector(".calendar-panel .calendar-body");
@@ -9721,7 +9735,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         const deltaY = event.clientY - start.y;
         if (Math.abs(deltaX) < 56 || Math.abs(deltaX) < Math.abs(deltaY) * 1.25) return;
         const month = Number(document.getElementById("month")?.value || 1);
-        selectDisplayedMonth(month + (deltaX > 0 ? 1 : -1));
+        selectDisplayedMonth(month + (deltaX > 0 ? -1 : 1));
       }, { passive: true });
       document.addEventListener("pointercancel", event => {
         if (swipeStart?.pointerId === event.pointerId) swipeStart = null;

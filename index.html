@@ -11,69 +11,69 @@
   <meta name="theme-color" content="#00F0FF">
   <script>
     (function () {
-      var manifestLink = document.getElementById("pwaManifestLink");
-      if (!manifestLink) {
-        manifestLink = document.createElement("link");
-        manifestLink.id = "pwaManifestLink";
-        manifestLink.rel = "manifest";
-        document.head.appendChild(manifestLink);
+      var appName = "加班費計算";
+      var shortName = "加班費";
+      var iconSrc = "./icon.png";
+      var fallbackManifest = "./manifest.json";
+
+      function getManifestLink() {
+        var link = document.getElementById("pwaManifestLink");
+        if (!link) {
+          link = document.createElement("link");
+          link.id = "pwaManifestLink";
+          link.rel = "manifest";
+          document.head.appendChild(link);
+        }
+        return link;
       }
 
-      /*
-       * PWA 安裝修正：固定使用同源的實體 manifest.json。
-       * 不再於執行階段建立 blob manifest，避免 start_url、scope、id
-       * 與圖示相對路徑失去網站部署目錄的穩定基準。
-       * manifest.json、sw.js 與圖示檔案必須和 index.html 一起部署。
-       */
-      manifestLink.setAttribute("href", "./manifest.json");
+      function setFallbackManifest() {
+        getManifestLink().href = fallbackManifest;
+      }
+
+      function setAutoManifest(width, height) {
+        var sizeText = String(width) + "x" + String(height);
+        var manifest = {
+          id: "./",
+          name: appName,
+          short_name: shortName,
+          start_url: "./index.html",
+          scope: "./",
+          display: "standalone",
+          background_color: "#0d0f12",
+          theme_color: "#00F0FF",
+          icons: [
+            {
+              src: iconSrc,
+              sizes: sizeText,
+              type: "image/png",
+              purpose: "any maskable"
+            }
+          ]
+        };
+
+        try {
+          var blob = new Blob([JSON.stringify(manifest, null, 2)], {
+            type: "application/manifest+json"
+          });
+          getManifestLink().href = URL.createObjectURL(blob);
+        } catch (error) {
+          setFallbackManifest();
+        }
+      }
+
+      var img = new Image();
+      img.onload = function () {
+        if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+          setAutoManifest(img.naturalWidth, img.naturalHeight);
+        } else {
+          setFallbackManifest();
+        }
+      };
+      img.onerror = setFallbackManifest;
+      img.src = iconSrc + "?pwa_icon_probe=" + Date.now();
     })();
   </script>
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
-  <!-- PWA static manifest compatibility spacer -->
 <style>
     @font-face {
       font-family: "RemachineScript";
@@ -4658,37 +4658,30 @@
             </div>
           </div>
           <label class="reset-field">
-            <button id="monthResetBtn" class="sub-panel-toggle reset-danger" type="button">清除本月設定</button>
+            <button id="monthResetBtn" class="sub-panel-toggle reset-danger" type="button">當月 RESET</button>
           </label>
           <label class="reset-field">
-            <button id="yearResetBtn" class="sub-panel-toggle reset-danger" type="button" onclick="resetCurrentYearState()">清除本年設定</button>
+            <button id="yearResetBtn" class="sub-panel-toggle reset-danger" type="button" onclick="resetCurrentYearState()">當年 RESET</button>
           </label>
         </div>
       </section>
-      <div id="monthStorageFailureV39" class="month-storage-failure-v39" role="alert" hidden><span id="monthStorageFailureMessageV39"></span><button id="monthStorageFailureRetryV39" type="button">重試</button></div>
-      <nav class="ux-quick-nav-v39" aria-label="頁面快速跳轉"><a href="#uxMonthlyOverview" aria-current="location">本月金額</a><a href="#uxCalendar">月曆</a><a href="#uxAnnualInfo">年度資訊</a></nav>
-      <section id="uxMonthlyOverview" class="panel salary-overview-panel" tabindex="-1">
+      <section class="panel salary-overview-panel">
         <div class="salary-overview-grid">
           <div class="salary-overview-item">
             <div class="salary-overview-label">基本薪給</div>
             <div class="salary-overview-value"><input id="salaryBasePay" class="salary-overview-input" type="text" inputmode="numeric" placeholder="請輸入薪水" /></div>
-            <div id="salaryBasePaySourceV39" class="ux-field-source-v39">請填入本月基本薪給</div>
           </div>
           <button id="salaryDetailOpenBtn" class="salary-overview-item salary-overtime-overview-item salary-detail-open-card" type="button" aria-haspopup="dialog" aria-controls="salaryDetailModal">
             <div class="salary-overtime-overview-layout">
               <div class="salary-overtime-overview-main">
-                <div id="topSalaryMonthLabel" class="salary-overview-label">本月加給試算</div>
+                <div id="topSalaryMonthLabel" class="salary-overview-label">加班費</div>
                 <div id="topSalaryTotalAmount" class="salary-overview-value money-finance">$0</div>
               </div>
-              <div class="salary-overtime-overview-breakdown" aria-label="本月加給組成">
-                <div class="salary-overtime-overview-breakdown-row"><span class="salary-overtime-overview-key">加班</span><span id="topSalaryOvertimeAmount" class="salary-overtime-overview-breakdown-value">$0</span></div>
-                <div class="salary-overtime-overview-breakdown-row"><span class="salary-overtime-overview-key">假日出勤</span><span id="topSalaryHolidayWorkAmount" class="salary-overtime-overview-breakdown-value">$0</span></div>
-                <div id="topSalaryMealRowV39" class="salary-overtime-overview-breakdown-row" hidden><span class="salary-overtime-overview-key">餐費</span><span id="topSalaryMealAmountV39" class="salary-overtime-overview-breakdown-value">$0</span></div>
-                <div id="topSalaryOtherBonusRowV39" class="salary-overtime-overview-breakdown-row" hidden><span class="salary-overtime-overview-key">其他獎金</span><span id="topSalaryOtherBonusAmountV39" class="salary-overtime-overview-breakdown-value">$0</span></div>
-                <div id="topSalaryRemoteAllowanceRowV39" class="salary-overtime-overview-breakdown-row" hidden><span class="salary-overtime-overview-key">偏遠津貼</span><span id="topSalaryRemoteAllowanceAmountV39" class="salary-overtime-overview-breakdown-value">$0</span></div>
+              <div class="salary-overtime-overview-breakdown" aria-label="當月加班費組成">
+                <div class="salary-overtime-overview-breakdown-row"><span class="salary-overtime-overview-key">加：</span><span id="topSalaryOvertimeAmount" class="salary-overtime-overview-breakdown-value">$0</span></div>
+                <div class="salary-overtime-overview-breakdown-row"><span class="salary-overtime-overview-key">假：</span><span id="topSalaryHolidayWorkAmount" class="salary-overtime-overview-breakdown-value">$0</span></div>
               </div>
             </div>
-            <span class="ux-card-link-v39">查看組成 ›</span>
           </button>
           <div class="salary-overview-item">
             <div class="salary-overview-label">12切總工時</div>
@@ -4717,7 +4710,7 @@
         <div class="substitute-top-label">代班資訊</div>
         <div id="substituteInfoTop" class="substitute-top-value">-</div>
       </section>
-      <section id="uxAnnualInfo" class="panel annual-leave-info-panel" tabindex="-1">
+      <section class="panel annual-leave-info-panel">
         <div class="annual-leave-info-header">
           <div id="annualLeaveInfoTitle" class="annual-leave-info-title">年度請假資訊</div>
           <button id="timedLeaveOpenBtn" class="timed-leave-open-btn" type="button">新增期限假別</button>
@@ -4726,31 +4719,14 @@
           <div class="leave-stats-year-grid annual-leave-stats-year-grid">
             <div class="leave-stats-year-box">
               <div id="leaveStatsAttendanceTitle" class="leave-stats-year-title">考勤年度</div>
-              <div id="leaveStatsAttendancePeriodV39" class="ux-year-period-v39"></div>
               <div class="leave-stats-grid">
-                <div class="leave-stat-item"><div id="leaveAttendanceSpecialLabel" class="leave-stat-label">特休已休</div><div id="leaveAttendanceSpecial" class="leave-stat-value empty">0HR</div><div id="leaveAttendanceSpecialSubsidyCapV39" class="ux-subsidy-cap-v39">補助上限14天</div></div>
-                <div class="leave-stat-item"><div id="leaveAttendanceMindLabel" class="leave-stat-label">身心已休</div><div id="leaveAttendanceMind" class="leave-stat-value empty">0HR</div><div id="leaveAttendanceMindLimitV39" class="ux-leave-limit-v39">上限3天</div></div>
-                <div class="leave-stat-item"><div id="leaveAttendanceFamilyLabel" class="leave-stat-label">家庭已休</div><div id="leaveAttendanceFamily" class="leave-stat-value empty">0HR</div><div id="leaveAttendanceFamilyLimitV39" class="ux-leave-limit-v39">上限7天</div></div>
+                <div class="leave-stat-item"><div id="leaveAttendanceSpecialLabel" class="leave-stat-label">特休(14天)</div><div id="leaveAttendanceSpecial" class="leave-stat-value empty">0HR</div></div>
+                <div class="leave-stat-item"><div id="leaveAttendanceMindLabel" class="leave-stat-label">身心(3天)</div><div id="leaveAttendanceMind" class="leave-stat-value empty">0HR</div></div>
+                <div class="leave-stat-item"><div id="leaveAttendanceFamilyLabel" class="leave-stat-label">家庭(7天)</div><div id="leaveAttendanceFamily" class="leave-stat-value empty">0HR</div></div>
               </div>
-              <details id="annualSpecialSettlement" class="annual-special-settlement" hidden>
-                <summary><div class="annual-special-heading"><span><strong>特休結算</strong><small>遞延及不休假獎金</small></span><span class="annual-special-expand">展開</span></div><div class="annual-special-summary"><span id="annualSpecialSummaryCash">未休：待設定</span><span id="annualSpecialSummaryCarry">遞延：待設定</span></div><div class="annual-special-row"><span>本次結算合計（試算）</span><strong id="annualSpecialSummaryTotal">待設定</strong></div></summary>
-                <div class="annual-special-body">
-                  <div id="annualSpecialSettlementPeriod" class="annual-special-note"></div>
-                  <div class="annual-special-usage"><div class="annual-special-table-head"><span>特休來源</span><span>已休</span><span>剩餘</span></div><div><span id="annualSpecialOldSource"></span><strong id="annualSpecialOldUsed"></strong><strong id="annualSpecialOldLeft"></strong></div><div><span id="annualSpecialCurrentSource"></span><strong id="annualSpecialCurrentUsed"></strong><strong id="annualSpecialCurrentLeft"></strong></div></div>
-                  <button id="annualSpecialEditQuota" class="annual-special-link" type="button">設定年度額度</button>
-                  <fieldset class="annual-special-choices"><legend id="annualSpecialCarryLegend">本年度遞延方式</legend><div class="annual-special-row"><span>可遞延上限</span><strong id="annualSpecialCarryMax">待設定</strong></div><div class="annual-special-choice-row"><label><input type="radio" name="annualSpecialCarryChoice" value="all"><span>全部遞延</span></label><label><input type="radio" name="annualSpecialCarryChoice" value="partial"><span>部分遞延</span></label><label><input type="radio" name="annualSpecialCarryChoice" value="none"><span>不遞延</span></label></div><div id="annualSpecialPartialFields" class="annual-special-time" hidden><input id="annualSpecialPartialDays" class="annual-special-input" type="text" inputmode="numeric" autocomplete="off" aria-label="部分遞延天數"><span>天</span><select id="annualSpecialPartialHours" class="annual-special-input" aria-label="部分遞延小時"></select><span>HR</span></div></fieldset>
-                  <div id="annualSpecialSettlementError" class="annual-special-error" role="alert" hidden></div>
-                  <details class="annual-special-audit"><summary>零散特休補助明細</summary><div id="annualSpecialMonthlyAudit" class="annual-special-usage"></div><div class="annual-special-row"><span>各月已計列</span><strong id="annualSpecialMonthlySubsidy"></strong></div><div class="annual-special-row"><span>零散補助補發</span><strong id="annualSpecialSupplement"></strong></div></details>
-                  <div id="annualSpecialOldSalaryWrap" class="annual-special-field"><label id="annualSpecialOldSalaryLabel" for="annualSpecialOldSalary">上年度10月基本薪給</label><input id="annualSpecialOldSalary" class="annual-special-input annual-special-money-input" type="text" inputmode="numeric" autocomplete="off" placeholder="請輸入基本薪給"><div class="annual-special-salary-source"><span id="annualSpecialOldSalarySource" class="annual-special-note"></span><button id="annualSpecialOldSalaryReset" type="button" class="annual-special-link" hidden>使用主畫面資料</button></div></div>
-                  <div id="annualSpecialCurrentSalaryWrap" class="annual-special-field"><label id="annualSpecialCurrentSalaryLabel" for="annualSpecialCurrentSalary">本年度10月基本薪給</label><input id="annualSpecialCurrentSalary" class="annual-special-input annual-special-money-input" type="text" inputmode="numeric" autocomplete="off" placeholder="請輸入基本薪給"><div class="annual-special-salary-source"><span id="annualSpecialCurrentSalarySource" class="annual-special-note"></span><button id="annualSpecialCurrentSalaryReset" type="button" class="annual-special-link" hidden>使用主畫面資料</button></div></div>
-                  <div id="annualSpecialSaveError" class="annual-special-error" role="alert" hidden></div>
-                  <div class="annual-special-results" aria-live="polite"><div class="annual-special-row"><span>上年度未休轉獎金</span><strong id="annualSpecialOldCash"></strong></div><div class="annual-special-row"><span>本年度未休轉獎金</span><strong id="annualSpecialCurrentCash"></strong></div><div class="annual-special-row"><span id="annualSpecialNextCarryLabel">遞延至下一年度</span><strong id="annualSpecialNextCarry"></strong></div><div class="annual-special-row"><span>不休假獎金 · 未休折算</span><strong id="annualSpecialUnusedBonus"></strong></div><div class="annual-special-row"><span>零散特休補助補發</span><strong id="annualSpecialSupplementAmount"></strong></div><div class="annual-special-total"><span>本次結算合計（試算）</span><strong id="annualSpecialTotal"></strong></div></div>
-                </div>
-              </details>
             </div>
             <div class="leave-stats-year-box accounting-year">
               <div id="leaveStatsAccountingTitle" class="leave-stats-year-title">會計年度</div>
-              <div id="leaveStatsAccountingPeriodV39" class="ux-year-period-v39"></div>
               <div class="leave-stats-grid">
                 <div class="leave-stat-item"><div id="leaveAccountingPersonalLabel" class="leave-stat-label">事假</div><div id="leaveAccountingPersonal" class="leave-stat-value empty">0HR</div><div id="leaveAccountingPersonalSafety" class="leave-stat-safety safety-danger">距扣發 7.5HR</div></div>
                 <div class="leave-stat-item"><div id="leaveAccountingSickLabel" class="leave-stat-label">病假</div><div id="leaveAccountingSick" class="leave-stat-value empty">0HR</div><div id="leaveAccountingSickSafety" class="leave-stat-safety safety-caution">距扣發 10天7.5HR</div></div>
@@ -4761,22 +4737,11 @@
               <div id="otherTimedLeaveStatsGrid" class="leave-stats-grid"></div>
             </div>
           </div>
-          <div class="annual-policy-hub annual-special-hub-row">
+          <div class="annual-policy-hub">
             <button id="annualPolicyHubBtn" class="annual-policy-hub-btn" type="button" aria-haspopup="dialog" aria-controls="annualPolicyModal">
               <span class="annual-policy-hub-copy"><span class="annual-policy-hub-title">獎金與考核資訊</span><span id="annualPolicyHubSummary" class="annual-policy-hub-summary"><span class="annual-policy-hub-summary-row"><span>工作獎金：</span><strong id="annualPolicyBonusSummary">符合核發資格</strong></span><span class="annual-policy-hub-summary-row"><span>考核　　：</span><strong id="annualPolicyAssessmentSummary">有機會考甲</strong></span></span></span>
               <span id="annualPolicyHubStatus" class="annual-policy-hub-status">查看專區</span>
             </button>
-            <button id="annualSpecialQuotaToggle" class="annual-special-quota-card" type="button" aria-expanded="false" aria-controls="annualSpecialQuotaEditor"><span id="annualSpecialQuotaTitle">年度考勤特休</span><span class="ux-quota-label-v39">年度總額</span><strong id="annualSpecialQuotaTotal">待設定</strong><span id="annualSpecialQuotaAvailableV39" class="ux-quota-available-v39">尚可休：待設定</span><span id="annualSpecialQuotaHint">設定額度 ›</span></button>
-            <section id="annualSpecialQuotaEditor" class="annual-special-editor" hidden aria-label="年度特休額度設定">
-              <div class="annual-special-heading"><strong id="annualSpecialQuotaEditorTitle">年度額度設定</strong><button id="annualSpecialQuotaClose" class="annual-special-button" type="button">完成</button></div>
-              <div id="annualSpecialQuotaPeriod" class="annual-special-note"></div>
-              <div id="annualSpecialOpeningReadonly" class="annual-special-row"><span id="annualSpecialOpeningLabel">上年度遞延額度</span><strong id="annualSpecialOpeningValue">待設定</strong></div>
-              <div id="annualSpecialOpeningFields" class="annual-special-field"><label id="annualSpecialOpeningInputLabel" for="annualSpecialOpeningDays">上年度初始轉入額度</label><div class="annual-special-time"><input id="annualSpecialOpeningDays" class="annual-special-input" type="text" inputmode="numeric" autocomplete="off" placeholder="待填"><span>天</span><select id="annualSpecialOpeningHours" class="annual-special-input" aria-label="初始轉入小時"></select><span>HR</span></div></div>
-              <div class="annual-special-field"><label id="annualSpecialGrantLabel" for="annualSpecialGrantDays">本年度核給天數</label><div class="annual-special-time"><input id="annualSpecialGrantDays" class="annual-special-input" type="text" inputmode="numeric" autocomplete="off" placeholder="待填"><span>天</span></div></div>
-              <div id="annualSpecialQuotaError" class="annual-special-error" role="alert" hidden></div>
-              <div id="annualSpecialQuotaSaveError" class="annual-special-error" role="alert" hidden></div>
-              <div class="annual-special-results" aria-live="polite"><div class="annual-special-row"><span>年度總額</span><strong id="annualSpecialQuotaSplit">待設定</strong></div><div class="annual-special-row"><span>已休</span><strong id="annualSpecialQuotaUsed">0HR</strong></div><div class="annual-special-row"><span>剩餘</span><strong id="annualSpecialQuotaLeft">待設定</strong></div></div>
-            </section>
           </div>
           <div id="timedLeaveSummarySection" class="timed-leave-section" hidden>
             <div class="timed-leave-section-head"><div><div class="timed-leave-section-title">新增期限假別</div><div class="timed-leave-section-note">資格額度以 8HR 折算一日；只有目前有效且仍有額度的資格會顯示。</div></div></div>
@@ -4784,7 +4749,7 @@
           </div>
         </div>
       </section>
-      <section id="uxCalendar" class="panel calendar-panel" tabindex="-1">
+      <section class="panel calendar-panel">
         <div class="calendar-head">
           <div>
             <div class="calendar-title-row">
@@ -5029,7 +4994,7 @@
       </section>
       <div id="salaryDetailModal" class="salary-detail-modal" aria-hidden="true">
         <div class="salary-detail-card" role="dialog" aria-modal="true" aria-labelledby="salaryTrialTitle">
-          <div class="salary-detail-header"><div><div id="salaryTrialTitle">加給明細</div><div id="salaryDetailMonthLabel" class="salary-detail-month-label">本月加給組成</div></div><button id="salaryDetailCloseBtn" class="salary-detail-close-btn" type="button">關閉</button></div>
+          <div class="salary-detail-header"><div><div id="salaryTrialTitle">加班費明細</div><div id="salaryDetailMonthLabel" class="salary-detail-month-label">本月加班費組成</div></div><button id="salaryDetailCloseBtn" class="salary-detail-close-btn" type="button">關閉</button></div>
           <div class="salary-content">
           <ol class="salary-list">
             <li class="salary-row">
@@ -5086,9 +5051,9 @@
               </div>
             </li>
             <li id="salaryRemoteAllowanceBox" class="salary-row salary-hidden"><div class="salary-row-main"><div><div class="salary-label">闢地加給</div><div id="salaryRemoteAllowancePeriod" class="salary-formula">依參數有效期間計入</div></div><div id="salaryRemoteAllowanceAmount" class="salary-value accent-emerald">NT$ 0</div></div></li>
-            <li class="salary-row salary-total-row"><div class="salary-row-main"><div class="salary-label">本月加給合計（試算）</div><div id="salaryDetailTotalAmount" class="salary-value money-finance">NT$ 0</div></div></li>
+            <li class="salary-row salary-total-row"><div class="salary-row-main"><div class="salary-label">本月加班費合計</div><div id="salaryDetailTotalAmount" class="salary-value money-finance">NT$ 0</div></div></li>
           </ol>
-          <div class="salary-detail-note">加給合計包含加班、假日出勤、餐費、其他獎金及偏遠津貼。基本薪給作為計算基礎；夜點費、特休補助與年度特休結算另列。</div>
+          <div class="salary-detail-note">基本薪給僅作為計算基礎，不列入本月加班費合計；夜點費與特休補助仍分開顯示。</div>
           </div>
         </div>
       </div>
@@ -5194,7 +5159,7 @@
 <section class="parameter-settings-section" data-parameter-section="holidayOverrides"><div class="parameter-settings-section-title"><span>行事曆覆寫</span><button id="parameterAddHolidayOverrideBtn" class="parameter-settings-add-btn" type="button">新增日期</button></div><div id="parameterHolidayOverrideList" class="parameter-settings-list"></div></section>
 <section class="parameter-settings-section" data-parameter-section="hours"><div class="parameter-settings-section-title"><span>值別時數與交接班</span></div><div class="parameter-hours-layout"><div class="parameter-control-group" data-parameter-control-group="hours"><div class="parameter-control-title"><span>值別時數</span><div class="parameter-control-title-actions"><button id="parameterHoursEnabled" class="parameter-section-toggle-btn" type="button" data-parameter-section-toggle="hours">未啟用</button><button id="parameterAddHourExceptionBtn" class="parameter-settings-add-btn" type="button">新增時數例外</button></div></div><div class="parameter-control-content"><div class="parameter-settings-grid parameter-hours-inline-grid"><label class="parameter-settings-field"><span>0空班(HR)</span><input id="parameterHour0" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>1一值(HR)</span><input id="parameterHour1" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>2二值(HR)</span><input id="parameterHour2" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>3三值(HR)</span><input id="parameterHour3" class="parameter-settings-input" type="text" inputmode="decimal"></label></div><div class="parameter-settings-note">未啟用時沿用內建週期時數，包含三值第一天與二連一等特殊時數。</div><div id="parameterHourExceptionList" class="parameter-settings-list"></div></div></div><div class="parameter-control-group" data-parameter-control-group="handover"><div class="parameter-control-title"><span>一般交接班</span></div><div class="parameter-handover-control-row"><div class="parameter-control-content"><div class="parameter-handover-inline-grid"><label class="parameter-settings-field"><span>交接班(分)</span><input id="parameterHandoverMinutes" class="parameter-settings-input" type="text" inputmode="numeric"></label></div></div><button id="parameterHandoverEnabled" class="parameter-section-toggle-btn" type="button" data-parameter-section-toggle="handover">未啟用</button></div><div class="parameter-settings-note">未啟用時使用系統預設 30 分鐘；不定期測試請由主月曆的「交接班例外」設定。</div></div></div></section>
 <section class="parameter-settings-section" data-parameter-section="election"><div class="parameter-settings-section-title"><span>選舉日自訂規則</span><button id="parameterAddElectionRuleBtn" class="parameter-settings-add-btn" type="button">新增規則</button></div><div class="parameter-settings-grid parameter-election-grid"><label class="parameter-settings-field"><span>選舉日開始時間</span><input id="parameterElectionStartTime" class="parameter-settings-input parameter-time-input" type="text" inputmode="numeric" placeholder="0000"></label><label class="parameter-settings-field"><span>選舉日結束時間</span><input id="parameterElectionEndTime" class="parameter-settings-input parameter-time-input" type="text" inputmode="numeric" placeholder="2400"></label></div><div id="parameterElectionPatternHint" class="parameter-settings-note"></div><div id="parameterElectionRuleList" class="parameter-settings-list"></div></section>
-<section class="parameter-settings-section" data-parameter-section="salary"><div class="parameter-settings-section-title"><span>薪資倍率與金額</span><button id="parameterSalaryEnabled" class="parameter-section-toggle-btn" type="button" data-parameter-section-toggle="salary">未啟用</button></div><div class="parameter-settings-grid parameter-salary-rate-grid"><label class="parameter-settings-field"><span>超時2HR以內的倍數，請填分數</span><input id="parameterRateCode7" class="parameter-settings-input" type="text" placeholder="4/3"></label><label class="parameter-settings-field"><span>超時2~8HR內的倍數，請填分數</span><input id="parameterRateCode8" class="parameter-settings-input" type="text" placeholder="5/3"></label><label class="parameter-settings-field"><span>超時8HR以上的倍數，請填分數</span><input id="parameterRateCode6" class="parameter-settings-input" type="text" placeholder="8/3"></label></div><div class="parameter-settings-grid six parameter-salary-fee-grid"><label class="parameter-settings-field"><span>初夜點</span><input id="parameterInitialNightFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>深夜點</span><input id="parameterDeepNightFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>初一紅包</span><input id="parameterRedEnvelopeFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>早餐</span><input id="parameterBreakfastFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>午晚餐</span><input id="parameterLunchDinnerFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>年夜飯</span><input id="parameterReunionDinnerFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label></div><div class="parameter-allowance-group"><div class="parameter-control-title"><span>闢地加給</span><button id="parameterRemoteAllowanceEnabled" class="parameter-section-toggle-btn" type="button" aria-pressed="true">啟用</button></div><div class="parameter-settings-grid parameter-allowance-grid"><label class="parameter-settings-field"><span>每月金額(元)</span><input id="parameterRemoteAllowanceAmount" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>生效月份(西元YYYY-MM)</span><input id="parameterRemoteAllowanceStart" class="parameter-settings-input" type="month"></label><label class="parameter-settings-field"><span>結束月份(留白為持續)</span><input id="parameterRemoteAllowanceEnd" class="parameter-settings-input" type="month"></label></div><div class="parameter-settings-note">只在啟用且目前月份位於有效期間時，計入「X月加給試算」；日後取消請填結束月份，以保留歷史月份金額。</div></div></section>
+<section class="parameter-settings-section" data-parameter-section="salary"><div class="parameter-settings-section-title"><span>薪資倍率與金額</span><button id="parameterSalaryEnabled" class="parameter-section-toggle-btn" type="button" data-parameter-section-toggle="salary">未啟用</button></div><div class="parameter-settings-grid parameter-salary-rate-grid"><label class="parameter-settings-field"><span>超時2HR以內的倍數，請填分數</span><input id="parameterRateCode7" class="parameter-settings-input" type="text" placeholder="4/3"></label><label class="parameter-settings-field"><span>超時2~8HR內的倍數，請填分數</span><input id="parameterRateCode8" class="parameter-settings-input" type="text" placeholder="5/3"></label><label class="parameter-settings-field"><span>超時8HR以上的倍數，請填分數</span><input id="parameterRateCode6" class="parameter-settings-input" type="text" placeholder="8/3"></label></div><div class="parameter-settings-grid six parameter-salary-fee-grid"><label class="parameter-settings-field"><span>初夜點</span><input id="parameterInitialNightFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>深夜點</span><input id="parameterDeepNightFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>初一紅包</span><input id="parameterRedEnvelopeFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>早餐</span><input id="parameterBreakfastFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>午晚餐</span><input id="parameterLunchDinnerFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>年夜飯</span><input id="parameterReunionDinnerFee" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label></div><div class="parameter-allowance-group"><div class="parameter-control-title"><span>闢地加給</span><button id="parameterRemoteAllowanceEnabled" class="parameter-section-toggle-btn" type="button" aria-pressed="true">啟用</button></div><div class="parameter-settings-grid parameter-allowance-grid"><label class="parameter-settings-field"><span>每月金額(元)</span><input id="parameterRemoteAllowanceAmount" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field"><span>生效月份(西元YYYY-MM)</span><input id="parameterRemoteAllowanceStart" class="parameter-settings-input" type="month"></label><label class="parameter-settings-field"><span>結束月份(留白為持續)</span><input id="parameterRemoteAllowanceEnd" class="parameter-settings-input" type="month"></label></div><div class="parameter-settings-note">只在啟用且目前月份位於有效期間時，計入「X月加班費」；日後取消請填結束月份，以保留歷史月份金額。</div></div></section>
 <section class="parameter-settings-section" data-parameter-section="core"><div class="parameter-settings-section-title"><span>工時與年度核心參數</span></div><div class="parameter-settings-grid parameter-core-grid"><label class="parameter-settings-field"><span>每日正常工時(HR)</span><input id="parameterNormalHoursPerDay" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>每月加班上限(HR)</span><input id="parameterMonthlyOvertimeCap" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>月薪換算時數</span><input id="parameterSalaryHourDivisor" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>考勤年度起始月</span><select id="parameterAttendanceYearStartMonth" class="parameter-settings-select"><option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option></select></label><label class="parameter-settings-field"><span>會計年度起始月</span><select id="parameterAccountingYearStartMonth" class="parameter-settings-select"><option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option></select></label><label class="parameter-settings-field"><span>身心上限(日)</span><input id="parameterMindLeaveMaxDays" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>家庭上限(日)</span><input id="parameterFamilyLeaveMaxDays" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>特休補助上限(日)</span><input id="parameterSpecialLeaveSubsidyMaxDays" class="parameter-settings-input" type="text" inputmode="numeric"></label><label class="parameter-settings-field parameter-core-last-field"><span>特休每日補助(元)</span><input id="parameterSpecialLeaveSubsidyPerDay" class="parameter-settings-input parameter-money-input" type="text" inputmode="numeric"></label></div><div class="parameter-settings-note">每日正常工時用於班表與加班計算；各種請假日數、期限假別額度、獎金及考核一律依下方規則以 8HR 折算一日。</div></section>
 <section class="parameter-settings-section" data-parameter-section="leavePolicy"><div class="parameter-settings-section-title"><span>獎金與考核規則</span></div><div class="parameter-settings-grid parameter-leave-policy-grid"><label class="parameter-settings-field"><span>請假一日折算(HR)</span><input id="parameterLeavePolicyHoursPerDay" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>事假不扣獎金(日)</span><input id="parameterPersonalBonusGraceDays" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>事假逾限每滿日扣獎金(日)</span><input id="parameterPersonalBonusDeductPerDay" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>病假不扣獎金(日)</span><input id="parameterSickBonusGraceDays" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>病假逾限每滿日扣獎金(日)</span><input id="parameterSickBonusDeductPerDay" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>事病假不核發獎金門檻(日)</span><input id="parameterCombinedNoBonusDays" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>考核甲等門檻(日)</span><input id="parameterAssessmentCapDays" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>考核病假排除(日)</span><input id="parameterAssessmentSickExcludedDays" class="parameter-settings-input" type="text" inputmode="decimal"></label><label class="parameter-settings-field"><span>考核規則生效民國年</span><input id="parameterAssessmentEffectiveRocYear" class="parameter-settings-input" type="text" inputmode="numeric"></label></div></section>
 <section class="parameter-settings-section"><div class="parameter-settings-section-title"><span>參數匯入／匯出</span></div><div class="g-backup-local-grid"><button id="parameterExportBtn" class="parameter-settings-small-btn file" type="button">下載參數 JSON</button><button id="parameterImportBtn" class="parameter-settings-small-btn file" type="button">匯入參數 JSON</button></div><input id="parameterImportFileInput" class="parameter-settings-file-input" type="file" accept="application/json,.json"></section><div id="parameterSettingsMessage" class="parameter-settings-message" aria-live="polite"></div></div><div class="parameter-settings-footer"><button id="parameterSaveBtn" class="parameter-settings-footer-btn primary" type="button">儲存並套用</button><button id="parameterInitialBtn" class="parameter-settings-footer-btn warning" type="button">初始設定</button><button id="parameterCloseBtn" class="parameter-settings-footer-btn" type="button">關閉</button></div></div></div>
@@ -5578,10 +5543,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     let activeStorageKey = "";
     let currentMonthWasNew = false;
     let currentMonthHasStoredState = false;
-    const monthStoragePendingV39 = new Map();
-    const monthStorageReadFailuresV39 = new Map();
-    let monthStorageOperationErrorV39 = "";
-    let monthStorageMutationInProgressV39 = false;
     
     const SHIFT_GROUP_PREFERENCE_STORAGE_KEY = "personalOvertimeShiftGroupPreference";
     function normalizeShiftGroupPreference(value) {
@@ -5948,90 +5909,10 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       };
     }
     function saveCurrentMonthState(options = {}) {
-      const storageKey = activeStorageKey || getCurrentStorageKey();
-      if (options.passive && !currentMonthHasStoredState && !monthStoragePendingV39.has(storageKey)) return true;
-      return saveStateByKey(storageKey, options);
-    }
-    function monthStorageLabelV39(storageKey) {
-      const match = String(storageKey || "").match(/^personalOvertimeState:([ABCD]):(\d{1,3}):([1-9]|1[0-2])$/);
-      return match ? `${match[1]}班 ${Number(match[2])}年${Number(match[3])}月` : "月份紀錄";
-    }
-    function monthStorageReasonV39(error) {
-      return error && error.name === "QuotaExceededError" ? "本機儲存空間不足" : error && error.name === "SecurityError" ? "瀏覽器禁止存取本機儲存" : error && error.name === "SyntaxError" ? "紀錄格式無法解析" : "本機儲存暫時無法使用";
-    }
-    function renderMonthStorageFailureV39() {
-      const banner = document.getElementById("monthStorageFailureV39"), message = document.getElementById("monthStorageFailureMessageV39"), retry = document.getElementById("monthStorageFailureRetryV39");
-      if (!banner || !message || !retry) return;
-      const parts = [];
-      monthStoragePendingV39.forEach((pending, key) => parts.push(`${monthStorageLabelV39(key)}尚未儲存：${monthStorageReasonV39(pending.error)}。`));
-      monthStorageReadFailuresV39.forEach((error, key) => parts.push(`${monthStorageLabelV39(key)}讀取失敗：${monthStorageReasonV39(error)}；既有紀錄尚未覆寫。`));
-      if (monthStorageOperationErrorV39) parts.push(monthStorageOperationErrorV39);
-      if (monthStoragePendingV39.size) parts.push("未儲存的輸入目前只保留在此頁面，請重試後再關閉或重新整理。");
-      message.textContent = parts.join(" ");
-      banner.hidden = parts.length === 0;
-      retry.hidden = monthStoragePendingV39.size === 0 && monthStorageReadFailuresV39.size === 0;
-      retry.disabled = monthStorageMutationInProgressV39;
-    }
-    function clearMonthStorageFailuresV39(keys) {
-      const targets = keys ? new Set(keys) : null;
-      [monthStoragePendingV39, monthStorageReadFailuresV39].forEach(map => { if (!targets) map.clear(); else targets.forEach(key => map.delete(key)); });
-      monthStorageOperationErrorV39 = "";
-      renderMonthStorageFailureV39();
-    }
-    function setMonthStorageContextV39(storageKey) {
-      const match = String(storageKey || "").match(/^personalOvertimeState:([ABCD]):(\d{1,3}):([1-9]|1[0-2])$/);
-      if (!match) return false;
-      document.getElementById("shiftGroup").value = match[1];
-      document.getElementById("rocYear").value = String(Number(match[2]));
-      document.getElementById("month").value = String(Number(match[3]));
-      syncMonthControlUI(); updateShiftSelectStyle();
-      return true;
-    }
-    function persistMonthStorageRawV39(storageKey, raw) {
-      try {
-        if (raw === null) localStorage.removeItem(storageKey);
-        else localStorage.setItem(storageKey, raw);
-        monthStoragePendingV39.delete(storageKey);
-        if (storageKey === activeStorageKey) { currentMonthHasStoredState = raw !== null; currentMonthWasNew = raw === null; }
-        renderMonthStorageFailureV39();
-        return true;
-      } catch (error) {
-        monthStoragePendingV39.set(storageKey, { raw, error });
-        renderMonthStorageFailureV39();
-        return false;
-      }
-    }
-    function retryMonthStorageV39() {
-      if (monthStorageMutationInProgressV39) return false;
-      Array.from(monthStoragePendingV39).forEach(([key, pending]) => persistMonthStorageRawV39(key, pending.raw));
-      const readKey = monthStorageReadFailuresV39.keys().next().value;
-      if (readKey) {
-        if (readKey === activeStorageKey) { if (loadStateByKey(readKey)) return renderAll(true); }
-        else if (setMonthStorageContextV39(readKey)) return switchMonthState(true);
-      }
-      renderMonthStorageFailureV39();
-      return monthStoragePendingV39.size === 0;
-    }
-    function decodeMonthStateV39(raw) {
-      if (raw === null || raw === undefined || raw === "") return null;
-      const data = JSON.parse(raw), object = value => value && typeof value === "object" && !Array.isArray(value);
-      if (!object(data) || data.manualRecords !== undefined && !object(data.manualRecords) || data.specialDates !== undefined && !object(data.specialDates) || data.overhaulSettings !== undefined && !object(data.overhaulSettings)) throw new SyntaxError("月份資料格式錯誤");
-      if (data.batchRangeRecords !== undefined && (!Array.isArray(data.batchRangeRecords) || !data.batchRangeRecords.every(object))) throw new SyntaxError("批次資料格式錯誤");
-      if (Array.isArray(data.overhaulSettings?.overrides) && !data.overhaulSettings.overrides.every(object)) throw new SyntaxError("大修資料格式錯誤");
-      if (data.salaryBasePay !== undefined && (!Number.isFinite(Number(data.salaryBasePay)) || Number(data.salaryBasePay) < 0)) throw new SyntaxError("基本薪給格式錯誤");
-      return data;
+      if (options.passive && !currentMonthHasStoredState) return;
+      saveStateByKey(activeStorageKey || getCurrentStorageKey(), options);
     }
     function loadStateByKey(storageKey) {
-      let data;
-      try {
-        const pending = monthStoragePendingV39.get(storageKey);
-        data = decodeMonthStateV39(pending ? pending.raw : localStorage.getItem(storageKey));
-      } catch (error) {
-        monthStorageReadFailuresV39.set(storageKey, error);
-        renderMonthStorageFailureV39();
-        return false;
-      }
-      monthStorageReadFailuresV39.delete(storageKey);
       clearObject(manualRecords);
       resetSpecialDatesToDefault();
       resetBatchRangeRecordsToDefault();
@@ -6047,15 +5928,15 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       currentMonthWasNew = false;
       currentMonthHasStoredState = false;
       try {
-        if (!data) {
+        const raw = localStorage.getItem(storageKey);
+        if (!raw) {
           currentMonthWasNew = true;
           salaryBasePaySource = "carry";
           setSalaryBasePayInput(getSalaryCarryForwardBasePay());
-          notifyMonthStateLoaded(storageKey);
-          renderMonthStorageFailureV39();
-          return true;
+          return;
         }
         currentMonthHasStoredState = true;
+        const data = JSON.parse(raw);
         if (data.manualRecords && typeof data.manualRecords === "object") Object.assign(manualRecords, data.manualRecords);
         if (data.specialDates && typeof data.specialDates === "object") {
           specialDates.closure = Array.isArray(data.specialDates.closure) ? data.specialDates.closure : specialDates.closure;
@@ -6072,15 +5953,13 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
             leaveHours: Number(item.leaveHours || 0),
             mode: item.mode === "all" ? "all" : "workOnly",
             otherLabel: normalizeOtherCodeLabel(item.otherLabel || "其他"),
-            customLeaveId: String(item.customLeaveId || ""),
             lastApplied: item.lastApplied && typeof item.lastApplied === "object" ? {
               startDay: Number(item.lastApplied.startDay || 0),
               endDay: Number(item.lastApplied.endDay || 0),
               code: Number(item.lastApplied.code || item.code || 5),
               leaveHours: Number(item.lastApplied.leaveHours || 0),
               mode: item.lastApplied.mode === "all" ? "all" : "workOnly",
-              otherLabel: normalizeOtherCodeLabel(item.lastApplied.otherLabel || "其他"),
-              customLeaveId: String(item.lastApplied.customLeaveId || "")
+              otherLabel: normalizeOtherCodeLabel(item.lastApplied.otherLabel || "其他")
             } : null
           }));
           while (batchRangeRecords.length < 1) batchRangeRecords.push({ startDay: 0, endDay: 0, code: 5, leaveHours: 0, mode: "workOnly", otherLabel: "其他", lastApplied: null });
@@ -6113,46 +5992,15 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         applySalaryBasePayFromState(data);
       } catch (err) {
         console.warn("無法讀取當月資料", err);
-        monthStorageReadFailuresV39.set(storageKey, err);
-        renderMonthStorageFailureV39();
-        return false;
+      } finally {
+        notifyMonthStateLoaded(storageKey);
       }
-      notifyMonthStateLoaded(storageKey);
-      renderMonthStorageFailureV39();
-      return true;
     }
-    // 儲存失敗只暫存原月份快照；不建立復原歷史或每次成功提示。
+    // 第二輪非核心狀態功能已停用；保留原本每月資料儲存，不建立復原歷史或儲存提示。
     function saveStateByKey(storageKey) {
-      if (!storageKey || monthStorageMutationInProgressV39 || monthStorageReadFailuresV39.has(storageKey)) { renderMonthStorageFailureV39(); return false; }
-      let raw;
-      try { raw = JSON.stringify(getStateSnapshot()); }
-      catch (error) { monthStorageOperationErrorV39 = `${monthStorageLabelV39(storageKey)}無法整理儲存資料，已保留目前畫面。`; renderMonthStorageFailureV39(); return false; }
-      return persistMonthStorageRawV39(storageKey, raw);
-    }
-    function restoreStorageValuesV39(originals) {
-      const failures = [];
-      Object.keys(originals).forEach(key => {
-        try { if (originals[key] === null) localStorage.removeItem(key); else localStorage.setItem(key, originals[key]); }
-        catch (error) {
-          failures.push(key);
-          if (/^personalOvertimeState:[ABCD]:\d{1,3}:([1-9]|1[0-2])$/.test(key) && !monthStoragePendingV39.has(key)) monthStoragePendingV39.set(key, { raw: originals[key], error });
-        }
-      });
-      renderMonthStorageFailureV39();
-      return failures;
-    }
-    function removeStorageKeysV39(keys) {
-      const originals = {}, previousMutation = monthStorageMutationInProgressV39;
-      monthStorageMutationInProgressV39 = true; renderMonthStorageFailureV39();
-      try {
-        keys.forEach(key => { originals[key] = localStorage.getItem(key); });
-        try { keys.forEach(key => localStorage.removeItem(key)); }
-        catch (error) {
-          const failures = restoreStorageValuesV39(originals);
-          throw new Error(failures.length ? "清除失敗，部分原紀錄尚待回寫；請保留此頁面並重試儲存。" : "清除失敗，已回復原紀錄，請稍後再執行清除。");
-        }
-        return originals;
-      } finally { monthStorageMutationInProgressV39 = previousMutation; renderMonthStorageFailureV39(); }
+      if (!storageKey) return;
+      try { localStorage.setItem(storageKey, JSON.stringify(getStateSnapshot())); }
+      catch (err) { console.warn("無法儲存當月資料", err); }
     }
     let resetConfirmResolver = null;
     function showResetConfirmDialog(message, options = {}) {
@@ -6181,13 +6029,11 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       }
     }
     async function resetCurrentMonthState() {
-      const storageKey = activeStorageKey || getCurrentStorageKey();
-      const confirmed = await showResetConfirmDialog(`確定清除${monthStorageLabelV39(storageKey)}的設定嗎？包含基本薪給、主月曆與當月請假等設定。特休年度核給及遞延額度會保留，已休時數與結算試算會重新計算。`);
+      const month = Number(document.getElementById("month").value);
+      const confirmed = await showResetConfirmDialog(`確定要將${month}月的資料全部清除嗎？`);
       if (!confirmed) return;
-      try { removeStorageKeysV39([storageKey]); }
-      catch (error) { monthStorageOperationErrorV39 = `${monthStorageLabelV39(storageKey)}${error.message}`; renderMonthStorageFailureV39(); return false; }
-      clearMonthStorageFailuresV39([storageKey]);
-      if (storageKey !== activeStorageKey) { renderAll(false); return true; }
+      const storageKey = activeStorageKey || getCurrentStorageKey();
+      localStorage.removeItem(storageKey);
       clearObject(manualRecords);
       resetSpecialDatesToDefault();
       resetBatchRangeRecordsToDefault();
@@ -6204,18 +6050,16 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       currentMonthHasStoredState = false;
       notifyMonthStateLoaded(storageKey);
       renderAll(false);
-      return true;
     }
     async function resetCurrentYearState() {
       const rocYear = Number(document.getElementById("rocYear").value);
       const shiftGroup = document.getElementById("shiftGroup").value;
-      const confirmed = await showResetConfirmDialog(`確定清除${shiftGroup}班 ${rocYear}曆年1～12月的設定嗎？包含每月基本薪給、主月曆與請假等設定。特休年度核給及遞延額度會保留，相關考勤年度的已休時數與結算試算會重新計算。`);
+      const confirmed = await showResetConfirmDialog(`確定要將${rocYear}年1~12月的資料全部清除嗎？`);
       if (!confirmed) return;
-      const keys = Array.from({ length: 12 }, (_, index) => `personalOvertimeState:${shiftGroup}:${rocYear}:${index + 1}`);
-      try { removeStorageKeysV39(keys); }
-      catch (error) { monthStorageOperationErrorV39 = `${shiftGroup}班 ${rocYear}曆年1～12月${error.message}`; renderMonthStorageFailureV39(); return false; }
-      clearMonthStorageFailuresV39(keys);
-      if (!keys.includes(activeStorageKey)) { renderAll(false); return true; }
+      for (let m = 1; m <= 12; m++) {
+        const yearStorageKey = `personalOvertimeState:${shiftGroup}:${rocYear}:${m}`;
+        localStorage.removeItem(yearStorageKey);
+      }
       clearObject(manualRecords);
       resetSpecialDatesToDefault();
       resetBatchRangeRecordsToDefault();
@@ -6243,7 +6087,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       currentMonthHasStoredState = false;
       notifyMonthStateLoaded(activeStorageKey);
       renderAll(false);
-      return true;
     }
     window.resetCurrentYearState = resetCurrentYearState;
     function animateCalendarBodyFade(body, fadeOut, duration) {
@@ -6280,7 +6123,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       }
     }
     function switchMonthState(needLoadCalendar, options = {}) {
-      const previousKey = activeStorageKey;
       saveCurrentMonthState({ passive: true });
       try {
         const savedWeekStartMode = localStorage.getItem("personalOvertimeWeekStartMode");
@@ -6293,12 +6135,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       updateWeekStartToggleUI();
       updateCalculationInfoToggleUI();
       activeStorageKey = getCurrentStorageKey();
-      if (!loadStateByKey(activeStorageKey)) {
-        activeStorageKey = previousKey;
-        setMonthStorageContextV39(previousKey);
-        renderMonthStorageFailureV39();
-        return Promise.resolve(false);
-      }
+      loadStateByKey(activeStorageKey);
       const renderPromise = options.fadeCalendar
         ? renderMonthStateWithFade(needLoadCalendar)
         : renderAll(needLoadCalendar);
@@ -6398,9 +6235,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       if (!note) return;
       note.textContent = currentMonthWasNew
         ? "新月份已自動準備班表、行事曆、參數與前月基本薪給；輸入後會自動儲存"
-        : isMobileDayEditorV39()
-          ? "點選日期編輯假別與時數；「恢復原班表」可取消當日修改"
-          : "每日可手動選擇代碼，RESET 可回復原班別；有修改的日期會標示資料來源";
+        : "每日可手動選擇代碼，RESET 可回復原班別；有修改的日期會標示資料來源";
     }
     function updateWeekStartToggleUI() {
       const toggle = document.getElementById("weekStartToggle");
@@ -6778,22 +6613,14 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     }
     function closeCodePickerPortal() {
       const portal = document.getElementById("codePickerPortal");
-      const focusTarget = portal && portal.contains(document.activeElement) ? portal.returnFocusV39 : null;
       if (portal) {
         portal.classList.remove("open", "all-open");
         portal.innerHTML = "";
-        portal.setAttribute("aria-hidden", "true");
-        portal.returnFocusV39 = null;
       }
       document.querySelectorAll(".day-card.code-picker-card-open").forEach(card => card.classList.remove("code-picker-card-open"));
       document.querySelectorAll(".code-picker.open").forEach(picker => picker.classList.remove("open"));
       activeCodePickerPortalState = null;
       codePickerUnlockBodyScroll();
-      restorePortalTriggerFocusV39(focusTarget);
-    }
-    function restorePortalTriggerFocusV39(target) {
-      const trigger = target && target.trigger;
-      if (trigger && target.storageKey === activeStorageKey && target.storageKey === getCurrentStorageKey() && trigger.isConnected && trigger.offsetParent !== null && !trigger.disabled) trigger.focus({ preventScroll: true });
     }
     function closeAllCodePickers(exceptPicker) {
       document.querySelectorAll(".code-picker.open").forEach(picker => {
@@ -6828,37 +6655,21 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       `;
     }
     function renderCodePickerPortal(day, allOpen, restoreScrollTop) {
-      const dayContext = captureCalendarDayContextV39(day);
-      if (!isCalendarDayContextCurrentV39(dayContext)) return;
       const dayInfo = getDayInfoForCodePicker(day);
       if (!dayInfo) return;
       const portal = ensureCodePickerPortal();
-      const wasOpen = portal.classList.contains("open");
-      const restoreHourFocus = portal.contains(document.activeElement) && document.activeElement.matches("[data-mobile-day-hour-v39]");
-      if (!wasOpen) portal.returnFocusV39 = { storageKey: dayContext.storageKey, trigger: document.querySelector(isMobileDayEditorV39() ? `[data-mobile-day-open-v39="${day}"]` : `.code-picker[data-code-picker="${day}"] .code-picker-button`) };
       codePickerLockBodyScroll();
       const selectedCode = Number(dayInfo.actualCode);
-      activeCodePickerPortalState = { day: Number(day), allOpen: Boolean(allOpen), selectedCode, storageKey: dayContext.storageKey };
-      if (isMobileDayEditorV39()) mobileDayEditorSessionV39 = { context: dayContext, allOpen: Boolean(allOpen) };
+      activeCodePickerPortalState = { day: Number(day), allOpen: Boolean(allOpen), selectedCode };
       portal.innerHTML = buildCodePickerPortalHtml(day, selectedCode, Boolean(allOpen));
-      const title = portal.querySelector(".code-picker-portal-title");
-      if (title) title.textContent = `${dayInfo.year - 1911}/${dayInfo.month}/${dayInfo.day} 星期${["日", "一", "二", "三", "四", "五", "六"][dayInfo.date.getDay()]} · 單日編輯`;
-      const sheet = portal.querySelector(".code-picker-portal-sheet");
-      if (sheet && title) sheet.setAttribute("aria-label", title.textContent);
       moveCodePickerCloseToBottom(portal);
       portal.classList.add("open");
-      portal.setAttribute("aria-hidden", "false");
       portal.classList.toggle("all-open", Boolean(allOpen));
       const picker = document.querySelector(`.code-picker[data-code-picker="${day}"]`);
       if (picker) picker.classList.add("open");
       const card = picker ? picker.closest(".day-card") : null;
       if (card) card.classList.add("code-picker-card-open");
       bindCodePickerPortalEvents(portal);
-      if (sheet) {
-        sheet.setAttribute("tabindex", "-1");
-        if (restoreHourFocus) portal.querySelector("[data-mobile-day-hour-v39]:not(:disabled)")?.focus({ preventScroll: true });
-        else if (!wasOpen) sheet.focus({ preventScroll: true });
-      }
       if (restoreScrollTop !== undefined && restoreScrollTop !== null) {
         const scrollEl = portal.querySelector(".code-picker-portal-scroll");
         if (scrollEl) window.setTimeout(() => { scrollEl.scrollTop = Number(restoreScrollTop) || 0; }, 0);
@@ -8367,9 +8178,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     }
     function closeBatchCodePickerPortal() {
       const portal = document.getElementById("batchCodePickerPortal");
-      const focusTarget = portal && portal.contains(document.activeElement) ? portal.returnFocusV39 : null;
-      if (portal) { portal.classList.remove("open", "all-open"); portal.innerHTML = ""; portal.setAttribute("aria-hidden", "true"); portal.returnFocusV39 = null; }
-      restorePortalTriggerFocusV39(focusTarget);
+      if (portal) { portal.classList.remove("open", "all-open"); portal.innerHTML = ""; portal.setAttribute("aria-hidden", "true"); }
     }
     function buildBatchCodeOptionRow(code, selectedCode, index) {
       const selected = Number(code) === Number(selectedCode);
@@ -8382,19 +8191,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const optionHtml = getBatchEligibleSystemLeaveCodes().map(code => buildBatchCodeOptionRow(code, record.code, index)).join("");
       return `<div class="code-picker-portal-backdrop" data-batch-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="批次假別選單" data-batch-code-portal-index="${index}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${index + 1} 筆假別</div><div class="code-picker-portal-subtitle">點選假別即可套用，8.9 名稱為本批次專用</div></div><button class="code-picker-portal-close" type="button" data-batch-code-portal-close="1">關閉</button></div><div class="code-picker-portal-scroll"><div class="code-picker-portal-section-title">全部假別</div><div class="batch-code-option-list">${optionHtml}</div></div></div>`;
     }
-    function renderBatchCodePickerPortal(index, restoreScrollTop = 0) {
-      const portal = ensureBatchCodePickerPortal();
-      const wasOpen = portal.classList.contains("open");
-      if (!wasOpen) portal.returnFocusV39 = { storageKey: String(activeStorageKey || ""), trigger: document.querySelector(`[data-batch-code-button="${index}"]`) };
-      portal.innerHTML = buildBatchCodePickerPortalHtml(index);
-      moveCodePickerCloseToBottom(portal);
-      portal.classList.add("open"); portal.classList.toggle("all-open", batchCodePickerAllOpen); portal.setAttribute("aria-hidden", "false");
-      bindBatchCodePickerPortalEvents(portal, index);
-      const sheet = portal.querySelector(".code-picker-portal-sheet");
-      if (sheet) { sheet.setAttribute("tabindex", "-1"); if (!wasOpen) sheet.focus({ preventScroll: true }); }
-      const scroll = portal.querySelector(".code-picker-portal-scroll");
-      if (scroll && restoreScrollTop > 0) scroll.scrollTop = restoreScrollTop;
-    }
+    function renderBatchCodePickerPortal(index, restoreScrollTop = 0) { const portal = ensureBatchCodePickerPortal(); portal.innerHTML = buildBatchCodePickerPortalHtml(index); moveCodePickerCloseToBottom(portal); portal.classList.add("open"); portal.classList.toggle("all-open", batchCodePickerAllOpen); portal.setAttribute("aria-hidden", "false"); bindBatchCodePickerPortalEvents(portal, index); const scroll = portal.querySelector(".code-picker-portal-scroll"); if (scroll && restoreScrollTop > 0) scroll.scrollTop = restoreScrollTop; }
     function openBatchCodePicker(index) { batchCodePickerAllOpen = false; closeCodePickerPortal(); renderBatchCodePickerPortal(index); }
     function selectBatchCode(index, code) { if (!batchRangeRecords[index]) batchRangeRecords[index] = { startDay: 0, endDay: 0, code: 5, leaveHours: 0, mode: "workOnly", otherLabel: "其他", lastApplied: null }; batchRangeRecords[index].code = Number(code); if (Number(code) === 8.9) batchRangeRecords[index].otherLabel = normalizeOtherCodeLabel(batchRangeRecords[index].otherLabel || "其他"); if (Number(code) === 4) batchRangeRecords[index].mode = "all"; saveCurrentMonthState(); closeBatchCodePickerPortal(); renderAll(false); }
     function bindBatchCodePickerPortalEvents(portal, index) {
@@ -9040,74 +8837,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       list.innerHTML = warnings.map(message => `<li>${escapeHtml(message)}</li>`).join("");
       if (!hasWarnings) panel.open = false;
     }
-    let calendarDayContextVersionV39 = 0;
-    let mobileDayEditorSessionV39 = null;
-    function isMobileDayEditorV39() {
-      return typeof window.matchMedia === "function" && window.matchMedia("(max-width:760px)").matches;
-    }
-    function captureCalendarDayContextV39(day) {
-      return { day: Number(day), storageKey: String(activeStorageKey || ""), records: manualRecords, version: calendarDayContextVersionV39 };
-    }
-    function isCalendarDayContextCurrentV39(context) {
-      return Boolean(context && context.storageKey && context.storageKey === activeStorageKey && context.storageKey === getCurrentStorageKey() && context.records === manualRecords && context.version === calendarDayContextVersionV39 && Number.isInteger(context.day) && context.day >= 1 && context.day <= 31);
-    }
-    async function applyDayLeaveHourChangeV39(day, value, context = captureCalendarDayContextV39(day)) {
-      if (!isCalendarDayContextCurrentV39(context)) return false;
-      const currentDayInfo = buildDays().find(item => Number(item.day) === Number(day));
-      if (!currentDayInfo || !isLeaveCode(currentDayInfo.actualCode)) return false;
-      if (!manualRecords[day]) manualRecords[day] = {};
-      let record = manualRecords[day];
-      if (currentDayInfo.electionAutoPublicLeave && record.code === undefined) record.code = 4.2;
-      if (value === "class") {
-        if (Number(currentDayInfo.actualCode) !== 4 || !currentDayInfo.isWeekend) return false;
-        record.trainingMode = "class";
-        delete record.leaveHours;
-        delete record.compoundSplit;
-      } else {
-        const selectedHours = Number(value);
-        if (!Number.isFinite(selectedHours) || selectedHours < 0) return false;
-        const timedAllowed = typeof window.validateTimedLeaveHourChangeV31 === "function"
-          ? await window.validateTimedLeaveHourChangeV31(day, selectedHours, currentDayInfo)
-          : true;
-        if (!isCalendarDayContextCurrentV39(context)) return false;
-        if (!timedAllowed) { renderAll(false); return false; }
-        record = manualRecords[day] || (manualRecords[day] = {});
-        const validation = typeof window.validateAttendanceLeaveLimitForDayV21 === "function"
-          ? window.validateAttendanceLeaveLimitForDayV21(day, currentDayInfo.actualCode, selectedHours > 0 ? selectedHours : null)
-          : { ok: true };
-        if (!validation.ok) {
-          if (typeof window.showAttendanceLeaveLimitWarningV21 === "function") await window.showAttendanceLeaveLimitWarningV21(validation, "partial");
-          if (isCalendarDayContextCurrentV39(context)) renderAll(false);
-          return false;
-        }
-        if (!isCalendarDayContextCurrentV39(context)) return false;
-        record.leaveHours = selectedHours;
-        if (record.entitlementId) delete record.entitlementHours;
-        delete record.trainingMode;
-        delete record.compoundSplit;
-      }
-      markManualRecordSource(day, "manual");
-      saveCurrentMonthState();
-      renderAll(false);
-      return true;
-    }
-    function restoreCalendarDayV39(day, context = captureCalendarDayContextV39(day)) {
-      if (!isCalendarDayContextCurrentV39(context)) return false;
-      delete manualRecords[day];
-      saveCurrentMonthState();
-      renderAll(false);
-      return true;
-    }
-    function refreshMobileDayEditorV39() {
-      if (!mobileDayEditorSessionV39) return;
-      const session = mobileDayEditorSessionV39;
-      if (!isMobileDayEditorV39() || !isCalendarDayContextCurrentV39(session.context)) {
-        mobileDayEditorSessionV39 = null;
-        closeCodePickerPortal();
-        return;
-      }
-      renderCodePickerPortal(session.context.day, session.allOpen, 0);
-    }
     function renderCalendar() {
       const rocYear = Number(document.getElementById("rocYear").value);
       const month = Number(document.getElementById("month").value);
@@ -9115,9 +8844,9 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       document.getElementById("calendarTitle").textContent = `班別：${shiftGroup}　民國 ${rocYear} 年　${month} 月`;
       updateCalendarNoteText();
       const salaryTrialTitle = document.getElementById("salaryTrialTitle");
-      if (salaryTrialTitle) salaryTrialTitle.textContent = `${month}月加給明細`;
+      if (salaryTrialTitle) salaryTrialTitle.textContent = `${month}月加班費明細區`;
       const topSalaryMonthLabel = document.getElementById("topSalaryMonthLabel");
-      if (topSalaryMonthLabel) topSalaryMonthLabel.textContent = `${month}月加給試算`;
+      if (topSalaryMonthLabel) topSalaryMonthLabel.textContent = `${month}月加班費`;
       updateWeekStartToggleUI();
       updateCalculationInfoToggleUI();
       const weekGrid = document.getElementById("weekGrid");
@@ -9128,7 +8857,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         return `<div class="week-cell ${weekClass}">${x}</div>`;
       }).join("");
       const days = buildDays();
-      const mobileEditor = isMobileDayEditorV39();
       const firstOffset = days[0] ? getDisplayWeekIndex(days[0].date) : 0;
       const totalCells = Math.ceil((firstOffset + days.length) / 7) * 7;
       const dayGrid = document.getElementById("dayGrid");
@@ -9190,47 +8918,73 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
           <div class="${cardClass}">
             <div class="day-top">
               <div class="day-number">${d.day}</div>
-              <div class="select-stack" aria-hidden="${mobileEditor ? "true" : "false"}">
+              <div class="select-stack">
                 ${codePickerHtml}
-                <select class="hour-select" data-day="${d.day}" data-type="hour" ${hourDisabled}${mobileEditor ? ' tabindex="-1"' : ""}>${hourOptions}</select>
-                <button class="reset-btn" type="button" data-day="${d.day}"${mobileEditor ? ' tabindex="-1"' : ""}>RESET</button>
+                <select class="hour-select" data-day="${d.day}" data-type="hour" ${hourDisabled}>${hourOptions}</select>
+                <button class="reset-btn" type="button" data-day="${d.day}">RESET</button>
               </div>
             </div>
-            <div class="mobile-day-original-v39">原${escapeHtml(getBaseDisplayName(d))}</div>
             <div class="card-center">
               <div>${holidayHtml}${closureHtml}${trainingHtml}${electionHtml}${overhaulMainHtml}</div>
             </div>
             <div class="shift-pill ${pillClass}" title="${escapeHtml(displayLabel)}">${calendarPillHtml}</div>
-            <div class="mobile-day-hours-v39">${isLeaveCode(d.actualCode) ? escapeHtml(fmtHour(getEffectiveLeaveHours(d))) + "HR" : ""}</div>
             ${detailHtml}
-            <button class="mobile-day-open-v39" type="button" data-mobile-day-open-v39="${d.day}" aria-label="編輯民國${rocYear}年${month}月${d.day}日，${escapeHtml(displayLabel)}"><span>編輯</span></button>
           </div>
         `;
       }
       dayGrid.innerHTML = html;
-      dayGrid.querySelectorAll(".code-picker-button").forEach(button => { if (mobileEditor) button.setAttribute("tabindex", "-1"); });
-      dayGrid.querySelectorAll("[data-mobile-day-open-v39]").forEach(button => button.addEventListener("click", event => {
-        event.preventDefault(); event.stopPropagation();
-        if (isMobileDayEditorV39()) openCodePickerByDay(Number(button.dataset.mobileDayOpenV39), false);
-      }));
       bindCodePickerEvents(dayGrid);
       if (pendingCodePickerReopen && pendingCodePickerReopen.day) {
         openCodePickerByDay(pendingCodePickerReopen.day, pendingCodePickerReopen.allOpen, pendingCodePickerReopen.scrollTop);
         pendingCodePickerReopen = null;
       }
       dayGrid.querySelectorAll(".hour-select").forEach(sel => {
-        sel.addEventListener("change", function() {
-          void applyDayLeaveHourChangeV39(Number(this.dataset.day), this.value);
+        sel.addEventListener("change", async function() {
+          const day = Number(this.dataset.day);
+          if (!manualRecords[day]) manualRecords[day] = {};
+          const currentDayInfo = buildDays().find(item => Number(item.day) === day);
+          if (currentDayInfo && currentDayInfo.electionAutoPublicLeave && manualRecords[day].code === undefined) manualRecords[day].code = 4.2;
+          if (this.value === "class") {
+            manualRecords[day].trainingMode = "class";
+            delete manualRecords[day].leaveHours;
+            delete manualRecords[day].compoundSplit;
+          } else {
+            const selectedHours = Number(this.value);
+            const timedAllowed = typeof window.validateTimedLeaveHourChangeV31 === "function"
+              ? await window.validateTimedLeaveHourChangeV31(day, selectedHours, currentDayInfo)
+              : true;
+            if (!timedAllowed) {
+              renderAll(false);
+              return;
+            }
+            const validation = typeof window.validateAttendanceLeaveLimitForDayV21 === "function"
+              ? window.validateAttendanceLeaveLimitForDayV21(day, currentDayInfo && currentDayInfo.actualCode, selectedHours > 0 ? selectedHours : null)
+              : { ok: true };
+            if (!validation.ok) {
+              if (typeof window.showAttendanceLeaveLimitWarningV21 === "function") await window.showAttendanceLeaveLimitWarningV21(validation, "partial");
+              renderAll(false);
+              return;
+            }
+            manualRecords[day].leaveHours = Number(this.value);
+            if (manualRecords[day].entitlementId) delete manualRecords[day].entitlementHours;
+            delete manualRecords[day].trainingMode;
+            delete manualRecords[day].compoundSplit;
+          }
+          markManualRecordSource(day, "manual");
+          saveCurrentMonthState();
+          renderAll(false);
         });
       });
       dayGrid.querySelectorAll(".reset-btn").forEach(btn => {
         btn.addEventListener("click", function() {
-          restoreCalendarDayV39(Number(this.dataset.day));
+          const day = Number(this.dataset.day);
+          delete manualRecords[day];
+          saveCurrentMonthState();
+          renderAll(false);
         });
       });
       renderDataQualityStatus(days.length);
       renderSummary(days);
-      refreshMobileDayEditorV39();
     }
 
     function getSalaryBasePay() {
@@ -9348,7 +9102,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       if (topSalaryOvertimeAmount) topSalaryOvertimeAmount.textContent = fmtDisplayMoney(overtimeAmount);
       const topSalaryHolidayWorkAmount = document.getElementById("topSalaryHolidayWorkAmount");
       if (topSalaryHolidayWorkAmount) topSalaryHolidayWorkAmount.textContent = fmtDisplayMoney(holidayWorkAmount);
-      updateUXMoneyCompositionV39({ overtimeAmount, holidayWorkAmount, mealAmount, otherBonusAmount, remoteAllowanceAmount, totalSalaryAmount });
       const holidayBox = document.getElementById("salaryHolidayBox");
       const mealBox = document.getElementById("salaryMealBox");
       const remoteAllowanceBox = document.getElementById("salaryRemoteAllowanceBox");
@@ -9356,7 +9109,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       if (mealBox) mealBox.classList.toggle("salary-hidden", (breakfastCount + lunchDinnerCount) <= 0);
       if (remoteAllowanceBox) remoteAllowanceBox.classList.toggle("salary-hidden", remoteAllowanceAmount <= 0);
       const salaryDetailMonthLabel = document.getElementById("salaryDetailMonthLabel");
-      if (salaryDetailMonthLabel) salaryDetailMonthLabel.textContent = `${currentMonth}月加給組成`;
+      if (salaryDetailMonthLabel) salaryDetailMonthLabel.textContent = `${currentMonth}月加班費組成`;
     }
     function renderSummary(days) {
       const month = Number(document.getElementById("month").value);
@@ -9489,14 +9242,9 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const familyHours = roundLeaveStatHours((attendanceStats || {}).family || 0);
       const mindLimitHours = roundLeaveStatHours(mindDays * leaveDayHours);
       const familyLimitHours = roundLeaveStatHours(familyDays * leaveDayHours);
-      setAnnualLeaveLimitLabel("leaveAttendanceSpecialLabel", "特休已休", false);
-      const subsidyCap = document.getElementById("leaveAttendanceSpecialSubsidyCapV39");
-      if (subsidyCap) subsidyCap.textContent = `補助上限${fmtHour(specialDays)}天`;
-      setAnnualLeaveLimitLabel("leaveAttendanceMindLabel", "身心已休", mindHours > mindLimitHours, `已超過上限 ${fmtHour(Math.max(0, mindHours - mindLimitHours))}HR`);
-      setAnnualLeaveLimitLabel("leaveAttendanceFamilyLabel", "家庭已休", familyHours > familyLimitHours, `已超過上限 ${fmtHour(Math.max(0, familyHours - familyLimitHours))}HR`);
-      const mindLimit = document.getElementById("leaveAttendanceMindLimitV39"), familyLimit = document.getElementById("leaveAttendanceFamilyLimitV39");
-      if (mindLimit) mindLimit.textContent = `上限${fmtHour(mindDays)}天`;
-      if (familyLimit) familyLimit.textContent = `上限${fmtHour(familyDays)}天`;
+      setAnnualLeaveLimitLabel("leaveAttendanceSpecialLabel", `特休(${fmtHour(specialDays)}天)`, false);
+      setAnnualLeaveLimitLabel("leaveAttendanceMindLabel", `身心(${fmtHour(mindDays)}天)`, mindHours > mindLimitHours, `已超過上限 ${fmtHour(Math.max(0, mindHours - mindLimitHours))}HR`);
+      setAnnualLeaveLimitLabel("leaveAttendanceFamilyLabel", `家庭(${fmtHour(familyDays)}天)`, familyHours > familyLimitHours, `已超過上限 ${fmtHour(Math.max(0, familyHours - familyLimitHours))}HR`);
       setAnnualLeaveLimitLabel("leaveAccountingPersonalLabel", "事假", false);
       setAnnualLeaveLimitLabel("leaveAccountingSickLabel", "病假", false);
     }
@@ -9722,8 +9470,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       if (attendanceTitle) attendanceTitle.textContent = `${attendanceYear}年考勤年度`;
       const accountingTitle = document.getElementById("leaveStatsAccountingTitle");
       if (accountingTitle) accountingTitle.textContent = `${accountingYear}年會計年度`;
-      document.getElementById("leaveStatsAttendancePeriodV39").textContent = formatUXYearPeriodV39(attendanceYear, attendanceStartMonth);
-      document.getElementById("leaveStatsAccountingPeriodV39").textContent = formatUXYearPeriodV39(accountingYear, accountingStartMonth);
       const summary = document.getElementById("leaveStatsSummary");
       if (summary) summary.textContent = `${month}月假別統計`;
       setLeaveStatText("leaveMonthSpecial", monthStats.special);
@@ -9738,7 +9484,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       setLeaveStatText("leaveAccountingSick", accountingStats.sick);
       renderLeavePolicySummary(attendanceStats, accountingStats, attendanceYear, accountingYear);
       if (typeof window.renderTimedLeaveSummaryV25 === "function") window.renderTimedLeaveSummaryV25();
-      if (typeof window.renderAnnualSpecialLeaveV37 === "function") window.renderAnnualSpecialLeaveV37(days);
     }
     function formatPolicyDays(value) { const rounded = Math.round((Number(value) || 0) * 100) / 100; return `${rounded.toLocaleString("zh-TW")}日`; }
     function setPolicyValue(id, text, alert) { const el=document.getElementById(id); if(!el)return; el.textContent=text; el.classList.toggle("policy-alert",alert===true); el.classList.toggle("policy-ok",alert===false); }
@@ -10368,9 +10113,11 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const salaryBasePayInput = document.getElementById("salaryBasePay");
       if (salaryBasePayInput) {
         let salaryRenderTimer = 0;
-        bindAnnualSpecialFirstSelectV37(salaryBasePayInput);
+        salaryBasePayInput.addEventListener("focus", function() { this.select(); });
+        salaryBasePayInput.addEventListener("click", function() { this.select(); });
         salaryBasePayInput.addEventListener("input", function() {
-          formatAnnualSpecialSalaryInputV37(this);
+          const digits = String(this.value || "").replace(/[^0-9]/g, "");
+          this.value = fmtInputAccountingMoney(Number(digits || 0));
           salaryBasePaySource = "manual";
           saveCurrentMonthState({ coalesceGroup: "salary-base-pay" });
           clearTimeout(salaryRenderTimer);
@@ -10426,16 +10173,13 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       document.addEventListener("click", event => {
         const eventPath = typeof event.composedPath === "function" ? event.composedPath() : [];
         const isParameterDialogClick = eventPath.some(node => node && node.id === "parameterTechDialogModal") || Boolean(event.target.closest("#parameterTechDialogModal"));
-        const isCodePortalClick = eventPath.some(node => node && node.id === "codePickerPortal");
-        if (!isParameterDialogClick && !isCodePortalClick && !event.target.closest(".code-picker") && !event.target.closest("#codePickerPortal")) closeAllCodePickers(null);
+        if (!isParameterDialogClick && !event.target.closest(".code-picker") && !event.target.closest("#codePickerPortal")) closeAllCodePickers(null);
         if (!event.target.closest(".batch-code-picker") && !event.target.closest("#batchCodePickerPortal")) closeBatchCodePickerPortal();
       });
       bindHandoverExceptionQuickEvents();
       bindParameterSettingsEvents();
-      document.getElementById("monthStorageFailureRetryV39")?.addEventListener("click", retryMonthStorageV39);
-      window.addEventListener("beforeunload", event => {
+      window.addEventListener("beforeunload", () => {
         if (!suppressPassiveStateSaveForLocalClear) saveCurrentMonthState({ passive: true });
-        if (!suppressPassiveStateSaveForLocalClear && monthStoragePendingV39.size) { event.preventDefault(); event.returnValue = ""; }
       });
       renderAll(true);
     }
@@ -10467,7 +10211,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
  const G_BACKUP_CLIENT_ID = "107200643244-6m7b52c3ho8nofgqf2m1v87eu60hssl8.apps.googleusercontent.com";
  const G_BACKUP_SCOPE = "https://www.googleapis.com/auth/drive.appdata";
  const G_BACKUP_FILE_NAME = "overtime-backup.json";
- const G_BACKUP_ALLOWED_EXACT_KEYS = new Set(["personalOvertimeCodeFavorites", "personalOvertimeWeekStartMode", "personalOvertimeParameterSettings", "personalOvertimeShiftGroupPreference", "personalOvertimeTimedLeaveEntitlements", "personalOvertimeAnnualSpecialLeave"]);
+ const G_BACKUP_ALLOWED_EXACT_KEYS = new Set(["personalOvertimeCodeFavorites", "personalOvertimeWeekStartMode", "personalOvertimeParameterSettings", "personalOvertimeShiftGroupPreference", "personalOvertimeTimedLeaveEntitlements"]);
  const G_BACKUP_BEFORE_RESTORE_KEY = "personalOvertimeBackupBeforeGoogleRestore";
  const G_BACKUP_BEFORE_IMPORT_KEY = "personalOvertimeBackupBeforeLocalImport";
  const G_BACKUP_AUTH_REMEMBER_KEY = "personalOvertimeGoogleAuthRemembered";
@@ -10663,10 +10407,10 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   });
  }
  function gBackupFlushCurrentStateBeforeCollect() {
-   if (typeof saveCurrentMonthState === "function") {
-    const saved = saveCurrentMonthState();
-    const key = activeStorageKey || getCurrentStorageKey();
-    if (saved === false && !monthStoragePendingV39.has(key)) throw new Error("目前月份尚未成功載入或無法整理資料，請先重試後再備份。");
+  try {
+   if (typeof saveCurrentMonthState === "function") saveCurrentMonthState();
+  } catch (err) {
+   console.warn("G備份前寫入目前月份資料失敗", err);
   }
  }
  function gBackupCollectObject() {
@@ -10677,11 +10421,10 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     data[key] = localStorage.getItem(key);
    }
   });
-  monthStoragePendingV39.forEach(function(pending, key) { data[key] = pending.raw; });
   return {
    backupName: G_BACKUP_FILE_NAME,
    backupType: "personalOvertimeIndexedDbSubset",
-   version: 4,
+   version: 3,
    savedAt: new Date().toISOString(),
    keys: data
   };
@@ -10895,9 +10638,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
      if (state.manualRecords !== undefined && (!state.manualRecords || typeof state.manualRecords !== "object" || Array.isArray(state.manualRecords))) throw new Error("月份每日資料格式錯誤：" + key);
      if (state.specialDates !== undefined && (!state.specialDates || typeof state.specialDates !== "object" || Array.isArray(state.specialDates))) throw new Error("月份特殊日期格式錯誤：" + key);
      if (state.salaryBasePay !== undefined && (!Number.isFinite(Number(state.salaryBasePay)) || Number(state.salaryBasePay) < 0)) throw new Error("月份基本薪給格式錯誤：" + key);
-     } else if (key === "personalOvertimeAnnualSpecialLeave") {
-      validateAnnualSpecialLeaveLedgerV37(JSON.parse(value));
-     } else if (key === "personalOvertimeCodeFavorites") {
+    } else if (key === "personalOvertimeCodeFavorites") {
      let favorites;
      try { favorites = JSON.parse(value); } catch (error) { throw new Error("我的最愛格式錯誤。"); }
      if (!Array.isArray(favorites)) throw new Error("我的最愛必須是陣列。");
@@ -10922,63 +10663,44 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
  }
  function gBackupApplyPayload(payload) {
   const clean = gBackupValidatePayload(payload);
-   const annualKey = "personalOvertimeAnnualSpecialLeave";
-   if (Number(payload && payload.version || 0) < 4 && !(annualKey in clean) && localStorage.getItem(annualKey)) {
-    const ledger = validateAnnualSpecialLeaveLedgerV37(JSON.parse(localStorage.getItem(annualKey)));
-    clean[annualKey] = JSON.stringify(ledger);
-   }
   const existingKeys = Object.keys(localStorage).filter(function(key) { return /^personalOvertimeState:[ABCD]:\d{1,3}:(?:[1-9]|1[0-2])$/.test(key) || G_BACKUP_ALLOWED_EXACT_KEYS.has(key); });
   const replaceExactKeys = Number(payload && payload.version || 0) >= 3;
   const keysToRemove = existingKeys.filter(function(key) { return !(key in clean) && (key.indexOf("personalOvertimeState:") === 0 || replaceExactKeys); });
   const affectedKeys = new Set(existingKeys.concat(Object.keys(clean)));
   const rollback = {};
   affectedKeys.forEach(function(key) { rollback[key] = localStorage.getItem(key); });
-  const previousMutation = monthStorageMutationInProgressV39;
-  monthStorageMutationInProgressV39 = true; renderMonthStorageFailureV39();
   try {
    keysToRemove.forEach(function(key) { localStorage.removeItem(key); });
    Object.keys(clean).forEach(function(key) {
     if (clean[key] === null || clean[key] === undefined) localStorage.removeItem(key);
     else localStorage.setItem(key, String(clean[key]));
    });
-    suppressPassiveStateSaveForLocalClear = true;
-    clearMonthStorageFailuresV39();
   } catch (error) {
-   const failures = restoreStorageValuesV39(rollback);
-   if (failures.length) throw new Error("還原寫入失敗，部分原紀錄尚待回寫；請保留此頁面並重試儲存。");
+   affectedKeys.forEach(function(key) {
+    if (rollback[key] === null) localStorage.removeItem(key);
+    else localStorage.setItem(key, rollback[key]);
+   });
    throw new Error("還原寫入失敗，已回復原本資料：" + (error.message || "本機儲存空間不足"));
-  } finally {
-   monthStorageMutationInProgressV39 = previousMutation; renderMonthStorageFailureV39();
   }
  }
  async function removeLocalOvertimeCalculationRecords() {
-  const previousMutation = monthStorageMutationInProgressV39;
-  monthStorageMutationInProgressV39 = true; renderMonthStorageFailureV39();
-  try {
   let indexedKeys = [];
-  indexedKeys = await overtimeIndexedDb.listManagedKeys();
+  try { indexedKeys = await overtimeIndexedDb.listManagedKeys(); }
+  catch (err) { console.warn("無法讀取 IndexedDB 待刪除項目", err); }
   const targets = new Set(indexedKeys.filter(function(key) {
-    return key.indexOf("personalOvertimeState:") === 0 || key === "personalOvertimeTimedLeaveEntitlements" || key === "personalOvertimeAnnualSpecialLeave";
+   return key.indexOf("personalOvertimeState:") === 0 || key === "personalOvertimeTimedLeaveEntitlements";
   }));
   Object.keys(localStorage).forEach(function(key) {
-    if (key.indexOf("personalOvertimeState:") === 0 || key === "personalOvertimeTimedLeaveEntitlements" || key === "personalOvertimeAnnualSpecialLeave") targets.add(key);
+   if (key.indexOf("personalOvertimeState:") === 0 || key === "personalOvertimeTimedLeaveEntitlements") targets.add(key);
   });
-  monthStoragePendingV39.forEach(function(pending, key) { targets.add(key); });
-  const keys = Array.from(targets), rollback = removeStorageKeysV39(keys);
-  try { await overtimeIndexedDb.removeMany(keys); }
-  catch (error) {
-   const failures = restoreStorageValuesV39(rollback);
-   throw new Error(failures.length ? "本機紀錄清除失敗，部分原紀錄尚待回寫；請保留此頁面並重試儲存。" : "本機紀錄清除失敗，已回復原紀錄。");
-  }
-  clearMonthStorageFailuresV39();
-  } finally { monthStorageMutationInProgressV39 = previousMutation; renderMonthStorageFailureV39(); }
+  targets.forEach(function(key) { localStorage.removeItem(key); });
+  try { await overtimeIndexedDb.removeMany(Array.from(targets)); }
+  catch (err) { console.warn("無法完成 IndexedDB 紀錄清除", err); }
  }
 
  async function clearLocalOvertimeStorageRecords() {
-  const confirmed = await gBackupShowConfirm("刪除本機紀錄", "確定要刪除本機的加班費計算紀錄嗎？", "此動作會刪除本機瀏覽器內所有 personalOvertimeState: 開頭的月份紀錄、期限假別，以及特休年度額度、遞延設定與試算薪給；包含基本薪給、天災與選舉日設定、大修日期設定、請假／受訓批次設定與主月曆資料。此動作不會刪除 Google Drive 備份、不會登出 G、不會刪除我的最愛。", "danger", "確認刪除", "取消");
+  const confirmed = await gBackupShowConfirm("刪除本機紀錄", "確定要刪除本機的加班費計算紀錄嗎？", "此動作會刪除本機瀏覽器內所有 personalOvertimeState: 開頭的月份紀錄，以及期限假別資料；包含基本薪給、天災與選舉日設定、大修日期設定、請假／受訓批次設定與主月曆資料。此動作不會刪除 Google Drive 備份、不會登出 G、不會刪除我的最愛。", "danger", "確認刪除", "取消");
   if (!confirmed) return;
-  monthStorageMutationInProgressV39 = true; renderMonthStorageFailureV39();
-  try {
   loadCodeFavorites();
   const favoriteJsonBeforeClear = JSON.stringify(Array.from(codeFavoriteSet));
   await removeLocalOvertimeCalculationRecords();
@@ -10991,15 +10713,11 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
    console.warn("刪除本機紀錄後無法回寫我的最愛代碼", err);
   }
   gBackupRenderLocalStatus();
-  gBackupSetMessage("已刪除本機加班費計算紀錄、期限假別與特休年度帳本，並已保留我的最愛代碼，頁面即將重新載入。");
+  gBackupSetMessage("已刪除本機加班費計算紀錄與期限假別資料，並已保留我的最愛代碼，頁面即將重新載入。");
+  await gBackupShowNotice("刪除完成", "已刪除本機加班費計算紀錄與期限假別資料。Google Drive 備份、G 登入狀態與我的最愛代碼不受影響。", "success");
   suppressPassiveStateSaveForLocalClear = true;
-  clearMonthStorageFailuresV39();
-  await gBackupShowNotice("刪除完成", "已刪除本機加班費計算紀錄、期限假別與特休年度帳本。Google Drive 備份、G 登入狀態與我的最愛代碼不受影響。", "success");
+  await removeLocalOvertimeCalculationRecords();
   window.location.reload();
-  } catch (error) {
-   gBackupSetMessage(error.message || "刪除失敗，未完成清除。");
-   await gBackupShowNotice("刪除未完成", error.message || "請保留此頁面並稍後再試。", "danger");
-  } finally { monthStorageMutationInProgressV39 = false; renderMonthStorageFailureV39(); }
  }
 
  function gBackupHasRememberedAuth() {
@@ -12570,8 +12288,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     if (!ADJUST_CODES.has(Number(record.adjustedCode)) && ADJUST_CODES.has(Number(record.code))) record.adjustedCode = Number(record.code);
   }
   selectActualCodeForDay = async function (day, code) {
-    const dayContext = captureCalendarDayContextV39(day);
-    if (!isCalendarDayContextCurrentV39(dayContext)) return;
     pendingCodePickerReopen = null;
     const numericCode = Number(code);
     const limitedConfig = getAttendanceLeaveLimitConfigByCodeV21(numericCode);
@@ -12581,8 +12297,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         const reopenAll = Boolean(activeCodePickerPortalState && activeCodePickerPortalState.allOpen);
         const reopenScrollTop = document.querySelector("#codePickerPortal .code-picker-portal-scroll")?.scrollTop || 0;
         await showAttendanceLeaveLimitWarningV21(validation, "full");
-        if (!isCalendarDayContextCurrentV39(dayContext)) return;
-        window.setTimeout(() => { if (isCalendarDayContextCurrentV39(dayContext)) openCodePickerByDay(day, reopenAll, reopenScrollTop); }, 0);
+        window.setTimeout(() => openCodePickerByDay(day, reopenAll, reopenScrollTop), 0);
         return;
       }
     }
@@ -13532,8 +13247,15 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   };
   const loadStateByKeyBeforeV13 = loadStateByKey;
   loadStateByKey = function (storageKey) {
-    // 批次自訂假別已由同一份快照載入，保留成功／失敗結果，避免重讀舊紀錄。
-    return loadStateByKeyBeforeV13(storageKey);
+    loadStateByKeyBeforeV13(storageKey);
+    try {
+      const data = JSON.parse(localStorage.getItem(storageKey) || "null");
+      if (data && Array.isArray(data.batchRangeRecords)) data.batchRangeRecords.forEach((item, index) => {
+        if (!batchRangeRecords[index]) return;
+        batchRangeRecords[index].customLeaveId = String(item.customLeaveId || "");
+        if (batchRangeRecords[index].lastApplied && item.lastApplied) batchRangeRecords[index].lastApplied.customLeaveId = String(item.lastApplied.customLeaveId || "");
+      });
+    } catch (err) { console.warn("自訂假別批次資料讀取失敗", err); }
   };
 })();
 /* === V13 自訂／複合假別與調班後請假：功能結束 === */
@@ -13848,7 +13570,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   const baseBindPortal=bindCodePickerPortalEvents;
   bindCodePickerPortalEvents=function(portal){baseBindPortal(portal);portal.querySelectorAll("[data-timed-leave-choose]").forEach(button=>button.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();if(!activeCodePickerPortalState)return;timedChooserKey=timedChooserKey===button.dataset.timedLeaveChoose?"":button.dataset.timedLeaveChoose;renderCodePickerPortal(activeCodePickerPortalState.day,activeCodePickerPortalState.allOpen,0);}));portal.querySelectorAll("[data-timed-leave-select]").forEach(button=>button.addEventListener("click",async event=>{event.preventDefault();event.stopPropagation();const item=getById(button.dataset.timedLeaveSelect);if(item&&activeCodePickerPortalState)await applyTimed(item,activeCodePickerPortalState.day); }));portal.querySelectorAll("[data-timed-leave-group]").forEach(button=>button.addEventListener("click",async event=>{event.preventDefault();event.stopPropagation();if(activeCodePickerPortalState)await applyTimedByGroup(button.dataset.timedLeaveGroup,activeCodePickerPortalState.day);}));portal.querySelectorAll("[data-timed-leave-hours]").forEach(button=>button.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();if(!activeCodePickerPortalState)return;timedEditorId=button.dataset.timedLeaveHours;timedEditorGroup="";renderCodePickerPortal(activeCodePickerPortalState.day,activeCodePickerPortalState.allOpen,0);}));portal.querySelectorAll("[data-timed-leave-group-hours]").forEach(button=>button.addEventListener("click",event=>{event.preventDefault();event.stopPropagation();if(!activeCodePickerPortalState)return;timedEditorId="";timedEditorGroup=button.dataset.timedLeaveGroupHours;renderCodePickerPortal(activeCodePickerPortalState.day,activeCodePickerPortalState.allOpen,0);}));portal.querySelectorAll("[data-timed-leave-hours-input]").forEach(input=>{input.addEventListener("focus",()=>input.select());input.addEventListener("input",()=>{const cleaned=String(input.value||"").replace(/[^0-9.]/g,"");input.value=cleaned;});});portal.querySelectorAll("[data-timed-leave-hours-save]").forEach(button=>button.addEventListener("click",async event=>{event.preventDefault();event.stopPropagation();const item=getById(button.dataset.timedLeaveHoursSave),input=portal.querySelector("[data-timed-leave-hours-input]");if(item&&activeCodePickerPortalState)await applyTimed(item,activeCodePickerPortalState.day,Number(input?.value));}));portal.querySelectorAll("[data-timed-leave-group-hours-save]").forEach(button=>button.addEventListener("click",async event=>{event.preventDefault();event.stopPropagation();const input=portal.querySelector("[data-timed-leave-hours-input]");if(activeCodePickerPortalState)await applyTimedByGroup(button.dataset.timedLeaveGroupHoursSave,activeCodePickerPortalState.day,Number(input?.value));}));};
   const baseSelectActualCode=selectActualCodeForDay;
-  selectActualCodeForDay=async function(day,code){const dayContext=captureCalendarDayContextV39(day);if(!isCalendarDayContextCurrentV39(dayContext))return;await baseSelectActualCode(day,code);if(!isCalendarDayContextCurrentV39(dayContext))return;const record=manualRecords[day];if(record){delete record.entitlementId;delete record.entitlementHours;delete record.entitlementAllocations;saveCurrentMonthState();}};
+  selectActualCodeForDay=async function(day,code){await baseSelectActualCode(day,code);const record=manualRecords[day];if(record){delete record.entitlementId;delete record.entitlementHours;delete record.entitlementAllocations;saveCurrentMonthState();}};
   BATCH_EXCLUDED_LEAVE_CODES.delete(8.1);
   BATCH_EXCLUDED_LEAVE_CODES.delete(8.2);
   function getBatchTimedAdjustedCode(record){const explicit=Number(record?.adjustedCode);if(ADJUST_CODES.has(explicit))return explicit;const legacy=Number(record?.code);return ADJUST_CODES.has(legacy)?legacy:null;}
@@ -13926,520 +13648,5 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
 /* === 2026-09-15 升等$$補發試算 V2：功能結束 === */
 </script>
 
-<script>
-// 特休年度帳本 V37：計算與格式驗證共用於畫面、備份及回歸測試。
-function calculateAnnualSpecialLeaveV37(input) {
-  const dayHours = input.dayHours ?? 8, divisor = input.divisor ?? 240, cap = input.cap ?? 14, perDay = input.perDay ?? 1333;
-  const openingHours = input.openingHours, grantHours = input.grantHours, usedHours = input.usedHours;
-  const result = { oldUsed: 0, currentUsed: 0, oldLeft: null, currentLeft: null, carryHours: null, currentCashHours: null, monthlySubsidyDays: 0, supplementDays: 0, unusedBonus: null, total: null, error: "" };
-  if (![openingHours, grantHours].every(value => Number.isFinite(value) && value >= 0)) { result.error = "請先設定上年度轉入額度與本年度核給天數。"; return result; }
-  if (!Number.isFinite(usedHours) || usedHours < 0 || !Number.isFinite(dayHours) || dayHours <= 0 || !Number.isFinite(divisor) || divisor <= 0 || !Number.isInteger(cap) || cap < 0 || !Number.isFinite(perDay) || perDay < 0) { result.error = "特休時數或計算參數格式錯誤。"; return result; }
-  result.oldUsed = Math.min(openingHours, usedHours);
-  result.currentUsed = Math.max(0, usedHours - openingHours);
-  result.oldLeft = openingHours - result.oldUsed;
-  result.currentLeft = grantHours - result.currentUsed;
-  if (usedHours > openingHours + grantHours) { result.error = "已休時數超過年度總額，請核對額度及請假紀錄。"; return result; }
-  if (!["all", "partial", "none"].includes(input.choice)) { result.error = "請選擇有效的遞延方式。"; return result; }
-  result.carryHours = input.choice === "all" ? result.currentLeft : input.choice === "none" ? 0 : input.partialCarryHours;
-  if (!Number.isFinite(result.carryHours) || result.carryHours < 0 || result.carryHours > result.currentLeft) { result.error = "部分遞延額度超過本年度剩餘額度。"; return result; }
-  result.currentCashHours = result.currentLeft - result.carryHours;
-  const months = Array.isArray(input.monthlyHours) ? input.monthlyHours : [usedHours];
-  if (!months.every(hours => Number.isFinite(hours) && hours >= 0) || Math.abs(months.reduce((sum, hours) => sum + hours, 0) - usedHours) > 0.001) { result.error = "年度與各月特休時數不一致，請核對紀錄。"; return result; }
-  let priorHours = 0;
-  for (const hours of months) {
-    result.monthlySubsidyDays += Math.min(Math.floor(hours / dayHours), Math.max(0, cap - Math.floor(priorHours / dayHours)));
-    priorHours += hours;
-  }
-  result.supplementDays = Math.max(0, Math.min(cap, Math.floor(usedHours / dayHours)) - result.monthlySubsidyDays);
-  const oldReady = result.oldLeft === 0 || Number.isFinite(input.salaryOld) && input.salaryOld > 0;
-  const currentReady = result.currentCashHours === 0 || Number.isFinite(input.salaryCurrent) && input.salaryCurrent > 0;
-  if (oldReady && currentReady) {
-    result.unusedBonus = (result.oldLeft > 0 ? Math.ceil(input.salaryOld * result.oldLeft / divisor) : 0) + (result.currentCashHours > 0 ? Math.ceil(input.salaryCurrent * result.currentCashHours / divisor) : 0);
-    result.total = result.unusedBonus + result.supplementDays * perDay;
-  }
-  return result;
-}
-function annualSpecialFingerprintV37(input, result) {
-  const params = { dayHours: input.dayHours, divisor: input.divisor, cap: input.cap, perDay: input.perDay };
-  return JSON.stringify([input.openingHours, input.grantHours, input.usedHours, input.choice, input.choice === "partial" ? input.partialCarryHours : 0, params, result.oldLeft > 0 ? input.salaryOld : null, result.currentCashHours > 0 ? input.salaryCurrent : null, input.monthlyHours]);
-}
-function validateAnnualSpecialLeaveLedgerV37(ledger) {
-  const object = value => value && typeof value === "object" && !Array.isArray(value);
-  const hours = value => Number.isFinite(value) && value >= 0 && value <= 17520 && Number.isInteger(value * 2);
-  const year = value => /^[1-9]\d{0,2}$/.test(String(value));
-  const salary = value => value === null || Number.isSafeInteger(value) && value >= 0;
-  if (!object(ledger) || ledger.version !== 1 || !object(ledger.groups)) throw new Error("特休年度帳本格式或版本錯誤。");
-  for (const [groupName, group] of Object.entries(ledger.groups)) {
-    if (!["A", "B", "C", "D"].includes(groupName) || !object(group) || !object(group.years) || !object(group.salaries)) throw new Error("特休年度帳本班別格式錯誤。");
-    for (const [sourceYear, amount] of Object.entries(group.salaries)) if (!year(sourceYear) || !salary(amount)) throw new Error("特休薪給基準格式錯誤。");
-    for (const [attendanceYear, entry] of Object.entries(group.years)) {
-      if (!year(attendanceYear) || !object(entry) || !(entry.grantDays === null || Number.isInteger(entry.grantDays) && entry.grantDays >= 0 && entry.grantDays <= 365) || !(entry.openingHours === null || hours(entry.openingHours)) || !hours(entry.partialCarryHours) || !["all", "partial", "none"].includes(entry.choice) || typeof entry.needsReview !== "boolean" || !Array.isArray(entry.revisions)) throw new Error("特休年度額度或遞延資料格式錯誤。");
-      for (const revision of entry.revisions) {
-        if (!object(revision) || typeof revision.fingerprint !== "string" || revision.fingerprint.length > 10000 || typeof revision.confirmedAt !== "string" || !Number.isFinite(Date.parse(revision.confirmedAt))) throw new Error("特休結算歷史格式錯誤。");
-        if (!["openingHours", "grantHours", "usedHours", "carryHours", "oldCashHours", "currentCashHours"].every(key => hours(revision[key])) || revision.carryHours > revision.grantHours || !["unusedBonus", "total", "supplementDays"].every(key => Number.isFinite(revision[key]) && revision[key] >= 0) || !salary(revision.salaryOld) || !salary(revision.salaryCurrent)) throw new Error("特休結算歷史數值錯誤。");
-        let values;
-        try { values = JSON.parse(revision.fingerprint); } catch (error) { throw new Error("特休結算歷史計算基準錯誤。"); }
-        if (!Array.isArray(values) || values.length !== 9 || !object(values[5]) || !Array.isArray(values[8])) throw new Error("特休結算歷史計算基準錯誤。");
-        const input = { openingHours: values[0], grantHours: values[1], usedHours: values[2], choice: values[3], partialCarryHours: values[4], ...values[5], salaryOld: values[6], salaryCurrent: values[7], monthlyHours: values[8] };
-        const computed = calculateAnnualSpecialLeaveV37(input);
-        if (computed.error || computed.total === null || annualSpecialFingerprintV37(input, computed) !== revision.fingerprint || revision.openingHours !== input.openingHours || revision.grantHours !== input.grantHours || revision.usedHours !== input.usedHours || revision.carryHours !== computed.carryHours || revision.oldCashHours !== computed.oldLeft || revision.currentCashHours !== computed.currentCashHours || revision.unusedBonus !== computed.unusedBonus || revision.total !== computed.total || revision.supplementDays !== computed.supplementDays || computed.oldLeft > 0 && revision.salaryOld !== input.salaryOld || computed.currentCashHours > 0 && revision.salaryCurrent !== input.salaryCurrent) throw new Error("特休結算歷史與計算結果不一致。");
-      }
-    }
-  }
-  return ledger;
-}
-function bindAnnualSpecialFirstSelectV37(input) {
-  if (!input || input.dataset.annualFirstSelectBound === "true") return;
-  input.dataset.annualFirstSelectBound = "true";
-  let selectOnClick = false, pointerFocus = false;
-  input.addEventListener("pointerdown", () => { pointerFocus = document.activeElement !== input; selectOnClick = pointerFocus; });
-  input.addEventListener("focus", () => { if (!pointerFocus) requestAnimationFrame(() => { if (document.activeElement === input) input.select(); }); });
-  input.addEventListener("click", () => { if (selectOnClick) input.select(); selectOnClick = false; pointerFocus = false; });
-  input.addEventListener("keydown", () => { selectOnClick = false; pointerFocus = false; });
-  input.addEventListener("blur", () => { selectOnClick = false; pointerFocus = false; });
-}
-function formatAnnualSpecialSalaryInputV37(input) {
-  const before = input.value, start = input.selectionStart ?? before.length, end = input.selectionEnd ?? start;
-  const count = position => before.slice(0, position).replace(/[^0-9]/g, "").length;
-  const startDigits = count(start), endDigits = count(end), digits = before.replace(/[^0-9]/g, "");
-  input.value = fmtInputAccountingMoney(Number(digits || 0));
-  const caret = needed => { if (needed <= 0) return input.value.startsWith("$") ? 1 : 0; let seen = 0; for (let i = 0; i < input.value.length; i++) { if (/[0-9]/.test(input.value[i])) seen++; if (seen === needed) return i + 1; } return input.value.length; };
-  if (document.activeElement === input) input.setSelectionRange(caret(startDigits), caret(endDigits));
-}
-</script>
-<style>
-.annual-special-hub-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(190px,24%);gap:10px;align-items:stretch}
-.annual-special-hub-row .annual-policy-hub-btn{min-width:0}
-.annual-special-quota-card{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;min-height:110px;padding:14px 10px;border:1px solid rgba(103,232,249,.28);border-radius:14px;background:linear-gradient(135deg,rgba(14,116,144,.12),rgba(3,7,18,.5));color:#a5f3fc;font:inherit;cursor:pointer}
-.annual-special-quota-card>span:first-child{font-size:14px;font-weight:900;white-space:normal;text-align:center;line-height:1.4;text-wrap:balance}
-.annual-special-quota-card>strong{font-size:26px;color:#facc65;font-weight:950;max-width:100%;overflow-wrap:anywhere;text-align:center;font-variant-numeric:tabular-nums}
-.annual-special-quota-card>span:last-child{font-size:11px;color:#b8c8d5}
-.annual-special-quota-card[aria-expanded="true"]{border-color:#5ee0ba}
-.annual-special-editor{grid-column:1/-1;display:grid;gap:14px;padding:16px;border:1px solid rgba(103,232,249,.28);border-radius:14px;background:linear-gradient(150deg,#101d2b,#080f18);color:#e2e8f0}
-.annual-special-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#a5f3fc;font-size:16px}
-.annual-special-heading small{display:block;margin-top:4px;font-size:11px;color:#b8c8d5}
-.annual-special-field{display:grid;gap:8px;font-size:14px;min-width:0}
-.annual-special-time{display:flex;align-items:center;flex-wrap:wrap;gap:7px;font-size:14px}
-.annual-special-input{min-width:0;min-height:44px;width:86px;padding:8px 10px;border:1px solid #42617b;border-radius:9px;background:#09131f;color:#e2e8f0;font-size:16px;font-weight:750;text-align:center}
-select.annual-special-input{width:76px}
-.annual-special-button{min-height:44px;padding:8px 14px;border:1px solid #42617b;border-radius:9px;background:#13263b;color:#e2e8f0;font-size:14px;font-weight:800;cursor:pointer}
-.annual-special-button:disabled{opacity:.6;cursor:default}
-.annual-special-link{border:0;padding:8px 0;min-height:44px;background:transparent;color:#79e6bf;font-size:12px;text-align:left;cursor:pointer}
-.annual-special-row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px}
-.annual-special-row>span{min-width:0}
-.annual-special-row>strong{text-align:right;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
-.annual-special-results{display:grid;gap:12px;border-top:1px solid #324557;padding-top:14px}
-.annual-special-note{color:#b8c8d5;font-size:11px;line-height:1.6;overflow-wrap:anywhere}
-.annual-special-error{color:#fda4af;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
-.annual-special-settlement{margin-top:12px;border:1px solid #324557;border-radius:12px;background:#0a1421;color:#e2e8f0}
-.annual-special-settlement>summary{display:grid;gap:12px;padding:14px 12px;list-style:none;cursor:pointer}
-.annual-special-settlement>summary::-webkit-details-marker{display:none}
-.annual-special-expand{font-size:12px;color:#79e6bf}
-.annual-special-settlement[open] .annual-special-expand{font-size:0}
-.annual-special-settlement[open] .annual-special-expand::after{content:"收合";font-size:12px}
-.annual-special-summary{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;color:#facc65}
-.annual-special-body{display:grid;gap:14px;padding:0 12px 14px}
-.annual-special-body>.annual-special-note:first-child{padding-top:12px;border-top:1px solid #324557}
-.annual-special-usage{display:grid;gap:9px}
-.annual-special-usage>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);align-items:center;gap:5px;font-size:13px}
-.annual-special-usage>div>:not(:first-child){text-align:right;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
-.annual-special-table-head{color:#b8c8d5;font-size:11px!important}
-.annual-special-choices{padding:0;border:0;margin:0;min-width:0;display:grid;gap:10px}
-.annual-special-choices legend{font-size:14px;font-weight:850;margin-bottom:10px;padding:0}
-.annual-special-choice-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
-.annual-special-choice-row label{display:flex;justify-content:center;align-items:center;gap:3px;min-height:44px;padding:7px 3px;border:1px solid #42617b;border-radius:9px;background:#0e1a29;font-size:14px;cursor:pointer}
-.annual-special-choice-row label>span{white-space:nowrap}
-.annual-special-choice-row input{margin:0;accent-color:#63dcb0}
-.annual-special-choice-row label:has(input:checked){background:#b8efdc;color:#092c22;border-color:transparent}
-.annual-special-audit{display:grid;gap:10px}
-.annual-special-audit>summary{min-height:44px;padding:8px 0;color:#79e6bf;font-size:13px;cursor:pointer}
-.annual-special-money-input{width:100%;border:2px solid #347cff;color:#facc65;font-size:24px;font-weight:950}
-.annual-special-money-input::placeholder{font-size:15px;font-weight:500;color:#b8c8d5}
-.annual-special-salary-source{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.annual-special-salary-source .annual-special-link{min-height:30px;padding:4px 0}
-.annual-special-total{display:grid;gap:8px;border-top:1px solid #324557;padding-top:12px;font-size:14px}
-.annual-special-total strong{font-size:26px;color:#facc65;font-variant-numeric:tabular-nums}
-#annualSpecialQuotaLeft{font-size:20px;color:#facc65}
-#annualSpecialSettlement[hidden],#annualSpecialQuotaEditor[hidden],.annual-special-settlement [hidden],.annual-special-editor [hidden]{display:none!important}
-@media(max-width:760px){.annual-special-hub-row{grid-template-columns:minmax(0,1fr) minmax(100px,38%);gap:8px}.annual-special-hub-row .annual-policy-hub-summary-row{display:flex;flex-wrap:wrap;gap:3px}.annual-special-editor{padding:14px 12px}.annual-special-quota-card>strong{font-size:24px}.annual-special-quota-card>span:first-child{font-size:13px}.annual-special-usage>div{font-size:12px}}
-@media(max-width:350px){.annual-special-choice-row label{font-size:12px;padding-left:2px;padding-right:2px}.annual-special-hub-row .annual-policy-hub-btn{padding:12px 10px}.annual-special-quota-card{padding:12px 6px}.annual-special-quota-card>strong{font-size:21px}.annual-special-hub-row .annual-policy-hub-title{font-size:12px}}
-</style>
-<script>
-/* 特休遞延及不休假獎金 V37：年度資料獨立保存，不附加到月份快照。 */
-(() => {
-  const STORAGE_KEY = "personalOvertimeAnnualSpecialLeave";
-  const el = id => document.getElementById(id);
-  const emptyEntry = () => ({ grantDays: null, openingHours: null, choice: "all", partialCarryHours: 0, needsReview: false, revisions: [] });
-  let view = null, storageError = "";
-  const fieldErrors = new Map(), monthCache = new Map();
-  const money = value => value === null ? "待填薪給" : "$" + Number(value).toLocaleString("zh-TW");
-  const time = value => value === null || !Number.isFinite(value) ? "待設定" : formatLeaveStatValue(value);
-  const text = (id, value) => { el(id).textContent = value; };
-  function readLedger() {
-    try { storageError = ""; const raw = localStorage.getItem(STORAGE_KEY); return raw ? validateAnnualSpecialLeaveLedgerV37(JSON.parse(raw)) : { version: 1, groups: {} }; }
-    catch (error) { storageError = "特休帳本無法讀取，原始資料未覆寫：" + error.message; return null; }
-  }
-  function write(edit) {
-    if (!view) return false;
-    try {
-      const ledger = readLedger(); if (!ledger) throw new Error(storageError);
-      const group = ledger.groups[view.group] || (ledger.groups[view.group] = { years: {}, salaries: {} });
-      const entry = group.years[view.year] || (group.years[view.year] = emptyEntry());
-      edit(entry, group);
-      validateAnnualSpecialLeaveLedgerV37(ledger);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(ledger));
-      el("annualSpecialSaveError").hidden = true; el("annualSpecialQuotaSaveError").hidden = true;
-      return true;
-    } catch (error) { ["annualSpecialSaveError", "annualSpecialQuotaSaveError"].forEach(id => { el(id).hidden = false; text(id, "無法儲存特休資料：" + error.message); }); return false; }
-  }
-  function parameters() {
-    return { dayHours: Math.max(.5, getLeavePolicyNumber("hoursPerDay")), divisor: Math.max(.01, getParameterCoreNumber("salaryHourDivisor")), cap: Math.max(0, Math.round(getParameterCoreNumber("specialLeaveSubsidyMaxDays"))), perDay: Math.max(0, getParameterCoreNumber("specialLeaveSubsidyPerDay")) };
-  }
-  function salaryFor(group, sourceYear) {
-    if (Object.prototype.hasOwnProperty.call(group.salaries, sourceYear)) return { amount: group.salaries[sourceYear] > 0 ? group.salaries[sourceYear] : null, manual: true };
-    const key = "personalOvertimeState:" + view.group + ":" + sourceYear + ":10";
-    try {
-      const currentKey = typeof activeStorageKey === "string" ? activeStorageKey : "";
-      if (currentKey === key && getCurrentStorageKey() === key) {
-        const amount = getSalaryBasePay();
-        return { amount: Number.isSafeInteger(amount) && amount > 0 ? amount : null, manual: false };
-      }
-      const raw = localStorage.getItem(key);
-      if (!raw) return { amount: null, manual: false };
-      const stored = JSON.parse(raw);
-      const amount = Number(stored.salaryBasePay);
-      return { amount: Number.isSafeInteger(amount) && amount > 0 ? amount : null, manual: false };
-    } catch (error) { return { amount: null, manual: false }; }
-  }
-  function monthly(year) {
-    return getAttendanceYearMonthPairs(year).map(pair => {
-      const key = "personalOvertimeState:" + view.group + ":" + pair.rocYear + ":" + pair.month;
-      const raw = localStorage.getItem(key), current = pair.rocYear === view.rocYear && pair.month === view.month;
-      let hours;
-      if (current) hours = collectLeaveStatsFromDays(view.days).special;
-      else {
-        const cached = monthCache.get(key);
-        if (cached && cached.raw === raw) hours = cached.hours;
-        else { hours = applyLeaveStatsSnapshotForMonth(pair.rocYear, pair.month, view.group, null).special; monthCache.set(key, { raw, hours }); }
-      }
-      return { ...pair, hours: roundLeaveStatHours(hours || 0), stored: !!raw };
-    });
-  }
-  function modelFor(ledger, year, cache = new Map()) {
-    if (cache.has(year)) return cache.get(year);
-    const group = ledger.groups[view.group] || { years: {}, salaries: {} }, entry = group.years[year] || emptyEntry(), params = parameters();
-    let opening = entry.openingHours, inherited = false, parentError = "";
-    const previousEntry = group.years[year - 1];
-    if (previousEntry && year > 1) {
-      // 舊版確認歷史僅保留供備份相容；額度直接沿用前年度目前有效的遞延試算。
-      const previous = modelFor(ledger, year - 1, cache);
-      if (!previous.result.error && previous.result.carryHours !== null) {
-        inherited = true; opening = previous.result.carryHours;
-      } else if (previous.parentError || previous.opening !== null && previous.entry.grantDays !== null) {
-        inherited = true; opening = null; parentError = "上年度遞延資料待修正，請先修正上年度遞延設定。";
-      }
-    }
-    const rows = monthly(year), usedHours = roundLeaveStatHours(rows.reduce((sum, row) => sum + row.hours, 0));
-    const oldSalary = salaryFor(group, year - 1), currentSalary = salaryFor(group, year);
-    const input = { openingHours: opening, grantHours: entry.grantDays === null ? null : entry.grantDays * params.dayHours, usedHours, choice: entry.choice, partialCarryHours: entry.partialCarryHours, ...params, salaryOld: oldSalary.amount, salaryCurrent: currentSalary.amount, monthlyHours: rows.map(row => row.hours) };
-    const result = calculateAnnualSpecialLeaveV37(input);
-    if (parentError) result.error = parentError;
-    const model = { year, entry, rows, usedHours, opening, inherited, parentError, oldSalary, currentSalary, input, result, params };
-    cache.set(year, model); return model;
-  }
-  function setInput(id, value) { const input = el(id); if (document.activeElement !== input && !fieldErrors.has(id)) input.value = value; }
-  function hourOptions(id, dayHours) {
-    const select = el(id); if (select.dataset.dayHours === String(dayHours)) return;
-    select.dataset.dayHours = String(dayHours); select.replaceChildren();
-    for (let hours = 0; hours < dayHours; hours += .5) { const option = document.createElement("option"); option.value = String(hours); option.textContent = String(hours); select.appendChild(option); }
-  }
-  function salaryField(prefix, sourceYear, salary, cashHours) {
-    el("annualSpecial" + prefix + "SalaryWrap").hidden = cashHours === 0;
-    text("annualSpecial" + prefix + "SalaryLabel", sourceYear + "年10月基本薪給");
-    setInput("annualSpecial" + prefix + "Salary", salary.amount === null ? "" : fmtInputAccountingMoney(salary.amount));
-    text("annualSpecial" + prefix + "SalarySource", salary.manual ? "手動輸入" : salary.amount === null ? sourceYear + "年10月沒有薪給紀錄，請自行輸入。" : "已帶入" + sourceYear + "年10月主畫面薪給。");
-    el("annualSpecial" + prefix + "SalaryReset").hidden = !salary.manual;
-  }
-  function audit(model) {
-    const table = el("annualSpecialMonthlyAudit"); table.replaceChildren();
-    const header = document.createElement("div"); header.className = "annual-special-table-head";
-    ["月份", "月補助天數", "零散時數"].forEach(value => { const span = document.createElement("span"); span.textContent = value; header.appendChild(span); }); table.appendChild(header);
-    let prior = 0, counted = 0;
-    model.rows.forEach(row => {
-      const days = Math.min(Math.floor(row.hours / model.params.dayHours), Math.max(0, model.params.cap - Math.floor(prior / model.params.dayHours))); prior += row.hours; counted += days;
-      if (!row.hours) return;
-      const line = document.createElement("div");
-      [row.rocYear + "/" + row.month, days + "天", fmtHour(row.hours % model.params.dayHours) + "HR"].forEach((value, index) => { const node = document.createElement(index ? "strong" : "span"); node.textContent = value; line.appendChild(node); }); table.appendChild(line);
-    });
-    const supplementary = Math.max(0, Math.min(model.params.cap, Math.floor(model.usedHours / model.params.dayHours)) - counted);
-    text("annualSpecialMonthlySubsidy", counted + "天／上限" + model.params.cap + "天");
-    text("annualSpecialSupplement", supplementary + "天");
-    text("annualSpecialSupplementAmount", supplementary + "天 · " + money(supplementary * model.params.perDay));
-  }
-  function render() {
-    if (!view) return;
-    el("annualSpecialSettlement").hidden = view.month !== 10;
-    text("annualSpecialQuotaTitle", view.year + "年度考勤特休"); text("annualSpecialQuotaEditorTitle", view.year + "年度額度設定");
-    const ledger = readLedger();
-    const controls = document.querySelectorAll(".annual-special-body input, .annual-special-body select, .annual-special-body button, #annualSpecialQuotaEditor input, #annualSpecialQuotaEditor select");
-    controls.forEach(control => { control.disabled = !ledger; });
-    if (!ledger) {
-      ["annualSpecialQuotaTotal", "annualSpecialQuotaHint", "annualSpecialQuotaPeriod", "annualSpecialQuotaSplit", "annualSpecialQuotaUsed", "annualSpecialQuotaLeft", "annualSpecialOpeningValue", "annualSpecialSettlementPeriod", "annualSpecialOldUsed", "annualSpecialCurrentUsed", "annualSpecialOldLeft", "annualSpecialCurrentLeft", "annualSpecialCarryMax", "annualSpecialOldCash", "annualSpecialCurrentCash", "annualSpecialNextCarry", "annualSpecialSummaryCash", "annualSpecialSummaryCarry", "annualSpecialUnusedBonus", "annualSpecialTotal", "annualSpecialSummaryTotal", "annualSpecialMonthlySubsidy", "annualSpecialSupplement", "annualSpecialSupplementAmount"].forEach(id => text(id, "待修復"));
-      ["annualSpecialQuotaError", "annualSpecialSettlementError"].forEach(id => { el(id).hidden = false; text(id, storageError); });
-      text("annualSpecialQuotaAvailableV39", "尚可休：待修復");
-      ["annualSpecialOpeningDays", "annualSpecialGrantDays", "annualSpecialPartialDays", "annualSpecialOldSalary", "annualSpecialCurrentSalary"].forEach(id => { el(id).value = ""; });
-      document.querySelectorAll('input[name="annualSpecialCarryChoice"]').forEach(radio => { radio.checked = false; });
-      el("annualSpecialMonthlyAudit").replaceChildren();
-      text("annualSpecialOldSource", view.year - 1 + "遞延"); text("annualSpecialCurrentSource", view.year + "核給");
-      text("annualSpecialOpeningLabel", view.year - 1 + "年度遞延額度"); text("annualSpecialOpeningInputLabel", view.year - 1 + "年度初始轉入額度"); text("annualSpecialGrantLabel", view.year + "年度核給天數"); text("annualSpecialCarryLegend", view.year + "年度遞延方式"); text("annualSpecialNextCarryLabel", "遞延至" + (view.year + 1) + "年度");
-      ["Old", "Current"].forEach(prefix => { text("annualSpecial" + prefix + "SalaryLabel", view.year - (prefix === "Old" ? 1 : 0) + "年10月基本薪給"); text("annualSpecial" + prefix + "SalarySource", "帳本待修復"); });
-      return;
-    }
-    const model = modelFor(ledger, view.year), result = model.result;
-    const validFields = ["annualSpecialOpeningDays", "annualSpecialGrantDays"].every(id => !fieldErrors.has(id));
-    const editError = !validFields ? "天數請填入0～365的整數。" : model.entry.choice === "partial" && fieldErrors.has("annualSpecialPartialDays") ? "部分遞延天數格式錯誤。" : "";
-    const quotaReady = model.opening !== null && model.entry.grantDays !== null;
-    const quotaHours = quotaReady ? model.opening + model.entry.grantDays * model.params.dayHours : null;
-    const quotaError = editError || model.parentError || (quotaReady ? result.error : "");
-    text("annualSpecialQuotaTitle", view.year + "年度考勤特休");
-    text("annualSpecialQuotaTotal", quotaError ? "待確認" : quotaHours === null ? "待設定" : "(" + time(quotaHours) + ")");
-    text("annualSpecialQuotaHint", el("annualSpecialQuotaEditor").hidden ? "設定額度 ›" : "收合設定");
-    text("annualSpecialQuotaEditorTitle", view.year + "年度額度設定");
-    const first = model.rows[0], end = model.rows.at(-1), lastDay = new Date(end.rocYear + 1911, end.month, 0).getDate();
-    const period = first.rocYear + "/" + first.month + "/1～" + end.rocYear + "/" + end.month + "/" + lastDay;
-    text("annualSpecialQuotaPeriod", period); text("annualSpecialSettlementPeriod", view.year + "考勤年度 · " + period);
-    text("annualSpecialOpeningLabel", view.year - 1 + "年度遞延額度"); text("annualSpecialOpeningValue", time(model.opening));
-    el("annualSpecialOpeningReadonly").hidden = !model.inherited; el("annualSpecialOpeningFields").hidden = model.inherited;
-    text("annualSpecialOpeningInputLabel", view.year - 1 + "年度初始轉入額度（無遞延請填0）");
-    text("annualSpecialGrantLabel", view.year + "年度核給天數");
-    ["annualSpecialOpeningHours", "annualSpecialPartialHours"].forEach(id => hourOptions(id, model.params.dayHours));
-    setInput("annualSpecialOpeningDays", model.entry.openingHours === null ? "" : String(Math.floor(model.entry.openingHours / model.params.dayHours)));
-    el("annualSpecialOpeningHours").value = String((model.entry.openingHours || 0) % model.params.dayHours);
-    setInput("annualSpecialGrantDays", model.entry.grantDays === null ? "" : String(model.entry.grantDays));
-    setInput("annualSpecialPartialDays", String(Math.floor(model.entry.partialCarryHours / model.params.dayHours))); el("annualSpecialPartialHours").value = String(model.entry.partialCarryHours % model.params.dayHours);
-    el("annualSpecialQuotaError").hidden = !quotaError; text("annualSpecialQuotaError", quotaError);
-    text("annualSpecialQuotaSplit", quotaReady ? time(model.opening) + "＋" + time(model.entry.grantDays * model.params.dayHours) + "＝" + time(quotaHours) : "請填入年度額度");
-    text("annualSpecialQuotaUsed", time(model.usedHours)); text("annualSpecialQuotaLeft", quotaError ? "待確認" : quotaReady ? time(quotaHours - model.usedHours) : "待設定");
-    text("annualSpecialQuotaAvailableV39", "尚可休：" + (quotaError ? "待確認" : quotaReady ? time(quotaHours - model.usedHours) : "待設定"));
-    el("annualSpecialQuotaToggle").setAttribute("aria-expanded", String(!el("annualSpecialQuotaEditor").hidden));
-    el("annualSpecialSettlement").hidden = view.month !== 10;
-    text("annualSpecialOldSource", view.year - 1 + "遞延"); text("annualSpecialCurrentSource", view.year + "核給");
-    text("annualSpecialOldUsed", time(result.oldUsed)); text("annualSpecialCurrentUsed", time(result.currentUsed)); text("annualSpecialOldLeft", time(result.oldLeft)); text("annualSpecialCurrentLeft", time(result.currentLeft));
-    text("annualSpecialCarryLegend", view.year + "年度遞延方式"); text("annualSpecialCarryMax", time(result.currentLeft));
-    document.querySelectorAll('input[name="annualSpecialCarryChoice"]').forEach(radio => { radio.checked = radio.value === model.entry.choice; });
-    el("annualSpecialPartialFields").hidden = model.entry.choice !== "partial";
-    const error = editError || result.error; el("annualSpecialSettlementError").hidden = !error; text("annualSpecialSettlementError", error);
-    const quantity = value => error ? "待確認" : time(value);
-    text("annualSpecialOldCash", quantity(result.oldLeft)); text("annualSpecialCurrentCash", quantity(result.currentCashHours)); text("annualSpecialNextCarry", quantity(result.carryHours)); text("annualSpecialNextCarryLabel", "遞延至" + (view.year + 1) + "年度");
-    text("annualSpecialSummaryCash", "未休：" + quantity(result.oldLeft === null || result.currentCashHours === null ? null : result.oldLeft + result.currentCashHours)); text("annualSpecialSummaryCarry", "遞延：" + quantity(result.carryHours));
-    text("annualSpecialUnusedBonus", error ? "待確認" : money(result.unusedBonus)); text("annualSpecialTotal", error ? "待確認" : money(result.total)); text("annualSpecialSummaryTotal", error ? "待確認" : money(result.total));
-    salaryField("Old", view.year - 1, model.oldSalary, result.oldLeft); salaryField("Current", view.year, model.currentSalary, result.currentCashHours); audit(model);
-  }
-  function edited() { render(); }
-  function daysInput(id, apply) {
-    el(id).addEventListener("input", () => {
-      const value = el(id).value;
-      if (!/^\d+$/.test(value) || Number(value) > 365) { fieldErrors.set(id, true); edited(); return; }
-      fieldErrors.delete(id); if (write((entry, group) => apply(entry, group, Number(value)))) edited();
-    });
-  }
-  function saveTime(kind) {
-    const dayId = kind === "opening" ? "annualSpecialOpeningDays" : "annualSpecialPartialDays", hourId = kind === "opening" ? "annualSpecialOpeningHours" : "annualSpecialPartialHours";
-    const days = el(dayId).value; if (!/^\d+$/.test(days) || Number(days) > 365) { fieldErrors.set(dayId, true); edited(); return; }
-    const hours = Number(days) * parameters().dayHours + Number(el(hourId).value); fieldErrors.delete(dayId);
-    if (write(entry => { entry[kind === "opening" ? "openingHours" : "partialCarryHours"] = hours; })) edited();
-  }
-  function bind() {
-    ["annualSpecialOpeningDays", "annualSpecialGrantDays", "annualSpecialPartialDays", "annualSpecialOldSalary", "annualSpecialCurrentSalary"].forEach(id => bindAnnualSpecialFirstSelectV37(el(id)));
-    daysInput("annualSpecialGrantDays", (entry, group, days) => { entry.grantDays = days; });
-    el("annualSpecialOpeningDays").addEventListener("input", () => saveTime("opening")); el("annualSpecialOpeningHours").addEventListener("change", () => saveTime("opening"));
-    el("annualSpecialPartialDays").addEventListener("input", () => saveTime("partial")); el("annualSpecialPartialHours").addEventListener("change", () => saveTime("partial"));
-    document.querySelectorAll('input[name="annualSpecialCarryChoice"]').forEach(radio => radio.addEventListener("change", () => { if (radio.checked && write(entry => { entry.choice = radio.value; })) edited(); }));
-    ["Old", "Current"].forEach(prefix => {
-      el("annualSpecial" + prefix + "Salary").addEventListener("input", event => {
-        formatAnnualSpecialSalaryInputV37(event.target); const amount = Number(event.target.value.replace(/[^0-9]/g, ""));
-        if (write((entry, group) => { group.salaries[view.year - (prefix === "Old" ? 1 : 0)] = amount; })) edited();
-      });
-      el("annualSpecial" + prefix + "SalaryReset").addEventListener("click", () => { if (write((entry, group) => { delete group.salaries[view.year - (prefix === "Old" ? 1 : 0)]; })) edited(); });
-    });
-    el("annualSpecialQuotaToggle").addEventListener("click", () => { el("annualSpecialQuotaEditor").hidden = !el("annualSpecialQuotaEditor").hidden; render(); });
-    el("annualSpecialQuotaClose").addEventListener("click", () => { if (!el("annualSpecialQuotaError").hidden) return; el("annualSpecialQuotaEditor").hidden = true; render(); el("annualSpecialQuotaToggle").focus(); });
-    el("annualSpecialEditQuota").addEventListener("click", () => { el("annualSpecialQuotaEditor").hidden = false; render(); el("annualSpecialQuotaEditor").scrollIntoView({ block: "nearest", behavior: "smooth" }); });
-  }
-  window.renderAnnualSpecialLeaveV37 = days => {
-    const rocYear = Number(el("rocYear").value), month = Number(el("month").value), group = el("shiftGroup").value;
-    const year = getLeaveYearForMonth(rocYear, month, getParameterCoreNumber("attendanceYearStartMonth"));
-    if (!Number.isInteger(year) || year < 1 || year > 999 || !month || !["A", "B", "C", "D"].includes(group)) return;
-    if (!view || view.year !== year || view.group !== group || view.month !== month || view.rocYear !== rocYear) { fieldErrors.clear(); el("annualSpecialSaveError").hidden = true; }
-    view = { rocYear, month, group, year, days: Array.isArray(days) ? days : [] }; monthCache.clear(); render();
-  };
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind); else bind();
-})();
-</script>
-<style>
-/* 手機單日編輯 V39：月曆保留總覽，完整操作沿用同一假別視窗。 */
-.mobile-day-open-v39,.mobile-day-original-v39,.mobile-day-hours-v39{display:none}
-.mobile-day-editor-v39{display:none}
-@media(max-width:760px){
-  #dayGrid .day-card{position:relative;min-height:112px;padding-bottom:22px}
-  #dayGrid .select-stack{display:none!important}
-  #dayGrid .mobile-day-original-v39{display:block;color:#b8c8d5;font-size:9px;line-height:1.35;margin-bottom:3px;overflow-wrap:anywhere}
-  #dayGrid .mobile-day-hours-v39{display:block;color:#fde68a;font-size:10px;font-weight:850;line-height:1.3;margin-top:3px}
-  #dayGrid .mobile-day-open-v39{display:block;position:absolute;inset:0;z-index:2;width:100%;border:0;border-radius:8px;background:transparent;color:#9edbd5;cursor:pointer;font:inherit;padding:0}
-  #dayGrid .mobile-day-open-v39>span{position:absolute;bottom:5px;left:0;right:0;font-size:9px;line-height:1.3;text-align:center}
-  #dayGrid .mobile-day-open-v39:focus-visible{outline:2px solid #67e8f9;outline-offset:2px;background:rgba(103,232,249,.08)}
-  .mobile-day-editor-v39{display:grid;gap:10px;border:1px solid rgba(103,232,249,.25);border-radius:13px;padding:12px;margin-bottom:14px;background:#0d1a26;color:#d9e5ee;font-size:14px;line-height:1.45}
-  .mobile-day-editor-v39 .mobile-day-editor-row-v39{display:flex;justify-content:space-between;gap:10px;align-items:center;min-width:0}
-  .mobile-day-editor-v39 .mobile-day-editor-row-v39>strong{text-align:right;overflow-wrap:anywhere;color:#fde68a}
-  .mobile-day-editor-v39 .mobile-day-hour-v39{min-height:44px;min-width:122px;max-width:65%;font-size:16px;border:1px solid #42617b;border-radius:9px;padding:8px;background:#09131f;color:#e2e8f0}
-  .mobile-day-editor-v39 .mobile-day-hour-v39:disabled{opacity:.6}
-  .mobile-day-editor-v39 .mobile-day-restore-v39{width:100%;min-height:44px;font-size:14px;font-weight:800;border:1px solid rgba(103,232,249,.35);border-radius:10px;padding:8px;background:rgba(14,116,144,.12);color:#a5f3fc;cursor:pointer}
-  .mobile-day-editor-v39 .mobile-day-editor-note-v39{color:#aabecb;font-size:12px}
-  .mobile-day-editor-v39 .mobile-day-editor-diagnostics-v39{display:grid;gap:4px;padding-top:9px;border-top:1px solid #314557;font-size:12px}
-  .code-picker-portal-title{font-size:clamp(16px,4.6vw,20px);line-height:1.4}
-}
-</style>
-<script>
-/* 手機單日編輯 V39：擴充最終假別視窗，不另建立第二個 dialog。 */
-(() => {
-  function buildMobileDayEditorV39(day) {
-    if (!isMobileDayEditorV39()) return "";
-    const info = getDayInfoForCodePicker(day);
-    if (!info) return "";
-    const record = manualRecords[day] || {};
-    const compound = Array.isArray(record.compoundItems) && record.compoundItems.length >= 2 || isCompoundLeaveCodeForDay(info.actualCode, day);
-    const leave = isLeaveCode(info.actualCode);
-    const options = buildLeaveHourOptionsForDay(info, record.trainingMode === "class");
-    const current = getLabelForDayInfo(info.actualCode, info) + (leave ? " · " + fmtHour(getEffectiveLeaveHours(info)) + "HR" : "");
-    const base = getBaseDisplayName(info) + " · " + fmtHour(Number(info.baseHours) || 0) + "HR";
-    const hint = compound ? "複合假別請使用假別旁的「＋」調整各項時數。" : leave ? "先選假別，再調整時數；選「全日」會依本班工時計算。" : "目前不是請假，選擇假別後即可調整時數。";
-    const diagnostics = calculationInfoVisible ? `<div class="mobile-day-editor-diagnostics-v39"><span>D8：${escapeHtml(info.changeText || "-")}</span><span>D9：${escapeHtml(info.noteText || "-")}</span><span>D10：${Number(info.overtimeMinutes) || 0}分</span><span>D11：${escapeHtml(String(info.attendanceHours))}</span><span>連續出勤：${Number(info.continuousWorkDays) || 0}日</span></div>` : "";
-    return `<section class="mobile-day-editor-v39" aria-label="當日原班與目前設定"><div class="mobile-day-editor-row-v39"><span>原班</span><strong>${escapeHtml(base)}</strong></div><div class="mobile-day-editor-row-v39"><span>目前</span><strong>${escapeHtml(current)}</strong></div><label class="mobile-day-editor-row-v39"><span>當日時數</span><select class="mobile-day-hour-v39" data-mobile-day-hour-v39="${day}" aria-label="當日請假時數"${!leave || compound ? " disabled" : ""}>${options}</select></label><div class="mobile-day-editor-note-v39">${hint}</div><button class="mobile-day-restore-v39" type="button" data-mobile-day-restore-v39="${day}">恢復原班表</button>${diagnostics}</section>`;
-  }
-  const baseBuild = buildCodePickerPortalHtml;
-  buildCodePickerPortalHtml = function(day, selectedCode, allOpen) {
-    const html = baseBuild(day, selectedCode, allOpen);
-    return html.replace('<div class="code-picker-portal-scroll">', '<div class="code-picker-portal-scroll">' + buildMobileDayEditorV39(day));
-  };
-  const baseBind = bindCodePickerPortalEvents;
-  bindCodePickerPortalEvents = function(portal) {
-    baseBind(portal);
-    portal.querySelectorAll("[data-mobile-day-hour-v39]").forEach(select => {
-      const context = captureCalendarDayContextV39(Number(select.dataset.mobileDayHourV39));
-      select.addEventListener("change", () => { void applyDayLeaveHourChangeV39(context.day, select.value, context); });
-    });
-    portal.querySelectorAll("[data-mobile-day-restore-v39]").forEach(button => {
-      const context = captureCalendarDayContextV39(Number(button.dataset.mobileDayRestoreV39));
-      button.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); restoreCalendarDayV39(context.day, context); });
-    });
-  };
-  window.addEventListener("personalOvertimeMonthStateLoaded", () => {
-    calendarDayContextVersionV39 += 1;
-    mobileDayEditorSessionV39 = null;
-    closeCodePickerPortal();
-  });
-  document.addEventListener("click", event => {
-    if (!mobileDayEditorSessionV39) return;
-    const eventPath = typeof event.composedPath === "function" ? event.composedPath() : [];
-    const closeRequested = eventPath.some(node => node && node.matches && node.matches("[data-code-portal-close]"));
-    const inEditor = eventPath.some(node => node && node.id === "codePickerPortal");
-    const inWarning = eventPath.some(node => node && node.id === "parameterTechDialogModal");
-    const openingDay = eventPath.some(node => node && node.matches && node.matches("[data-mobile-day-open-v39]"));
-    if (closeRequested || !inEditor && !inWarning && !openingDay) mobileDayEditorSessionV39 = null;
-  }, true);
-  document.addEventListener("keydown", event => { if (event.key === "Escape") mobileDayEditorSessionV39 = null; }, true);
-  if (typeof window.matchMedia === "function") window.matchMedia("(max-width:760px)").addEventListener("change", () => {
-    if (activeStorageKey) renderCalendar();
-  });
-})();
-</script>
-<style>
-/* V39：資訊層次與一致的操作提示；計算及假別顏色維持原規則。 */
-.month-storage-failure-v39{display:flex;align-items:center;gap:14px;padding:14px 18px;margin:12px 0;border:1px solid rgba(251,113,133,.55);border-radius:14px;background:rgba(76,5,25,.65);color:#ffe4e6;font-size:14px;line-height:1.6}
-.month-storage-failure-v39{position:sticky;top:62px;z-index:71;max-height:40vh;overflow:auto}
-.month-storage-failure-v39[hidden]{display:none!important}.month-storage-failure-v39>span{flex:1;min-width:0;overflow-wrap:anywhere}.month-storage-failure-v39 button{flex:0 0 auto;min-height:44px;padding:8px 16px;border:1px solid rgba(251,113,133,.6);border-radius:10px;background:rgba(159,18,57,.4);color:#fff;font:inherit;font-weight:900;cursor:pointer}.month-storage-failure-v39 button[hidden]{display:none!important}
-@media(max-width:600px){.month-storage-failure-v39{align-items:stretch;flex-direction:column;padding:12px 14px;gap:10px}.month-storage-failure-v39 button{align-self:flex-start}}
-@supports(overflow:clip){body{overflow-x:clip}.app{overflow:clip}}
-.ux-quick-nav-v39{position:sticky;top:0;z-index:70;display:flex;gap:6px;padding:7px;margin:12px 0;background:rgba(9,17,26,.96);border:1px solid #304450;border-radius:12px;backdrop-filter:blur(12px)}
-.ux-quick-nav-v39 a{flex:1;display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:700;color:#c4d4de;transition:background .15s,color .15s}
-.ux-quick-nav-v39 a[aria-current],.ux-quick-nav-v39 a:hover{background:#18372f;color:#b1f5da}
-.ux-quick-nav-v39 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #a5e9da;outline-offset:3px}
-#uxMonthlyOverview,#uxAnnualInfo,#uxCalendar{scroll-margin-top:78px;outline:none}
-.ux-field-source-v39{font-size:12px!important;color:#acbdc9;line-height:1.5;margin-top:7px;text-shadow:none!important}
-.ux-card-link-v39{display:block;color:#a5ebce;font-size:12px!important;font-weight:600;text-align:right;margin-top:7px;text-shadow:none!important}
-.salary-overtime-overview-breakdown [hidden]{display:none!important}
-.ux-year-period-v39{font-size:12px;line-height:1.5;text-align:center;color:#b9c8d3;margin:-5px 0 12px;text-shadow:none}
-.ux-subsidy-cap-v39,.ux-leave-limit-v39{font-size:11px;color:#c5cfda;line-height:1.4;margin-top:4px;white-space:normal;text-shadow:none}
-.leave-detail-trigger::after{content:"查看明細 ›";display:block;color:#a5d9cf;font-size:10px;line-height:1.4;margin-top:5px;font-weight:500;text-shadow:none}
-.annual-special-quota-card{gap:5px}
-.annual-special-quota-card .ux-quota-label-v39{font-size:11px;color:#bfced8;line-height:1.3}
-.annual-special-quota-card .ux-quota-available-v39{font-size:12px;color:#d8ece5;line-height:1.4;overflow-wrap:anywhere;text-align:center}
-.annual-leave-stats-year-grid{align-items:start!important}
-.annual-leave-stats-year-grid>.leave-stats-year-box{height:auto!important}
-.salary-overview-label,.salary-overtime-overview-key,.salary-night-overview-key,.leave-stats-year-title,.leave-stat-label,.annual-policy-hub-summary-row,.calendar-note{ text-shadow:none!important }
-.salary-overview-value,.money-finance,.lavender-purple,.leave-stat-value{ text-shadow:0 0 9px rgba(180,200,215,.15)!important }
-.annual-special-body .annual-special-note,.salary-detail-note{line-height:1.6;color:#b6c8d5}
-.ux-quick-nav-v39~.salary-overview-panel .salary-overview-item{padding-top:16px;padding-bottom:16px}
-@media(max-width:760px){
- .month-storage-failure-v39{top:54px}
- .ux-quick-nav-v39{margin:8px 0;padding:4px;gap:3px;border-radius:10px}
- .ux-quick-nav-v39 a{font-size:13px;min-height:42px}
- .title{font-size:clamp(27px,7.6vw,38px)!important;margin-top:12px!important;margin-bottom:16px!important}
- .salary-overtime-overview-layout{display:flex!important;flex-direction:column!important;gap:8px!important;align-items:stretch!important}
- .salary-overtime-overview-breakdown{width:100%!important;border-left:0!important;padding-left:0!important;gap:4px!important}
- .salary-overtime-overview-breakdown-row{display:flex!important;justify-content:space-between;gap:5px;min-width:0}
- .salary-overtime-overview-key{font-size:11px!important;white-space:nowrap}
- .salary-overtime-overview-breakdown-value{font-size:12px!important;white-space:nowrap}
- .salary-overtime-overview-main .salary-overview-value{font-size:clamp(24px,7vw,30px)!important;white-space:nowrap}
- .salary-overview-label{font-size:13px!important;letter-spacing:0!important}
- .salary-overview-input{font-size:clamp(21px,6.5vw,28px)!important;min-height:46px!important}
- .salary-overview-grid>.salary-overview-item{padding:12px 10px!important}
- .salary-overview-grid .ux-field-source-v39{font-size:11px!important}
- .salary-overview-grid .ux-card-link-v39{font-size:11px!important}
- .annual-leave-info-header{padding:14px!important}
- .annual-leave-info-title{font-size:20px!important;letter-spacing:2px!important}
- .annual-leave-info-content{padding:12px!important}
- .leave-stat-label{font-size:12px!important;letter-spacing:0!important}
- .leave-stat-value{font-size:23px!important}
- .leave-stat-item{padding:12px 6px!important;min-width:0}
- .annual-special-hub-row{grid-template-columns:minmax(0,1fr) minmax(100px,38%)}
- .ux-quota-available-v39{font-size:11px!important}
- .substitute-top-panel{padding-top:12px!important;padding-bottom:12px!important}
- .substitute-top-value{font-size:clamp(17px,5.4vw,23px)!important;text-shadow:0 0 7px currentColor!important}
-}
-@media(prefers-reduced-motion:reduce){.ux-quick-nav-v39 a{transition:none}html{scroll-behavior:auto}}
-</style>
-<script>
-function formatUXYearPeriodV39(targetYear, startMonth) {
-  const pairs = getLeaveYearMonthPairs(targetYear, startMonth);
-  const first = pairs[0], last = pairs[pairs.length - 1];
-  const lastDay = new Date(last.rocYear + 1911, last.month, 0).getDate();
-  return `${first.rocYear}/${first.month}/1～${last.rocYear}/${last.month}/${lastDay}`;
-}
-function updateUXMoneyCompositionV39(amounts) {
-  const rows = [["Meal", amounts.mealAmount], ["OtherBonus", amounts.otherBonusAmount], ["RemoteAllowance", amounts.remoteAllowanceAmount]];
-  rows.forEach(([name, amount]) => {
-    const row = document.getElementById("topSalary" + name + "RowV39"), value = document.getElementById("topSalary" + name + "AmountV39");
-    if (row) row.hidden = Number(amount) === 0;
-    if (value) value.textContent = fmtDisplayMoney(amount);
-  });
-  const source = document.getElementById("salaryBasePaySourceV39");
-  if (source) source.textContent = getSalaryBasePay() <= 0 ? "請填入本月基本薪給" : salaryBasePaySource === "carry" ? "沿用前月，點選可修改" : "本月手動輸入";
-}
-(() => {
-  function bindUXQuickNavV39() {
-    const links = Array.from(document.querySelectorAll(".ux-quick-nav-v39 a"));
-    links.forEach(link => link.addEventListener("click", event => {
-      const target = document.getElementById(link.getAttribute("href").slice(1));
-      if (!target) return;
-      event.preventDefault();
-      links.forEach(other => { if (other === link) other.setAttribute("aria-current", "location"); else other.removeAttribute("aria-current"); });
-      target.scrollIntoView({ block: "start", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-      target.focus({ preventScroll: true });
-    }));
-  }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bindUXQuickNavV39); else bindUXQuickNavV39();
-})();
-</script>
 </body>
 </html>

@@ -11,69 +11,69 @@
   <meta name="theme-color" content="#00F0FF">
   <script>
     (function () {
-      var appName = "加班費計算";
-      var shortName = "加班費";
-      var iconSrc = "./icon.png";
-      var fallbackManifest = "./manifest.json";
-
-      function getManifestLink() {
-        var link = document.getElementById("pwaManifestLink");
-        if (!link) {
-          link = document.createElement("link");
-          link.id = "pwaManifestLink";
-          link.rel = "manifest";
-          document.head.appendChild(link);
-        }
-        return link;
+      var manifestLink = document.getElementById("pwaManifestLink");
+      if (!manifestLink) {
+        manifestLink = document.createElement("link");
+        manifestLink.id = "pwaManifestLink";
+        manifestLink.rel = "manifest";
+        document.head.appendChild(manifestLink);
       }
 
-      function setFallbackManifest() {
-        getManifestLink().href = fallbackManifest;
-      }
-
-      function setAutoManifest(width, height) {
-        var sizeText = String(width) + "x" + String(height);
-        var manifest = {
-          id: "./",
-          name: appName,
-          short_name: shortName,
-          start_url: "./index.html",
-          scope: "./",
-          display: "standalone",
-          background_color: "#0d0f12",
-          theme_color: "#00F0FF",
-          icons: [
-            {
-              src: iconSrc,
-              sizes: sizeText,
-              type: "image/png",
-              purpose: "any maskable"
-            }
-          ]
-        };
-
-        try {
-          var blob = new Blob([JSON.stringify(manifest, null, 2)], {
-            type: "application/manifest+json"
-          });
-          getManifestLink().href = URL.createObjectURL(blob);
-        } catch (error) {
-          setFallbackManifest();
-        }
-      }
-
-      var img = new Image();
-      img.onload = function () {
-        if (img.naturalWidth > 0 && img.naturalHeight > 0) {
-          setAutoManifest(img.naturalWidth, img.naturalHeight);
-        } else {
-          setFallbackManifest();
-        }
-      };
-      img.onerror = setFallbackManifest;
-      img.src = iconSrc + "?pwa_icon_probe=" + Date.now();
+      /*
+       * PWA 安裝修正：固定使用同源的實體 manifest.json。
+       * 不再於執行階段建立 blob manifest，避免 start_url、scope、id
+       * 與圖示相對路徑失去網站部署目錄的穩定基準。
+       * manifest.json、sw.js 與圖示檔案必須和 index.html 一起部署。
+       */
+      manifestLink.setAttribute("href", "./manifest.json");
     })();
   </script>
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
+  <!-- PWA static manifest compatibility spacer -->
 <style>
     @font-face {
       font-family: "RemachineScript";

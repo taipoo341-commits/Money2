@@ -1,10 +1,12 @@
-const CACHE_NAME = "personal-overtime-shell-v39";
+const CACHE_NAME = "personal-overtime-shell-v40";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./index(NEW).html",
   "./manifest.json",
-  "./icon.png",
+  "./icon-192.png",
+  "./icon-512.png",
+  "./icon-maskable-192.png",
+  "./icon-maskable-512.png",
   "./privacy.html",
   "./terms.html",
   "./RemachineScript_Personal_Use.ttf",

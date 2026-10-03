@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>加班費計算</title>
   
-  <link rel="manifest" href="./manifest.json?v=40">
-  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=40">
-  <link rel="apple-touch-icon" href="./icon-192.png?v=40">
+  <link rel="manifest" href="./manifest.json?v=41">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=41">
+  <link rel="apple-touch-icon" href="./icon-192.png?v=41">
   <meta name="theme-color" content="#0d0f12">
   <meta name="mobile-web-app-capable" content="yes">
 <style>
@@ -11178,7 +11178,11 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
 <script>
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
-      navigator.serviceWorker.register("./sw.js").catch(function (err) {
+      navigator.serviceWorker.register("./sw.js", { updateViaCache: "none" }).then(function (registration) {
+        return registration.update().catch(function (err) {
+          console.warn("Service Worker 更新檢查失敗", err);
+        });
+      }).catch(function (err) {
         console.warn("Service Worker 註冊失敗", err);
       });
     });

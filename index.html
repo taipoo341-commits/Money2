@@ -193,6 +193,14 @@
       margin-top: 3px;
     }
     .calendar-panel { overflow: visible; }
+    .calendar-panel .calendar-body {
+      touch-action: pan-y;
+      transition: opacity var(--calendar-month-fade-duration, 130ms) ease-out;
+    }
+    .calendar-panel .calendar-body.month-content-faded { opacity: 0; }
+    @media (prefers-reduced-motion: reduce) {
+      .calendar-panel .calendar-body { transition-duration: 1ms; }
+    }
     .calendar-head {
       display: flex;
       justify-content: space-between;
@@ -510,6 +518,10 @@
       font-size: 11px;
       font-weight: 950;
       margin-bottom: 4px;
+    }
+    .special-badge.extra-overtime-badge span {
+      display: block;
+      white-space: nowrap;
     }
     .election-badge {
       border-color: rgba(196, 181, 253, 0.55);
@@ -1081,6 +1093,12 @@
         border-radius: 6px;
         letter-spacing: 0;
       }
+      .shift-pill .calendar-pill-line {
+        display: block;
+        font-size: clamp(7px, 2.3vw, 10px);
+        line-height: 1.2;
+      }
+      .shift-pill .calendar-pill-nowrap { white-space: nowrap; }
       .daily-detail {
         font-size: 8px;
         line-height: 1.35;
@@ -2192,6 +2210,22 @@
       font-size: 12px;
       font-weight: 950;
       cursor: pointer;
+    }
+    .code-picker-portal-sheet.has-bottom-close {
+      grid-template-rows: auto minmax(0, 1fr) auto;
+    }
+    .code-picker-portal-sheet.has-bottom-close-actions {
+      grid-template-rows: auto auto minmax(0, 1fr) auto;
+    }
+    .code-picker-portal-footer {
+      padding: 10px 14px max(10px, env(safe-area-inset-bottom));
+      border-top: 1px solid rgba(246, 196, 83, 0.18);
+      background: rgba(5, 10, 18, 0.96);
+    }
+    .code-picker-portal-footer .code-picker-portal-close {
+      width: 100%;
+      min-height: 46px;
+      font-size: 15px;
     }
     .code-picker-portal-actions {
       padding: 10px 12px;
@@ -4406,6 +4440,18 @@
   .handover-exception-footer{padding:11px 13px}
 }
 /* === 交接班獨立設定、期間例外與代理動態分鐘結束 === */
+
+/* === 2026-09-15 升等$$補發試算 V2：樣式開始 === */
+.partial-month-panel{margin-bottom:16px;padding:0;overflow:hidden;border-color:rgba(245,192,74,.32)!important;background:linear-gradient(180deg,rgba(20,15,7,.92),rgba(5,10,18,.94))!important;box-shadow:0 0 24px rgba(245,192,74,.09),inset 0 0 28px rgba(16,185,129,.035)!important}.partial-month-toggle{width:100%;border:0;background:linear-gradient(90deg,rgba(120,84,20,.24),rgba(6,78,59,.17),rgba(15,23,42,.94));color:#fde68a;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;cursor:pointer;border-bottom:1px solid rgba(245,192,74,.16)}.partial-month-title{font-size:clamp(17px,2.2vw,22px);font-weight:950;letter-spacing:.09em;color:#f6c453;text-shadow:0 0 12px rgba(246,196,83,.38)}.partial-month-summary{margin-top:4px;color:#94a3b8;font-size:11px;font-weight:850;line-height:1.45}.partial-month-icon{width:42px;min-width:42px;text-align:center;font-size:34px;line-height:1;color:#f6c453;text-shadow:0 0 12px rgba(246,196,83,.58)}.partial-month-content{display:none;padding:16px}.partial-month-panel.open .partial-month-content{display:grid;gap:14px}.partial-month-panel.open .partial-month-icon{transform:rotate(45deg)}.partial-month-enable-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid rgba(245,192,74,.20);border-radius:14px;background:rgba(245,192,74,.055);padding:11px 13px}.partial-month-enable-label{color:#fde68a;font-size:14px;font-weight:950}.partial-month-enable-note{margin-top:3px;color:#94a3b8;font-size:11px}.partial-month-switch-btn{min-width:92px;min-height:36px;border:1px solid rgba(148,163,184,.38);border-radius:999px;background:rgba(51,65,85,.58);color:#cbd5e1;font-weight:950;cursor:pointer}.partial-month-switch-btn.is-enabled{border-color:rgba(52,211,153,.62);background:rgba(16,185,129,.20);color:#a7f3d0;box-shadow:0 0 14px rgba(16,185,129,.16)}.partial-month-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.partial-month-field{display:grid;gap:5px;min-width:0}.partial-month-field>span{color:#94a3b8;font-size:11px;font-weight:950}.partial-month-input,.partial-month-select,.partial-month-picker-btn{width:100%;height:42px;min-width:0;border:1px solid rgba(245,192,74,.28);border-radius:10px;background:rgba(0,0,0,.30);color:#e5e7eb;padding:0 10px;font-size:13px;font-weight:900;outline:none}.partial-month-picker-btn{text-align:left;cursor:pointer}.partial-month-picker-btn::after{content:'▾';float:right;color:#f6c453}.partial-month-input:focus,.partial-month-select:focus,.partial-month-picker-btn:focus{border-color:rgba(59,130,246,.80);box-shadow:0 0 0 2px rgba(59,130,246,.14)}.partial-month-money-wrap{position:relative}.partial-month-input.money{padding:0 12px;color:#f6c453;text-align:center;font-size:19px;font-weight:950;letter-spacing:.03em}.partial-month-reload{margin-top:5px;border:0;background:transparent;color:#67e8f9;font-size:10px;font-weight:900;cursor:pointer;padding:0}.partial-month-form.is-disabled{opacity:.44;filter:grayscale(.25);pointer-events:none}.partial-month-block{border:1px solid rgba(255,255,255,.08);border-radius:16px;background:rgba(255,255,255,.032);padding:14px}.partial-month-block-title{color:#a7f3d0;font-size:14px;font-weight:950;letter-spacing:.08em;margin-bottom:10px}.partial-month-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.partial-month-grid.overtime-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.partial-month-result{border:1px solid rgba(255,255,255,.075);border-radius:12px;background:rgba(0,0,0,.20);padding:11px;min-width:0}.partial-month-result-label{color:#94a3b8;font-size:11px;font-weight:900;line-height:1.35}.partial-month-result-value{margin-top:6px;color:#f6c453;font-size:19px;font-weight:950;white-space:nowrap}.partial-month-result-value.positive{color:#6ee7b7}.partial-month-result-value.negative{color:#fda4af}.partial-change-info{white-space:normal;display:grid;gap:4px}.partial-change-main{color:#f6c453}.partial-change-sub{color:#94a3b8;font-size:12px}.partial-month-formula{margin-top:5px;color:#64748b;font-size:10px;line-height:1.45}.partial-month-total{border-color:rgba(245,192,74,.42);background:linear-gradient(90deg,rgba(245,192,74,.10),rgba(16,185,129,.07))}.partial-month-total .partial-month-result-value{font-size:24px}.partial-month-warning{display:none;border:1px solid rgba(251,113,133,.36);border-radius:12px;background:rgba(244,63,94,.09);color:#fecaca;padding:10px 12px;font-size:12px;font-weight:900;line-height:1.5}.partial-month-warning.show{display:block}.partial-month-estimate-tag{display:inline-block;margin-left:7px;color:#fde68a;border:1px solid rgba(245,192,74,.27);border-radius:999px;padding:2px 7px;font-size:9px}.partial-picker-modal{display:none;position:fixed;inset:0;z-index:10080;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px}.partial-picker-modal.open{display:flex}.partial-picker-dialog{width:min(420px,100%);border:1px solid rgba(34,211,238,.42);border-radius:20px;background:#0b1420;box-shadow:0 24px 80px rgba(0,0,0,.70);padding:18px}.partial-picker-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}.partial-picker-title{font-size:18px;color:#e5e7eb;font-weight:950}.partial-picker-subtitle{margin-top:4px;color:#67e8f9;font-size:12px;font-weight:900}.partial-picker-close{border:1px solid rgba(148,163,184,.30);border-radius:10px;background:#182230;color:#cbd5e1;padding:8px 12px;font-weight:900;cursor:pointer}.partial-picker-week,.partial-picker-calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.partial-picker-week span{text-align:center;color:#64748b;font-size:11px;font-weight:900;padding:4px}.partial-picker-day{aspect-ratio:1;border:1px solid rgba(56,189,248,.18);border-radius:10px;background:#101b29;color:#e5e7eb;font-weight:900;cursor:pointer}.partial-picker-day:hover,.partial-picker-day.selected{border-color:#22d3ee;background:linear-gradient(135deg,rgba(16,185,129,.34),rgba(37,99,235,.39));color:#fff}.partial-picker-day.blank{visibility:hidden}.partial-picker-months{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.partial-picker-month{height:56px;border:1px solid rgba(56,189,248,.23);border-radius:12px;background:#101b29;color:#e5e7eb;font-size:15px;font-weight:950;cursor:pointer}.partial-picker-month:hover,.partial-picker-month.selected{border-color:#22d3ee;background:linear-gradient(135deg,rgba(16,185,129,.34),rgba(37,99,235,.39))}.partial-picker-result{margin-top:12px;color:#94a3b8;font-size:11px;text-align:center;font-weight:900}
+@media(max-width:760px){.partial-month-toggle{padding:12px}.partial-month-icon{font-size:22px}.partial-month-content{padding:12px}.partial-month-form{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.partial-month-field:last-child{grid-column:auto}.partial-month-field>span{font-size:9px;white-space:nowrap}.partial-month-picker-btn{padding:0 5px;text-align:center}.partial-month-input.money{font-size:14px;padding:0 3px}.partial-month-input,.partial-month-select,.partial-month-picker-btn{height:40px;font-size:12px;padding-right:7px}.partial-month-input.money{font-size:17px;padding:0 8px}.partial-month-grid,.partial-month-grid.overtime-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.partial-month-grid.overtime-grid .partial-month-total{grid-column:1/-1}.partial-month-result{padding:9px 7px}.partial-month-result-label{font-size:10px}.partial-month-result-value{font-size:clamp(15px,4.6vw,19px)}.partial-month-total .partial-month-result-value{font-size:clamp(19px,6vw,24px)}.partial-picker-dialog{padding:14px}.partial-picker-months{gap:6px}.partial-picker-month{height:50px}}
+/* 卡片分隔與補發合計層級 */
+.partial-month-panel{margin-top:16px}
+.partial-month-grid.holiday-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.partial-month-grand-total{border-color:rgba(34,211,238,.58);background:linear-gradient(90deg,rgba(8,47,73,.46),rgba(16,185,129,.16));box-shadow:0 0 18px rgba(34,211,238,.12),inset 0 0 20px rgba(16,185,129,.06)}
+.partial-month-grand-total .partial-month-result-label{color:#a5f3fc}
+.partial-month-grand-total .partial-month-result-value{font-size:28px}
+@media(max-width:760px){.partial-month-grand-total .partial-month-result-value{font-size:clamp(22px,7vw,28px)}}
+/* === 2026-09-15 升等$$補發試算 V2：樣式結束 === */
 </style>
 <style>
 /* === V13 自訂／複合假別與調班後請假 === */
@@ -4467,6 +4513,7 @@
 .training-hour-unit{color:#94a3b8;font-size:10px;font-weight:900}
 .training-hour-error{min-height:12px;color:#fda4af;font-size:9px;line-height:1.25;text-align:center}
 .training-hour-error:empty{display:none}
+.training-hour-hint{margin:0 0 10px;color:#94a3b8;font-size:11px;line-height:1.5}
 .special-record.with-delete-space:has(.training-hour-control){grid-template-columns:minmax(110px,1.1fr) minmax(150px,1fr) 72px 48px!important;gap:8px!important;align-items:center!important}
 .special-record.with-delete-space:has(.training-hour-control):has(.placeholder-delete){grid-template-columns:minmax(110px,1.1fr) minmax(150px,1fr) 72px!important}
 .special-record.with-delete-space:has(.training-hour-control) .special-date-row{display:contents!important}
@@ -4568,6 +4615,17 @@
 .custom-leave-catalog-row-v15.has-timed-leave{grid-template-columns:42px minmax(0,1fr) auto 36px auto}
 .annual-leave-stats-year-grid .leave-stats-year-box.other-timed-leave-year{grid-column:1/-1}.other-timed-leave-year[hidden]{display:none!important}.other-timed-leave-year .leave-stats-grid{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
 @media(max-width:760px){.annual-policy-modal{align-items:flex-end;padding:0}.annual-policy-card{width:100%;max-height:94vh;border-radius:18px 18px 0 0}.annual-policy-modal-header{padding:14px 15px}.annual-policy-hub-btn{grid-template-columns:1fr}.annual-policy-hub-status{text-align:left}.timed-leave-manager-row{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}.timed-leave-manager-row>div:first-child{grid-column:1/-1}.timed-leave-action{width:100%;padding:0 6px}.other-timed-leave-year .leave-stats-grid{grid-template-columns:repeat(auto-fit,minmax(100px,1fr))!important}.custom-leave-catalog-row-v15.has-timed-leave{grid-template-columns:38px minmax(0,1fr) auto 34px}.custom-leave-catalog-row-v15.has-timed-leave .custom-delete-v15{grid-column:2/-1}}
+.timed-leave-body,.annual-policy-modal-body{min-height:0}
+.timed-leave-footer,.annual-policy-modal-footer{flex-shrink:0;padding:12px 18px 16px;border-top:1px solid rgba(148,163,184,.2)}
+.timed-leave-footer .timed-leave-close-btn,.annual-policy-modal-footer .salary-detail-close-btn{width:100%;min-height:44px;height:auto;font-size:15px}
+@media(max-width:760px){
+  .timed-leave-modal,.annual-policy-modal{align-items:center;padding:12px}
+  .timed-leave-card,.annual-policy-card{max-height:calc(100vh - 24px);border-radius:18px}
+  .timed-leave-footer,.annual-policy-modal-footer{padding:10px 15px 14px}
+}
+@supports(height:100dvh){
+  @media(max-width:760px){.timed-leave-card,.annual-policy-card{max-height:calc(100dvh - 24px)}}
+}
 /* === V27 功能樣式結束 === */
 </style>
 </head>
@@ -4647,6 +4705,7 @@
           </div>
         </div>
       </section>
+
       <section class="panel substitute-top-panel">
         <div class="substitute-top-label">代班資訊</div>
         <div id="substituteInfoTop" class="substitute-top-value">-</div>
@@ -4665,6 +4724,21 @@
                 <div class="leave-stat-item"><div id="leaveAttendanceMindLabel" class="leave-stat-label">身心(3天)</div><div id="leaveAttendanceMind" class="leave-stat-value empty">0HR</div></div>
                 <div class="leave-stat-item"><div id="leaveAttendanceFamilyLabel" class="leave-stat-label">家庭(7天)</div><div id="leaveAttendanceFamily" class="leave-stat-value empty">0HR</div></div>
               </div>
+              <details id="annualSpecialSettlement" class="annual-special-settlement" hidden>
+                <summary><div class="annual-special-heading"><span><strong>特休結算</strong><small>遞延及不休假獎金</small></span><span class="annual-special-expand">展開</span></div><div class="annual-special-summary"><span id="annualSpecialSummaryCash">未休：待設定</span><span id="annualSpecialSummaryCarry">遞延：待設定</span></div><div class="annual-special-row"><span>本次結算合計（試算）</span><strong id="annualSpecialSummaryTotal">待設定</strong></div></summary>
+                <div class="annual-special-body">
+                  <div id="annualSpecialSettlementPeriod" class="annual-special-note"></div>
+                  <div class="annual-special-usage"><div class="annual-special-table-head"><span>特休來源</span><span>已休</span><span>剩餘</span></div><div><span id="annualSpecialOldSource"></span><strong id="annualSpecialOldUsed"></strong><strong id="annualSpecialOldLeft"></strong></div><div><span id="annualSpecialCurrentSource"></span><strong id="annualSpecialCurrentUsed"></strong><strong id="annualSpecialCurrentLeft"></strong></div></div>
+                  <button id="annualSpecialEditQuota" class="annual-special-link" type="button">設定年度額度</button>
+                  <fieldset class="annual-special-choices"><legend id="annualSpecialCarryLegend">本年度遞延方式</legend><div class="annual-special-row"><span>可遞延上限</span><strong id="annualSpecialCarryMax">待設定</strong></div><div class="annual-special-choice-row"><label><input type="radio" name="annualSpecialCarryChoice" value="all"><span>全部遞延</span></label><label><input type="radio" name="annualSpecialCarryChoice" value="partial"><span>部分遞延</span></label><label><input type="radio" name="annualSpecialCarryChoice" value="none"><span>不遞延</span></label></div><div id="annualSpecialPartialFields" class="annual-special-time" hidden><input id="annualSpecialPartialDays" class="annual-special-input" type="text" inputmode="numeric" autocomplete="off" aria-label="部分遞延天數"><span>天</span><select id="annualSpecialPartialHours" class="annual-special-input" aria-label="部分遞延小時"></select><span>HR</span></div></fieldset>
+                  <div id="annualSpecialSettlementError" class="annual-special-error" role="alert" hidden></div>
+                  <details class="annual-special-audit"><summary>零散特休補助明細</summary><div id="annualSpecialMonthlyAudit" class="annual-special-usage"></div><div class="annual-special-row"><span>各月已計列</span><strong id="annualSpecialMonthlySubsidy"></strong></div><div class="annual-special-row"><span>零散補助補發</span><strong id="annualSpecialSupplement"></strong></div></details>
+                  <div id="annualSpecialOldSalaryWrap" class="annual-special-field"><label id="annualSpecialOldSalaryLabel" for="annualSpecialOldSalary">上年度10月基本薪給</label><input id="annualSpecialOldSalary" class="annual-special-input annual-special-money-input" type="text" inputmode="numeric" autocomplete="off" placeholder="請輸入基本薪給"><div class="annual-special-salary-source"><span id="annualSpecialOldSalarySource" class="annual-special-note"></span><button id="annualSpecialOldSalaryReset" type="button" class="annual-special-link" hidden>使用主畫面資料</button></div></div>
+                  <div id="annualSpecialCurrentSalaryWrap" class="annual-special-field"><label id="annualSpecialCurrentSalaryLabel" for="annualSpecialCurrentSalary">本年度10月基本薪給</label><input id="annualSpecialCurrentSalary" class="annual-special-input annual-special-money-input" type="text" inputmode="numeric" autocomplete="off" placeholder="請輸入基本薪給"><div class="annual-special-salary-source"><span id="annualSpecialCurrentSalarySource" class="annual-special-note"></span><button id="annualSpecialCurrentSalaryReset" type="button" class="annual-special-link" hidden>使用主畫面資料</button></div></div>
+                  <div id="annualSpecialSaveError" class="annual-special-error" role="alert" hidden></div>
+                  <div class="annual-special-results" aria-live="polite"><div class="annual-special-row"><span>上年度未休轉獎金</span><strong id="annualSpecialOldCash"></strong></div><div class="annual-special-row"><span>本年度未休轉獎金</span><strong id="annualSpecialCurrentCash"></strong></div><div class="annual-special-row"><span id="annualSpecialNextCarryLabel">遞延至下一年度</span><strong id="annualSpecialNextCarry"></strong></div><div class="annual-special-row"><span>不休假獎金 · 未休折算</span><strong id="annualSpecialUnusedBonus"></strong></div><div class="annual-special-row"><span>零散特休補助補發</span><strong id="annualSpecialSupplementAmount"></strong></div><div class="annual-special-total"><span>本次結算合計（試算）</span><strong id="annualSpecialTotal"></strong></div></div>
+                </div>
+              </details>
             </div>
             <div class="leave-stats-year-box accounting-year">
               <div id="leaveStatsAccountingTitle" class="leave-stats-year-title">會計年度</div>
@@ -4678,11 +4752,22 @@
               <div id="otherTimedLeaveStatsGrid" class="leave-stats-grid"></div>
             </div>
           </div>
-          <div class="annual-policy-hub">
+          <div class="annual-policy-hub annual-special-hub-row">
             <button id="annualPolicyHubBtn" class="annual-policy-hub-btn" type="button" aria-haspopup="dialog" aria-controls="annualPolicyModal">
               <span class="annual-policy-hub-copy"><span class="annual-policy-hub-title">獎金與考核資訊</span><span id="annualPolicyHubSummary" class="annual-policy-hub-summary"><span class="annual-policy-hub-summary-row"><span>工作獎金：</span><strong id="annualPolicyBonusSummary">符合核發資格</strong></span><span class="annual-policy-hub-summary-row"><span>考核　　：</span><strong id="annualPolicyAssessmentSummary">有機會考甲</strong></span></span></span>
               <span id="annualPolicyHubStatus" class="annual-policy-hub-status">查看專區</span>
             </button>
+            <button id="annualSpecialQuotaToggle" class="annual-special-quota-card" type="button" aria-expanded="false" aria-controls="annualSpecialQuotaEditor"><span id="annualSpecialQuotaTitle">年度考勤特休</span><strong id="annualSpecialQuotaTotal">待設定</strong><span id="annualSpecialQuotaHint">設定額度</span></button>
+            <section id="annualSpecialQuotaEditor" class="annual-special-editor" hidden aria-label="年度特休額度設定">
+              <div class="annual-special-heading"><strong id="annualSpecialQuotaEditorTitle">年度額度設定</strong><button id="annualSpecialQuotaClose" class="annual-special-button" type="button">完成</button></div>
+              <div id="annualSpecialQuotaPeriod" class="annual-special-note"></div>
+              <div id="annualSpecialOpeningReadonly" class="annual-special-row"><span id="annualSpecialOpeningLabel">上年度遞延額度</span><strong id="annualSpecialOpeningValue">待設定</strong></div>
+              <div id="annualSpecialOpeningFields" class="annual-special-field"><label id="annualSpecialOpeningInputLabel" for="annualSpecialOpeningDays">上年度初始轉入額度</label><div class="annual-special-time"><input id="annualSpecialOpeningDays" class="annual-special-input" type="text" inputmode="numeric" autocomplete="off" placeholder="待填"><span>天</span><select id="annualSpecialOpeningHours" class="annual-special-input" aria-label="初始轉入小時"></select><span>HR</span></div></div>
+              <div class="annual-special-field"><label id="annualSpecialGrantLabel" for="annualSpecialGrantDays">本年度核給天數</label><div class="annual-special-time"><input id="annualSpecialGrantDays" class="annual-special-input" type="text" inputmode="numeric" autocomplete="off" placeholder="待填"><span>天</span></div></div>
+              <div id="annualSpecialQuotaError" class="annual-special-error" role="alert" hidden></div>
+              <div id="annualSpecialQuotaSaveError" class="annual-special-error" role="alert" hidden></div>
+              <div class="annual-special-results" aria-live="polite"><div class="annual-special-row"><span>年度總額</span><strong id="annualSpecialQuotaSplit">待設定</strong></div><div class="annual-special-row"><span>已休</span><strong id="annualSpecialQuotaUsed">0HR</strong></div><div class="annual-special-row"><span>剩餘</span><strong id="annualSpecialQuotaLeft">待設定</strong></div></div>
+            </section>
           </div>
           <div id="timedLeaveSummarySection" class="timed-leave-section" hidden>
             <div class="timed-leave-section-head"><div><div class="timed-leave-section-title">新增期限假別</div><div class="timed-leave-section-note">資格額度以 8HR 折算一日；只有目前有效且仍有額度的資格會顯示。</div></div></div>
@@ -4759,6 +4844,7 @@
                 <div class="special-title">額外加班</div>
                 <button id="trainingAddBtn" class="special-add-btn" type="button">新增</button>
               </div>
+              <p class="training-hour-hint">額外加班計入 D11；當日 D11 合計上限 12HR，超過部分不計。</p>
               <div id="trainingRecordList" class="special-record-list"></div>
             </div>
           </div>
@@ -4838,6 +4924,40 @@
           </div>
         </div>
       </details>
+
+      <!-- === 2026-09-15 升等$$補發試算 V2：區塊開始 === -->
+      <section id="partialMonthPanel" class="panel partial-month-panel">
+        <button id="partialMonthToggle" class="partial-month-toggle" type="button" aria-expanded="false" aria-controls="partialMonthContent"><div class="partial-month-title">升等$$補發試算</div><div class="partial-month-icon">＋</div></button>
+        <div id="partialMonthContent" class="partial-month-content">
+          <div class="partial-month-enable-row"><div><div class="partial-month-enable-label">啟用本月升等補發試算</div><div class="partial-month-enable-note">基本薪給補發差額固定以30天計算；加班費與假日出勤為待薪資單核對的預估值。</div></div><button id="partialMonthEnableBtn" class="partial-month-switch-btn" type="button">未啟用</button></div>
+          <div id="partialMonthForm" class="partial-month-form is-disabled">
+            <label class="partial-month-field"><span>調薪生效日</span><button id="partialMonthEffectiveDateBtn" class="partial-month-picker-btn" type="button">請選擇日期</button></label>
+            <label class="partial-month-field"><span>調薪前基本薪給</span><div class="partial-month-money-wrap"><input id="partialMonthOldSalary" class="partial-month-input money" type="text" inputmode="numeric" enterkeyhint="next" placeholder="$0" /></div></label>
+            <label class="partial-month-field"><span>調薪後基本薪給</span><div class="partial-month-money-wrap"><input id="partialMonthNewSalary" class="partial-month-input money" type="text" inputmode="numeric" enterkeyhint="done" placeholder="$0" /></div></label>
+          </div>
+          <div id="partialMonthWarning" class="partial-month-warning"></div>
+          <div class="partial-month-block"><div class="partial-month-block-title">基本薪給補發</div><div class="partial-month-grid">
+            <div class="partial-month-result"><div class="partial-month-result-label">調薪前區段</div><div id="partialMonthOldDays" class="partial-month-result-value">0天</div><div id="partialMonthOldRange" class="partial-month-formula">-</div></div>
+            <div class="partial-month-result"><div class="partial-month-result-label">調薪後適用區段</div><div id="partialMonthNewDays" class="partial-month-result-value">0天</div><div id="partialMonthNewRange" class="partial-month-formula">-</div></div>
+            <div class="partial-month-result partial-month-total"><div class="partial-month-result-label">基本薪給補發差額</div><div id="partialMonthBaseDiff" class="partial-month-result-value">NT$ 0</div><div id="partialMonthBaseFormula" class="partial-month-formula">（新薪－舊薪）÷30×新薪日數</div></div>
+            <div class="partial-month-result"><div class="partial-month-result-label">含補發的基本薪給參考值</div><div id="partialMonthBaseWithDiff" class="partial-month-result-value">NT$ 0</div><div id="partialMonthBaseWithDiffFormula" class="partial-month-formula">新薪＋基本薪給補發差額</div></div>
+          </div></div>
+          <div class="partial-month-block"><div class="partial-month-block-title">加班費補發<span class="partial-month-estimate-tag">預估，待薪資單核對</span></div><div class="partial-month-grid overtime-grid">
+            <div class="partial-month-result"><div class="partial-month-result-label">破月加班費薪給基礎</div><div id="partialMonthOvertimeBase" class="partial-month-result-value">NT$ 0</div><div class="partial-month-formula">各薪資區段固定除以30</div></div>
+            <div class="partial-month-result"><div class="partial-month-result-label">1.33倍差額</div><div id="partialMonthCode7Diff" class="partial-month-result-value">NT$ 0</div><div id="partialMonthCode7Hours" class="partial-month-formula">0HR</div></div>
+            <div class="partial-month-result"><div class="partial-month-result-label">1.67倍差額</div><div id="partialMonthCode8Diff" class="partial-month-result-value">NT$ 0</div><div id="partialMonthCode8Hours" class="partial-month-formula">0HR</div></div>
+            <div class="partial-month-result"><div class="partial-month-result-label">2.66倍差額</div><div id="partialMonthCode6Diff" class="partial-month-result-value">NT$ 0</div><div id="partialMonthCode6Hours" class="partial-month-formula">0HR</div></div>
+            <div class="partial-month-result partial-month-total"><div class="partial-month-result-label">加班費補發差額</div><div id="partialMonthOvertimeDiff" class="partial-month-result-value">NT$ 0</div><div class="partial-month-formula">各倍率差額合計</div></div>
+          </div></div>
+          <div class="partial-month-block"><div class="partial-month-block-title">假日出勤補發<span class="partial-month-estimate-tag">預估，待薪資單核對</span></div><div class="partial-month-grid holiday-grid">
+            <div class="partial-month-result"><div class="partial-month-result-label">假日實際出勤時數</div><div id="partialMonthHolidayHours" class="partial-month-result-value">0HR</div><div class="partial-month-formula">國定假日＋額外假日出勤</div></div>
+            <div class="partial-month-result partial-month-total"><div class="partial-month-result-label">假日出勤補發差額</div><div id="partialMonthHolidayDiff" class="partial-month-result-value">NT$ 0</div><div class="partial-month-formula">依實際出勤時數計算</div></div>
+          </div></div>
+          <div class="partial-month-result partial-month-grand-total"><div class="partial-month-result-label">預估補發合計</div><div id="partialMonthGrandDiff" class="partial-month-result-value">NT$ 0</div><div class="partial-month-formula">基本薪給＋加班費＋假日出勤</div></div>
+        </div>
+      </section>
+      <div id="partialMonthDateModal" class="partial-picker-modal" role="dialog" aria-modal="true" aria-labelledby="partialMonthDateTitle"><div class="partial-picker-dialog"><div class="partial-picker-head"><div><div id="partialMonthDateTitle" class="partial-picker-title">選擇調薪生效日</div><div id="partialMonthDateSubtitle" class="partial-picker-subtitle"></div></div><button class="partial-picker-close" type="button" data-partial-close="date">關閉</button></div><div class="partial-picker-week"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div><div id="partialMonthDateGrid" class="partial-picker-calendar"></div></div></div>
+      <!-- === 2026-09-15 升等$$補發試算 V2：區塊結束 === -->
 
       <section class="panel leave-stats-panel">
         <button id="leaveStatsToggle" class="section-header-toggle" type="button" aria-expanded="false" aria-controls="leaveStatsContent">
@@ -5735,15 +5855,17 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     let handoverExceptionEditingId = "";
     let handoverExceptionPreviousBodyOverflow = "";
     function getHandoverExceptions(){return Array.isArray(parameterSettings.calc?.handoverExceptions)?parameterSettings.calc.handoverExceptions:[];}
+    function getDisplayedHandoverExceptionBounds(){const year=Number(document.getElementById("rocYear")?.value||0)+1911,month=Math.min(12,Math.max(1,Number(document.getElementById("month")?.value||1)));return{start:ymdToParameterIso(year,month,1),end:ymdToParameterIso(year,month,new Date(year,month,0).getDate())};}
+    function getDisplayedHandoverExceptions(){const bounds=getDisplayedHandoverExceptionBounds();return getHandoverExceptions().filter(item=>item.startDate<=bounds.end&&item.endDate>=bounds.start);}
     function getDisplayedMonthDefaultIso(){const year=Number(document.getElementById("rocYear")?.value||toRocYear(new Date()))+1911;const month=Number(document.getElementById("month")?.value||new Date().getMonth()+1);const now=new Date();const day=now.getFullYear()===year&&now.getMonth()+1===month?now.getDate():1;return ymdToParameterIso(year,month,day);}
     function formatHandoverExceptionRocDate(iso){const parts=String(iso||"").split("-").map(Number);if(parts.length!==3||!parts[0])return iso||"";return `民國 ${parts[0]-1911}/${String(parts[1]).padStart(2,"0")}/${String(parts[2]).padStart(2,"0")}`;}
     function formatHandoverExceptionShortDate(iso){const parts=String(iso||"").split("-").map(Number);if(parts.length!==3||!parts[0])return "選日期";return `${parts[0]-1911}/${String(parts[1]).padStart(2,"0")}/${String(parts[2]).padStart(2,"0")}`;}
     function setHandoverExceptionDateButtonValue(id,iso){const btn=document.getElementById(id);if(!btn)return;const value=normalizeIsoDateText(iso);btn.value=value;btn.textContent=formatHandoverExceptionShortDate(value);btn.classList.toggle("has-date",Boolean(value));btn.setAttribute("aria-label",`${id==="handoverExceptionStartDate"?"起始日":"結束日"}：${value?formatHandoverExceptionRocDate(value):"尚未選擇"}`);}
     function formatHandoverExceptionRange(item){const start=formatHandoverExceptionRocDate(item.startDate);const end=formatHandoverExceptionRocDate(item.endDate);return item.startDate===item.endDate?start:`${start}～${end.replace(/^民國\s*/,"")}`;}
     function setHandoverExceptionMessage(message,isError){const el=document.getElementById("handoverExceptionMessage");if(!el)return;el.textContent=message||"";el.style.color=isError?"#fda4af":"#fde68a";}
-    function updateHandoverExceptionQuickButton(){const list=getHandoverExceptions().filter(x=>x.enabled!==false);const btn=document.getElementById("handoverExceptionQuickBtn");const badge=document.getElementById("handoverExceptionBadge");if(!btn||!badge)return;badge.textContent=String(list.length);btn.classList.toggle("is-active",list.length>0);const year=Number(document.getElementById("rocYear")?.value||0)+1911;const month=Number(document.getElementById("month")?.value||0);const monthStart=ymdToParameterIso(year,month,1);const monthEnd=ymdToParameterIso(year,month,new Date(year,month,0).getDate());const monthCount=list.filter(x=>x.startDate<=monthEnd&&x.endDate>=monthStart).length;btn.title=list.length?`已設定 ${list.length} 筆交接班例外，本月 ${monthCount} 筆`:`設定不定期的交接班期間例外`;}
+    function updateHandoverExceptionQuickButton(){const list=getHandoverExceptions().filter(x=>x.enabled!==false);const monthBounds=getDisplayedHandoverExceptionBounds();const monthCount=list.filter(x=>x.startDate<=monthBounds.end&&x.endDate>=monthBounds.start).length;const btn=document.getElementById("handoverExceptionQuickBtn");const badge=document.getElementById("handoverExceptionBadge");if(!btn||!badge)return;badge.textContent=String(monthCount);btn.classList.toggle("is-active",monthCount>0);btn.title=monthCount?`本月 ${monthCount} 筆交接班例外（全部 ${list.length} 筆）`:list.length?`本月無交接班例外；其他月份共 ${list.length} 筆`:`設定不定期的交接班期間例外`;}
     function resetHandoverExceptionForm(){handoverExceptionEditingId="";const minutes=document.getElementById("handoverExceptionMinutes"),note=document.getElementById("handoverExceptionNote"),save=document.getElementById("handoverExceptionSaveBtn");setHandoverExceptionDateButtonValue("handoverExceptionStartDate","");setHandoverExceptionDateButtonValue("handoverExceptionEndDate","");if(minutes)minutes.value="30";if(note)note.value="";if(save)save.textContent="儲存例外";setHandoverExceptionMessage("",false);}
-    function renderHandoverExceptionList(){const listEl=document.getElementById("handoverExceptionList");if(!listEl)return;const list=getHandoverExceptions().slice().sort((a,b)=>a.startDate.localeCompare(b.startDate)||a.endDate.localeCompare(b.endDate));if(!list.length){listEl.innerHTML='<div class="handover-exception-empty">尚未設定交接班期間例外。</div>';return;}listEl.innerHTML=list.map(item=>`<div class="handover-exception-item"><div class="handover-exception-range">${parameterSettingsEscapeHtml(formatHandoverExceptionRange(item))}</div><div class="handover-exception-minutes">${Number(item.minutes)||0} 分</div><div class="handover-exception-note">${parameterSettingsEscapeHtml(item.note||"未填備註")}</div><div class="handover-exception-item-actions"><button class="handover-exception-small-btn" type="button" data-handover-exception-edit="${parameterSettingsEscapeHtml(item.id)}">編輯</button><button class="handover-exception-small-btn danger" type="button" data-handover-exception-delete="${parameterSettingsEscapeHtml(item.id)}">刪除</button></div></div>`).join("");}
+    function renderHandoverExceptionList(){const listEl=document.getElementById("handoverExceptionList");if(!listEl)return;const list=getDisplayedHandoverExceptions().slice().sort((a,b)=>a.startDate.localeCompare(b.startDate)||a.endDate.localeCompare(b.endDate));if(!list.length){const hasOtherMonthSettings=getHandoverExceptions().length>0;listEl.innerHTML=`<div class="handover-exception-empty">${hasOtherMonthSettings?"本月尚無交接班期間例外；其他月份的設定請切換月份查看。":"尚未設定交接班期間例外。"}</div>`;return;}listEl.innerHTML=list.map(item=>`<div class="handover-exception-item"><div class="handover-exception-range">${parameterSettingsEscapeHtml(formatHandoverExceptionRange(item))}</div><div class="handover-exception-minutes">${Number(item.minutes)||0} 分</div><div class="handover-exception-note">${parameterSettingsEscapeHtml(item.note||"未填備註")}</div><div class="handover-exception-item-actions"><button class="handover-exception-small-btn" type="button" data-handover-exception-edit="${parameterSettingsEscapeHtml(item.id)}">編輯</button><button class="handover-exception-small-btn danger" type="button" data-handover-exception-delete="${parameterSettingsEscapeHtml(item.id)}">刪除</button></div></div>`).join("");}
     function openHandoverExceptionModal(){loadParameterSettings();renderHandoverExceptionList();resetHandoverExceptionForm();const modal=document.getElementById("handoverExceptionModal");if(!modal)return;handoverExceptionPreviousBodyOverflow=document.body.style.overflow;document.body.style.overflow="hidden";modal.classList.add("open");modal.setAttribute("aria-hidden","false");document.getElementById("handoverExceptionStartDate")?.focus();}
     function closeHandoverExceptionModal(){const modal=document.getElementById("handoverExceptionModal");if(!modal)return;closeParameterDatePicker();modal.classList.remove("open");modal.setAttribute("aria-hidden","true");document.body.style.overflow=handoverExceptionPreviousBodyOverflow;handoverExceptionEditingId="";}
     function handoverExceptionFormIsDirty(){const start=normalizeIsoDateText(document.getElementById("handoverExceptionStartDate")?.value),end=normalizeIsoDateText(document.getElementById("handoverExceptionEndDate")?.value),minutes=String(document.getElementById("handoverExceptionMinutes")?.value||"").trim(),note=String(document.getElementById("handoverExceptionNote")?.value||"").trim();return Boolean(handoverExceptionEditingId||start||end||note||minutes!=="30");}
@@ -5758,6 +5880,11 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const month = document.getElementById("month") ? Number(document.getElementById("month").value) : new Date().getMonth() + 1;
       const shiftGroup = document.getElementById("shiftGroup") ? document.getElementById("shiftGroup").value : "D";
       return `personalOvertimeState:${shiftGroup}:${rocYear}:${month}`;
+    }
+    function notifyMonthStateLoaded(storageKey) {
+      window.dispatchEvent(new CustomEvent("personalOvertimeMonthStateLoaded", {
+        detail: { storageKey: String(storageKey || "") }
+      }));
     }
     function clearObject(target) {
       Object.keys(target).forEach(key => delete target[key]);
@@ -5803,6 +5930,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         leaveStatsPanelOpen,
         salaryBasePay: getSalaryBasePay(),
         salaryBasePaySource,
+        partialMonth: typeof window.getPartialMonthSnapshot === "function" ? window.getPartialMonthSnapshot(activeStorageKey || getCurrentStorageKey()) : undefined,
         savedAt: new Date().toISOString()
       };
     }
@@ -5839,7 +5967,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         if (data.specialDates && typeof data.specialDates === "object") {
           specialDates.closure = Array.isArray(data.specialDates.closure) ? data.specialDates.closure : specialDates.closure;
           specialDates.election = Array.isArray(data.specialDates.election) ? data.specialDates.election : specialDates.election;
-          specialDates.training = Array.isArray(data.specialDates.training) ? data.specialDates.training : specialDates.training;
+          specialDates.training = Array.isArray(data.specialDates.training) ? normalizeTrainingRecords(data.specialDates.training) : specialDates.training;
           while (specialDates.training.length < 1) specialDates.training.push({ day: 0, hours: 3 });
         }
         if (Array.isArray(data.batchRangeRecords)) {
@@ -5891,6 +6019,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       } catch (err) {
         console.warn("無法讀取當月資料", err);
       } finally {
+        notifyMonthStateLoaded(storageKey);
       }
     }
     // 第二輪非核心狀態功能已停用；保留原本每月資料儲存，不建立復原歷史或儲存提示。
@@ -5945,6 +6074,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       salaryBasePaySource = "manual";
       currentMonthWasNew = true;
       currentMonthHasStoredState = false;
+      notifyMonthStateLoaded(storageKey);
       renderAll(false);
     }
     async function resetCurrentYearState() {
@@ -5981,10 +6111,44 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       activeStorageKey = getCurrentStorageKey();
       currentMonthWasNew = true;
       currentMonthHasStoredState = false;
+      notifyMonthStateLoaded(activeStorageKey);
       renderAll(false);
     }
     window.resetCurrentYearState = resetCurrentYearState;
-    function switchMonthState(needLoadCalendar) {
+    function animateCalendarBodyFade(body, fadeOut, duration) {
+      if (!body) return Promise.resolve();
+      return new Promise(resolve => {
+        let finished = false;
+        let timeout = 0;
+        const finish = () => {
+          if (finished) return;
+          finished = true;
+          window.clearTimeout(timeout);
+          body.removeEventListener("transitionend", onTransitionEnd);
+          body.style.removeProperty("--calendar-month-fade-duration");
+          resolve();
+        };
+        const onTransitionEnd = event => {
+          if (event.target === body && event.propertyName === "opacity") finish();
+        };
+        body.addEventListener("transitionend", onTransitionEnd);
+        body.style.setProperty("--calendar-month-fade-duration", `${duration}ms`);
+        body.classList.toggle("month-content-faded", Boolean(fadeOut));
+        timeout = window.setTimeout(finish, duration + 100);
+      });
+    }
+    async function renderMonthStateWithFade(needLoadCalendar) {
+      if (needLoadCalendar) await loadCalendar();
+      const calendarBody = document.querySelector(".calendar-panel .calendar-body");
+      if (!calendarBody) return renderAll(false);
+      await animateCalendarBodyFade(calendarBody, true, 70);
+      try {
+        await renderAll(false);
+      } finally {
+        await animateCalendarBodyFade(calendarBody, false, 130);
+      }
+    }
+    function switchMonthState(needLoadCalendar, options = {}) {
       saveCurrentMonthState({ passive: true });
       try {
         const savedWeekStartMode = localStorage.getItem("personalOvertimeWeekStartMode");
@@ -5998,10 +6162,13 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       updateCalculationInfoToggleUI();
       activeStorageKey = getCurrentStorageKey();
       loadStateByKey(activeStorageKey);
-      renderAll(needLoadCalendar);
+      const renderPromise = options.fadeCalendar
+        ? renderMonthStateWithFade(needLoadCalendar)
+        : renderAll(needLoadCalendar);
       if (typeof window.requestClosureOfficialAutoQuery === "function") {
         setTimeout(function() { window.requestClosureOfficialAutoQuery(); }, 220);
       }
+      return renderPromise;
     }
     function updateShiftSelectStyle() {
       const shiftGroup = document.getElementById("shiftGroup");
@@ -6137,6 +6304,17 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     function getLabelForDayInfo(code, dayInfo) {
       if (Number(code) === 8.9) return getOtherCodeLabelForDayInfo(dayInfo);
       return getLabel(code);
+    }
+    const CALENDAR_SHORT_CODE_LABELS = {
+      "8.4": "停止辦", "8.5": "家庭", "8.6": "身心", "9": "調整"
+    };
+    function getCalendarShortLabel(code, day, compoundItems) {
+      const items = Array.isArray(compoundItems) ? compoundItems : (manualRecords[day] || {}).compoundItems;
+      if (Array.isArray(items) && items.length >= 2) {
+        const initials = items.map(item => Array.from(String(item && item.label || "").trim())[0] || "");
+        if (initials.every(Boolean)) return initials.join("");
+      }
+      return CALENDAR_SHORT_CODE_LABELS[keyOf(code)] || getLabelForDay(code, day);
     }
     function saveOtherCodeLabelForDay(day, value) {
       if (!manualRecords[day]) manualRecords[day] = {};
@@ -6408,7 +6586,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       `;
     }
     function buildCodePickerHtml(day, selectedCode) {
-      return `<div class="code-picker" data-code-picker="${day}"><button class="code-picker-button" type="button" data-code-picker-button="${day}">${selectedCode} ${getLabelForDay(selectedCode, day)}</button></div>`;
+      return `<div class="code-picker" data-code-picker="${day}"><button class="code-picker-button" type="button" data-code-picker-button="${day}">${selectedCode} ${escapeHtml(getCalendarShortLabel(selectedCode, day))}</button></div>`;
     }
     function ensureCodePickerPortal() {
       let portal = document.getElementById("codePickerPortal");
@@ -6419,6 +6597,19 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         document.body.appendChild(portal);
       }
       return portal;
+    }
+    function moveCodePickerCloseToBottom(portal) {
+      const sheet = portal.querySelector(".code-picker-portal-sheet");
+      const closeButton = sheet?.querySelector(".code-picker-portal-header .code-picker-portal-close");
+      if (!sheet || !closeButton) return;
+      const footer = document.createElement("div");
+      footer.className = "code-picker-portal-footer";
+      footer.appendChild(closeButton);
+      sheet.appendChild(footer);
+      sheet.classList.add("has-bottom-close");
+      if (sheet.querySelector(".code-picker-portal-actions, .code-picker-v13-actions, .batch-code-picker-actions-v18")) {
+        sheet.classList.add("has-bottom-close-actions");
+      }
     }
     function codePickerLockBodyScroll() {
       if (codePickerBodyScrollLocked) return;
@@ -6497,6 +6688,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const selectedCode = Number(dayInfo.actualCode);
       activeCodePickerPortalState = { day: Number(day), allOpen: Boolean(allOpen), selectedCode };
       portal.innerHTML = buildCodePickerPortalHtml(day, selectedCode, Boolean(allOpen));
+      moveCodePickerCloseToBottom(portal);
       portal.classList.add("open");
       portal.classList.toggle("all-open", Boolean(allOpen));
       const picker = document.querySelector(`.code-picker[data-code-picker="${day}"]`);
@@ -6868,7 +7060,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       return (specialDates.training || []).filter(item => Number(item.day) === Number(day) && Number(item.hours || 0) > 0);
     }
     function calcTrainingMinutes(day) {
-      return getTrainingRecordsForDay(day).reduce((sum, item) => sum + Math.round(Number(item.hours || 0) * 60), 0);
+      return getTrainingRecordsForDay(day).reduce((sum, item) => sum + Math.round(normalizeTrainingHourValue(item.hours, 3) * 60), 0);
     }
     function isOverhaulActiveDay(day) {
       const startDay = Number(overhaulSettings.startDay || 0);
@@ -7047,28 +7239,26 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     function calcD10OvertimeMinutes(dayInfo) {
       const code = Number(dayInfo.actualCode);
       const baseCode = Number(dayInfo.baseCode);
-      const trainingMinutes = calcTrainingMinutes(dayInfo.day);
       if (dayInfo.changeText === "錯誤登錄") return 0;
       if (dayInfo.noteText === "錯誤登錄") return 0;
       if (dayInfo.changeText === "違規") return 0;
       if (isWeekendTrainingClass(dayInfo)) return 0;
       if (code === 4 && isRestTextForD11(dayInfo.changeText)) return 0;
-      if (isSubstituteCode(code)) return getParameterHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) + trainingMinutes;
+      if (isSubstituteCode(code)) return getParameterHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day);
       const overhaulOverrideMinutes = getOverhaulOverrideMinutes(dayInfo.day, dayInfo.year, dayInfo.month);
       if (overhaulOverrideMinutes !== null) return overhaulOverrideMinutes;
       if (isOverhaulActiveDay(dayInfo.day)) return 0;
-      if (code === 0 || code === 9 || code === 10) return trainingMinutes;
+      if (code === 0 || code === 9 || code === 10) return 0;
       if (isLeaveCode(code)) {
         if (isCompoundLeaveCodeForDay(code, dayInfo.day) && hasCompoundSplitInput(dayInfo)) {
-          return isCompoundSplitPartialLeave(dayInfo) ? getParameterPartialHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) + trainingMinutes : trainingMinutes;
+          return isCompoundSplitPartialLeave(dayInfo) ? getParameterPartialHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) : 0;
         }
-        if (isWorkCode(baseCode) && hasPartialLeaveHrText(dayInfo)) return getParameterPartialHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) + trainingMinutes;
-        return trainingMinutes;
+        if (isWorkCode(baseCode) && hasPartialLeaveHrText(dayInfo)) return getParameterPartialHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day);
+        return 0;
       }
       let minutes = 0;
       if (isWorkCode(code)) minutes = getParameterHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day);
       minutes += calcElectionD10AdjustmentMinutes(dayInfo);
-      minutes += trainingMinutes;
       return Math.max(0, minutes);
     }
     function isRestTextForD11(text) {
@@ -7311,7 +7501,48 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       }
       return carry;
     }
-    function getContinuousWorkDaysAroundIndex(days, index, previousMonthCarry) {
+    function getNextMonthCarryForLastDay(days) {
+      if (!days.length || !isWorkForContinuousWorkBlock(days[days.length - 1])) return 0;
+      const nextDate = new Date(Number(days[0].year), Number(days[0].month), 1);
+      const nextYear = nextDate.getFullYear();
+      const nextMonth = nextDate.getMonth() + 1;
+      const shiftGroup = document.getElementById("shiftGroup")?.value || "D";
+      const nextStorageKey = `personalOvertimeState:${shiftGroup}:${nextYear - 1911}:${nextMonth}`;
+      let nextManualRecords = {};
+      try {
+        const data = JSON.parse(localStorage.getItem(nextStorageKey) || "null");
+        if (data && data.manualRecords && typeof data.manualRecords === "object") nextManualRecords = data.manualRecords;
+      } catch (err) {
+        nextManualRecords = {};
+      }
+      let carry = 0;
+      const nextDaysInMonth = new Date(nextYear, nextMonth, 0).getDate();
+      for (let day = 1; day <= nextDaysInMonth; day++) {
+        const current = new Date(nextYear, nextMonth - 1, day);
+        const base = calcBaseShift(nextYear, nextMonth, day, shiftGroup);
+        const record = nextManualRecords[day] || {};
+        const adjustedCode = [10, 11, 12, 13].includes(Number(record.adjustedCode)) ? Number(record.adjustedCode) : null;
+        const plannedCode = adjustedCode !== null ? adjustedCode : base.baseCode;
+        const plannedHours = base.baseHours;
+        const compoundItems = Array.isArray(record.compoundItems) ? record.compoundItems : [];
+        const nextDayInfo = enrichDayInfo({
+          day, month: nextMonth, year: nextYear, date: current,
+          weekIndex: getMondayFirstIndex(current), weekday: WEEK_LABELS[getMondayFirstIndex(current)],
+          baseCode: base.baseCode, baseHours: base.baseHours, cycleIndex: base.cycleIndex,
+          adjustedCode, plannedCode, plannedHours,
+          actualCode: record.code !== undefined ? Number(record.code) : plannedCode,
+          leaveHours: record.leaveHours !== undefined ? Number(record.leaveHours) : 0,
+          customLeaveId: record.customLeaveId || "", otherLabel: record.otherLabel || "", compoundItems,
+          compoundSplit: record.compoundSplit || null,
+          holidayName: calendarData.holidayMap.get(dateKey(nextYear, nextMonth, day)) || "",
+          isWeekend: current.getDay() === 0 || current.getDay() === 6
+        });
+        if (!isWorkForContinuousWorkBlock(nextDayInfo)) break;
+        carry++;
+      }
+      return carry;
+    }
+    function getContinuousWorkDaysAroundIndex(days, index, previousMonthCarry, nextMonthCarry) {
       let leftWorkDays = 0;
       let noRestFoundBeforeMonthStart = true;
       for (let i = index - 1; i >= 0; i--) {
@@ -7326,19 +7557,23 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         leftWorkDays += previousMonthCarry;
       }
       let rightWorkDaysIncludingToday = 0;
+      let reachesMonthEnd = true;
       for (let i = index; i < days.length; i++) {
         if (isWorkForContinuousWorkBlock(days[i])) {
           rightWorkDaysIncludingToday += 1;
         } else {
+          reachesMonthEnd = false;
           break;
         }
       }
+      if (reachesMonthEnd) rightWorkDaysIncludingToday += nextMonthCarry;
       return leftWorkDays + rightWorkDaysIncludingToday;
     }
     function applySevenDayViolation(days) {
       const previousMonthCarry = getPreviousMonthCarryForFirstDay(days);
+      const nextMonthCarry = getNextMonthCarryForLastDay(days);
       return days.map((dayInfo, index) => {
-        const continuousWorkDays = getContinuousWorkDaysAroundIndex(days, index, previousMonthCarry);
+        const continuousWorkDays = getContinuousWorkDaysAroundIndex(days, index, previousMonthCarry, nextMonthCarry);
         const code = Number(dayInfo.actualCode);
         if (isViolationCandidate(dayInfo) && (continuousWorkDays > 6 || code === 32)) {
           return {
@@ -7412,6 +7647,36 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         return valueName;
       }
       return dayInfo.changeText || getLabelForDayInfo(code, dayInfo);
+    }
+    function buildCalendarPillHtml(dayInfo, fullLabel) {
+      const code = Number(dayInfo.actualCode);
+      let label = String(fullLabel || "");
+      if (code === 9 && label === getLabel(9)) label = CALENDAR_SHORT_CODE_LABELS["9"];
+      else if (isLeaveCode(code)) {
+        const fullLeaveName = getLabelForDayInfo(code, dayInfo);
+        if (fullLeaveName && label.startsWith(fullLeaveName)) {
+          label = getCalendarShortLabel(code, dayInfo.day, dayInfo.compoundItems) + label.slice(fullLeaveName.length);
+        }
+      }
+      const suffixMatch = isLeaveCode(code) ? /^(.*)(\([^()]+\))$/.exec(label) : null;
+      if (suffixMatch) {
+        const baseSuffix = `(${getBaseDisplayName(dayInfo)})`;
+        const adjustedSuffix = dayInfo.adjustedCode == null ? "" : `(${getLabel(dayInfo.adjustedCode)})`;
+        if (suffixMatch[2] === baseSuffix || suffixMatch[2] === adjustedSuffix) {
+          const mainClass = Array.from(suffixMatch[1]).length <= 3 ? " calendar-pill-nowrap" : "";
+          const suffixClass = Array.from(suffixMatch[2]).length <= 4 ? " calendar-pill-nowrap" : "";
+          return `<span class="calendar-pill-line${mainClass}">${escapeHtml(suffixMatch[1])}</span><span class="calendar-pill-line${suffixClass}">${escapeHtml(suffixMatch[2])}</span>`;
+        }
+      }
+      const shiftMatch = /^(調班|代班)(空班|[一二三]值)$/.exec(label);
+      if (shiftMatch) {
+        return `<span class="calendar-pill-line calendar-pill-nowrap">${escapeHtml(shiftMatch[1])}</span><span class="calendar-pill-line calendar-pill-nowrap">${escapeHtml(shiftMatch[2])}</span>`;
+      }
+      const registrationMatch = /^(錯誤|違規)(登錄)$/.exec(label);
+      if (registrationMatch) {
+        return `<span class="calendar-pill-line calendar-pill-nowrap">${escapeHtml(registrationMatch[1])}</span><span class="calendar-pill-line calendar-pill-nowrap">登錄</span>`;
+      }
+      return escapeHtml(label);
     }
 
     function getNextDayInfoForCalendarClosure(dayInfo, allDays) {
@@ -7886,18 +8151,21 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     function normalizeTrainingHourValue(value, fallback = 3) {
       const numeric = Number(value);
       if (!Number.isFinite(numeric)) return fallback;
-      return Math.min(24, Math.max(0.5, Math.round(numeric * 2) / 2));
+      return Math.min(12, Math.max(0.5, Math.round(numeric * 2) / 2));
+    }
+    function normalizeTrainingRecords(records) {
+      return records.map(record => ({ ...record, hours: normalizeTrainingHourValue(record && record.hours, 3) }));
     }
     function parseTrainingHourInput(value) {
       const text = String(value ?? "").trim().replace(",", ".");
       if (!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(text)) return null;
       const numeric = Number(text);
-      if (!Number.isFinite(numeric) || numeric < 0.5 || numeric > 24 || Math.abs(numeric * 2 - Math.round(numeric * 2)) > 0.0001) return null;
+      if (!Number.isFinite(numeric) || numeric < 0.5 || numeric > 12 || Math.abs(numeric * 2 - Math.round(numeric * 2)) > 0.0001) return null;
       return Math.round(numeric * 2) / 2;
     }
     function buildTrainingHourControl(record, index) {
       const value = normalizeTrainingHourValue(record && record.hours, 3);
-      return `<div class="training-hour-control"><div class="training-hour-stepper"><button class="training-hour-step-btn" type="button" data-training-hour-step="-0.5" data-index="${index}" aria-label="減少額外加班時數" ${value <= 0.5 ? "disabled" : ""}>－</button><label class="training-hour-input-wrap"><input class="training-hour-input" type="text" inputmode="decimal" maxlength="4" value="${fmtHour(value)}" data-training-hours-input="1" data-index="${index}" aria-label="第 ${index + 1} 筆額外加班時數"><span class="training-hour-unit">HR</span></label><button class="training-hour-step-btn" type="button" data-training-hour-step="0.5" data-index="${index}" aria-label="增加額外加班時數" ${value >= 24 ? "disabled" : ""}>＋</button></div><div class="training-hour-error" data-training-hour-error="${index}" aria-live="polite"></div></div>`;
+      return `<div class="training-hour-control"><div class="training-hour-stepper"><button class="training-hour-step-btn" type="button" data-training-hour-step="-0.5" data-index="${index}" aria-label="減少額外加班時數" ${value <= 0.5 ? "disabled" : ""}>－</button><label class="training-hour-input-wrap"><input class="training-hour-input" type="text" inputmode="decimal" maxlength="4" value="${fmtHour(value)}" data-training-hours-input="1" data-index="${index}" aria-label="第 ${index + 1} 筆額外加班時數"><span class="training-hour-unit">HR</span></label><button class="training-hour-step-btn" type="button" data-training-hour-step="0.5" data-index="${index}" aria-label="增加額外加班時數" ${value >= 12 ? "disabled" : ""}>＋</button></div><div class="training-hour-error" data-training-hour-error="${index}" aria-live="polite"></div></div>`;
     }
     function commitTrainingHourInput(input) {
       const index = Number(input && input.dataset.index);
@@ -7905,7 +8173,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const error = document.querySelector(`[data-training-hour-error="${index}"]`);
       if (parsed === null) {
         input.setAttribute("aria-invalid", "true");
-        if (error) error.textContent = "請輸入 0.5～24，並以 0.5 小時為單位";
+        if (error) error.textContent = "請輸入 0.5～12，並以 0.5 小時為單位";
         return false;
       }
       if (!specialDates.training[index]) return false;
@@ -7949,7 +8217,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const optionHtml = getBatchEligibleSystemLeaveCodes().map(code => buildBatchCodeOptionRow(code, record.code, index)).join("");
       return `<div class="code-picker-portal-backdrop" data-batch-code-portal-close="1"></div><div class="code-picker-portal-sheet" role="dialog" aria-modal="true" aria-label="批次假別選單" data-batch-code-portal-index="${index}"><div class="code-picker-portal-header"><div><div class="code-picker-portal-title">第 ${index + 1} 筆假別</div><div class="code-picker-portal-subtitle">點選假別即可套用，8.9 名稱為本批次專用</div></div><button class="code-picker-portal-close" type="button" data-batch-code-portal-close="1">關閉</button></div><div class="code-picker-portal-scroll"><div class="code-picker-portal-section-title">全部假別</div><div class="batch-code-option-list">${optionHtml}</div></div></div>`;
     }
-    function renderBatchCodePickerPortal(index, restoreScrollTop = 0) { const portal = ensureBatchCodePickerPortal(); portal.innerHTML = buildBatchCodePickerPortalHtml(index); portal.classList.add("open"); portal.classList.toggle("all-open", batchCodePickerAllOpen); portal.setAttribute("aria-hidden", "false"); bindBatchCodePickerPortalEvents(portal, index); const scroll = portal.querySelector(".code-picker-portal-scroll"); if (scroll && restoreScrollTop > 0) scroll.scrollTop = restoreScrollTop; }
+    function renderBatchCodePickerPortal(index, restoreScrollTop = 0) { const portal = ensureBatchCodePickerPortal(); portal.innerHTML = buildBatchCodePickerPortalHtml(index); moveCodePickerCloseToBottom(portal); portal.classList.add("open"); portal.classList.toggle("all-open", batchCodePickerAllOpen); portal.setAttribute("aria-hidden", "false"); bindBatchCodePickerPortalEvents(portal, index); const scroll = portal.querySelector(".code-picker-portal-scroll"); if (scroll && restoreScrollTop > 0) scroll.scrollTop = restoreScrollTop; }
     function openBatchCodePicker(index) { batchCodePickerAllOpen = false; closeCodePickerPortal(); renderBatchCodePickerPortal(index); }
     function selectBatchCode(index, code) { if (!batchRangeRecords[index]) batchRangeRecords[index] = { startDay: 0, endDay: 0, code: 5, leaveHours: 0, mode: "workOnly", otherLabel: "其他", lastApplied: null }; batchRangeRecords[index].code = Number(code); if (Number(code) === 8.9) batchRangeRecords[index].otherLabel = normalizeOtherCodeLabel(batchRangeRecords[index].otherLabel || "其他"); if (Number(code) === 4) batchRangeRecords[index].mode = "all"; saveCurrentMonthState(); closeBatchCodePickerPortal(); renderAll(false); }
     function bindBatchCodePickerPortalEvents(portal, index) {
@@ -8607,7 +8875,8 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       if (topSalaryMonthLabel) topSalaryMonthLabel.textContent = `${month}月加班費`;
       updateWeekStartToggleUI();
       updateCalculationInfoToggleUI();
-      document.getElementById("weekGrid").innerHTML = getCalendarWeekLabels().map((x, index) => {
+      const weekGrid = document.getElementById("weekGrid");
+      weekGrid.innerHTML = getCalendarWeekLabels().map((x, index) => {
         const weekClass = weekStartMode === "sunday"
           ? (index === 0 ? "sunday-cell" : (index === 6 ? "saturday-cell" : "weekday-cell"))
           : (index < 5 ? "weekday-cell" : (index === 5 ? "saturday-cell" : "sunday-cell"));
@@ -8632,6 +8901,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         const cardClass = `day-card ${weekdayColorClass} ${d.isWeekend ? "weekend" : ""} ${d.holidayName ? "holiday" : ""} ${d.isViolation ? "violation" : ""} ${isToday ? "today-card" : ""}`;
         const pillClass = d.changeText === "錯誤登錄" || d.noteText === "錯誤登錄" || d.attendanceHours === "錯誤登錄" || d.changeText === "違規" ? "pill-alert" : getPillClass(d.actualCode);
         const displayLabel = getDisplayLabel(d);
+        const calendarPillHtml = buildCalendarPillHtml(d, displayLabel);
         const codePickerHtml = buildCodePickerHtml(d.day, d.actualCode);
         const hourDisabled = isLeaveCode(d.actualCode) ? "" : "disabled";
         const allowWeekendTrainingClass = Number(d.actualCode) === 4 && Boolean(d.isWeekend);
@@ -8643,10 +8913,11 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         const closureHtml = getClosureRecordsForDay(d.day).map(record => {
           const interval = getClosureInterval(record);
           const label = record.type === "custom" && interval ? `自訂(${normalizeClosureTime(record.startTime, "01:00")}–${normalizeClosureTime(record.endTime, "24:00")})` : CLOSURE_TYPE_LABELS[record.type];
-          return `<div class="special-badge">停止辦公${label || ""}</div>`;
+          return `<div class="special-badge" title="${escapeHtml(`停止辦公${label || ""}`)}">停辦公</div>`;
         }).join("");
         const trainingHtml = getTrainingRecordsForDay(d.day).map(record => {
-          return `<div class="special-badge">額外加班${fmtHour(record.hours)}HR</div>`;
+          const hours = fmtHour(record.hours);
+          return `<div class="special-badge extra-overtime-badge" title="額外加班${hours}HR"><span>加班</span><span>(${hours}HR)</span></div>`;
         }).join("");
         const electionHtml = isElectionDay(d.day) ? `<div class="special-badge election-badge">選舉日</div>` : "";
         const proxyMinutes = getOverhaulOverrideMinutes(d.day, rocYear + 1911, month);
@@ -8682,7 +8953,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
             <div class="card-center">
               <div>${holidayHtml}${closureHtml}${trainingHtml}${electionHtml}${overhaulMainHtml}</div>
             </div>
-            <div class="shift-pill ${pillClass}">${displayLabel}</div>
+            <div class="shift-pill ${pillClass}" title="${escapeHtml(displayLabel)}">${calendarPillHtml}</div>
             ${detailHtml}
           </div>
         `;
@@ -9108,7 +9379,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         if (data.specialDates && typeof data.specialDates === "object") {
           specialDates.closure = Array.isArray(data.specialDates.closure) ? data.specialDates.closure : specialDates.closure;
           specialDates.election = Array.isArray(data.specialDates.election) ? data.specialDates.election : specialDates.election;
-          specialDates.training = Array.isArray(data.specialDates.training) ? data.specialDates.training : specialDates.training;
+          specialDates.training = Array.isArray(data.specialDates.training) ? normalizeTrainingRecords(data.specialDates.training) : specialDates.training;
         }
         resetOverhaulSettingsToDefault();
         if (data.overhaulSettings && typeof data.overhaulSettings === "object") {
@@ -9239,6 +9510,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       setLeaveStatText("leaveAccountingSick", accountingStats.sick);
       renderLeavePolicySummary(attendanceStats, accountingStats, attendanceYear, accountingYear);
       if (typeof window.renderTimedLeaveSummaryV25 === "function") window.renderTimedLeaveSummaryV25();
+      if (typeof window.renderAnnualSpecialLeaveV37 === "function") window.renderAnnualSpecialLeaveV37(days);
     }
     function formatPolicyDays(value) { const rounded = Math.round((Number(value) || 0) * 100) / 100; return `${rounded.toLocaleString("zh-TW")}日`; }
     function setPolicyValue(id, text, alert) { const el=document.getElementById(id); if(!el)return; el.textContent=text; el.classList.toggle("policy-alert",alert===true); el.classList.toggle("policy-ok",alert===false); }
@@ -9563,6 +9835,12 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       showCalendarImportPrompt("無法讀取行事曆資料，已套用本機參數覆寫");
       console.warn("行事曆遠端與快取來源皆失敗", failLogs);
     }
+    function getMonthSwipeContext(rocYear, month, delta) {
+      const date = new Date(Number(rocYear) + 1911, Number(month) - 1 + Number(delta || 0), 1);
+      const nextRocYear = date.getFullYear() - 1911;
+      if (nextRocYear < 1) return null;
+      return { rocYear: nextRocYear, month: date.getMonth() + 1 };
+    }
     async function renderAll(needLoadCalendar) {
       if (needLoadCalendar) await loadCalendar();
       syncMonthControlUI();
@@ -9618,7 +9896,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       }
       if (openButton) openButton.setAttribute("aria-expanded", "true");
     }
-    function selectDisplayedMonth(targetMonth) {
+    function selectDisplayedMonth(targetMonth, options = {}) {
       const monthSelect = document.getElementById("month");
       const rocYearInput = document.getElementById("rocYear");
       if (!monthSelect || !rocYearInput) return;
@@ -9636,8 +9914,104 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       }
       rocYearInput.value = nextRocYear;
       monthSelect.value = nextMonth;
-      syncMonthControlUI();
-      switchMonthState(nextRocYear !== currentRocYear);
+      if (!options.fadeCalendar) syncMonthControlUI();
+      return switchMonthState(nextRocYear !== currentRocYear, { fadeCalendar: Boolean(options.fadeCalendar) });
+    }
+    function bindCalendarMonthSwipe() {
+      const calendarBody = document.querySelector(".calendar-panel .calendar-body");
+      if (!calendarBody || calendarBody.dataset.monthSwipeBound === "true") return;
+      calendarBody.dataset.monthSwipeBound = "true";
+      let swipeStart = null;
+      let monthSwipeBusy = false;
+      let suppressClick = false;
+      let suppressClickTimer = 0;
+      const interactiveSelector = "a, input, select, textarea, [contenteditable='true']";
+      calendarBody.addEventListener("pointerdown", event => {
+        if (event.pointerType !== "touch" || !event.isPrimary || monthSwipeBusy) return;
+        const target = event.target instanceof Element ? event.target : null;
+        if (!target || target.closest(interactiveSelector)) return;
+        swipeStart = {
+          x: event.clientX,
+          y: event.clientY,
+          pointerId: event.pointerId,
+          width: Math.max(1, calendarBody.getBoundingClientRect().width),
+          axis: "",
+          lastX: event.clientX,
+          lastMoveAt: event.timeStamp,
+          velocityX: 0,
+          moved: false
+        };
+      }, { passive: true });
+      document.addEventListener("pointermove", event => {
+        if (!swipeStart || event.pointerId !== swipeStart.pointerId) return;
+        const start = swipeStart;
+        const deltaX = event.clientX - start.x;
+        const deltaY = event.clientY - start.y;
+        if (!start.axis) {
+          if (Math.abs(deltaY) > 12 && Math.abs(deltaY) > Math.abs(deltaX) * 1.1) {
+            swipeStart = null;
+            return;
+          }
+          if (Math.abs(deltaX) > 12 && Math.abs(deltaX) > Math.abs(deltaY) * 1.1) {
+            start.axis = "x";
+          }
+        }
+        const elapsed = Math.max(1, event.timeStamp - start.lastMoveAt);
+        start.velocityX = (event.clientX - start.lastX) / elapsed;
+        start.lastX = event.clientX;
+        start.lastMoveAt = event.timeStamp;
+        if (start.axis !== "x") return;
+        start.moved = true;
+      }, { passive: true });
+      document.addEventListener("pointerup", event => {
+        if (!swipeStart || event.pointerId !== swipeStart.pointerId) return;
+        const start = swipeStart;
+        swipeStart = null;
+        const deltaX = event.clientX - start.x;
+        const deltaY = event.clientY - start.y;
+        if (!start.axis && Math.abs(deltaX) > 12 && Math.abs(deltaX) > Math.abs(deltaY) * 1.1) start.axis = "x";
+        if (start.axis !== "x") return;
+        const finalMove = event.clientX - start.lastX;
+        const finalMoveTime = Math.max(1, event.timeStamp - start.lastMoveAt);
+        if (Math.abs(finalMove) > 0 && finalMoveTime <= 120) start.velocityX = finalMove / finalMoveTime;
+        if (Math.abs(deltaX) > 8) start.moved = true;
+        if (start.moved) {
+          suppressClick = true;
+          window.clearTimeout(suppressClickTimer);
+          suppressClickTimer = window.setTimeout(() => { suppressClick = false; }, 0);
+        }
+        const absDeltaX = Math.abs(deltaX);
+        const threshold = Math.max(58, Math.min(128, start.width * 0.2));
+        const velocityMatchesDirection = Math.sign(start.velocityX) === Math.sign(deltaX);
+        const fastEnough = absDeltaX >= 28 && velocityMatchesDirection && Math.abs(start.velocityX) >= 0.52;
+        const direction = deltaX < 0 ? "next" : "previous";
+        const changeDelta = direction === "next" ? 1 : -1;
+        const rocYear = Number(document.getElementById("rocYear")?.value || 0);
+        const month = Number(document.getElementById("month")?.value || 0);
+        const canChangeMonth = Boolean(getMonthSwipeContext(rocYear, month, changeDelta));
+        if (!canChangeMonth || (absDeltaX < threshold && !fastEnough)) return;
+        monthSwipeBusy = true;
+        const monthChange = selectDisplayedMonth(month + changeDelta, { fadeCalendar: true });
+        Promise.resolve(monthChange).then(() => {
+          monthSwipeBusy = false;
+        }, error => {
+          monthSwipeBusy = false;
+          console.warn("月份滑動後更新月曆失敗", error);
+        });
+      }, { passive: true });
+      document.addEventListener("pointercancel", event => {
+        if (!swipeStart || swipeStart.pointerId !== event.pointerId) return;
+        swipeStart = null;
+      }, { passive: true });
+      document.addEventListener("click", event => {
+        if (!suppressClick) return;
+        suppressClick = false;
+        window.clearTimeout(suppressClickTimer);
+        const target = event.target instanceof Element ? event.target : null;
+        if (!target || !calendarBody.contains(target)) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }, true);
     }
     function returnToTodayMonth() {
       saveCurrentMonthState({ passive: true });
@@ -9691,6 +10065,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const returnTodayBtn = document.getElementById("returnTodayBtn");
       if (returnTodayBtn) returnTodayBtn.addEventListener("click", () => returnToTodayMonth());
       document.getElementById("monthPickerOpenBtn")?.addEventListener("click", () => openMonthPickerModal());
+      bindCalendarMonthSwipe();
       document.getElementById("monthPickerCloseBtn")?.addEventListener("click", () => closeMonthPickerModal(true));
       document.querySelectorAll("[data-month-picker-value]").forEach(button => {
         button.addEventListener("click", () => selectDisplayedMonth(Number(button.dataset.monthPickerValue)));
@@ -9765,11 +10140,9 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       const salaryBasePayInput = document.getElementById("salaryBasePay");
       if (salaryBasePayInput) {
         let salaryRenderTimer = 0;
-        salaryBasePayInput.addEventListener("focus", function() { this.select(); });
-        salaryBasePayInput.addEventListener("click", function() { this.select(); });
+        bindAnnualSpecialFirstSelectV37(salaryBasePayInput);
         salaryBasePayInput.addEventListener("input", function() {
-          const digits = String(this.value || "").replace(/[^0-9]/g, "");
-          this.value = fmtInputAccountingMoney(Number(digits || 0));
+          formatAnnualSpecialSalaryInputV37(this);
           salaryBasePaySource = "manual";
           saveCurrentMonthState({ coalesceGroup: "salary-base-pay" });
           clearTimeout(salaryRenderTimer);
@@ -9863,7 +10236,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
  const G_BACKUP_CLIENT_ID = "107200643244-6m7b52c3ho8nofgqf2m1v87eu60hssl8.apps.googleusercontent.com";
  const G_BACKUP_SCOPE = "https://www.googleapis.com/auth/drive.appdata";
  const G_BACKUP_FILE_NAME = "overtime-backup.json";
- const G_BACKUP_ALLOWED_EXACT_KEYS = new Set(["personalOvertimeCodeFavorites", "personalOvertimeWeekStartMode", "personalOvertimeParameterSettings", "personalOvertimeShiftGroupPreference", "personalOvertimeTimedLeaveEntitlements"]);
+ const G_BACKUP_ALLOWED_EXACT_KEYS = new Set(["personalOvertimeCodeFavorites", "personalOvertimeWeekStartMode", "personalOvertimeParameterSettings", "personalOvertimeShiftGroupPreference", "personalOvertimeTimedLeaveEntitlements", "personalOvertimeAnnualSpecialLeave"]);
  const G_BACKUP_BEFORE_RESTORE_KEY = "personalOvertimeBackupBeforeGoogleRestore";
  const G_BACKUP_BEFORE_IMPORT_KEY = "personalOvertimeBackupBeforeLocalImport";
  const G_BACKUP_AUTH_REMEMBER_KEY = "personalOvertimeGoogleAuthRemembered";
@@ -10076,7 +10449,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   return {
    backupName: G_BACKUP_FILE_NAME,
    backupType: "personalOvertimeIndexedDbSubset",
-   version: 3,
+   version: 4,
    savedAt: new Date().toISOString(),
    keys: data
   };
@@ -10290,7 +10663,9 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
      if (state.manualRecords !== undefined && (!state.manualRecords || typeof state.manualRecords !== "object" || Array.isArray(state.manualRecords))) throw new Error("月份每日資料格式錯誤：" + key);
      if (state.specialDates !== undefined && (!state.specialDates || typeof state.specialDates !== "object" || Array.isArray(state.specialDates))) throw new Error("月份特殊日期格式錯誤：" + key);
      if (state.salaryBasePay !== undefined && (!Number.isFinite(Number(state.salaryBasePay)) || Number(state.salaryBasePay) < 0)) throw new Error("月份基本薪給格式錯誤：" + key);
-    } else if (key === "personalOvertimeCodeFavorites") {
+     } else if (key === "personalOvertimeAnnualSpecialLeave") {
+      validateAnnualSpecialLeaveLedgerV37(JSON.parse(value));
+     } else if (key === "personalOvertimeCodeFavorites") {
      let favorites;
      try { favorites = JSON.parse(value); } catch (error) { throw new Error("我的最愛格式錯誤。"); }
      if (!Array.isArray(favorites)) throw new Error("我的最愛必須是陣列。");
@@ -10315,6 +10690,11 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
  }
  function gBackupApplyPayload(payload) {
   const clean = gBackupValidatePayload(payload);
+   const annualKey = "personalOvertimeAnnualSpecialLeave";
+   if (Number(payload && payload.version || 0) < 4 && !(annualKey in clean) && localStorage.getItem(annualKey)) {
+    const ledger = validateAnnualSpecialLeaveLedgerV37(JSON.parse(localStorage.getItem(annualKey)));
+    clean[annualKey] = JSON.stringify(ledger);
+   }
   const existingKeys = Object.keys(localStorage).filter(function(key) { return /^personalOvertimeState:[ABCD]:\d{1,3}:(?:[1-9]|1[0-2])$/.test(key) || G_BACKUP_ALLOWED_EXACT_KEYS.has(key); });
   const replaceExactKeys = Number(payload && payload.version || 0) >= 3;
   const keysToRemove = existingKeys.filter(function(key) { return !(key in clean) && (key.indexOf("personalOvertimeState:") === 0 || replaceExactKeys); });
@@ -10327,6 +10707,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     if (clean[key] === null || clean[key] === undefined) localStorage.removeItem(key);
     else localStorage.setItem(key, String(clean[key]));
    });
+    suppressPassiveStateSaveForLocalClear = true;
   } catch (error) {
    affectedKeys.forEach(function(key) {
     if (rollback[key] === null) localStorage.removeItem(key);
@@ -10340,10 +10721,10 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   try { indexedKeys = await overtimeIndexedDb.listManagedKeys(); }
   catch (err) { console.warn("無法讀取 IndexedDB 待刪除項目", err); }
   const targets = new Set(indexedKeys.filter(function(key) {
-   return key.indexOf("personalOvertimeState:") === 0 || key === "personalOvertimeTimedLeaveEntitlements";
+    return key.indexOf("personalOvertimeState:") === 0 || key === "personalOvertimeTimedLeaveEntitlements" || key === "personalOvertimeAnnualSpecialLeave";
   }));
   Object.keys(localStorage).forEach(function(key) {
-   if (key.indexOf("personalOvertimeState:") === 0 || key === "personalOvertimeTimedLeaveEntitlements") targets.add(key);
+    if (key.indexOf("personalOvertimeState:") === 0 || key === "personalOvertimeTimedLeaveEntitlements" || key === "personalOvertimeAnnualSpecialLeave") targets.add(key);
   });
   targets.forEach(function(key) { localStorage.removeItem(key); });
   try { await overtimeIndexedDb.removeMany(Array.from(targets)); }
@@ -10351,7 +10732,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
  }
 
  async function clearLocalOvertimeStorageRecords() {
-  const confirmed = await gBackupShowConfirm("刪除本機紀錄", "確定要刪除本機的加班費計算紀錄嗎？", "此動作會刪除本機瀏覽器內所有 personalOvertimeState: 開頭的月份紀錄，以及期限假別資料；包含基本薪給、天災與選舉日設定、大修日期設定、請假／受訓批次設定與主月曆資料。此動作不會刪除 Google Drive 備份、不會登出 G、不會刪除我的最愛。", "danger", "確認刪除", "取消");
+  const confirmed = await gBackupShowConfirm("刪除本機紀錄", "確定要刪除本機的加班費計算紀錄嗎？", "此動作會刪除本機瀏覽器內所有 personalOvertimeState: 開頭的月份紀錄、期限假別，以及特休年度額度、遞延設定與試算薪給；包含基本薪給、天災與選舉日設定、大修日期設定、請假／受訓批次設定與主月曆資料。此動作不會刪除 Google Drive 備份、不會登出 G、不會刪除我的最愛。", "danger", "確認刪除", "取消");
   if (!confirmed) return;
   loadCodeFavorites();
   const favoriteJsonBeforeClear = JSON.stringify(Array.from(codeFavoriteSet));
@@ -10365,8 +10746,8 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
    console.warn("刪除本機紀錄後無法回寫我的最愛代碼", err);
   }
   gBackupRenderLocalStatus();
-  gBackupSetMessage("已刪除本機加班費計算紀錄與期限假別資料，並已保留我的最愛代碼，頁面即將重新載入。");
-  await gBackupShowNotice("刪除完成", "已刪除本機加班費計算紀錄與期限假別資料。Google Drive 備份、G 登入狀態與我的最愛代碼不受影響。", "success");
+  gBackupSetMessage("已刪除本機加班費計算紀錄、期限假別與特休年度帳本，並已保留我的最愛代碼，頁面即將重新載入。");
+  await gBackupShowNotice("刪除完成", "已刪除本機加班費計算紀錄、期限假別與特休年度帳本。Google Drive 備份、G 登入狀態與我的最愛代碼不受影響。", "success");
   suppressPassiveStateSaveForLocalClear = true;
   await removeLocalOvertimeCalculationRecords();
   window.location.reload();
@@ -10883,7 +11264,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   <div class="annual-policy-card" role="dialog" aria-modal="true" aria-labelledby="annualPolicyModalTitle">
     <div class="annual-policy-modal-header">
       <div><div id="annualPolicyModalTitle" class="annual-policy-modal-title">獎金與考核資訊</div><div class="annual-policy-modal-subtitle">需要時再查看工作獎金與考核門檻。</div></div>
-      <button id="annualPolicyModalCloseBtn" class="salary-detail-close-btn" type="button">關閉</button>
     </div>
     <div class="annual-policy-modal-body">
       <div class="annual-policy-grid">
@@ -10903,6 +11283,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         </div>
       </div>
     </div>
+    <div class="annual-policy-modal-footer"><button id="annualPolicyModalCloseBtn" class="salary-detail-close-btn" type="button">關閉</button></div>
   </div>
 </div>
 <!-- 獎金與考核資訊：浮動視窗結束 -->
@@ -10926,7 +11307,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
 <!-- 期限假別資格：浮動視窗開始 -->
 <div id="timedLeaveModal" class="timed-leave-modal" aria-hidden="true">
   <div class="timed-leave-card" role="dialog" aria-modal="true" aria-labelledby="timedLeaveTitle">
-    <div class="timed-leave-header"><div id="timedLeaveTitle" class="timed-leave-title">新增期限假別</div><button id="timedLeaveCloseBtn" class="timed-leave-close-btn icon-only" type="button" aria-label="關閉新增期限假別">×</button></div>
+    <div class="timed-leave-header"><div id="timedLeaveTitle" class="timed-leave-title">新增期限假別</div></div>
     <div class="timed-leave-body">
       <div id="timedLeaveToolbar" class="timed-leave-toolbar"><button id="timedLeaveAddBtn" class="timed-leave-add-btn" type="button">新增假別</button></div>
       <div id="timedLeaveForm" class="timed-leave-form" hidden>
@@ -10948,6 +11329,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       </div>
       <div id="timedLeaveManagerList" class="timed-leave-manager-list"></div>
     </div>
+    <div class="timed-leave-footer"><button id="timedLeaveCloseBtn" class="timed-leave-close-btn" type="button">關閉</button></div>
   </div>
 </div>
 <!-- 期限假別資格：浮動視窗結束 -->
@@ -11070,7 +11452,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       if (data.specialDates && typeof data.specialDates === "object") {
         specialDates.closure = Array.isArray(data.specialDates.closure) ? data.specialDates.closure : specialDates.closure;
         specialDates.election = Array.isArray(data.specialDates.election) ? data.specialDates.election : specialDates.election;
-        specialDates.training = Array.isArray(data.specialDates.training) ? data.specialDates.training : specialDates.training;
+        specialDates.training = Array.isArray(data.specialDates.training) ? normalizeTrainingRecords(data.specialDates.training) : specialDates.training;
       }
       resetOverhaulSettingsToDefault();
       if (data.overhaulSettings && typeof data.overhaulSettings === "object") {
@@ -12643,21 +13025,20 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
   };
   calcD10OvertimeMinutes = function (dayInfo) {
     const code = Number(dayInfo.actualCode);
-    const trainingMinutes = calcTrainingMinutes(dayInfo.day);
     if (dayInfo.changeText === "錯誤登錄" || dayInfo.noteText === "錯誤登錄" || dayInfo.changeText === "違規") return 0;
     if (isWeekendTrainingClass(dayInfo)) return 0;
     if (code === 4 && isRestTextForD11(dayInfo.changeText)) return 0;
     const overhaulOverrideMinutes = getOverhaulOverrideMinutes(dayInfo.day, dayInfo.year, dayInfo.month);
     if (isOverhaulActiveDay(dayInfo.day)) return overhaulOverrideMinutes !== null ? overhaulOverrideMinutes : 0;
-    if (isSubstituteCode(code)) return getParameterHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) + trainingMinutes;
-    if (code === 0 || code === 9 || code === 10) return trainingMinutes;
+    if (isSubstituteCode(code)) return getParameterHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day);
+    if (code === 0 || code === 9 || code === 10) return 0;
     if (isLeaveCode(code)) {
-      if (isCompoundLeaveCodeForDay(code, dayInfo.day) && hasCompoundSplitInput(dayInfo)) return isCompoundSplitPartialLeave(dayInfo) ? getParameterPartialHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) + trainingMinutes : trainingMinutes;
-      if (getPlannedValueV13(dayInfo) > 0 && hasPartialLeaveHrText(dayInfo)) return getParameterPartialHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) + trainingMinutes;
-      return trainingMinutes;
+      if (isCompoundLeaveCodeForDay(code, dayInfo.day) && hasCompoundSplitInput(dayInfo)) return isCompoundSplitPartialLeave(dayInfo) ? getParameterPartialHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) : 0;
+      if (getPlannedValueV13(dayInfo) > 0 && hasPartialLeaveHrText(dayInfo)) return getParameterPartialHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day);
+      return 0;
     }
     let minutes = isWorkCode(code) ? getParameterHandoverMinutes(dayInfo.year, dayInfo.month, dayInfo.day) : 0;
-    return Math.max(0, minutes + calcElectionD10AdjustmentMinutes(dayInfo) + trainingMinutes);
+    return Math.max(0, minutes + calcElectionD10AdjustmentMinutes(dayInfo));
   };
   calcD11AttendanceHours = function (dayInfo) {
     const code = Number(dayInfo.actualCode);
@@ -12676,6 +13057,16 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       return Math.max(0, configuredBase + calcD11PositiveAdjustment(dayInfo) - calcD11BackDeduct(dayInfo));
     }
     return 0;
+  };
+  const calcD11AttendanceHoursBeforeExtraOvertime = calcD11AttendanceHours;
+  calcD11AttendanceHours = function (dayInfo) {
+    const hours = calcD11AttendanceHoursBeforeExtraOvertime(dayInfo);
+    if (typeof hours !== "number") return hours;
+    if (isWeekendTrainingClass(dayInfo) ||
+        (Number(dayInfo.actualCode) === 4 && isRestTextForD11(dayInfo.changeText)) ||
+        isOverhaulActiveDay(dayInfo.day)) return hours;
+    const extraHours = calcTrainingMinutes(dayInfo.day) / 60;
+    return extraHours > 0 ? Math.min(12, hours + extraHours) : hours;
   };
   getEffectiveValueForCalendarClosure = function (dayInfo) {
     if (!canUseDayInfoForCalendarClosure(dayInfo)) return 0;
@@ -13266,5 +13657,377 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
 /* === V28 期限假別資格：功能結束 === */
 </script>
 
+
+<script>
+/* === 2026-09-15 升等$$補發試算 V2：功能開始 === */
+(function(){
+ const EMPTY={enabled:false,effectiveDay:1,oldSalary:0,newSalary:0,open:false};let state={...EMPTY};let loadedKey="";const el=id=>document.getElementById(id);const rocYear=()=>{const value=Number(el("rocYear")?.value||0);return Number.isFinite(value)&&value>0?value:new Date().getFullYear()-1911};const month=()=>Number(el("month")?.value||1);const maxDay=()=>new Date(rocYear()+1911,month(),0).getDate();const clean=v=>Math.max(0,Number(String(v??"").replace(/[^0-9.]/g,""))||0);const round=v=>Math.ceil(Number(v)||0);const money=v=>`NT$ ${round(v).toLocaleString("zh-TW")}`;const inputMoney=v=>clean(v)?`$${clean(v).toLocaleString("zh-TW")}`:"";const isTouchKeyboard=()=>{try{return Number(navigator.maxTouchPoints||0)>0||window.matchMedia("(pointer: coarse)").matches}catch(e){return false}};
+ function paint(id,v){const n=el(id);if(!n)return;n.textContent=money(v);n.classList.toggle("positive",Number(v)>0);n.classList.toggle("negative",Number(v)<0)}
+ function snapshot(storageKey){const targetKey=String(storageKey||(typeof getCurrentStorageKey==="function"?getCurrentStorageKey():""));const value=targetKey&&loadedKey&&targetKey!==loadedKey?EMPTY:state;return JSON.parse(JSON.stringify(value))} window.getPartialMonthSnapshot=snapshot;
+ function save(){const readyKey=typeof activeStorageKey==="string"?activeStorageKey:"";const targetKey=readyKey||(typeof getCurrentStorageKey==="function"?getCurrentStorageKey():"");if(!targetKey||(loadedKey&&targetKey!==loadedKey))return;if(typeof saveCurrentMonthState==="function")saveCurrentMonthState();else{try{const d=JSON.parse(localStorage.getItem(targetKey)||"{}");d.partialMonth=snapshot(targetKey);localStorage.setItem(targetKey,JSON.stringify(d))}catch(e){console.warn("破月資料儲存失敗",e)}}}
+ function load(storageKey){const readyKey=typeof activeStorageKey==="string"?activeStorageKey:"";loadedKey=String(storageKey||readyKey||(typeof getCurrentStorageKey==="function"?getCurrentStorageKey():""));state={...EMPTY};try{const raw=loadedKey?localStorage.getItem(loadedKey):null;const data=raw?JSON.parse(raw):null;if(data?.partialMonth){state={...EMPTY,enabled:!!data.partialMonth.enabled,effectiveDay:Number(data.partialMonth.effectiveDay)||1,oldSalary:clean(data.partialMonth.oldSalary),newSalary:clean(data.partialMonth.newSalary),open:!!data.partialMonth.open}}}catch(e){console.warn("升等補發資料讀取失敗",e)}state.effectiveDay=Math.min(maxDay(),Math.max(1,Number(state.effectiveDay)||1));sync()}
+ function metrics(){try{const days=buildDays(),m=month(),total=days.reduce((a,d)=>a+safeHours(d.attendanceHours),0),national=calcNationalHolidayHours(days),maintenance=(calendarData.workDict[m]||0)*Math.max(0,getParameterCoreNumber("normalHoursPerDay")),additional=calcAdditionalHolidayWorkHours(days),comp=calcCompLeaveHours(days,additional),ap=calcApAqRestHours(days,total,maintenance,national,comp);return{split:splitTwelve(ap.restHours),holidayHours:Number(national||0)+Number(additional||0)}}catch(e){return{split:{code7:0,code8:0,code6:0},holidayHours:0}}}
+ function sync(){el("partialMonthPanel")?.classList.toggle("open",!!state.open);el("partialMonthToggle")?.setAttribute("aria-expanded",String(!!state.open));el("partialMonthForm")?.classList.toggle("is-disabled",!state.enabled);const b=el("partialMonthEnableBtn");if(b){b.textContent=state.enabled?"已啟用":"未啟用";b.classList.toggle("is-enabled",!!state.enabled)}el("partialMonthOldSalary").value=inputMoney(state.oldSalary);el("partialMonthNewSalary").value=inputMoney(state.newSalary);render()}
+ function render(){if(!el("partialMonthPanel"))return;const md=maxDay(),day=Math.min(md,Math.max(1,Number(state.effectiveDay)||1)),oldDays=day-1,newDays=md-day+1,oldPay=clean(state.oldSalary),newPay=clean(state.newSalary),enabled=!!state.enabled,current=getSalaryBasePay(),warnings=[];el("partialMonthEffectiveDateBtn").textContent=`${String(month()).padStart(2,"0")}月${String(day).padStart(2,"0")}日`;if(enabled&&!oldPay)warnings.push("請輸入調薪前基本薪給");if(enabled&&!newPay)warnings.push("請輸入調薪後基本薪給");if(enabled&&current>0&&oldPay>0&&current!==oldPay)warnings.push(`調薪前基本薪給與上方基本薪給不同，上方目前為 ${money(current)}`);const w=el("partialMonthWarning");w.textContent=warnings.join("；");w.classList.toggle("show",warnings.length>0);
+  const baseDiff=round((newPay-oldPay)/30*newDays),baseWithDiff=round(newPay)+baseDiff,overtimeBase=oldPay/30*oldDays+newPay/30*newDays,m=metrics(),div=Math.max(.01,getParameterCoreNumber("salaryHourDivisor"));const diffBy=code=>round(overtimeBase/div*Number(m.split[code]||0)*getParameterRate(code))-round(oldPay/div*Number(m.split[code]||0)*getParameterRate(code));const d7=diffBy("code7"),d8=diffBy("code8"),d6=diffBy("code6"),ot=d7+d8+d6,hd=round(overtimeBase/div*m.holidayHours)-round(oldPay/div*m.holidayHours),grand=baseDiff+ot+hd;
+  el("partialMonthOldDays").textContent=`${oldDays}天`;el("partialMonthNewDays").textContent=`${newDays}天`;el("partialMonthOldRange").textContent=oldDays?`${month()}/1～${month()}/${day-1}`:"無調薪前區段";el("partialMonthNewRange").textContent=`${month()}/${day}～${month()}/${md}`;paint("partialMonthBaseDiff",enabled?baseDiff:0);paint("partialMonthBaseWithDiff",enabled?baseWithDiff:0);el("partialMonthBaseFormula").textContent=`($${newPay.toLocaleString("zh-TW")}－$${oldPay.toLocaleString("zh-TW")})÷30×${newDays}天`;el("partialMonthBaseWithDiffFormula").textContent=`$${newPay.toLocaleString("zh-TW")}＋${money(enabled?baseDiff:0)}`;paint("partialMonthOvertimeBase",enabled?overtimeBase:0);paint("partialMonthCode7Diff",enabled?d7:0);paint("partialMonthCode8Diff",enabled?d8:0);paint("partialMonthCode6Diff",enabled?d6:0);paint("partialMonthOvertimeDiff",enabled?ot:0);paint("partialMonthHolidayDiff",enabled?hd:0);paint("partialMonthGrandDiff",enabled?grand:0);el("partialMonthCode7Hours").textContent=`${fmtHour(m.split.code7||0)}HR`;el("partialMonthCode8Hours").textContent=`${fmtHour(m.split.code8||0)}HR`;el("partialMonthCode6Hours").textContent=`${fmtHour(m.split.code6||0)}HR`;el("partialMonthHolidayHours").textContent=`${fmtHour(m.holidayHours)}HR`;
+ }
+ function openDate(){const y=rocYear()+1911,m=month(),first=new Date(y,m-1,1).getDay(),md=maxDay();el("partialMonthDateSubtitle").textContent=`民國${rocYear()}年${m}月`;el("partialMonthDateGrid").innerHTML=Array.from({length:first},()=>'<button class="partial-picker-day blank" type="button"></button>').join("")+Array.from({length:md},(_,i)=>`<button class="partial-picker-day ${i+1===Number(state.effectiveDay)?"selected":""}" type="button" data-partial-day="${i+1}">${i+1}</button>`).join("");el("partialMonthDateModal").classList.add("open")}
+ function close(){el("partialMonthDateModal")?.classList.remove("open")}
+ function bindMoney(input,key){let firstActivation=true,prior="";const commit=()=>{state[key]=clean(input.value);input.value=inputMoney(state[key]);save();render()};input.addEventListener("focus",function(){prior=this.value;firstActivation=true;requestAnimationFrame(()=>this.select())});input.addEventListener("pointerdown",function(e){if(document.activeElement!==this||firstActivation){e.preventDefault();this.focus();requestAnimationFrame(()=>this.select());firstActivation=false}});input.addEventListener("click",function(){if(firstActivation){this.select();firstActivation=false}});input.addEventListener("input",function(){state[key]=clean(this.value);save();render()});input.addEventListener("blur",function(){commit();firstActivation=true});input.addEventListener("beforeinput",function(e){if(key==="newSalary"&&isTouchKeyboard()&&e.inputType==="insertLineBreak"){e.preventDefault();this.blur()}});input.addEventListener("keydown",function(e){const enter=e.key==="Enter"||e.code==="NumpadEnter"||e.keyCode===13;const forwardTab=(e.key==="Tab"||e.keyCode===9)&&!e.shiftKey;if(key==="newSalary"&&isTouchKeyboard()&&(enter||forwardTab)){e.preventDefault();e.stopPropagation();this.blur();return}if(enter){e.preventDefault();e.stopPropagation();commit();prior=this.value;return}if(e.key==="Escape"){this.value=prior;this.blur()}})}
+ function bind(){el("partialMonthToggle").addEventListener("click",()=>{state.open=!state.open;save();sync()});el("partialMonthEnableBtn").addEventListener("click",()=>{state.enabled=!state.enabled;if(state.enabled&&!state.oldSalary)state.oldSalary=getSalaryBasePay();save();sync()});el("partialMonthEffectiveDateBtn").addEventListener("click",openDate);bindMoney(el("partialMonthOldSalary"),"oldSalary");bindMoney(el("partialMonthNewSalary"),"newSalary");document.addEventListener("click",e=>{const d=e.target.closest("[data-partial-day]");if(d){state.effectiveDay=Number(d.dataset.partialDay);save();close();sync();return}if(e.target.closest('[data-partial-close="date"]'))close();if(e.target.id==="partialMonthDateModal")close()});document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});el("salaryBasePay")?.addEventListener("change",()=>setTimeout(render,0))}
+ function init(){bind();window.addEventListener("personalOvertimeMonthStateLoaded",event=>load(event.detail?.storageKey));const readyKey=typeof activeStorageKey==="string"?activeStorageKey:"";if(readyKey)load(readyKey);setInterval(()=>{if(!document.hidden)render()},1500)}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+})();
+/* === 2026-09-15 升等$$補發試算 V2：功能結束 === */
+</script>
+
+<script>
+// 特休年度帳本 V37：計算與格式驗證共用於畫面、備份及回歸測試。
+function calculateAnnualSpecialLeaveV37(input) {
+  const dayHours = input.dayHours ?? 8, divisor = input.divisor ?? 240, cap = input.cap ?? 14, perDay = input.perDay ?? 1333;
+  const openingHours = input.openingHours, grantHours = input.grantHours, usedHours = input.usedHours;
+  const result = { oldUsed: 0, currentUsed: 0, oldLeft: null, currentLeft: null, carryHours: null, currentCashHours: null, monthlySubsidyDays: 0, supplementDays: 0, unusedBonus: null, total: null, error: "" };
+  if (![openingHours, grantHours].every(value => Number.isFinite(value) && value >= 0)) { result.error = "請先設定上年度轉入額度與本年度核給天數。"; return result; }
+  if (!Number.isFinite(usedHours) || usedHours < 0 || !Number.isFinite(dayHours) || dayHours <= 0 || !Number.isFinite(divisor) || divisor <= 0 || !Number.isInteger(cap) || cap < 0 || !Number.isFinite(perDay) || perDay < 0) { result.error = "特休時數或計算參數格式錯誤。"; return result; }
+  result.oldUsed = Math.min(openingHours, usedHours);
+  result.currentUsed = Math.max(0, usedHours - openingHours);
+  result.oldLeft = openingHours - result.oldUsed;
+  result.currentLeft = grantHours - result.currentUsed;
+  if (usedHours > openingHours + grantHours) { result.error = "已休時數超過年度總額，請核對額度及請假紀錄。"; return result; }
+  if (!["all", "partial", "none"].includes(input.choice)) { result.error = "請選擇有效的遞延方式。"; return result; }
+  result.carryHours = input.choice === "all" ? result.currentLeft : input.choice === "none" ? 0 : input.partialCarryHours;
+  if (!Number.isFinite(result.carryHours) || result.carryHours < 0 || result.carryHours > result.currentLeft) { result.error = "部分遞延額度超過本年度剩餘額度。"; return result; }
+  result.currentCashHours = result.currentLeft - result.carryHours;
+  const months = Array.isArray(input.monthlyHours) ? input.monthlyHours : [usedHours];
+  if (!months.every(hours => Number.isFinite(hours) && hours >= 0) || Math.abs(months.reduce((sum, hours) => sum + hours, 0) - usedHours) > 0.001) { result.error = "年度與各月特休時數不一致，請核對紀錄。"; return result; }
+  let priorHours = 0;
+  for (const hours of months) {
+    result.monthlySubsidyDays += Math.min(Math.floor(hours / dayHours), Math.max(0, cap - Math.floor(priorHours / dayHours)));
+    priorHours += hours;
+  }
+  result.supplementDays = Math.max(0, Math.min(cap, Math.floor(usedHours / dayHours)) - result.monthlySubsidyDays);
+  const oldReady = result.oldLeft === 0 || Number.isFinite(input.salaryOld) && input.salaryOld > 0;
+  const currentReady = result.currentCashHours === 0 || Number.isFinite(input.salaryCurrent) && input.salaryCurrent > 0;
+  if (oldReady && currentReady) {
+    result.unusedBonus = (result.oldLeft > 0 ? Math.ceil(input.salaryOld * result.oldLeft / divisor) : 0) + (result.currentCashHours > 0 ? Math.ceil(input.salaryCurrent * result.currentCashHours / divisor) : 0);
+    result.total = result.unusedBonus + result.supplementDays * perDay;
+  }
+  return result;
+}
+function annualSpecialFingerprintV37(input, result) {
+  const params = { dayHours: input.dayHours, divisor: input.divisor, cap: input.cap, perDay: input.perDay };
+  return JSON.stringify([input.openingHours, input.grantHours, input.usedHours, input.choice, input.choice === "partial" ? input.partialCarryHours : 0, params, result.oldLeft > 0 ? input.salaryOld : null, result.currentCashHours > 0 ? input.salaryCurrent : null, input.monthlyHours]);
+}
+function validateAnnualSpecialLeaveLedgerV37(ledger) {
+  const object = value => value && typeof value === "object" && !Array.isArray(value);
+  const hours = value => Number.isFinite(value) && value >= 0 && value <= 17520 && Number.isInteger(value * 2);
+  const year = value => /^[1-9]\d{0,2}$/.test(String(value));
+  const salary = value => value === null || Number.isSafeInteger(value) && value >= 0;
+  if (!object(ledger) || ledger.version !== 1 || !object(ledger.groups)) throw new Error("特休年度帳本格式或版本錯誤。");
+  for (const [groupName, group] of Object.entries(ledger.groups)) {
+    if (!["A", "B", "C", "D"].includes(groupName) || !object(group) || !object(group.years) || !object(group.salaries)) throw new Error("特休年度帳本班別格式錯誤。");
+    for (const [sourceYear, amount] of Object.entries(group.salaries)) if (!year(sourceYear) || !salary(amount)) throw new Error("特休薪給基準格式錯誤。");
+    for (const [attendanceYear, entry] of Object.entries(group.years)) {
+      if (!year(attendanceYear) || !object(entry) || !(entry.grantDays === null || Number.isInteger(entry.grantDays) && entry.grantDays >= 0 && entry.grantDays <= 365) || !(entry.openingHours === null || hours(entry.openingHours)) || !hours(entry.partialCarryHours) || !["all", "partial", "none"].includes(entry.choice) || typeof entry.needsReview !== "boolean" || !Array.isArray(entry.revisions)) throw new Error("特休年度額度或遞延資料格式錯誤。");
+      for (const revision of entry.revisions) {
+        if (!object(revision) || typeof revision.fingerprint !== "string" || revision.fingerprint.length > 10000 || typeof revision.confirmedAt !== "string" || !Number.isFinite(Date.parse(revision.confirmedAt))) throw new Error("特休結算歷史格式錯誤。");
+        if (!["openingHours", "grantHours", "usedHours", "carryHours", "oldCashHours", "currentCashHours"].every(key => hours(revision[key])) || revision.carryHours > revision.grantHours || !["unusedBonus", "total", "supplementDays"].every(key => Number.isFinite(revision[key]) && revision[key] >= 0) || !salary(revision.salaryOld) || !salary(revision.salaryCurrent)) throw new Error("特休結算歷史數值錯誤。");
+        let values;
+        try { values = JSON.parse(revision.fingerprint); } catch (error) { throw new Error("特休結算歷史計算基準錯誤。"); }
+        if (!Array.isArray(values) || values.length !== 9 || !object(values[5]) || !Array.isArray(values[8])) throw new Error("特休結算歷史計算基準錯誤。");
+        const input = { openingHours: values[0], grantHours: values[1], usedHours: values[2], choice: values[3], partialCarryHours: values[4], ...values[5], salaryOld: values[6], salaryCurrent: values[7], monthlyHours: values[8] };
+        const computed = calculateAnnualSpecialLeaveV37(input);
+        if (computed.error || computed.total === null || annualSpecialFingerprintV37(input, computed) !== revision.fingerprint || revision.openingHours !== input.openingHours || revision.grantHours !== input.grantHours || revision.usedHours !== input.usedHours || revision.carryHours !== computed.carryHours || revision.oldCashHours !== computed.oldLeft || revision.currentCashHours !== computed.currentCashHours || revision.unusedBonus !== computed.unusedBonus || revision.total !== computed.total || revision.supplementDays !== computed.supplementDays || computed.oldLeft > 0 && revision.salaryOld !== input.salaryOld || computed.currentCashHours > 0 && revision.salaryCurrent !== input.salaryCurrent) throw new Error("特休結算歷史與計算結果不一致。");
+      }
+    }
+  }
+  return ledger;
+}
+function bindAnnualSpecialFirstSelectV37(input) {
+  if (!input || input.dataset.annualFirstSelectBound === "true") return;
+  input.dataset.annualFirstSelectBound = "true";
+  let selectOnClick = false, pointerFocus = false;
+  input.addEventListener("pointerdown", () => { pointerFocus = document.activeElement !== input; selectOnClick = pointerFocus; });
+  input.addEventListener("focus", () => { if (!pointerFocus) requestAnimationFrame(() => { if (document.activeElement === input) input.select(); }); });
+  input.addEventListener("click", () => { if (selectOnClick) input.select(); selectOnClick = false; pointerFocus = false; });
+  input.addEventListener("keydown", () => { selectOnClick = false; pointerFocus = false; });
+  input.addEventListener("blur", () => { selectOnClick = false; pointerFocus = false; });
+}
+function formatAnnualSpecialSalaryInputV37(input) {
+  const before = input.value, start = input.selectionStart ?? before.length, end = input.selectionEnd ?? start;
+  const count = position => before.slice(0, position).replace(/[^0-9]/g, "").length;
+  const startDigits = count(start), endDigits = count(end), digits = before.replace(/[^0-9]/g, "");
+  input.value = fmtInputAccountingMoney(Number(digits || 0));
+  const caret = needed => { if (needed <= 0) return input.value.startsWith("$") ? 1 : 0; let seen = 0; for (let i = 0; i < input.value.length; i++) { if (/[0-9]/.test(input.value[i])) seen++; if (seen === needed) return i + 1; } return input.value.length; };
+  if (document.activeElement === input) input.setSelectionRange(caret(startDigits), caret(endDigits));
+}
+</script>
+<style>
+.annual-special-hub-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(190px,24%);gap:10px;align-items:stretch}
+.annual-special-hub-row .annual-policy-hub-btn{min-width:0}
+.annual-special-quota-card{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;min-height:110px;padding:14px 10px;border:1px solid rgba(103,232,249,.28);border-radius:14px;background:linear-gradient(135deg,rgba(14,116,144,.12),rgba(3,7,18,.5));color:#a5f3fc;font:inherit;cursor:pointer}
+.annual-special-quota-card>span:first-child{font-size:14px;font-weight:900;white-space:normal;text-align:center;line-height:1.4;text-wrap:balance}
+.annual-special-quota-card>strong{font-size:26px;color:#facc65;font-weight:950;max-width:100%;overflow-wrap:anywhere;text-align:center;font-variant-numeric:tabular-nums}
+.annual-special-quota-card>span:last-child{font-size:11px;color:#b8c8d5}
+.annual-special-quota-card[aria-expanded="true"]{border-color:#5ee0ba}
+.annual-special-editor{grid-column:1/-1;display:grid;gap:14px;padding:16px;border:1px solid rgba(103,232,249,.28);border-radius:14px;background:linear-gradient(150deg,#101d2b,#080f18);color:#e2e8f0}
+.annual-special-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#a5f3fc;font-size:16px}
+.annual-special-heading small{display:block;margin-top:4px;font-size:11px;color:#b8c8d5}
+.annual-special-field{display:grid;gap:8px;font-size:14px;min-width:0}
+.annual-special-time{display:flex;align-items:center;flex-wrap:wrap;gap:7px;font-size:14px}
+.annual-special-input{min-width:0;min-height:44px;width:86px;padding:8px 10px;border:1px solid #42617b;border-radius:9px;background:#09131f;color:#e2e8f0;font-size:16px;font-weight:750;text-align:center}
+select.annual-special-input{width:76px}
+.annual-special-button{min-height:44px;padding:8px 14px;border:1px solid #42617b;border-radius:9px;background:#13263b;color:#e2e8f0;font-size:14px;font-weight:800;cursor:pointer}
+.annual-special-button:disabled{opacity:.6;cursor:default}
+.annual-special-link{border:0;padding:8px 0;min-height:44px;background:transparent;color:#79e6bf;font-size:12px;text-align:left;cursor:pointer}
+.annual-special-row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px}
+.annual-special-row>span{min-width:0}
+.annual-special-row>strong{text-align:right;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.annual-special-results{display:grid;gap:12px;border-top:1px solid #324557;padding-top:14px}
+.annual-special-note{color:#b8c8d5;font-size:11px;line-height:1.6;overflow-wrap:anywhere}
+.annual-special-error{color:#fda4af;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+.annual-special-settlement{margin-top:12px;border:1px solid #324557;border-radius:12px;background:#0a1421;color:#e2e8f0}
+.annual-special-settlement>summary{display:grid;gap:12px;padding:14px 12px;list-style:none;cursor:pointer}
+.annual-special-settlement>summary::-webkit-details-marker{display:none}
+.annual-special-expand{font-size:12px;color:#79e6bf}
+.annual-special-settlement[open] .annual-special-expand{font-size:0}
+.annual-special-settlement[open] .annual-special-expand::after{content:"收合";font-size:12px}
+.annual-special-summary{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;color:#facc65}
+.annual-special-body{display:grid;gap:14px;padding:0 12px 14px}
+.annual-special-body>.annual-special-note:first-child{padding-top:12px;border-top:1px solid #324557}
+.annual-special-usage{display:grid;gap:9px}
+.annual-special-usage>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);align-items:center;gap:5px;font-size:13px}
+.annual-special-usage>div>:not(:first-child){text-align:right;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.annual-special-table-head{color:#b8c8d5;font-size:11px!important}
+.annual-special-choices{padding:0;border:0;margin:0;min-width:0;display:grid;gap:10px}
+.annual-special-choices legend{font-size:14px;font-weight:850;margin-bottom:10px;padding:0}
+.annual-special-choice-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.annual-special-choice-row label{display:flex;justify-content:center;align-items:center;gap:3px;min-height:44px;padding:7px 3px;border:1px solid #42617b;border-radius:9px;background:#0e1a29;font-size:14px;cursor:pointer}
+.annual-special-choice-row label>span{white-space:nowrap}
+.annual-special-choice-row input{margin:0;accent-color:#63dcb0}
+.annual-special-choice-row label:has(input:checked){background:#b8efdc;color:#092c22;border-color:transparent}
+.annual-special-audit{display:grid;gap:10px}
+.annual-special-audit>summary{min-height:44px;padding:8px 0;color:#79e6bf;font-size:13px;cursor:pointer}
+.annual-special-money-input{width:100%;border:2px solid #347cff;color:#facc65;font-size:24px;font-weight:950}
+.annual-special-money-input::placeholder{font-size:15px;font-weight:500;color:#b8c8d5}
+.annual-special-salary-source{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.annual-special-salary-source .annual-special-link{min-height:30px;padding:4px 0}
+.annual-special-total{display:grid;gap:8px;border-top:1px solid #324557;padding-top:12px;font-size:14px}
+.annual-special-total strong{font-size:26px;color:#facc65;font-variant-numeric:tabular-nums}
+#annualSpecialQuotaLeft{font-size:20px;color:#facc65}
+#annualSpecialSettlement[hidden],#annualSpecialQuotaEditor[hidden],.annual-special-settlement [hidden],.annual-special-editor [hidden]{display:none!important}
+@media(max-width:760px){.annual-special-hub-row{grid-template-columns:minmax(0,1fr) minmax(100px,38%);gap:8px}.annual-special-hub-row .annual-policy-hub-summary-row{display:flex;flex-wrap:wrap;gap:3px}.annual-special-editor{padding:14px 12px}.annual-special-quota-card>strong{font-size:24px}.annual-special-quota-card>span:first-child{font-size:13px}.annual-special-usage>div{font-size:12px}}
+@media(max-width:350px){.annual-special-choice-row label{font-size:12px;padding-left:2px;padding-right:2px}.annual-special-hub-row .annual-policy-hub-btn{padding:12px 10px}.annual-special-quota-card{padding:12px 6px}.annual-special-quota-card>strong{font-size:21px}.annual-special-hub-row .annual-policy-hub-title{font-size:12px}}
+</style>
+<script>
+/* 特休遞延及不休假獎金 V37：年度資料獨立保存，不附加到月份快照。 */
+(() => {
+  const STORAGE_KEY = "personalOvertimeAnnualSpecialLeave";
+  const el = id => document.getElementById(id);
+  const emptyEntry = () => ({ grantDays: null, openingHours: null, choice: "all", partialCarryHours: 0, needsReview: false, revisions: [] });
+  let view = null, storageError = "";
+  const fieldErrors = new Map(), monthCache = new Map();
+  const money = value => value === null ? "待填薪給" : "$" + Number(value).toLocaleString("zh-TW");
+  const time = value => value === null || !Number.isFinite(value) ? "待設定" : formatLeaveStatValue(value);
+  const text = (id, value) => { el(id).textContent = value; };
+  function readLedger() {
+    try { storageError = ""; const raw = localStorage.getItem(STORAGE_KEY); return raw ? validateAnnualSpecialLeaveLedgerV37(JSON.parse(raw)) : { version: 1, groups: {} }; }
+    catch (error) { storageError = "特休帳本無法讀取，原始資料未覆寫：" + error.message; return null; }
+  }
+  function write(edit) {
+    if (!view) return false;
+    try {
+      const ledger = readLedger(); if (!ledger) throw new Error(storageError);
+      const group = ledger.groups[view.group] || (ledger.groups[view.group] = { years: {}, salaries: {} });
+      const entry = group.years[view.year] || (group.years[view.year] = emptyEntry());
+      edit(entry, group);
+      validateAnnualSpecialLeaveLedgerV37(ledger);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(ledger));
+      el("annualSpecialSaveError").hidden = true; el("annualSpecialQuotaSaveError").hidden = true;
+      return true;
+    } catch (error) { ["annualSpecialSaveError", "annualSpecialQuotaSaveError"].forEach(id => { el(id).hidden = false; text(id, "無法儲存特休資料：" + error.message); }); return false; }
+  }
+  function parameters() {
+    return { dayHours: Math.max(.5, getLeavePolicyNumber("hoursPerDay")), divisor: Math.max(.01, getParameterCoreNumber("salaryHourDivisor")), cap: Math.max(0, Math.round(getParameterCoreNumber("specialLeaveSubsidyMaxDays"))), perDay: Math.max(0, getParameterCoreNumber("specialLeaveSubsidyPerDay")) };
+  }
+  function salaryFor(group, sourceYear) {
+    if (Object.prototype.hasOwnProperty.call(group.salaries, sourceYear)) return { amount: group.salaries[sourceYear] > 0 ? group.salaries[sourceYear] : null, manual: true };
+    const key = "personalOvertimeState:" + view.group + ":" + sourceYear + ":10";
+    try {
+      const currentKey = typeof activeStorageKey === "string" ? activeStorageKey : "";
+      if (currentKey === key && getCurrentStorageKey() === key) {
+        const amount = getSalaryBasePay();
+        return { amount: Number.isSafeInteger(amount) && amount > 0 ? amount : null, manual: false };
+      }
+      const raw = localStorage.getItem(key);
+      if (!raw) return { amount: null, manual: false };
+      const stored = JSON.parse(raw);
+      const amount = Number(stored.salaryBasePay);
+      return { amount: Number.isSafeInteger(amount) && amount > 0 ? amount : null, manual: false };
+    } catch (error) { return { amount: null, manual: false }; }
+  }
+  function monthly(year) {
+    return getAttendanceYearMonthPairs(year).map(pair => {
+      const key = "personalOvertimeState:" + view.group + ":" + pair.rocYear + ":" + pair.month;
+      const raw = localStorage.getItem(key), current = pair.rocYear === view.rocYear && pair.month === view.month;
+      let hours;
+      if (current) hours = collectLeaveStatsFromDays(view.days).special;
+      else {
+        const cached = monthCache.get(key);
+        if (cached && cached.raw === raw) hours = cached.hours;
+        else { hours = applyLeaveStatsSnapshotForMonth(pair.rocYear, pair.month, view.group, null).special; monthCache.set(key, { raw, hours }); }
+      }
+      return { ...pair, hours: roundLeaveStatHours(hours || 0), stored: !!raw };
+    });
+  }
+  function modelFor(ledger, year, cache = new Map()) {
+    if (cache.has(year)) return cache.get(year);
+    const group = ledger.groups[view.group] || { years: {}, salaries: {} }, entry = group.years[year] || emptyEntry(), params = parameters();
+    let opening = entry.openingHours, inherited = false, parentError = "";
+    const previousEntry = group.years[year - 1];
+    if (previousEntry && year > 1) {
+      // 舊版確認歷史僅保留供備份相容；額度直接沿用前年度目前有效的遞延試算。
+      const previous = modelFor(ledger, year - 1, cache);
+      if (!previous.result.error && previous.result.carryHours !== null) {
+        inherited = true; opening = previous.result.carryHours;
+      } else if (previous.parentError || previous.opening !== null && previous.entry.grantDays !== null) {
+        inherited = true; opening = null; parentError = "上年度遞延資料待修正，請先修正上年度遞延設定。";
+      }
+    }
+    const rows = monthly(year), usedHours = roundLeaveStatHours(rows.reduce((sum, row) => sum + row.hours, 0));
+    const oldSalary = salaryFor(group, year - 1), currentSalary = salaryFor(group, year);
+    const input = { openingHours: opening, grantHours: entry.grantDays === null ? null : entry.grantDays * params.dayHours, usedHours, choice: entry.choice, partialCarryHours: entry.partialCarryHours, ...params, salaryOld: oldSalary.amount, salaryCurrent: currentSalary.amount, monthlyHours: rows.map(row => row.hours) };
+    const result = calculateAnnualSpecialLeaveV37(input);
+    if (parentError) result.error = parentError;
+    const model = { year, entry, rows, usedHours, opening, inherited, parentError, oldSalary, currentSalary, input, result, params };
+    cache.set(year, model); return model;
+  }
+  function setInput(id, value) { const input = el(id); if (document.activeElement !== input && !fieldErrors.has(id)) input.value = value; }
+  function hourOptions(id, dayHours) {
+    const select = el(id); if (select.dataset.dayHours === String(dayHours)) return;
+    select.dataset.dayHours = String(dayHours); select.replaceChildren();
+    for (let hours = 0; hours < dayHours; hours += .5) { const option = document.createElement("option"); option.value = String(hours); option.textContent = String(hours); select.appendChild(option); }
+  }
+  function salaryField(prefix, sourceYear, salary, cashHours) {
+    el("annualSpecial" + prefix + "SalaryWrap").hidden = cashHours === 0;
+    text("annualSpecial" + prefix + "SalaryLabel", sourceYear + "年10月基本薪給");
+    setInput("annualSpecial" + prefix + "Salary", salary.amount === null ? "" : fmtInputAccountingMoney(salary.amount));
+    text("annualSpecial" + prefix + "SalarySource", salary.manual ? "手動輸入" : salary.amount === null ? sourceYear + "年10月沒有薪給紀錄，請自行輸入。" : "已帶入" + sourceYear + "年10月主畫面薪給。");
+    el("annualSpecial" + prefix + "SalaryReset").hidden = !salary.manual;
+  }
+  function audit(model) {
+    const table = el("annualSpecialMonthlyAudit"); table.replaceChildren();
+    const header = document.createElement("div"); header.className = "annual-special-table-head";
+    ["月份", "月補助天數", "零散時數"].forEach(value => { const span = document.createElement("span"); span.textContent = value; header.appendChild(span); }); table.appendChild(header);
+    let prior = 0, counted = 0;
+    model.rows.forEach(row => {
+      const days = Math.min(Math.floor(row.hours / model.params.dayHours), Math.max(0, model.params.cap - Math.floor(prior / model.params.dayHours))); prior += row.hours; counted += days;
+      if (!row.hours) return;
+      const line = document.createElement("div");
+      [row.rocYear + "/" + row.month, days + "天", fmtHour(row.hours % model.params.dayHours) + "HR"].forEach((value, index) => { const node = document.createElement(index ? "strong" : "span"); node.textContent = value; line.appendChild(node); }); table.appendChild(line);
+    });
+    const supplementary = Math.max(0, Math.min(model.params.cap, Math.floor(model.usedHours / model.params.dayHours)) - counted);
+    text("annualSpecialMonthlySubsidy", counted + "天／上限" + model.params.cap + "天");
+    text("annualSpecialSupplement", supplementary + "天");
+    text("annualSpecialSupplementAmount", supplementary + "天 · " + money(supplementary * model.params.perDay));
+  }
+  function render() {
+    if (!view) return;
+    el("annualSpecialSettlement").hidden = view.month !== 10;
+    text("annualSpecialQuotaTitle", view.year + "年度考勤特休"); text("annualSpecialQuotaEditorTitle", view.year + "年度額度設定");
+    const ledger = readLedger();
+    const controls = document.querySelectorAll(".annual-special-body input, .annual-special-body select, .annual-special-body button, #annualSpecialQuotaEditor input, #annualSpecialQuotaEditor select");
+    controls.forEach(control => { control.disabled = !ledger; });
+    if (!ledger) {
+      ["annualSpecialQuotaTotal", "annualSpecialQuotaHint", "annualSpecialQuotaPeriod", "annualSpecialQuotaSplit", "annualSpecialQuotaUsed", "annualSpecialQuotaLeft", "annualSpecialOpeningValue", "annualSpecialSettlementPeriod", "annualSpecialOldUsed", "annualSpecialCurrentUsed", "annualSpecialOldLeft", "annualSpecialCurrentLeft", "annualSpecialCarryMax", "annualSpecialOldCash", "annualSpecialCurrentCash", "annualSpecialNextCarry", "annualSpecialSummaryCash", "annualSpecialSummaryCarry", "annualSpecialUnusedBonus", "annualSpecialTotal", "annualSpecialSummaryTotal", "annualSpecialMonthlySubsidy", "annualSpecialSupplement", "annualSpecialSupplementAmount"].forEach(id => text(id, "待修復"));
+      ["annualSpecialQuotaError", "annualSpecialSettlementError"].forEach(id => { el(id).hidden = false; text(id, storageError); });
+      ["annualSpecialOpeningDays", "annualSpecialGrantDays", "annualSpecialPartialDays", "annualSpecialOldSalary", "annualSpecialCurrentSalary"].forEach(id => { el(id).value = ""; });
+      document.querySelectorAll('input[name="annualSpecialCarryChoice"]').forEach(radio => { radio.checked = false; });
+      el("annualSpecialMonthlyAudit").replaceChildren();
+      text("annualSpecialOldSource", view.year - 1 + "遞延"); text("annualSpecialCurrentSource", view.year + "核給");
+      text("annualSpecialOpeningLabel", view.year - 1 + "年度遞延額度"); text("annualSpecialOpeningInputLabel", view.year - 1 + "年度初始轉入額度"); text("annualSpecialGrantLabel", view.year + "年度核給天數"); text("annualSpecialCarryLegend", view.year + "年度遞延方式"); text("annualSpecialNextCarryLabel", "遞延至" + (view.year + 1) + "年度");
+      ["Old", "Current"].forEach(prefix => { text("annualSpecial" + prefix + "SalaryLabel", view.year - (prefix === "Old" ? 1 : 0) + "年10月基本薪給"); text("annualSpecial" + prefix + "SalarySource", "帳本待修復"); });
+      return;
+    }
+    const model = modelFor(ledger, view.year), result = model.result;
+    const validFields = ["annualSpecialOpeningDays", "annualSpecialGrantDays"].every(id => !fieldErrors.has(id));
+    const editError = !validFields ? "天數請填入0～365的整數。" : model.entry.choice === "partial" && fieldErrors.has("annualSpecialPartialDays") ? "部分遞延天數格式錯誤。" : "";
+    const quotaReady = model.opening !== null && model.entry.grantDays !== null;
+    const quotaHours = quotaReady ? model.opening + model.entry.grantDays * model.params.dayHours : null;
+    const quotaError = editError || model.parentError || (quotaReady ? result.error : "");
+    text("annualSpecialQuotaTitle", view.year + "年度考勤特休");
+    text("annualSpecialQuotaTotal", quotaError ? "待確認" : quotaHours === null ? "待設定" : "(" + time(quotaHours) + ")");
+    text("annualSpecialQuotaHint", el("annualSpecialQuotaEditor").hidden ? "設定額度" : "收合設定");
+    text("annualSpecialQuotaEditorTitle", view.year + "年度額度設定");
+    const first = model.rows[0], end = model.rows.at(-1), lastDay = new Date(end.rocYear + 1911, end.month, 0).getDate();
+    const period = first.rocYear + "/" + first.month + "/1～" + end.rocYear + "/" + end.month + "/" + lastDay;
+    text("annualSpecialQuotaPeriod", period); text("annualSpecialSettlementPeriod", view.year + "考勤年度 · " + period);
+    text("annualSpecialOpeningLabel", view.year - 1 + "年度遞延額度"); text("annualSpecialOpeningValue", time(model.opening));
+    el("annualSpecialOpeningReadonly").hidden = !model.inherited; el("annualSpecialOpeningFields").hidden = model.inherited;
+    text("annualSpecialOpeningInputLabel", view.year - 1 + "年度初始轉入額度（無遞延請填0）");
+    text("annualSpecialGrantLabel", view.year + "年度核給天數");
+    ["annualSpecialOpeningHours", "annualSpecialPartialHours"].forEach(id => hourOptions(id, model.params.dayHours));
+    setInput("annualSpecialOpeningDays", model.entry.openingHours === null ? "" : String(Math.floor(model.entry.openingHours / model.params.dayHours)));
+    el("annualSpecialOpeningHours").value = String((model.entry.openingHours || 0) % model.params.dayHours);
+    setInput("annualSpecialGrantDays", model.entry.grantDays === null ? "" : String(model.entry.grantDays));
+    setInput("annualSpecialPartialDays", String(Math.floor(model.entry.partialCarryHours / model.params.dayHours))); el("annualSpecialPartialHours").value = String(model.entry.partialCarryHours % model.params.dayHours);
+    el("annualSpecialQuotaError").hidden = !quotaError; text("annualSpecialQuotaError", quotaError);
+    text("annualSpecialQuotaSplit", quotaReady ? time(model.opening) + "＋" + time(model.entry.grantDays * model.params.dayHours) + "＝" + time(quotaHours) : "請填入年度額度");
+    text("annualSpecialQuotaUsed", time(model.usedHours)); text("annualSpecialQuotaLeft", quotaError ? "待確認" : quotaReady ? time(quotaHours - model.usedHours) : "待設定");
+    el("annualSpecialQuotaToggle").setAttribute("aria-expanded", String(!el("annualSpecialQuotaEditor").hidden));
+    el("annualSpecialSettlement").hidden = view.month !== 10;
+    text("annualSpecialOldSource", view.year - 1 + "遞延"); text("annualSpecialCurrentSource", view.year + "核給");
+    text("annualSpecialOldUsed", time(result.oldUsed)); text("annualSpecialCurrentUsed", time(result.currentUsed)); text("annualSpecialOldLeft", time(result.oldLeft)); text("annualSpecialCurrentLeft", time(result.currentLeft));
+    text("annualSpecialCarryLegend", view.year + "年度遞延方式"); text("annualSpecialCarryMax", time(result.currentLeft));
+    document.querySelectorAll('input[name="annualSpecialCarryChoice"]').forEach(radio => { radio.checked = radio.value === model.entry.choice; });
+    el("annualSpecialPartialFields").hidden = model.entry.choice !== "partial";
+    const error = editError || result.error; el("annualSpecialSettlementError").hidden = !error; text("annualSpecialSettlementError", error);
+    const quantity = value => error ? "待確認" : time(value);
+    text("annualSpecialOldCash", quantity(result.oldLeft)); text("annualSpecialCurrentCash", quantity(result.currentCashHours)); text("annualSpecialNextCarry", quantity(result.carryHours)); text("annualSpecialNextCarryLabel", "遞延至" + (view.year + 1) + "年度");
+    text("annualSpecialSummaryCash", "未休：" + quantity(result.oldLeft === null || result.currentCashHours === null ? null : result.oldLeft + result.currentCashHours)); text("annualSpecialSummaryCarry", "遞延：" + quantity(result.carryHours));
+    text("annualSpecialUnusedBonus", error ? "待確認" : money(result.unusedBonus)); text("annualSpecialTotal", error ? "待確認" : money(result.total)); text("annualSpecialSummaryTotal", error ? "待確認" : money(result.total));
+    salaryField("Old", view.year - 1, model.oldSalary, result.oldLeft); salaryField("Current", view.year, model.currentSalary, result.currentCashHours); audit(model);
+  }
+  function edited() { render(); }
+  function daysInput(id, apply) {
+    el(id).addEventListener("input", () => {
+      const value = el(id).value;
+      if (!/^\d+$/.test(value) || Number(value) > 365) { fieldErrors.set(id, true); edited(); return; }
+      fieldErrors.delete(id); if (write((entry, group) => apply(entry, group, Number(value)))) edited();
+    });
+  }
+  function saveTime(kind) {
+    const dayId = kind === "opening" ? "annualSpecialOpeningDays" : "annualSpecialPartialDays", hourId = kind === "opening" ? "annualSpecialOpeningHours" : "annualSpecialPartialHours";
+    const days = el(dayId).value; if (!/^\d+$/.test(days) || Number(days) > 365) { fieldErrors.set(dayId, true); edited(); return; }
+    const hours = Number(days) * parameters().dayHours + Number(el(hourId).value); fieldErrors.delete(dayId);
+    if (write(entry => { entry[kind === "opening" ? "openingHours" : "partialCarryHours"] = hours; })) edited();
+  }
+  function bind() {
+    ["annualSpecialOpeningDays", "annualSpecialGrantDays", "annualSpecialPartialDays", "annualSpecialOldSalary", "annualSpecialCurrentSalary"].forEach(id => bindAnnualSpecialFirstSelectV37(el(id)));
+    daysInput("annualSpecialGrantDays", (entry, group, days) => { entry.grantDays = days; });
+    el("annualSpecialOpeningDays").addEventListener("input", () => saveTime("opening")); el("annualSpecialOpeningHours").addEventListener("change", () => saveTime("opening"));
+    el("annualSpecialPartialDays").addEventListener("input", () => saveTime("partial")); el("annualSpecialPartialHours").addEventListener("change", () => saveTime("partial"));
+    document.querySelectorAll('input[name="annualSpecialCarryChoice"]').forEach(radio => radio.addEventListener("change", () => { if (radio.checked && write(entry => { entry.choice = radio.value; })) edited(); }));
+    ["Old", "Current"].forEach(prefix => {
+      el("annualSpecial" + prefix + "Salary").addEventListener("input", event => {
+        formatAnnualSpecialSalaryInputV37(event.target); const amount = Number(event.target.value.replace(/[^0-9]/g, ""));
+        if (write((entry, group) => { group.salaries[view.year - (prefix === "Old" ? 1 : 0)] = amount; })) edited();
+      });
+      el("annualSpecial" + prefix + "SalaryReset").addEventListener("click", () => { if (write((entry, group) => { delete group.salaries[view.year - (prefix === "Old" ? 1 : 0)]; })) edited(); });
+    });
+    el("annualSpecialQuotaToggle").addEventListener("click", () => { el("annualSpecialQuotaEditor").hidden = !el("annualSpecialQuotaEditor").hidden; render(); });
+    el("annualSpecialQuotaClose").addEventListener("click", () => { if (!el("annualSpecialQuotaError").hidden) return; el("annualSpecialQuotaEditor").hidden = true; render(); el("annualSpecialQuotaToggle").focus(); });
+    el("annualSpecialEditQuota").addEventListener("click", () => { el("annualSpecialQuotaEditor").hidden = false; render(); el("annualSpecialQuotaEditor").scrollIntoView({ block: "nearest", behavior: "smooth" }); });
+  }
+  window.renderAnnualSpecialLeaveV37 = days => {
+    const rocYear = Number(el("rocYear").value), month = Number(el("month").value), group = el("shiftGroup").value;
+    const year = getLeaveYearForMonth(rocYear, month, getParameterCoreNumber("attendanceYearStartMonth"));
+    if (!Number.isInteger(year) || year < 1 || year > 999 || !month || !["A", "B", "C", "D"].includes(group)) return;
+    if (!view || view.year !== year || view.group !== group || view.month !== month || view.rocYear !== rocYear) { fieldErrors.clear(); el("annualSpecialSaveError").hidden = true; }
+    view = { rocYear, month, group, year, days: Array.isArray(days) ? days : [] }; monthCache.clear(); render();
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind); else bind();
+})();
+</script>
 </body>
 </html>

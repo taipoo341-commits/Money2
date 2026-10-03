@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>加班費計算</title>
   
-  <link rel="manifest" href="./manifest.json">
-  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
-  <link rel="apple-touch-icon" href="./icon-192.png">
-  <meta name="theme-color" content="#00F0FF">
+  <link rel="manifest" href="./manifest.json?v=40">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png?v=40">
+  <link rel="apple-touch-icon" href="./icon-192.png?v=40">
+  <meta name="theme-color" content="#0d0f12">
+  <meta name="mobile-web-app-capable" content="yes">
 <style>
     @font-face {
       font-family: "RemachineScript";
@@ -11177,9 +11178,50 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
 <script>
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
-      navigator.serviceWorker.register("./sw.js");
+      navigator.serviceWorker.register("./sw.js").catch(function (err) {
+        console.warn("Service Worker 註冊失敗", err);
+      });
     });
   }
+</script>
+
+<!-- 安裝 App 按鈕：只有瀏覽器判定「可安裝」時才會出現 -->
+<style>
+  #pwaInstallBar{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:9999;display:none;align-items:center;gap:8px;padding:8px 8px 8px 16px;border-radius:999px;background:#12161c;border:1px solid rgba(0,240,255,.45);box-shadow:0 8px 24px rgba(0,0,0,.5);color:#e8f6f8;font-size:14px;white-space:nowrap;}
+  #pwaInstallBar.show{display:flex;}
+  #pwaInstallBar button{font:inherit;border:0;border-radius:999px;cursor:pointer;min-height:36px;}
+  #pwaInstallBtn{padding:0 16px;background:#00F0FF;color:#06222a;font-weight:700;}
+  #pwaInstallClose{width:36px;background:transparent;color:#9fb3b8;font-size:18px;line-height:1;}
+</style>
+<div id="pwaInstallBar" role="region" aria-label="安裝應用程式">
+  <span>安裝到手機桌面</span>
+  <button id="pwaInstallBtn" type="button">安裝</button>
+  <button id="pwaInstallClose" type="button" aria-label="關閉">×</button>
+</div>
+<script>
+(function () {
+  const bar = document.getElementById("pwaInstallBar");
+  let deferredPrompt = null;
+  function hide() { bar.classList.remove("show"); }
+  window.addEventListener("beforeinstallprompt", function (event) {
+    event.preventDefault();
+    deferredPrompt = event;
+    let dismissed = false;
+    try { dismissed = sessionStorage.getItem("pwaInstallDismissed") === "1"; } catch (err) {}
+    if (!dismissed) bar.classList.add("show");
+  });
+  document.getElementById("pwaInstallBtn").addEventListener("click", function () {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    deferredPrompt = null;
+    hide();
+  });
+  document.getElementById("pwaInstallClose").addEventListener("click", function () {
+    try { sessionStorage.setItem("pwaInstallDismissed", "1"); } catch (err) {}
+    hide();
+  });
+  window.addEventListener("appinstalled", hide);
+})();
 </script>
 
 

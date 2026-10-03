@@ -1,11 +1,7 @@
-const CACHE_NAME = "personal-overtime-shell-v39";
+const CACHE_NAME = "personal-overtime-shell-v40";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./manifest.json",
-  "./icon-192.png",
-  "./icon-512.png",
-  "./icon-maskable-512.png",
   "./privacy.html",
   "./terms.html",
   "./RemachineScript_Personal_Use.ttf",
@@ -41,6 +37,12 @@ async function networkFirst(request, fallbackUrl) {
   }
 }
 
+// 安裝用的 manifest 與圖示一律不經過快取：Chrome 安裝時會把自己下載到的圖示
+// 與 Google 伺服器重新抓到的圖示比對，若這裡回傳舊快取，兩邊不一致就會安裝失敗。
+function isInstallAsset(url) {
+  return /\/manifest\.json$/.test(url.pathname) || /\/icon[^/]*\.png$/.test(url.pathname);
+}
+
 self.addEventListener("fetch", function (event) {
   const request = event.request;
   if (request.method !== "GET") return;
@@ -50,6 +52,7 @@ self.addEventListener("fetch", function (event) {
     return;
   }
   if (url.origin !== self.location.origin) return;
+  if (isInstallAsset(url)) return;
   if (url.pathname.endsWith("/data/dgpa_closures.json")) {
     event.respondWith(networkFirst(request));
     return;

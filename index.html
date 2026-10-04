@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>加班費計算</title>
   
-  <link id="pwaManifestLink" rel="manifest" href="./manifest.json?v=42">
-  <link rel="icon" type="image/png" href="./icon-192.png?v=42">
-  <link rel="apple-touch-icon" href="./icon-192.png?v=42">
+  <link id="pwaManifestLink" rel="manifest" href="./manifest.json?v=43">
+  <link rel="icon" type="image/png" href="./icon-192.png?v=43">
+  <link rel="apple-touch-icon" href="./icon-192.png?v=43">
   <meta name="theme-color" content="#00F0FF">
 <style>
     @font-face {
@@ -4593,10 +4593,10 @@
             </div>
           </div>
           <label class="reset-field">
-            <button id="monthResetBtn" class="sub-panel-toggle reset-danger" type="button">清除本月設定</button>
+            <button id="monthResetBtn" class="sub-panel-toggle reset-danger" type="button">清除本月</button>
           </label>
           <label class="reset-field">
-            <button id="yearResetBtn" class="sub-panel-toggle reset-danger" type="button" onclick="resetCurrentYearState()">清除本年設定</button>
+            <button id="yearResetBtn" class="sub-panel-toggle reset-danger" type="button" onclick="resetCurrentYearState()">清除本年</button>
           </label>
         </div>
       </section>
@@ -4616,8 +4616,8 @@
                 <div id="topSalaryTotalAmount" class="salary-overview-value money-finance">$0</div>
               </div>
               <div class="salary-overtime-overview-breakdown" aria-label="本月加給組成">
-                <div class="salary-overtime-overview-breakdown-row"><span class="salary-overtime-overview-key">加班</span><span id="topSalaryOvertimeAmount" class="salary-overtime-overview-breakdown-value">$0</span></div>
-                <div class="salary-overtime-overview-breakdown-row"><span class="salary-overtime-overview-key">假日出勤</span><span id="topSalaryHolidayWorkAmount" class="salary-overtime-overview-breakdown-value">$0</span></div>
+                <div class="salary-overtime-overview-breakdown-row"><span class="salary-overtime-overview-key">加班：</span><span id="topSalaryOvertimeAmount" class="salary-overtime-overview-breakdown-value">$0</span></div>
+                <div class="salary-overtime-overview-breakdown-row"><span class="salary-overtime-overview-key">假日：</span><span id="topSalaryHolidayWorkAmount" class="salary-overtime-overview-breakdown-value">$0</span></div>
               </div>
             </div>
             <span class="ux-card-link-v39">查看細項 ›</span>
@@ -6331,9 +6331,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       if (!note) return;
       note.textContent = currentMonthWasNew
         ? "新月份已自動準備班表、行事曆、參數與前月基本薪給；輸入後會自動儲存"
-        : isMobileDayEditorV39()
-          ? "點選日期編輯假別與時數；「恢復原班表」可取消當日修改"
-          : "每日可手動選擇代碼，RESET 可回復原班別；有修改的日期會標示資料來源";
+        : "每日可直接選擇假別與時數，RESET 可恢復原班表；修改後會自動儲存";
     }
     function updateWeekStartToggleUI() {
       const toggle = document.getElementById("weekStartToggle");
@@ -6767,15 +6765,12 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       if (!dayInfo) return;
       const portal = ensureCodePickerPortal();
       const wasOpen = portal.classList.contains("open");
-      const restoreHourFocus = portal.contains(document.activeElement) && document.activeElement.matches("[data-mobile-day-hour-v39]");
       if (!wasOpen) portal.returnFocusV39 = { storageKey: dayContext.storageKey, trigger: document.querySelector(`.code-picker[data-code-picker="${day}"] .code-picker-button`) };
       codePickerLockBodyScroll();
       const selectedCode = Number(dayInfo.actualCode);
       activeCodePickerPortalState = { day: Number(day), allOpen: Boolean(allOpen), selectedCode, storageKey: dayContext.storageKey };
-      if (isMobileDayEditorV39()) mobileDayEditorSessionV39 = { context: dayContext, allOpen: Boolean(allOpen) };
       portal.innerHTML = buildCodePickerPortalHtml(day, selectedCode, Boolean(allOpen));
       const title = portal.querySelector(".code-picker-portal-title");
-      if (title) title.textContent = `${dayInfo.year - 1911}/${dayInfo.month}/${dayInfo.day} 星期${["日", "一", "二", "三", "四", "五", "六"][dayInfo.date.getDay()]} · 單日編輯`;
       const sheet = portal.querySelector(".code-picker-portal-sheet");
       if (sheet && title) sheet.setAttribute("aria-label", title.textContent);
       moveCodePickerCloseToBottom(portal);
@@ -6789,8 +6784,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       bindCodePickerPortalEvents(portal);
       if (sheet) {
         sheet.setAttribute("tabindex", "-1");
-        if (restoreHourFocus) portal.querySelector("[data-mobile-day-hour-v39]:not(:disabled)")?.focus({ preventScroll: true });
-        else if (!wasOpen) sheet.focus({ preventScroll: true });
+        if (!wasOpen) sheet.focus({ preventScroll: true });
       }
       if (restoreScrollTop !== undefined && restoreScrollTop !== null) {
         const scrollEl = portal.querySelector(".code-picker-portal-scroll");
@@ -8974,10 +8968,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       if (!hasWarnings) panel.open = false;
     }
     let calendarDayContextVersionV39 = 0;
-    let mobileDayEditorSessionV39 = null;
-    function isMobileDayEditorV39() {
-      return typeof window.matchMedia === "function" && window.matchMedia("(max-width:760px)").matches;
-    }
     function captureCalendarDayContextV39(day) {
       return { day: Number(day), storageKey: String(activeStorageKey || ""), records: manualRecords, version: calendarDayContextVersionV39 };
     }
@@ -9014,6 +9004,8 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
           return false;
         }
         if (!isCalendarDayContextCurrentV39(context)) return false;
+        // 年度統計會還原當日紀錄的副本，檢查完成後須重新取得再寫入。
+        record = manualRecords[day] || (manualRecords[day] = {});
         record.leaveHours = selectedHours;
         if (record.entitlementId) delete record.entitlementHours;
         delete record.trainingMode;
@@ -9030,16 +9022,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       saveCurrentMonthState();
       renderAll(false);
       return true;
-    }
-    function refreshMobileDayEditorV39() {
-      if (!mobileDayEditorSessionV39) return;
-      const session = mobileDayEditorSessionV39;
-      if (!isMobileDayEditorV39() || !isCalendarDayContextCurrentV39(session.context)) {
-        mobileDayEditorSessionV39 = null;
-        closeCodePickerPortal();
-        return;
-      }
-      renderCodePickerPortal(session.context.day, session.allOpen, 0);
     }
     function renderCalendar() {
       const rocYear = Number(document.getElementById("rocYear").value);
@@ -9154,7 +9136,6 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       });
       renderDataQualityStatus(days.length);
       renderSummary(days);
-      refreshMobileDayEditorV39();
     }
 
     function getSalaryBasePay() {
@@ -9388,7 +9369,20 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
     function setLeaveStatText(id, hours) {
       const el = document.getElementById(id);
       if (!el) return;
-      el.textContent = formatLeaveStatValue(hours);
+      const value = formatLeaveStatValue(hours);
+      el.textContent = value;
+      if (["leaveAttendanceSpecial", "leaveAttendanceMind", "leaveAttendanceFamily"].includes(id)) {
+        const parts = /^(\d+天)(.+HR)$/.exec(value);
+        el.classList.toggle("leave-stat-mixed-v43", Boolean(parts));
+        if (parts) {
+          const days = document.createElement("span"), time = document.createElement("span");
+          days.className = "leave-stat-days-v43";
+          time.className = "leave-stat-time-v43";
+          days.textContent = parts[1];
+          time.textContent = parts[2];
+          el.replaceChildren(days, time);
+        }
+      }
       el.classList.toggle("empty", roundLeaveStatHours(hours) <= 0);
     }
     function setAnnualLeaveLimitLabel(id, text, thresholdReached, badgeText = "已達扣獎金門檻") {
@@ -14206,77 +14200,22 @@ select.annual-special-input{width:76px}
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind); else bind();
 })();
 </script>
-<style>
-/* 手機單日編輯 V39：假別視窗的時數與恢復功能；主月曆直接顯示操作。 */
-.mobile-day-editor-v39{display:none}
-@media(max-width:760px){
-  .mobile-day-editor-v39{display:grid;gap:10px;border:1px solid rgba(103,232,249,.25);border-radius:13px;padding:12px;margin-bottom:14px;background:#0d1a26;color:#d9e5ee;font-size:14px;line-height:1.45}
-  .mobile-day-editor-v39 .mobile-day-editor-row-v39{display:flex;justify-content:space-between;gap:10px;align-items:center;min-width:0}
-  .mobile-day-editor-v39 .mobile-day-editor-row-v39>strong{text-align:right;overflow-wrap:anywhere;color:#fde68a}
-  .mobile-day-editor-v39 .mobile-day-hour-v39{min-height:44px;min-width:122px;max-width:65%;font-size:16px;border:1px solid #42617b;border-radius:9px;padding:8px;background:#09131f;color:#e2e8f0}
-  .mobile-day-editor-v39 .mobile-day-hour-v39:disabled{opacity:.6}
-  .mobile-day-editor-v39 .mobile-day-restore-v39{width:100%;min-height:44px;font-size:14px;font-weight:800;border:1px solid rgba(103,232,249,.35);border-radius:10px;padding:8px;background:rgba(14,116,144,.12);color:#a5f3fc;cursor:pointer}
-  .mobile-day-editor-v39 .mobile-day-editor-note-v39{color:#aabecb;font-size:12px}
-  .mobile-day-editor-v39 .mobile-day-editor-diagnostics-v39{display:grid;gap:4px;padding-top:9px;border-top:1px solid #314557;font-size:12px}
-  .code-picker-portal-title{font-size:clamp(16px,4.6vw,20px);line-height:1.4}
-}
-</style>
 <script>
-/* 手機單日編輯 V39：擴充最終假別視窗，不另建立第二個 dialog。 */
-(() => {
-  function buildMobileDayEditorV39(day) {
-    if (!isMobileDayEditorV39()) return "";
-    const info = getDayInfoForCodePicker(day);
-    if (!info) return "";
-    const record = manualRecords[day] || {};
-    const compound = Array.isArray(record.compoundItems) && record.compoundItems.length >= 2 || isCompoundLeaveCodeForDay(info.actualCode, day);
-    const leave = isLeaveCode(info.actualCode);
-    const options = buildLeaveHourOptionsForDay(info, record.trainingMode === "class");
-    const current = getLabelForDayInfo(info.actualCode, info) + (leave ? " · " + fmtHour(getEffectiveLeaveHours(info)) + "HR" : "");
-    const base = getBaseDisplayName(info) + " · " + fmtHour(Number(info.baseHours) || 0) + "HR";
-    const hint = compound ? "複合假別請使用假別旁的「＋」調整各項時數。" : leave ? "先選假別，再調整時數；選「全日」會依本班工時計算。" : "目前不是請假，選擇假別後即可調整時數。";
-    const diagnostics = calculationInfoVisible ? `<div class="mobile-day-editor-diagnostics-v39"><span>D8：${escapeHtml(info.changeText || "-")}</span><span>D9：${escapeHtml(info.noteText || "-")}</span><span>D10：${Number(info.overtimeMinutes) || 0}分</span><span>D11：${escapeHtml(String(info.attendanceHours))}</span><span>連續出勤：${Number(info.continuousWorkDays) || 0}日</span></div>` : "";
-    return `<section class="mobile-day-editor-v39" aria-label="當日原班與目前設定"><div class="mobile-day-editor-row-v39"><span>原班</span><strong>${escapeHtml(base)}</strong></div><div class="mobile-day-editor-row-v39"><span>目前</span><strong>${escapeHtml(current)}</strong></div><label class="mobile-day-editor-row-v39"><span>當日時數</span><select class="mobile-day-hour-v39" data-mobile-day-hour-v39="${day}" aria-label="當日請假時數"${!leave || compound ? " disabled" : ""}>${options}</select></label><div class="mobile-day-editor-note-v39">${hint}</div><button class="mobile-day-restore-v39" type="button" data-mobile-day-restore-v39="${day}">恢復原班表</button>${diagnostics}</section>`;
-  }
-  const baseBuild = buildCodePickerPortalHtml;
-  buildCodePickerPortalHtml = function(day, selectedCode, allOpen) {
-    const html = baseBuild(day, selectedCode, allOpen);
-    return html.replace('<div class="code-picker-portal-scroll">', '<div class="code-picker-portal-scroll">' + buildMobileDayEditorV39(day));
-  };
-  const baseBind = bindCodePickerPortalEvents;
-  bindCodePickerPortalEvents = function(portal) {
-    baseBind(portal);
-    portal.querySelectorAll("[data-mobile-day-hour-v39]").forEach(select => {
-      const context = captureCalendarDayContextV39(Number(select.dataset.mobileDayHourV39));
-      select.addEventListener("change", () => { void applyDayLeaveHourChangeV39(context.day, select.value, context); });
-    });
-    portal.querySelectorAll("[data-mobile-day-restore-v39]").forEach(button => {
-      const context = captureCalendarDayContextV39(Number(button.dataset.mobileDayRestoreV39));
-      button.addEventListener("click", event => { event.preventDefault(); event.stopPropagation(); restoreCalendarDayV39(context.day, context); });
-    });
-  };
-  window.addEventListener("personalOvertimeMonthStateLoaded", () => {
-    calendarDayContextVersionV39 += 1;
-    mobileDayEditorSessionV39 = null;
-    closeCodePickerPortal();
-  });
-  document.addEventListener("click", event => {
-    if (!mobileDayEditorSessionV39) return;
-    const eventPath = typeof event.composedPath === "function" ? event.composedPath() : [];
-    const closeRequested = eventPath.some(node => node && node.matches && node.matches("[data-code-portal-close]"));
-    const inEditor = eventPath.some(node => node && node.id === "codePickerPortal");
-    const inWarning = eventPath.some(node => node && node.id === "parameterTechDialogModal");
-    const openingDay = eventPath.some(node => node && node.matches && node.matches("[data-mobile-day-open-v39]"));
-    if (closeRequested || !inEditor && !inWarning && !openingDay) mobileDayEditorSessionV39 = null;
-  }, true);
-  document.addEventListener("keydown", event => { if (event.key === "Escape") mobileDayEditorSessionV39 = null; }, true);
-  if (typeof window.matchMedia === "function") window.matchMedia("(max-width:760px)").addEventListener("change", () => {
-    if (activeStorageKey) renderCalendar();
-  });
-})();
+/* 主月曆上下文 V43：月份切換後關閉舊選單並使待完成的舊操作失效。 */
+window.addEventListener("personalOvertimeMonthStateLoaded", () => {
+  calendarDayContextVersionV39 += 1;
+  closeCodePickerPortal();
+});
 </script>
 <style>
 /* V39：資訊層次與一致的操作提示；計算及假別顏色維持原規則。 */
+/* V43：考勤三張卡片在手機分開天數與小時，完整顯示且不跨欄。 */
+.leave-stats-year-box:not(.accounting-year) .leave-stat-value{display:flex;align-items:center;justify-content:center;min-width:0;max-width:100%;gap:0;line-height:1.15!important}
+.leave-stats-year-box:not(.accounting-year) .leave-stat-value>span{min-width:0;max-width:100%;white-space:nowrap}
+@media(max-width:760px){
+ .leave-stats-year-box:not(.accounting-year) .leave-stat-value{font-size:clamp(17px,5.4vw,23px)!important;min-height:2.35em;white-space:normal!important}
+ .leave-stats-year-box:not(.accounting-year) .leave-stat-mixed-v43{flex-direction:column;gap:.06em}
+}
 .month-storage-failure-v39{display:flex;align-items:center;gap:14px;padding:14px 18px;margin:12px 0;border:1px solid rgba(251,113,133,.55);border-radius:14px;background:rgba(76,5,25,.65);color:#ffe4e6;font-size:14px;line-height:1.6}
 .month-storage-failure-v39{position:sticky;top:62px;z-index:71;max-height:40vh;overflow:auto}
 .month-storage-failure-v39[hidden]{display:none!important}.month-storage-failure-v39>span{flex:1;min-width:0;overflow-wrap:anywhere}.month-storage-failure-v39 button{flex:0 0 auto;min-height:44px;padding:8px 16px;border:1px solid rgba(251,113,133,.6);border-radius:10px;background:rgba(159,18,57,.4);color:#fff;font:inherit;font-weight:900;cursor:pointer}.month-storage-failure-v39 button[hidden]{display:none!important}

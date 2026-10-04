@@ -4646,8 +4646,26 @@
       </section>
 
       <section class="panel substitute-top-panel">
-        <div class="substitute-top-label">代班資訊</div>
-        <div id="substituteInfoTop" class="substitute-top-value">-</div>
+        <div class="substitute-top-summary">
+          <div class="substitute-top-label">代班資訊</div>
+          <div id="substituteInfoTop" class="substitute-top-value">-</div>
+        </div>
+        <div class="twelve-cycle" aria-labelledby="twelveCycleTitle">
+          <div class="twelve-cycle-heading">
+            <div id="twelveCycleTitle" class="twelve-cycle-title">12切倍率位置</div>
+            <div class="twelve-cycle-total">目前累計 <span id="twelveCycleTotal">0 HR</span></div>
+          </div>
+          <div class="twelve-cycle-rates" aria-hidden="true"><span data-twelve-rate="code7">×1.33</span><span data-twelve-rate="code8">×1.66</span><span data-twelve-rate="code6">×2.66</span></div>
+          <div id="twelveCycleBar" class="twelve-cycle-bar" role="meter" aria-label="12切目前位置" aria-valuemin="0" aria-valuemax="12" aria-valuenow="0" aria-valuetext="目前累計0小時，本輪0小時">
+            <div class="twelve-cycle-track" aria-hidden="true">
+              <span class="twelve-cycle-segment twelve-cycle-low"><span class="twelve-cycle-fill"></span></span><span class="twelve-cycle-segment twelve-cycle-low"><span class="twelve-cycle-fill"></span></span>
+              <span class="twelve-cycle-segment twelve-cycle-mid"><span class="twelve-cycle-fill"></span></span><span class="twelve-cycle-segment twelve-cycle-mid"><span class="twelve-cycle-fill"></span></span><span class="twelve-cycle-segment twelve-cycle-mid"><span class="twelve-cycle-fill"></span></span><span class="twelve-cycle-segment twelve-cycle-mid"><span class="twelve-cycle-fill"></span></span><span class="twelve-cycle-segment twelve-cycle-mid"><span class="twelve-cycle-fill"></span></span><span class="twelve-cycle-segment twelve-cycle-mid"><span class="twelve-cycle-fill"></span></span>
+              <span class="twelve-cycle-segment twelve-cycle-high"><span class="twelve-cycle-fill"></span></span><span class="twelve-cycle-segment twelve-cycle-high"><span class="twelve-cycle-fill"></span></span><span class="twelve-cycle-segment twelve-cycle-high"><span class="twelve-cycle-fill"></span></span><span class="twelve-cycle-segment twelve-cycle-high"><span class="twelve-cycle-fill"></span></span>
+            </div>
+            <span id="twelveCyclePosition" class="twelve-cycle-position" aria-hidden="true">目前 0 HR</span><span class="twelve-cycle-marker" aria-hidden="true"></span>
+            <div class="twelve-cycle-axis" aria-hidden="true"><span>0</span><span>2</span><span>8</span><span>12 HR</span></div>
+          </div>
+        </div>
       </section>
       <section id="uxAnnualInfo" class="panel annual-leave-info-panel" tabindex="-1">
         <div class="annual-leave-info-header">
@@ -7868,6 +7886,33 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
         code6: cycles * 4 + Math.max(remainder - 8, 0)
       };
     }
+    function updateTwelveCycleBar(totalHours) {
+      const bar = document.getElementById("twelveCycleBar");
+      const total = document.getElementById("twelveCycleTotal");
+      const label = document.getElementById("twelveCyclePosition");
+      if (!bar || !total || !label) return;
+      const numericHours = Number(totalHours);
+      const hours = Number.isFinite(numericHours) ? Math.max(0, numericHours) : 0;
+      const remainder = hours % 12;
+      const position = remainder / 12 * 100;
+      // 每次只畫本輪餘數；完成的輪數不保留亮度，也不另外儲存 bar 狀態。
+      bar.style.setProperty("--twelve-cycle-position", `${position}%`);
+      bar.querySelectorAll(".twelve-cycle-fill").forEach((fill, index) => {
+        fill.style.width = `${Math.min(1, Math.max(0, remainder - index)) * 100}%`;
+      });
+      const rates = ["code7", "code8", "code6"].map(key => {
+        const rate = getParameterRate(key);
+        const display = (Math.floor(rate * 100 + 1e-9) / 100).toFixed(2);
+        const rateLabel = bar.parentElement.querySelector(`[data-twelve-rate="${key}"]`);
+        if (rateLabel) rateLabel.textContent = `×${display}`;
+        return display;
+      });
+      const nextRate = rates[remainder < 2 ? 0 : remainder < 8 ? 1 : 2];
+      total.textContent = fmtHourText(hours);
+      label.textContent = `目前 ${fmtHourText(remainder)}`;
+      bar.setAttribute("aria-valuenow", String(remainder));
+      bar.setAttribute("aria-valuetext", `目前累計${fmtHour(hours)}小時，已完成${Math.floor(hours / 12)}輪，本輪${fmtHour(remainder)}小時；0至2小時${rates[0]}倍、2至8小時${rates[1]}倍、8至12小時${rates[2]}倍，接續加班${nextRate}倍`);
+    }
     function calcSubstituteInfo(totalHours, maintenanceHours, nationalHolidayHours, restHoursWithMinutes) {
       const gap = totalHours - maintenanceHours - nationalHolidayHours;
       const monthlyOvertimeCap = Math.max(0, getParameterCoreNumber("monthlyOvertimeCap"));
@@ -9297,6 +9342,7 @@ const CODE_FAVORITES_STORAGE_KEY = "personalOvertimeCodeFavorites";
       document.getElementById("restHours").innerHTML = `${fmtHour(apAq.restHours)}<span class="stat-suffix">HR</span>`;
       const topRestHours = document.getElementById("topRestHours");
       if (topRestHours) topRestHours.innerHTML = `${fmtHour(apAq.restHours)}<span class="stat-suffix">HR</span>`;
+      updateTwelveCycleBar(apAq.restHours);
       document.getElementById("code7Hours").textContent = `${fmtHourText(split.code7)}`;
       document.getElementById("code8Hours").textContent = `${fmtHourText(split.code8)}`;
       document.getElementById("code6Hours").textContent = `${fmtHourText(split.code6)}`;
@@ -14263,6 +14309,37 @@ window.addEventListener("personalOvertimeMonthStateLoaded", () => {
  .substitute-top-value{font-size:clamp(17px,5.4vw,23px)!important;text-shadow:0 0 7px currentColor!important}
 }
 @media(prefers-reduced-motion:reduce){.ux-quick-nav-v39 a{transition:none}html{scroll-behavior:auto}}
+</style>
+<style>
+.substitute-top-panel{display:grid;grid-template-columns:minmax(220px,1fr) minmax(0,2fr);gap:24px}
+.substitute-top-summary{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0}
+.substitute-top-summary .substitute-top-value{text-align:left}
+.twelve-cycle{min-width:0;width:100%;max-width:760px;justify-self:end;color:#e5edf4;text-shadow:none;font-variant-numeric:tabular-nums}
+.twelve-cycle-heading{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px 12px;margin-bottom:12px}
+.twelve-cycle-title{font-size:13px;font-weight:800;letter-spacing:0}
+.twelve-cycle-total{font-size:11px;color:#b4c3cf;white-space:nowrap}
+#twelveCycleTotal{color:#e5edf4;font-weight:800}
+.twelve-cycle-rates{display:grid;grid-template-columns:2fr 6fr 4fr;text-align:center;font-size:12px;font-weight:800}
+.twelve-cycle-rates>span:nth-child(1){color:#f1d390}
+.twelve-cycle-rates>span:nth-child(2){color:#92e0d1}
+.twelve-cycle-rates>span:nth-child(3){color:#d5c0ff}
+.twelve-cycle-bar{--twelve-cycle-position:0%;position:relative;padding:29px 0 24px;margin-top:4px}
+.twelve-cycle-track{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2px;height:16px;border-radius:4px;overflow:hidden}
+.twelve-cycle-segment{position:relative;min-width:0;overflow:hidden}
+.twelve-cycle-low{--twelve-cycle-color:#e4b957;background:rgba(228,185,87,.18)}
+.twelve-cycle-mid{--twelve-cycle-color:#48c5af;background:rgba(72,197,175,.18)}
+.twelve-cycle-high{--twelve-cycle-color:#ad8ee8;background:rgba(173,142,232,.18)}
+.twelve-cycle-fill{display:block;width:0;height:100%;background:var(--twelve-cycle-color)}
+.twelve-cycle-position{position:absolute;left:clamp(0px,calc(var(--twelve-cycle-position) - 44px),calc(100% - 88px));top:4px;width:88px;text-align:center;font-size:11px;font-weight:800;white-space:nowrap;color:#e5edf4}
+.twelve-cycle-marker{position:absolute;left:var(--twelve-cycle-position);top:37px;width:12px;height:12px;border-radius:50%;background:#f1f6fb;box-shadow:0 0 0 3px #0b151b;transform:translate(-50%,-50%)}
+.twelve-cycle-marker::before{content:"";position:absolute;left:5.5px;top:-12px;width:1px;height:11px;background:#dce7ef}
+.twelve-cycle-axis{position:absolute;left:0;right:0;top:50px;height:17px;color:#b4c3cf;font-size:11px}
+.twelve-cycle-axis>span{position:absolute;white-space:nowrap}
+.twelve-cycle-axis>span:nth-child(1){left:0}
+.twelve-cycle-axis>span:nth-child(2){left:16.666667%;transform:translateX(-50%)}
+.twelve-cycle-axis>span:nth-child(3){left:66.666667%;transform:translateX(-50%)}
+.twelve-cycle-axis>span:nth-child(4){right:0}
+@media(max-width:760px){.substitute-top-panel{grid-template-columns:minmax(0,1fr);gap:14px}.twelve-cycle{max-width:none;padding-top:13px;border-top:1px solid rgba(148,163,184,.22)}.twelve-cycle-heading{margin-bottom:12px}}
 </style>
 <script>
 function formatUXYearPeriodV39(targetYear, startMonth) {

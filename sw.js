@@ -1,26 +1,32 @@
-const CACHE_PREFIX = "personal-overtime-shell-";
-const CACHE_NAME = "personal-overtime-shell-v41";
 const APP_ROOT = new URL("./", self.location.href);
+// 避開舊 Worker 的 personal-overtime-shell- 清理範圍，並依部署路徑隔離。
+const CACHE_PREFIX = "personal-overtime-app-" + encodeURIComponent(APP_ROOT.pathname) + "-";
+const CACHE_NAME = CACHE_PREFIX + "v42";
 const APP_SHELL = [
   "./index.html",
+  "./manifest.json",
+  "./icon.png",
+  "./icon-192.png",
+  "./icon-512.png",
+  "./icon-maskable-192.png",
+  "./icon-maskable-512.png",
   "./privacy.html",
   "./terms.html",
   "./RemachineScript_Personal_Use.ttf",
-  "./data/dgpa_closures.json",
-  "./manifest.json?v=41",
-  "./icon-144.png?v=41",
-  "./icon-192.png?v=41",
-  "./icon-512.png?v=41",
-  "./icon-maskable-192.png?v=41",
-  "./icon-maskable-512.png?v=41"
+  "./data/dgpa_closures.json"
 ];
+const INSTALL_ASSETS = new Set([
+  "./manifest.json", "./icon.png", "./icon-192.png", "./icon-512.png",
+  "./icon-maskable-192.png", "./icon-maskable-512.png"
+].map(function (path) { return new URL(path, APP_ROOT).pathname; }));
 
 self.addEventListener("install", function (event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(function (cache) {
-        return cache.addAll(APP_SHELL.map(function (url) {
-          return new Request(new URL(url, APP_ROOT), { cache: "reload" });
+        // 必要素材全部成功才啟用；失敗時讓舊 Worker 繼續服務。
+        return cache.addAll(APP_SHELL.map(function (path) {
+          return new Request(new URL(path, APP_ROOT).href, { cache: "reload" });
         }));
       })
       .then(function () { return self.skipWaiting(); })
@@ -35,29 +41,40 @@ self.addEventListener("activate", function (event) {
   );
 });
 
-async function storeResponse(request, response) {
+async function putCachedResponse(cache, key, response) {
   try {
-    const cache = await caches.open(CACHE_NAME);
-    await cache.put(request, response);
+    await cache.put(key, response.clone());
   } catch (error) {
-    console.warn("Service Worker 快取寫入失敗", error);
+    console.warn("離線快取更新失敗。", error);
   }
 }
 
-async function networkFirst(request, fallbackUrl) {
-  const cacheKey = fallbackUrl || request;
+async function networkFirst(request, fallbackUrl, cacheUrl, bypassHttpCache) {
+  const cache = await caches.open(CACHE_NAME);
+  const cacheKey = cacheUrl || request;
   try {
-    const response = await fetch(request, { cache: "no-store" });
-    if (response && response.ok) await storeResponse(cacheKey, response.clone());
+    const response = await fetch(request, bypassHttpCache ? { cache: "no-store" } : undefined);
+    if (response && response.ok) {
+      await putCachedResponse(cache, cacheKey, response);
+      return response;
+    }
+    return (await cache.match(cacheKey)) || (fallbackUrl ? await cache.match(fallbackUrl) : null) || response;
+  } catch (error) {
+    return (await cache.match(cacheKey)) || (fallbackUrl ? await cache.match(fallbackUrl) : null) || Response.error();
+  }
+}
+
+async function cacheFirst(request) {
+  const cache = await caches.open(CACHE_NAME);
+  const cached = await cache.match(request);
+  if (cached) return cached;
+  try {
+    const response = await fetch(request);
+    if (response && response.ok) await putCachedResponse(cache, request, response);
     return response;
   } catch (error) {
-    return (await caches.match(cacheKey, { cacheName: CACHE_NAME }).catch(function () { return null; })) || Response.error();
+    return Response.error();
   }
-}
-
-// Manifest 與圖示線上優先取得最新內容，離線才使用本版本的快取。
-function isInstallAsset(url) {
-  return /\/manifest\.json$/.test(url.pathname) || /\/icon[^/]*\.png$/.test(url.pathname);
 }
 
 self.addEventListener("fetch", function (event) {
@@ -65,26 +82,20 @@ self.addEventListener("fetch", function (event) {
   if (request.method !== "GET") return;
   const url = new URL(request.url);
   if (url.origin !== APP_ROOT.origin || !url.pathname.startsWith(APP_ROOT.pathname)) return;
+  const canonicalUrl = new URL(url.pathname, APP_ROOT.origin).href;
+  const appIndex = new URL("./index.html", APP_ROOT).href;
   if (request.mode === "navigate") {
-    const cacheUrl = url.pathname === APP_ROOT.pathname ? new URL("./index.html", APP_ROOT).href : url.origin + url.pathname;
-    event.respondWith(networkFirst(request, cacheUrl));
+    const isHomepage = url.pathname === APP_ROOT.pathname || canonicalUrl === appIndex;
+    event.respondWith(networkFirst(request, appIndex, isHomepage ? appIndex : null));
     return;
   }
-  if (isInstallAsset(url)) {
-    event.respondWith(networkFirst(request));
+  if (INSTALL_ASSETS.has(url.pathname)) {
+    event.respondWith(networkFirst(request, canonicalUrl, canonicalUrl, true));
     return;
   }
-  if (url.pathname.endsWith("/data/dgpa_closures.json")) {
-    event.respondWith(networkFirst(request, new URL("./data/dgpa_closures.json", APP_ROOT).href));
+  if (canonicalUrl === new URL("./data/dgpa_closures.json", APP_ROOT).href) {
+    event.respondWith(networkFirst(request, canonicalUrl, canonicalUrl));
     return;
   }
-  event.respondWith(
-    caches.match(request, { cacheName: CACHE_NAME }).catch(function () { return null; }).then(function (cached) {
-      if (cached) return cached;
-      return fetch(request).then(async function (response) {
-        if (response && response.ok) await storeResponse(request, response.clone());
-        return response;
-      });
-    })
-  );
+  event.respondWith(cacheFirst(request));
 });

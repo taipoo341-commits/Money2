@@ -4602,12 +4602,20 @@
   .salary-month-total-item .salary-overview-label { font-size: clamp(12px,3.45vw,15px); }
   .salary-month-total-item .salary-overview-value { font-size: clamp(20px,6.2vw,27px); }
   #closureRecordList .special-record.with-delete-space { grid-template-columns: 54px minmax(0,1fr) 50px 36px !important; gap: 5px !important; }
-  #trainingRecordList.special-record-list .special-record.with-delete-space { grid-template-columns: minmax(44px,.8fr) minmax(0,1.2fr) 50px 36px !important; gap: 5px !important; }
+  #trainingRecordList.special-record-list .special-record.with-delete-space { grid-template-columns: 52px minmax(0,1fr) 50px 36px !important; gap: 5px !important; }
   #electionRecordList .special-record.election-with-delete-space { grid-template-columns: minmax(0,1fr) 50px 36px !important; gap: 5px !important; }
-  #closureRecordList .special-date-btn,#closureRecordList .special-type-select,#closureRecordList .special-date-reset-btn,#closureRecordList .special-delete-btn,#electionRecordList .special-date-btn,#electionRecordList .special-date-reset-btn,#electionRecordList .special-delete-btn { height: 40px !important; min-height: 40px !important; padding: 0 3px !important; font-size: 10px !important; letter-spacing: 0 !important; }
-  #trainingRecordList.special-record-list .special-date-btn,#trainingRecordList.special-record-list .special-date-reset-btn,#trainingRecordList.special-record-list .special-delete-btn { height: 40px !important; min-height: 40px !important; padding: 0 3px !important; font-size: 10px !important; letter-spacing: 0 !important; }
-  #trainingRecordList.special-record-list .training-hour-stepper { grid-template-columns: 26px minmax(0,1fr) 26px !important; }
+  #closureRecordList .special-date-btn,#closureRecordList .special-type-select,#closureRecordList .special-date-reset-btn,#closureRecordList .special-delete-btn,#electionRecordList .special-date-btn,#electionRecordList .special-date-reset-btn,#electionRecordList .special-delete-btn { height: 40px !important; min-height: 40px !important; padding: 0 3px !important; letter-spacing: 0 !important; }
+  #trainingRecordList.special-record-list .special-date-btn,#trainingRecordList.special-record-list .special-date-reset-btn,#trainingRecordList.special-record-list .special-delete-btn { height: 40px !important; min-height: 40px !important; padding: 0 3px !important; font-size: 12px !important; letter-spacing: 0 !important; }
+  #trainingRecordList.special-record-list .training-hour-stepper { grid-template-columns: 40px minmax(0,1fr) 40px !important; }
+  #trainingRecordList .training-hour-step-btn { display: flex; align-items: center; justify-content: center; min-width: 0; padding: 0; box-sizing: border-box; }
   .compound-choice-trigger-v47 { min-height: 40px; height: auto; padding: 8px 6px; }
+}
+@media(max-width:380px) {
+  #specialContent { padding-left: 4px; padding-right: 4px; }
+  #specialContent .special-card { padding-left: 7px; padding-right: 7px; }
+  #closureRecordList .special-record.with-delete-space,
+  #trainingRecordList.special-record-list .special-record.with-delete-space { grid-template-columns: 44px minmax(0,1fr) 38px 28px !important; gap: 3px !important; }
+  #electionRecordList .special-record.election-with-delete-space { grid-template-columns: minmax(0,1fr) 38px 28px !important; gap: 3px !important; }
 }
 </style>
 </head>

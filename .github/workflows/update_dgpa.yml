@@ -8,7 +8,7 @@ on:
       - ".github/workflows/update_dgpa.yml"
       - "scripts/update_dgpa.py"
   schedule:
-    - cron: "7,22,37,52 * * * *"
+    - cron: "27 * * * *"
 
 permissions:
   contents: write

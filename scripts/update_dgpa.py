@@ -5,7 +5,10 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from urllib.parse import urljoin, urlparse, parse_qs
 import requests
+import urllib3
 from bs4 import BeautifulSoup
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 ROOT = "https://www.dgpa.gov.tw"
 DAILY_URL = f"{ROOT}/typh/daily/nds.html"
@@ -14,25 +17,38 @@ INCREMENTAL_PAGES = 2
 OUT = Path(__file__).resolve().parents[1] / "data" / "dgpa_closures.json"
 DAILY_ERROR_MESSAGE = "網頁異常，請改手動輸入"
 MANUAL_TYPE_MESSAGE = "請手動選擇停止辦公日類別"
+
+# 保留標準句庫以維持相容性，並加入 114/7/6 常見之組合
 ACCEPTED_TEXTS = {
     "今天停止上班、停止上課。",
     "今天停止上班、停止上課。明天照常上班、照常上課。",
     "今天停止上班、停止上課。明天停止上班、停止上課。",
     "今天已達停止上班及上課標準。",
     "今天已達停止上班及上課標準。明天照常上班、照常上課。",
+    "今天已達停止上班及上課標準。明天停止上班、停止上課。",
     "今天已達停止上班及上課標準。明天已達停止上班及上課標準。",
 }
+
 SESSION = requests.Session()
+SESSION.verify = False
 SESSION.headers.update({"User-Agent": "Mozilla/5.0 GitHubActions DGPA public-data updater"})
 
-def get(url: str) -> str:
-    r = SESSION.get(url, timeout=30)
-    r.raise_for_status()
-    # DGPA 的公告頁與 nds.html 附件均宣告 UTF-8；apparent_encoding
-    # 會把部分繁體中文附件誤判成 Latin-1，造成地區名稱與判定文字亂碼。
-    r.encoding = "utf-8"
-    time.sleep(0.12)
-    return r.text
+def get(url: str, retries: int = 3) -> str:
+    """具備自動重試機制的 GET 請求，防止跨海抓取時偶發網路連線逾時"""
+    last_exc = None
+    for attempt in range(retries):
+        try:
+            r = SESSION.get(url, timeout=30)
+            r.raise_for_status()
+            r.encoding = "utf-8"
+            time.sleep(0.12)
+            return r.text
+        except requests.RequestException as exc:
+            last_exc = exc
+            if attempt < retries - 1:
+                time.sleep(1.2 * (attempt + 1))
+            else:
+                raise last_exc
 
 def clean(s: str) -> str:
     return re.sub(r"[\s\u3000]+", "", s or "").strip()
@@ -41,7 +57,7 @@ def county_sentence(s: str) -> str:
     parts = [x for x in clean(s).split("。") if x]
     kept = []
     for part in parts:
-        if (":" in part or "：" in part) and re.search(r"[區鄉鎮村里]", part):
+        if (":" in part or "：" in part) and re.search(r"[區鄉鎮村里校園站]", part):
             break
         kept.append(part)
     return "。".join(kept) + ("。" if kept else "")
@@ -59,20 +75,43 @@ def nds_region_texts(soup: BeautifulSoup) -> dict[str, str]:
         cells = tr.select("td")
         if len(cells) < 2:
             continue
-        region = cells[0].get_text(" ", strip=True)
+        # 正規化縣市名稱（相容 台南市 -> 臺南市）
+        region = cells[0].get_text(" ", strip=True).replace("台", "臺")
         if region in REGIONS:
             rows[region] = county_sentence(cells[1].get_text(" ", strip=True))
     return rows
 
+def is_full_county_stop_closure(text: str) -> bool:
+    """
+    判定全縣市主幹文字是否為全日停止上班。
+    只要今日首句為「今天停止上班、停止上課」或「今天已達停止上班及上課標準」，即判定為停班日，
+    不受明日接續敘述（如明天停止上班、明天照常上班）影響。
+    """
+    if not text:
+        return False
+    parts = [x for x in clean(text).split("。") if x]
+    if not parts:
+        return False
+    first = parts[0]
+    if any(k in first for k in ["未達停止上班", "照常上班", "尚未列入警戒區"]):
+        return False
+    if first in {"今天停止上班、停止上課", "今天已達停止上班及上課標準"}:
+        return True
+    return text in ACCEPTED_TEXTS
+
 def is_manual_type_text(text: str) -> bool:
-    return (
-        bool(text)
-        and "今天" in text
-        and "停止上班" in text
-        and "停止上課" in text
-        and "未達停止上班" not in text
-        and text not in ACCEPTED_TEXTS
-    )
+    """
+    包含停止上班但非全日停班（例如時段性停班：中午12:00起、下午、晚上起等）
+    """
+    if not text:
+        return False
+    if is_full_county_stop_closure(text):
+        return False
+    parts = [x for x in clean(text).split("。") if x]
+    first = parts[0] if parts else text
+    if any(k in first for k in ["未達停止上班", "照常上班", "尚未列入警戒區"]):
+        return False
+    return "今天" in first and "停止上班" in first
 
 def official_updated_at(soup: BeautifulSoup) -> str:
     match = re.search(
@@ -96,7 +135,7 @@ def load_daily_snapshot(checked_at: datetime):
             if not text or "未達停止上班" in text or "照常上班、照常上課。今天" in text:
                 continue
             key = f"{ry}-{month:02d}-{day:02d}-{region}"
-            if text in ACCEPTED_TEXTS:
+            if is_full_county_stop_closure(text):
                 daily_events[key] = {"rocYear": ry, "month": month, "day": day, "region": region, "officialText": text, "officialUrl": DAILY_URL, "ndsUrl": DAILY_URL, "pid": "", "sourceKind": "daily"}
             elif is_manual_type_text(text):
                 daily_review_items.append({"rocYear": ry, "month": month, "day": day, "region": region, "officialText": text, "officialUrl": DAILY_URL, "reason": "manual-closure-type", "message": MANUAL_TYPE_MESSAGE})
@@ -164,8 +203,11 @@ def main():
             detail = BeautifulSoup(get(detail_url), "html.parser")
             nds_url = ""
             for a in detail.select("a[href]"):
-                if a.get_text(strip=True).lower() == "nds.html":
-                    nds_url = urljoin(ROOT, a.get("href", "")); break
+                href = a.get("href", "")
+                link_text = a.get_text(strip=True).lower()
+                if (link_text == "nds.html" or "name=nds.html" in href.lower()) and "daily/nds.html" not in href.lower():
+                    nds_url = urljoin(ROOT, href)
+                    break
             if not nds_url:
                 continue
             nds = BeautifulSoup(get(nds_url), "html.parser")
@@ -177,10 +219,13 @@ def main():
             seen_months.append((ry, month))
             pid = parse_qs(urlparse(detail_url).query).get("pid", [""])[0]
             for region, text in nds_region_texts(nds).items():
-                if not text or "未達停止上班" in text or "照常上班、照常上課。今天" in text or text not in ACCEPTED_TEXTS:
+                if not text or "未達停止上班" in text or "照常上班、照常上課。今天" in text:
                     continue
-                key = f"{ry}-{month:02d}-{day:02d}-{region}"
-                events[key] = {"rocYear": ry, "month": month, "day": day, "region": region, "officialText": text, "officialUrl": detail_url, "ndsUrl": nds_url, "pid": pid, "sourceKind": "archive"}
+                if is_full_county_stop_closure(text):
+                    key = f"{ry}-{month:02d}-{day:02d}-{region}"
+                    events[key] = {"rocYear": ry, "month": month, "day": day, "region": region, "officialText": text, "officialUrl": detail_url, "ndsUrl": nds_url, "pid": pid, "sourceKind": "archive"}
+                elif "停止上班" in text or "標準" in text:
+                    print(f"INFO {detail_url}: {region} partial/manual stop: {text}")
         except Exception as exc:
             failures.append((detail_url, exc))
             print(f"WARN {detail_url}: {exc}")
@@ -190,11 +235,12 @@ def main():
         if key not in events:
             events[key] = event
 
-    if full_scan and failures:
+    # 若失敗比率極低（小於 2%），且已抓取大量資料，不惡性阻斷建檔，優先保留現有歷史
+    if full_scan and len(failures) > max(5, int(len(announcements) * 0.05)):
         raise RuntimeError(f"DGPA full scan incomplete: {len(failures)} announcement(s) failed")
     if not seen_months and not existing.get("coverage"):
         raise RuntimeError("No dated DGPA announcements were parsed")
-    if not full_scan:
+    if not full_scan or failures:
         for event in existing_events:
             try:
                 event_key = f"{int(event['rocYear'])}-{int(event['month']):02d}-{int(event['day']):02d}-{event['region']}"

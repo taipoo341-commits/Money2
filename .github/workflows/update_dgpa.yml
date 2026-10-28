@@ -2,17 +2,24 @@ name: Update DGPA closure data
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/update_dgpa.yml"
-      - "scripts/update_dgpa.py"
+    inputs:
+      mode:
+        description: "掃描模式 (incremental: 增量最新頁 / full: 全量回溯重刷)"
+        required: true
+        default: "incremental"
+        type: choice
+        options:
+          - incremental
+          - full
+      pages:
+        description: "增量掃描頁數 (僅 incremental 模式生效)"
+        required: false
+        default: "2"
   schedule:
     - cron: "27 * * * *"
 
 permissions:
   contents: write
-  pages: write
 
 concurrency:
   group: update-dgpa-closure-data
@@ -27,13 +34,15 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - run: python scripts/update_dgpa.py
+      - name: Run update_dgpa.py
+        env:
+          DGPA_MODE: ${{ inputs.mode || 'incremental' }}
+          DGPA_INCREMENTAL_PAGES: ${{ inputs.pages || '2' }}
+        run: python scripts/update_dgpa.py
       - name: Commit updated public data
-        id: commit
         run: |
           if git diff --quiet -- data/dgpa_closures.json; then
             echo "No data change"
-            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
@@ -41,9 +50,3 @@ jobs:
           git add data/dgpa_closures.json
           git commit -m "chore: update DGPA closure data"
           git push
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-      - name: Publish updated data to GitHub Pages
-        if: steps.commit.outputs.changed == 'true' || github.event_name != 'schedule'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh api --method POST "repos/${GITHUB_REPOSITORY}/pages/builds"
